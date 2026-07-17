@@ -28,6 +28,8 @@ Trade-off aceito: [o que se ganha e o que se abre mão].
 
 Do not fill sections with generic prose. If the next task is not concrete, omit routing rather than invent a model choice.
 
+Use this closure before any follow-up question when the conversation reaches a planning, spec, approval, diagnosis, review, or routing boundary. The question must be the only unresolved decision left after the closure.
+
 ## One-question pattern
 
 Use when a material choice remains open:
@@ -43,6 +45,8 @@ Você prefere seguir com essa opção ou escolher [alternativa]?
 ~~~
 
 Ask only this question. Do not add a second decision in the same turn.
+
+If the user says that a spec is approved but does not identify it, make the single question: **Qual é o arquivo, issue ou trecho da spec aprovada que define o escopo?** Keep the gate as execution context missing; never promise implementation.
 
 ## Direct-synthesis pattern
 

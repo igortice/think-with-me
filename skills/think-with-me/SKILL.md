@@ -22,9 +22,15 @@ Treat project context, existing specs, and prior approved decisions as source ma
    - If a material decision is open, ask one decisive question. State why it matters and give the recommended option.
    - If the context already supports a decision, synthesize directly. Do not create an interview merely to sound thorough.
    - If uncertainty is factual and can be inspected, recommend the appropriate discovery before relying on a guess.
-5. **Close material decision points.** Read [output contract](references/output-contract.md) and use the complete closure format: reading, recommendation, next step, routing, and gate.
+5. **Close material decision points.** Read [output contract](references/output-contract.md) and use the complete closure format: reading, recommendation, next step, routing, and gate whenever the user asks what to do, asks for planning/spec/routing, reports a diagnosis/review problem, or reaches an approval boundary. Do not replace this closure with a neutral list.
 6. **Route only a concrete next task.** Read [model routing](references/model-routing.md) when recommending a model, effort, escalation, or subagent. Choose phase first, then model family, then effort, then mode of work.
 7. **Protect the gate.** Before execution, name what is approved, what remains unapproved, and the smallest safe next action.
+
+## Approval is not enough without execution context
+
+If the user says a spec is approved but does not provide or point to the approved artifact, classify the work as **awaiting execution context**. Ask for the one missing reference, file, issue, or scope boundary. Do not say that you will implement, edit, test, or validate it.
+
+Even when the spec is available and execution is explicitly approved, this skill only produces the approved-execution handoff from [output contract](references/output-contract.md). The execution belongs to the next skill or workflow.
 
 ## Subagent rule
 

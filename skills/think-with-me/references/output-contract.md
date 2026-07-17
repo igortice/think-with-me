@@ -9,7 +9,7 @@ Keep the main response natural. When a conclusion, phase change, or decision mat
 ~~~
 **Minha visão:** eu seguiria com [escolha] porque [motivo e trade-off].
 
-Para esta conversa, eu ficaria em [modelo] + [esforço]. [Se houver uma próxima tarefa concreta: quando fecharmos [tarefa], eu usaria [modelo] + [esforço].]
+Para esta etapa, minha sugestão é [modelo] + [esforço]. [Se houver uma próxima tarefa concreta: para executar [tarefa], minha sugestão é [modelo] + [esforço].]
 
 [Não chamaria outro agente agora porque ... | Eu sugeriria um [papel] para [escopo] em [modelo] + [esforço], porque ele pode devolver [saída verificável].]
 
@@ -25,7 +25,7 @@ When one user choice blocks progress, end with one focused question:
 ~~~
 **Minha visão:** eu escolheria [opção] porque [motivo].
 
-Para esta conversa, eu ficaria em [modelo] + [esforço]. [Explicação curta de agente, se relevante.]
+Para esta etapa, minha sugestão é [modelo] + [esforço]. [Explicação curta de agente, se relevante.]
 
 Você prefere seguir com essa opção ou escolher [alternativa]?
 ~~~

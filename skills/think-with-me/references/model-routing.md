@@ -6,7 +6,9 @@ Use this reference internally whenever the skill starts, the phase changes, or t
 
 Do not route an entire conversation once at the beginning. Route the next bounded block of work.
 
-At activation, still recommend the model for the **conversation currently happening**. This is separate from the model for a future implementation task.
+At activation, recommend the model for the **stage of the conversation currently happening**. This is separate from the model for a future implementation task.
+
+The skill cannot read the model selector in the Codex interface. Never describe a model as active, tell the user to remain on it, or instruct them to change it. Phrase routing only as a suggestion, for example: “Para esta etapa, minha sugestão é Terra High.”
 
 | Phase | Primary concern |
 |---|---|
@@ -24,7 +26,7 @@ If new evidence invalidates the plan, say that work returns to planning or spec.
 
 Keep two routing decisions distinct, but express them naturally rather than as a report:
 
-1. **Conversation model:** choose from the current phase. For normal understanding, planning, and spec conversation, recommend Terra High. For a cross-cutting spec with persistent ambiguity, recommend Terra XHigh. For a focused critical decision about architecture, security, migration, concurrency, or an unknown root cause, recommend Sol High for that intervention.
+1. **Conversation-stage suggestion:** choose from the current phase. For normal understanding, planning, and spec conversation, suggest Terra High. For a cross-cutting spec with persistent ambiguity, suggest Terra XHigh. For a focused critical decision about architecture, security, migration, concurrency, or an unknown root cause, suggest Sol High for that intervention.
 2. **Next-task model:** choose only after the user has a bounded task. Until then, simply omit it from the conversation.
 
 Do not recommend Luna merely because the conversation is long. Luna is for clear/repeatable work or approved implementation, not for an open planning conversation.

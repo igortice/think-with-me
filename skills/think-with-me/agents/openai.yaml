@@ -1,0 +1,7 @@
+interface:
+  display_name: "Think With Me"
+  short_description: "Plan together before acting"
+  default_prompt: "Use $think-with-me to help me understand the context, decide a direction, and define the next approved step."
+
+policy:
+  allow_implicit_invocation: false

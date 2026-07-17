@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Make `$think-with-me` manual-only with `disable-model-invocation: true`.
+- Make `$think-with-me` manual-only with `policy.allow_implicit_invocation: false` in `agents/openai.yaml`.
 - Recommend; never edit, execute, install, create branches, or dispatch subagents automatically.
 - Treat model family, effort, and mode of work as separate decisions.
 - Do not infer Codex quota from DeepSWE costs or API pricing.
@@ -145,7 +145,6 @@ Use exactly this frontmatter:
 ---
 name: think-with-me
 description: Collaboratively understand a problem or idea before acting. Use when the user wants to discuss, plan, assess options, receive a clear recommendation, identify the next step, or choose an appropriate model, effort, or subagent.
-disable-model-invocation: true
 ---
 ```
 
@@ -163,7 +162,7 @@ python3 /Users/igortice/.codex/skills/.system/skill-creator/scripts/generate_ope
   --interface 'default_prompt=Use $think-with-me to help me understand the context, decide a direction, and define the next approved step.'
 ```
 
-Expected: quoted fields, no icon/brand-color fields, and a default prompt naming `$think-with-me`.
+Expected: quoted fields, no icon/brand-color fields, a default prompt naming `$think-with-me`, and `policy.allow_implicit_invocation: false`.
 
 - [ ] **Step 3: Check for instruction defects**
 
@@ -285,4 +284,3 @@ If a prompt misses its expected behavior, revise the relevant reference or `SKIL
 ## Execution decision
 
 Use **inline execution**. The four skill files are one behavior contract; splitting them between subagents would create reconciliation risk without meaningful parallelism.
-

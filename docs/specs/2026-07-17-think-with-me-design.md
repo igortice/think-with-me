@@ -66,8 +66,9 @@ O uso será manual, no espírito de `grill-me`, para não carregar instruções 
 ```yaml
 name: think-with-me
 description: Collaboratively understand a problem or idea before acting. Use when the user wants to discuss, plan, assess options, receive a clear recommendation, identify the next step, or choose an appropriate model, effort, or subagent.
-disable-model-invocation: true
 ```
+
+A invocação manual é configurada em `agents/openai.yaml` com `policy.allow_implicit_invocation: false`, mantendo o frontmatter no formato aceito pelo validador de skills.
 
 O comportamento de entrevista é **condicional**, não obrigatório:
 
@@ -266,9 +267,9 @@ skills/think-with-me/
     └── output-contract.md
 
 README.md
-LICENSE
 docs/specs/2026-07-17-think-with-me-design.md
 docs/research/model-routing-evidence-2026-07-17.md
+docs/plans/2026-07-17-think-with-me-implementation.md
 ```
 
 - `SKILL.md`: workflow, autoridade, classificação de fase, saída mínima e quando abrir cada referência.
@@ -277,7 +278,7 @@ docs/research/model-routing-evidence-2026-07-17.md
 - `agents/openai.yaml`: metadados de interface gerados e mantidos em sincronia com a skill.
 - `docs/research/`: documentação de manutenção humana, fora da pasta instalável da skill.
 
-Não haverá script nesta primeira versão: as decisões são dependentes de contexto e um script criaria uma falsa precisão. Não haverá README dentro da pasta da skill; informações de instalação e publicação vivem na raiz do repositório.
+Não haverá script nesta primeira versão: as decisões são dependentes de contexto e um script criaria uma falsa precisão. Não haverá README dentro da pasta da skill; informações de desenvolvimento e publicação vivem na raiz do repositório. A licença será escolhida explicitamente antes de qualquer publicação pública; ela não é necessária para a validação privada local.
 
 ## 15. Critérios de aceite da versão 1
 
@@ -294,4 +295,4 @@ Não haverá script nesta primeira versão: as decisões são dependentes de con
 
 ## 16. Gate atual
 
-Esta especificação ampliada precisa de nova validação do usuário. Só depois dela será criado o esqueleto da skill e escrito o `SKILL.md`. A primeira implementação não é autorização para publicar publicamente: publicação exige uso local real, ajustes e decisão explícita do usuário.
+Aprovada a especificação, a implementação local pode criar a estrutura da skill, escrever `SKILL.md`, as referências e os metadados de agente; então validar e instalar localmente. A publicação no GitHub público continua bloqueada até haver uso real, ajustes e uma escolha explícita de licença.

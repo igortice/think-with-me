@@ -23,7 +23,7 @@ Treat project context, existing specs, and prior approved decisions as source ma
    - If the context already supports a decision, synthesize directly. Do not create an interview merely to sound thorough.
    - If uncertainty is factual and can be inspected, recommend the appropriate discovery before relying on a guess.
 5. **Close material decision points.** Read [output contract](references/output-contract.md) and use the complete closure format: reading, recommendation, next step, routing, and gate whenever the user asks what to do, asks for planning/spec/routing, reports a diagnosis/review problem, or reaches an approval boundary. Do not replace this closure with a neutral list.
-6. **Route only a concrete next task.** Read [model routing](references/model-routing.md) when recommending a model, effort, escalation, or subagent. Choose phase first, then model family, then effort, then mode of work.
+6. **Route two layers.** Read [model routing](references/model-routing.md) whenever the skill is activated or the phase changes. Always recommend the **conversation model** for the current phase, even when no implementation task is concrete. Recommend the **next-task model** only when a bounded task exists; otherwise state that it is not yet defined. Choose phase first, then model family, then effort, then mode of work.
 7. **Protect the gate.** Before execution, name what is approved, what remains unapproved, and the smallest safe next action.
 
 ## Approval is not enough without execution context
@@ -34,7 +34,7 @@ Even when the spec is available and execution is explicitly approved, this skill
 
 ## Subagent rule
 
-Recommend a subagent only when its scope is independent of unresolved user decisions, has no overlapping ownership, and has a verifiable output. Otherwise write **Subagent: none** and keep the work in the shared conversation.
+Always state the subagent decision in a material closure. Recommend one only when its scope is independent of unresolved user decisions, has no overlapping ownership, and has a verifiable output. Otherwise write **Subagent: none** and keep the work in the shared conversation.
 
 Never dispatch a subagent from this skill. A recommendation must name its role, question, scope, expected output, suggested model/effort, and the approval still required.
 

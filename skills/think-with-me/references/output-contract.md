@@ -18,7 +18,8 @@ Trade-off aceito: [o que se ganha e o que se abre mão].
 [A menor ação que reduz a incerteza ou avança o trabalho.]
 
 ## Roteamento sugerido
-- Principal: [modelo] + [esforço] — [tarefa delimitada e motivo].
+- Conversa atual: [modelo] + [esforço] — [fase atual e motivo].
+- Próxima tarefa: [ainda não definida | modelo + esforço — tarefa delimitada e motivo].
 - Escalonamento: [condição observável para subir, pausar ou descer].
 - Subagent: [nenhum | papel, pergunta, escopo independente, saída, modelo/esforço].
 
@@ -26,7 +27,7 @@ Trade-off aceito: [o que se ganha e o que se abre mão].
 [O que já está aprovado e qual aprovação, evidência ou decisão ainda falta antes de executar.]
 ~~~
 
-Do not fill sections with generic prose. If the next task is not concrete, omit routing rather than invent a model choice.
+Do not fill sections with generic prose. Always state the conversation model for the current phase. If the next task is not concrete, state **Próxima tarefa: ainda não definida** rather than inventing an implementation route. Always state **Subagent: nenhum** unless a valid independent scope exists.
 
 Use this closure before any follow-up question when the conversation reaches a planning, spec, approval, diagnosis, review, or routing boundary. The question must be the only unresolved decision left after the closure.
 

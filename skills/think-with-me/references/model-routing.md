@@ -6,6 +6,8 @@ Use this reference only when a concrete next task needs a model, effort, escalat
 
 Do not route an entire conversation once at the beginning. Route the next bounded block of work.
 
+At activation, still recommend the model for the **conversation currently happening**. This is separate from the model for a future implementation task.
+
 | Phase | Primary concern |
 |---|---|
 | Understanding | Recover context and identify the real problem |
@@ -17,6 +19,15 @@ Do not route an entire conversation once at the beginning. Route the next bounde
 | Diagnosis or review | Test a hypothesis or find material risk |
 
 If new evidence invalidates the plan, say that work returns to planning or spec. Do not compensate by silently increasing effort.
+
+## Conversation model and next-task model
+
+Every material closure has two routing decisions:
+
+1. **Conversation model:** choose from the current phase. For normal understanding, planning, and spec conversation, recommend Terra High. For a cross-cutting spec with persistent ambiguity, recommend Terra XHigh. For a focused critical decision about architecture, security, migration, concurrency, or an unknown root cause, recommend Sol High for that intervention.
+2. **Next-task model:** choose only after the user has a bounded task. State that it is not yet defined while the conversation is still choosing the work.
+
+Do not recommend Luna merely because the conversation is long. Luna is for clear/repeatable work or approved implementation, not for an open planning conversation.
 
 ## Choose family, effort, then work mode
 

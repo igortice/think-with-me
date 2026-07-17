@@ -91,7 +91,8 @@ Ao fechar uma decisão, mudança de fase ou bloco de planejamento, a skill deve 
 [a menor ação que reduz a incerteza ou avança o trabalho]
 
 ## Roteamento sugerido
-- Principal: [modelo] + [esforço] — [tarefa e justificativa]
+- Conversa atual: [modelo] + [esforço] — [fase atual e justificativa]
+- Próxima tarefa: [ainda não definida | modelo + esforço — tarefa delimitada e justificativa]
 - Escalonamento: [condição objetiva para subir ou descer]
 - Subagent: [nenhum | papel, escopo independente, saída esperada, modelo/esforço]
 
@@ -99,7 +100,7 @@ Ao fechar uma decisão, mudança de fase ou bloco de planejamento, a skill deve 
 [decisão, aprovação ou evidência necessária antes de qualquer execução]
 ```
 
-O texto deve dizer **“nenhum”** em subagent quando a próxima etapa depende da mesma conversa, do julgamento do usuário ou de uma única decisão ainda aberta. Sugerir paralelismo sem independência é desperdício e aumenta a chance de contexto divergente.
+O bloco de roteamento não pode ser omitido em um ponto material: ele sempre informa o modelo da conversa atual. Quando não houver tarefa concreta, a linha de próxima tarefa deve dizer **ainda não definida**, sem inventar execução. O texto deve dizer **“nenhum”** em subagent quando a próxima etapa depende da mesma conversa, do julgamento do usuário ou de uma única decisão ainda aberta. Sugerir paralelismo sem independência é desperdício e aumenta a chance de contexto divergente.
 
 ## 6. Máquina de fases
 

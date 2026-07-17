@@ -4,7 +4,7 @@ An explicit, local-first Codex skill for collaborative planning before action.
 
 ## What it does
 
-Think With Me helps turn a discussion into a conscious next step. It identifies the phase of work, separates facts from choices, gives the assistant's recommendation, preserves approval gates, and suggests a model, effort, or subagent only when a concrete next task justifies it.
+Think With Me helps turn a discussion into a conscious next step. It identifies the phase of work, separates facts from choices, gives the assistant's recommendation, preserves explicit approvals, and suggests a model, effort, or subagent only when a concrete next task justifies it.
 
 ## What it does not do
 
@@ -14,7 +14,7 @@ The skill does not execute, edit files, create branches, run commands, install d
 
 The installable artifact is [skills/think-with-me](skills/think-with-me/). It is deliberately small:
 
-- SKILL.md contains the phase and approval-gate workflow.
+- SKILL.md contains the phase and explicit-approval workflow.
 - references/model-routing.md contains routing, escalation, and subagent criteria.
 - references/output-contract.md contains response and handoff templates.
 

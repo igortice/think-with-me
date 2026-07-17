@@ -52,7 +52,7 @@ O nome evita amarrar a skill a GPT-5.6. A política de roteamento pode mudar qua
 ### O que a skill não faz
 
 - Não altera arquivos, cria branches, abre PRs, roda comandos, instala coisas, cria repos ou despacha subagents automaticamente.
-- Não substitui `project-context`, OpenSpec, diagnóstico, code review, execução de planos ou qualquer gate do projeto.
+- Não substitui `project-context`, OpenSpec, diagnóstico, code review, execução de planos ou qualquer regra de aprovação do projeto.
 - Não pressupõe que o usuário aprovou uma ação porque concordou com uma recomendação.
 - Não inventa um custo de cota a partir de preços de API ou do DeepSWE.
 - Não usa benchmark isolado como prova de que um modelo será melhor no repositório atual.
@@ -78,29 +78,9 @@ O comportamento de entrevista é **condicional**, não obrigatório:
 
 ## 5. Contrato de saída
 
-Ao fechar uma decisão, mudança de fase ou bloco de planejamento, a skill deve usar este formato. Ele é obrigatório quando há uma recomendação ou ação seguinte material; não precisa aparecer em toda mensagem trivial.
+Ao fechar uma decisão, mudança de fase ou bloco de planejamento, a skill continua uma conversa natural. Em vez de formulário, ela termina com uma posição clara: **“Minha visão: eu seguiria com [escolha] porque [motivo].”** Quando for relevante, acrescenta em frases curtas o modelo da conversa, uma sugestão de agente — ou o motivo para não abrir um — e o que precisa ser confirmado antes de executar.
 
-```md
-## Minha leitura
-[fatos relevantes, premissas assumidas, incerteza e risco principal]
-
-## Minha recomendação
-[a escolha que eu faria, por que ela é a melhor agora e o trade-off aceito]
-
-## Próximo passo
-[a menor ação que reduz a incerteza ou avança o trabalho]
-
-## Roteamento sugerido
-- Conversa atual: [modelo] + [esforço] — [fase atual e justificativa]
-- Próxima tarefa: [ainda não definida | modelo + esforço — tarefa delimitada e justificativa]
-- Escalonamento: [condição objetiva para subir ou descer]
-- Subagent: [nenhum | papel, escopo independente, saída esperada, modelo/esforço]
-
-## Gate
-[decisão, aprovação ou evidência necessária antes de qualquer execução]
-```
-
-O bloco de roteamento não pode ser omitido em um ponto material: ele sempre informa o modelo da conversa atual. Quando não houver tarefa concreta, a linha de próxima tarefa deve dizer **ainda não definida**, sem inventar execução. O texto deve dizer **“nenhum”** em subagent quando a próxima etapa depende da mesma conversa, do julgamento do usuário ou de uma única decisão ainda aberta. Sugerir paralelismo sem independência é desperdício e aumenta a chance de contexto divergente.
+O modelo da conversa atual deve aparecer no início da sessão e em mudanças de fase. O modelo da próxima tarefa aparece somente quando a tarefa estiver delimitada; a skill não exibe campos vazios. A recomendação de subagent também é natural: quando não for útil, explica brevemente por quê; quando for, informa papel, escopo, saída e o que falta aprovar. Sugerir paralelismo sem independência é desperdício e aumenta a chance de contexto divergente.
 
 ## 6. Máquina de fases
 
@@ -110,8 +90,8 @@ O bloco de roteamento não pode ser omitido em um ponto material: ele sempre inf
 | **Exploração** | “Quais opções existem e quais evidências faltam?” | alternativas, impactos, riscos e evidência necessária | tratar hipótese como fato |
 | **Planejamento** | “Qual abordagem atende ao objetivo com menor risco?” | sequência, dependências, critérios de aceite e validação | iniciar execução antes da escolha |
 | **Spec** | “A intenção está precisa o suficiente para alguém executar e validar?” | escopo, fora de escopo, comportamento, testes e rollout | considerar rascunho como aprovação |
-| **Aguardando aprovação** | “O que exatamente será feito se o usuário disser sim?” | resumo curto do plano e gate explícito | editar/rodar/delegar |
-| **Execução aprovada** | “Qual unidade de trabalho pode ser feita e verificada agora?” | handoff para a skill de execução e validação | ampliar escopo sem novo gate |
+| **Aguardando aprovação** | “O que exatamente será feito se o usuário disser sim?” | resumo curto do plano e pedido claro de confirmação | editar/rodar/delegar |
+| **Execução aprovada** | “Qual unidade de trabalho pode ser feita e verificada agora?” | handoff para a skill de execução e validação | ampliar escopo sem nova confirmação |
 | **Diagnóstico/revisão** | “Qual hipótese explica a falha e que evidência pode refutá-la?” | hipótese priorizada, coleta de evidência, critério de saída | aplicar correção sem diagnóstico/autoridade |
 
 Uma conversa pode voltar de execução para planejamento se aparecer requisito novo, risco não aceito ou evidência que contradiz a spec. A skill deve nomear essa volta em vez de continuar silenciosamente.
@@ -180,7 +160,7 @@ Ao final de uma fase ou quando o contexto ficar grande, a skill deve propor um `
 ## Alternativas descartadas e motivo
 ## Riscos pendentes
 ## Spec/plano atual
-## Próximo gate e aprovação necessária
+## Próxima confirmação necessária
 ```
 
 Regras:
@@ -247,12 +227,12 @@ Após algumas amostras por categoria, ajustar a tabela com base em sucesso e ret
 | Cenário | Comportamento esperado |
 |---|---|
 | “Quero entender esse projeto antes de decidir a feature.” | Terra High; recuperar contexto; fazer perguntas decisivas; não criar plano final por suposição |
-| “Já decidimos; gere a spec para revisão.” | Terra High/XHigh conforme abrangência; produzir spec e gate de aprovação; não implementar |
+| “Já decidimos; gere a spec para revisão.” | Terra High/XHigh conforme abrangência; produzir spec e pedir confirmação antes de implementar |
 | “Esta spec envolve autorização e migração de dados.” | Terra XHigh para fechar; Sol High em revisão curta e dirigida; registrar riscos e rollback |
 | “Aprovado. Altere estes três arquivos e rode testes.” | Luna High ou XHigh conforme integração; encaminhar para execução; Max não é automático |
 | “Execute sozinho esta spec grande, com testes, e me traga o resultado.” | Luna Max se a spec for madura e os critérios forem verificáveis; pausar/escalar se surgir decisão arquitetural nova |
 | “O teste falha e não sei por quê.” | fase Diagnóstico; Terra High se a investigação é direta, Sol High se a causa é desconhecida/complexa; não sugerir correção antes de evidência |
-| “O que você faria agora?” | sempre dar posição clara, trade-off, próximo passo e gate — não devolver uma lista neutra sem recomendação |
+| “O que você faria agora?” | sempre dar posição clara, trade-off, próximo passo e o que precisa de confirmação — não devolver uma lista neutra sem recomendação |
 | “Use vários agentes para pensar.” | primeiro aplicar teste de elegibilidade; propor papéis sem sobreposição e pedir aprovação para dispará-los |
 
 ## 14. Arquitetura da primeira versão
@@ -275,7 +255,7 @@ docs/plans/2026-07-17-think-with-me-implementation.md
 
 - `SKILL.md`: workflow, autoridade, classificação de fase, saída mínima e quando abrir cada referência.
 - `references/model-routing.md`: matriz prática, gatilhos de subida/parada e subagents. Deve citar a data/escopo de sua evidência, sem fingir que é uma calculadora de cota.
-- `references/output-contract.md`: exemplos curtos e copy-ready do fechamento, context packet, gate e pedido de aprovação de subagent.
+- `references/output-contract.md`: exemplos curtos e copy-ready do fechamento, recapitulação de contexto e pedido de aprovação de subagent.
 - `agents/openai.yaml`: metadados de interface gerados e mantidos em sincronia com a skill.
 - `docs/research/`: documentação de manutenção humana, fora da pasta instalável da skill.
 
@@ -286,7 +266,7 @@ Não haverá script nesta primeira versão: as decisões são dependentes de con
 1. A invocação `$think-with-me` abre uma conversa de colaboração e não inicia execução.
 2. A skill diferencia fase, família, esforço e modo de trabalho em vez de recomendar “o mais forte”.
 3. Para decisão aberta, pergunta uma coisa por vez com recomendação; para contexto suficiente, sintetiza sem entrevista artificial.
-4. Cada encaminhamento material contém leitura, recomendação, próximo passo, roteamento e gate.
+4. Cada encaminhamento material termina com uma visão clara do assistente e, quando relevante, modelo da conversa, orientação sobre subagent e o que precisa de confirmação — sem formato obrigatório de relatório.
 5. A recomendação de Luna Max exige tarefa clara, longa/autônoma e critérios de validação; não aparece automaticamente para toda implementação.
 6. Sol é usado como intervenção delimitada para ambiguidade/risco, não como conversa inteira por padrão.
 7. Subagent só aparece com escopo independente, saída verificável e aprovação explícita; nunca é disparado pela skill.
@@ -294,6 +274,6 @@ Não haverá script nesta primeira versão: as decisões são dependentes de con
 9. Números e alegações de benchmark ficam em relatório datado com fontes e limitações, não escondidos como certeza na instrução da skill.
 10. A skill passa na validação estrutural, é instalada localmente, é exercitada em cenários representativos e só depois considerada para publicação pública.
 
-## 16. Gate atual
+## 16. Estado atual
 
 Aprovada a especificação, a implementação local pode criar a estrutura da skill, escrever `SKILL.md`, as referências e os metadados de agente; então validar e instalar localmente. A publicação no GitHub público continua bloqueada até haver uso real, ajustes e uma escolha explícita de licença.

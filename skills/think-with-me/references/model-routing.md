@@ -1,6 +1,6 @@
 # Model Routing
 
-Use this reference only when a concrete next task needs a model, effort, escalation, or subagent recommendation.
+Use this reference internally whenever the skill starts, the phase changes, or the user asks about models, effort, escalation, or another agent. Do not dump this matrix into the conversation; express only the recommendation that helps the user now.
 
 ## Select the phase before the model
 
@@ -14,7 +14,7 @@ At activation, still recommend the model for the **conversation currently happen
 | Exploration | Compare alternatives and collect evidence |
 | Planning | Choose an approach, sequence, dependencies, and validation |
 | Spec | Make scope and acceptance criteria executable |
-| Awaiting approval | Preserve the gate; do not act |
+| Awaiting approval | Keep the user's approval explicit; do not act |
 | Approved execution | Complete a bounded, verifiable change |
 | Diagnosis or review | Test a hypothesis or find material risk |
 
@@ -22,10 +22,10 @@ If new evidence invalidates the plan, say that work returns to planning or spec.
 
 ## Conversation model and next-task model
 
-Every material closure has two routing decisions:
+Keep two routing decisions distinct, but express them naturally rather than as a report:
 
 1. **Conversation model:** choose from the current phase. For normal understanding, planning, and spec conversation, recommend Terra High. For a cross-cutting spec with persistent ambiguity, recommend Terra XHigh. For a focused critical decision about architecture, security, migration, concurrency, or an unknown root cause, recommend Sol High for that intervention.
-2. **Next-task model:** choose only after the user has a bounded task. State that it is not yet defined while the conversation is still choosing the work.
+2. **Next-task model:** choose only after the user has a bounded task. Until then, simply omit it from the conversation.
 
 Do not recommend Luna merely because the conversation is long. Luna is for clear/repeatable work or approved implementation, not for an open planning conversation.
 

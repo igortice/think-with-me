@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build and install locally the manually-invoked `$think-with-me` skill that guides collaborative planning, makes a recommendation, suggests justified routing, and preserves explicit approval gates.
+**Goal:** Build and install locally the manually-invoked `$think-with-me` skill that guides collaborative planning, makes a recommendation, suggests justified routing, and preserves explicit approvals.
 
 **Architecture:** Keep the core workflow in a concise `SKILL.md`. Put routing and output examples in two one-level-deep references, read only when relevant. Keep research and design records in `docs/`, outside the installable skill directory.
 
@@ -23,7 +23,7 @@
 
 | Path | Responsibility |
 |---|---|
-| `skills/think-with-me/SKILL.md` | Trigger metadata and phase/gate workflow. |
+| `skills/think-with-me/SKILL.md` | Trigger metadata and phase/approval workflow. |
 | `skills/think-with-me/agents/openai.yaml` | UI metadata for explicit invocation. |
 | `skills/think-with-me/references/model-routing.md` | Matrix, escalation, stopping and subagent criteria. |
 | `skills/think-with-me/references/output-contract.md` | Conversation closure, context packet and handoff templates. |
@@ -112,7 +112,7 @@ Add warnings that DeepSWE/API cost is not a Codex quota calculator and benchmark
 
 - [ ] **Step 2: Write `references/output-contract.md`**
 
-Include the closure headings `Minha leitura`, `Minha recomendação`, `Próximo passo`, `Roteamento sugerido`, and `Gate`. Include a one-question pattern with a recommended option, direct synthesis when context suffices, a context packet, a subagent request structure, and an approved-execution handoff.
+Use a natural conversational ending rather than fixed headings. It must preserve a clear assistant viewpoint, model guidance when relevant, a one-question pattern with a recommended option, direct synthesis when context suffices, a context recap, a conversational subagent suggestion, and an approved-execution handoff.
 
 - [ ] **Step 3: Verify the references are narrow**
 
@@ -277,7 +277,7 @@ If a prompt misses its expected behavior, revise the relevant reference or `SKIL
 
 ## Plan self-review
 
-- **Spec coverage:** Tasks 1–3 implement invocation, phases, recommendation, routing, escalation, context and subagent gates. Task 4 keeps repository scope coherent. Task 5 verifies local discovery and behavior.
+- **Spec coverage:** Tasks 1–3 implement invocation, phases, recommendation, routing, escalation, context and subagent approvals. Task 4 keeps repository scope coherent. Task 5 verifies local discovery and behavior.
 - **No placeholders:** every required file, command, expected result and deferred decision is explicit.
 - **Consistency:** `SKILL.md` reads only two bundled references; evidence remains in `docs/research/`; no task publishes the repository or chooses a license.
 

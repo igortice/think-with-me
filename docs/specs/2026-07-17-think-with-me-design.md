@@ -1,37 +1,67 @@
 # Think With Me — especificação de design
 
-**Status:** proposta para revisão  
+**Status:** revisão ampliada para validação
 **Data:** 17 de julho de 2026  
 **Repositório:** `igortice/think-with-me` (privado durante a maturação)
+**Decisão de produto:** esta skill recomenda; o usuário aprova; as skills próprias de execução executam.
 
-## 1. Problema
+## 1. Contexto e problema real
 
-O usuário trabalha melhor por colaboração deliberada: entende o contexto, conversa sobre alternativas, planeja, registra uma spec, aprova o caminho e só então executa. Com GPT-5.6, a escolha agora depende de duas dimensões — família de modelo e esforço — e uma escolha inadequada em conversas longas consome a cota sem adicionar qualidade proporcional.
+Esta skill nasce de um fluxo de trabalho específico, não de uma tabela genérica de benchmarks.
 
-Hoje essas decisões ficam implícitas em cada conversa. A skill deve tornar explícitos:
+O usuário costuma trabalhar assim:
 
-- a fase real do trabalho;
-- a leitura e a recomendação do assistente;
-- o próximo passo que preserva o gate de aprovação humana;
-- a sugestão de modelo/esforço e, quando houver trabalho independente, de subagent.
+1. Recupera e registra contexto do projeto com `project-context` quando ele existe.
+2. Conversa para entender o problema, o código, as regras de negócio e as alternativas.
+3. Planeja e escreve ou revisa uma spec.
+4. Aprova explicitamente o caminho.
+5. Só então pede a execução.
 
-## 2. Objetivo
+Esse fluxo é deliberado: qualidade significa tomar uma decisão consciente antes de alterar código. O problema com GPT-5.6 é que a seleção deixou de ser somente “High ou XHigh”: há famílias Luna, Terra e Sol, cada uma com High, XHigh e Max. Usar a família ou o esforço mais caro por padrão em uma conversa longa pode consumir a cota rapidamente sem elevar proporcionalmente a qualidade da decisão.
 
-`$think-with-me` conduz uma conversa de descoberta, decisão e planejamento sem tomar o controle da execução. Ao final de cada ponto de decisão relevante, ela produz uma posição clara do assistente e um encaminhamento prático.
+Há três riscos a evitar:
 
-Ela deve funcionar tanto em conversas sem repositório quanto em projetos que usam `project-context`, OpenSpec ou outro processo de spec.
+- **economia falsa:** começar barato em uma tarefa ambígua e perder mais tempo corrigindo ou replanejando;
+- **qualidade falsa:** deixar Sol/Max ligado durante todo o raciocínio, inclusive quando a tarefa já está clara;
+- **automação prematura:** confundir uma boa recomendação com autorização para editar, delegar ou executar.
 
-## 3. Não objetivos
+## 2. Tese de design
 
-- Não implementar, editar arquivos, criar branches, abrir PRs ou disparar subagents por conta própria.
-- Não substituir `project-context`, OpenSpec, skills de diagnóstico, code review ou execução de planos.
-- Não prometer que uma configuração gastará uma quantidade específica de cota do Codex. Benchmarks de API e créditos do produto não são a mesma métrica.
-- Não tratar um benchmark único como verdade absoluta para toda tarefa.
-- Não obrigar uma entrevista longa quando já existe contexto suficiente para uma recomendação.
+`$think-with-me` será a skill de colaboração deliberada. Ela não é um roteador automático de modelos nem uma skill de implementação. Sua função é tornar visível, em pontos decisivos da conversa:
 
-## 4. Forma de invocação
+1. **em que fase o trabalho está;**
+2. **o que ainda precisa ser decidido ou verificado;**
+3. **a posição e recomendação do assistente;**
+4. **o menor próximo passo seguro;**
+5. **qual modelo/esforço ou subagent faz sentido, se houver uma próxima tarefa concreta;**
+6. **qual aprovação ainda falta antes de agir.**
 
-A skill será manual, no padrão de `grill-me`:
+O nome evita amarrar a skill a GPT-5.6. A política de roteamento pode mudar quando os modelos e limites mudarem, mas o jeito de pensar junto continua válido.
+
+## 3. Limites e autoridade
+
+### O que a skill faz
+
+- Recupera decisões já tomadas e identifica lacunas reais de contexto.
+- Faz perguntas decisivas uma por vez quando uma escolha permanece aberta.
+- Oferece a escolha recomendada e explica o trade-off.
+- Produz ou melhora o plano/spec até ficar pronto para aprovação.
+- Recomenda um próximo passo, um modelo/esforço e, quando justificável, um subagent com escopo explícito.
+- Orienta a compactação e o registro do contexto para evitar que uma conversa longa se transforme em contexto caro e confuso.
+
+### O que a skill não faz
+
+- Não altera arquivos, cria branches, abre PRs, roda comandos, instala coisas, cria repos ou despacha subagents automaticamente.
+- Não substitui `project-context`, OpenSpec, diagnóstico, code review, execução de planos ou qualquer gate do projeto.
+- Não pressupõe que o usuário aprovou uma ação porque concordou com uma recomendação.
+- Não inventa um custo de cota a partir de preços de API ou do DeepSWE.
+- Não usa benchmark isolado como prova de que um modelo será melhor no repositório atual.
+
+**Regra de autoridade:** fatos precisam de evidência; decisões de produto e o início de execução pertencem ao usuário; a recomendação técnica pertence ao assistente e deve ser assumida claramente como recomendação.
+
+## 4. Forma de invocação e ergonomia
+
+O uso será manual, no espírito de `grill-me`, para não carregar instruções em conversas que não pediram este modo:
 
 ```yaml
 name: think-with-me
@@ -39,130 +69,229 @@ description: Collaboratively understand a problem or idea before acting. Use whe
 disable-model-invocation: true
 ```
 
-Consequências:
+O comportamento de entrevista é **condicional**, não obrigatório:
 
-- é ativada conscientemente com `$think-with-me`;
-- não adiciona contexto a toda conversa comum;
-- pode ser usada desde a descoberta até o gate anterior à execução.
+- Se uma decisão importante estiver aberta, perguntar uma coisa por vez, dizer por que ela importa e oferecer uma resposta recomendada.
+- Se já existir evidência e contexto suficientes, não prolongar a conversa artificialmente: sintetizar, apontar risco residual e recomendar.
+- Se a questão puder ser respondida por inspeção ou pesquisa, primeiro propor/realizar a verificação apropriada em vez de pedir ao usuário algo que a ferramenta pode descobrir.
 
-## 5. Fluxo de conversa
+## 5. Contrato de saída
 
-### 5.1 Ler antes de conduzir
-
-1. Identificar o que já foi decidido e o que continua aberto.
-2. Se houver projeto, procurar o contexto e a spec existentes antes de pedir ao usuário para repetir informação.
-3. Distinguir fatos verificáveis de escolhas de produto/arquitetura. Verificar fatos quando necessário; devolver escolhas ao usuário com recomendação fundamentada.
-
-### 5.2 Conduzir a decisão
-
-Usar a disciplina de `grill-me` de maneira condicional:
-
-- Se uma decisão importante ainda estiver aberta, fazer uma pergunta por vez, explicar por que ela importa e oferecer uma resposta recomendada.
-- Se o contexto já for suficiente, não prolongar a entrevista: sintetizar, apontar o risco e recomendar diretamente.
-
-### 5.3 Fechar cada etapa
-
-Quando a conversa atingir uma decisão, mudança de fase ou próximo trabalho claro, responder neste contrato:
+Ao fechar uma decisão, mudança de fase ou bloco de planejamento, a skill deve usar este formato. Ele é obrigatório quando há uma recomendação ou ação seguinte material; não precisa aparecer em toda mensagem trivial.
 
 ```md
 ## Minha leitura
-[o que entendi, premissas e risco principal]
+[fatos relevantes, premissas assumidas, incerteza e risco principal]
 
 ## Minha recomendação
-[a escolha que eu faria e por quê]
+[a escolha que eu faria, por que ela é a melhor agora e o trade-off aceito]
 
 ## Próximo passo
-[a menor ação que reduz incerteza ou avança o trabalho]
+[a menor ação que reduz a incerteza ou avança o trabalho]
 
 ## Roteamento sugerido
-- Principal: [modelo] + [esforço] — [justificativa curta]
-- Subagent: [nenhum | papel + escopo independente + modelo/esforço]
+- Principal: [modelo] + [esforço] — [tarefa e justificativa]
+- Escalonamento: [condição objetiva para subir ou descer]
+- Subagent: [nenhum | papel, escopo independente, saída esperada, modelo/esforço]
 
 ## Gate
-[o que depende de aprovação explícita antes de executar]
+[decisão, aprovação ou evidência necessária antes de qualquer execução]
 ```
 
-O bloco de roteamento pode ser omitido quando não houver uma tarefa concreta. O bloco de subagent deve dizer **nenhum** quando a conversa e a decisão dependem do contexto compartilhado.
+O texto deve dizer **“nenhum”** em subagent quando a próxima etapa depende da mesma conversa, do julgamento do usuário ou de uma única decisão ainda aberta. Sugerir paralelismo sem independência é desperdício e aumenta a chance de contexto divergente.
 
-## 6. Classificação de fase
+## 6. Máquina de fases
 
-| Fase observada | Resultado esperado da skill | Execução permitida? |
-|---|---|---|
-| Entendimento | mapa do problema, contexto faltante e perguntas decisivas | Não |
-| Exploração | alternativas, impactos, evidências e riscos | Não |
-| Planejamento | abordagem escolhida, sequência, dependências e validação | Não |
-| Spec | documento ou estrutura de requisitos pronta para revisão | Não |
-| Aguardando aprovação | resumo do que será feito e gate explícito | Não |
-| Execução aprovada | handoff claro para a skill/fluxo de execução | Só após aprovação do usuário |
-| Diagnóstico/revisão | hipótese, evidência necessária e critério de saída | Não, salvo aprovação específica |
-
-## 7. Política inicial de modelo e esforço
-
-Esta política é uma recomendação operacional, não uma contabilidade de créditos. Ela será mantida em uma referência separada para poder evoluir quando os modelos, esforços ou limites do Codex mudarem.
-
-| Situação | Escolha inicial | Quando subir | Quando não usar |
+| Fase | Pergunta central | Saída que define conclusão | O que continua proibido |
 |---|---|---|---|
-| Conversa de contexto, entendimento e planejamento comum | Terra High | Terra XHigh se houver muitas dependências ou ambiguidade persistente | Não usar Max por padrão em conversa longa |
-| Spec que conecta várias áreas do projeto | Terra XHigh | Sol High se a decisão for crítica, arquitetural ou de segurança | Não manter Sol ativo durante toda a descoberta |
-| Decisão ambígua, arquitetura, segurança, migração ou causa-raiz difícil | Sol High | Sol XHigh se a primeira análise ainda deixar incerteza material | Não começar diretamente em Sol Max |
-| Tarefa pequena, clara e repetitiva | Luna High | Luna XHigh se exigir implementação normal | Não usar para fechar decisão arquitetural ambígua sozinho |
-| Implementação aprovada e bem delimitada | Luna XHigh | Luna Max para execução autônoma longa, bem especificada e com critério de validação | Não usar Max apenas porque a tarefa é importante |
-| Último recurso de alto risco | Sol Max | Nenhum; é o teto | Não usar como padrão diário |
+| **Entendimento** | “O que existe, qual problema vale resolver e o que ainda não sabemos?” | mapa de contexto e perguntas decisivas | decidir/implementar por suposição |
+| **Exploração** | “Quais opções existem e quais evidências faltam?” | alternativas, impactos, riscos e evidência necessária | tratar hipótese como fato |
+| **Planejamento** | “Qual abordagem atende ao objetivo com menor risco?” | sequência, dependências, critérios de aceite e validação | iniciar execução antes da escolha |
+| **Spec** | “A intenção está precisa o suficiente para alguém executar e validar?” | escopo, fora de escopo, comportamento, testes e rollout | considerar rascunho como aprovação |
+| **Aguardando aprovação** | “O que exatamente será feito se o usuário disser sim?” | resumo curto do plano e gate explícito | editar/rodar/delegar |
+| **Execução aprovada** | “Qual unidade de trabalho pode ser feita e verificada agora?” | handoff para a skill de execução e validação | ampliar escopo sem novo gate |
+| **Diagnóstico/revisão** | “Qual hipótese explica a falha e que evidência pode refutá-la?” | hipótese priorizada, coleta de evidência, critério de saída | aplicar correção sem diagnóstico/autoridade |
 
-Heurística de escalonamento:
+Uma conversa pode voltar de execução para planejamento se aparecer requisito novo, risco não aceito ou evidência que contradiz a spec. A skill deve nomear essa volta em vez de continuar silenciosamente.
 
-1. Começar no menor nível que sustente a fase e a incerteza.
-2. Subir por evidência: ambiguidade que persiste, falha repetida, risco alto ou dependência transversal real.
-3. Manter o modelo mais caro em uma intervenção curta e com pergunta precisa; voltar ao modelo padrão depois.
-4. Tratar conversas longas como contexto caro: resumir e registrar decisões, em vez de apenas aumentar o esforço.
+## 7. Separar modelo, esforço e forma de trabalho
 
-## 8. Política de subagents
+A recomendação precisa sempre distinguir três variáveis. Não usar frases vagas como “use o melhor modelo”.
 
-Um subagent será apenas sugerido — nunca criado automaticamente pela skill.
-
-| Condição | Sugestão | Não sugerir quando |
+| Variável | O que decide | Sinal de escolha errada |
 |---|---|---|
-| Há um mapa de código, documentação ou dados a levantar de forma independente | `explorer`/`code_mapper` ou `docs_researcher`, normalmente Terra High | A resposta depende de uma decisão que o usuário ainda não tomou |
-| Há duas investigações independentes com critérios claros | Dois subagents com escopos sem sobreposição, normalmente Terra High | O trabalho é pequeno, sequencial ou compartilha o mesmo arquivo/decisão |
-| Há uma decisão crítica, ameaça de segurança ou diagnóstico difícil | `reviewer`/`debugger`, Sol High | A situação ainda é apenas falta de contexto simples |
+| **Família (Luna/Terra/Sol)** | capacidade e custo-base adequados à clareza, risco e abertura do problema | Luna simplifica uma ambiguidade crítica; Sol é usado para trabalho claro e repetitivo |
+| **Esforço (High/XHigh/Max)** | profundidade/tempo de raciocínio e exploração necessários para aquela chamada ou bloco | elevar esforço sem uma hipótese, critério de saída ou dificuldade observável |
+| **Modo de trabalho** | conversa, pesquisa, spec, execução com checkpoints ou agente autônomo | escolher Max apenas porque a tarefa é importante, sem autonomia/escopo bem delimitado |
 
-Toda sugestão deve declarar: papel, escopo, pergunta de saída, modelo/esforço e por que vale a pena paralelizar.
+### 7.1 Heurística de esforço
 
-## 9. Integração com o processo do usuário
+- **High:** ponto de partida para trabalho que exige raciocínio real, mas tem escopo ou pergunta definidos.
+- **XHigh:** usar quando há dependências transversais, ambiguidade que persistiu depois de uma primeira análise, ou quando a resposta precisa integrar muitas restrições.
+- **Max:** reservar para execução autônoma longa, ou um único problema muito difícil, já enquadrado com uma pergunta clara, critérios de sucesso e validação. Não é o padrão para conversa contínua, planejamento inicial ou tarefa pequena.
 
-- Quando existir `project-context`, tratar seus registros como fonte de continuidade e atualizar somente depois da aprovação/ação correspondente.
-- Quando existir OpenSpec, a skill ajuda a esclarecer e revisar a spec; não substitui os gates do processo.
-- Quando não houver nenhuma dessas ferramentas, a skill mantém no chat um resumo compacto das decisões, alternativas descartadas e próximos gates.
-- O usuário continua sendo a autoridade de produto e de início de execução.
+Subir é uma decisão justificada por evidência; não é uma reação automática a “parece importante”. Descer ou encerrar também é uma decisão válida quando a incerteza foi resolvida.
 
-## 10. Estrutura do repositório
+## 8. Política operacional de roteamento
 
-Depois da aprovação desta especificação, a primeira versão terá:
+Esta é a política inicial para o fluxo do usuário. A tabela é um ponto de partida que será calibrado por telemetria do seu uso real, não uma promessa de consumo de cota.
+
+| Situação concreta | Principal | Escalar somente se | Por que não começar no nível acima |
+|---|---|---|---|
+| Conversa para entender projeto, requisito, fluxo ou contexto | **Terra High** | **Terra XHigh** se muitas dependências ou ambiguidade permanecerem após uma primeira síntese | Max em conversa longa aumenta custo de contexto sem garantir decisão melhor |
+| Investigar vários módulos e fechar um plano de feature normal | **Terra High** | **Terra XHigh** se o plano cruzar domínios, serviços ou contratos | Sol é melhor reservado para o risco específico encontrado, não para toda exploração |
+| Elaborar spec que afeta várias áreas ou precisa conciliar restrições | **Terra XHigh** | **Sol High** como revisão curta se houver decisão arquitetural, segurança, migração ou risco operacional | Terra XHigh mantém a conversa/plano como trabalho principal com custo mais controlado |
+| Revisar uma spec crítica já escrita | **Sol High**, intervenção curta | **Sol XHigh** se a primeira revisão ainda deixar conflito material sem resposta | O objetivo é uma crítica profunda e delimitada, não manter Sol ativo desde o começo |
+| Arquitetura nova, autorização, dados sensíveis, migração arriscada, concorrência ou causa-raiz desconhecida | **Sol High** | **Sol XHigh** quando a hipótese inicial não resolve a incerteza | XHigh antes de uma pergunta/fato bem delimitado aumenta exploração sem direção |
+| Busca, resumo, classificação, documentação ou levantamento repetitivo já delimitado | **Luna High** | **Luna XHigh** quando o resultado exigir integração de código/decisão maior | Terra/Sol não agregam valor proporcional em trabalho claro e de alto volume |
+| Implementação pequena, clara, com poucos arquivos e checkpoints humanos | **Luna High** | **Luna XHigh** se a mudança envolver lógica normal, testes ou integração moderada | Max não é necessário se o usuário continuará acompanhando e corrigindo a direção |
+| Implementação aprovada, normal, bem delimitada, com testes e critério de aceite | **Luna XHigh** | **Luna Max** se houver autonomia longa, muitas chamadas/ferramentas e validação explícita | Max não é sinônimo de “implementação importante”; depende de autonomia e duração |
+| Execução longa e autônoma de uma spec madura, com escopo fechado, testes e rollback/validação definidos | **Luna Max** | **Sol High** se aparecer uma decisão difícil que a spec não resolveu; não aumentar automaticamente | Luna Max compra persistência e exploração para tarefa clara; Sol serve para a exceção ambígua |
+| Último recurso para problema crítico, após tentativas de boa qualidade ou quando o custo de errar é claramente maior que a cota | **Sol Max** | não há escalonamento normal | Usar como padrão tira a capacidade de reservar profundidade para o que realmente precisa |
+
+### 8.1 Regras de escalonamento e parada
+
+Usar uma regra observável para toda subida:
+
+1. Definir qual resposta, evidência ou artefato o nível atual não conseguiu produzir.
+2. Formular a pergunta mais estreita possível antes de mudar de modelo/esforço.
+3. Escalar apenas uma dimensão por vez quando possível: esforço **ou** família.
+4. Depois da intervenção cara, voltar ao modelo da fase para incorporar a conclusão, atualizar a spec ou executar o trabalho claro.
+5. Parar e pedir direção quando a divergência é de produto, prioridade ou risco aceitável — não tentar resolver preferência do usuário com mais raciocínio.
+
+Exemplos de gatilhos válidos:
+
+- Terra High apresentou duas interpretações plausíveis de requisitos conflitantes após consulta ao contexto → Terra XHigh.
+- Terra XHigh fechou o plano, mas há uma migração irreversível → Sol High para revisão direcionada de segurança, dados e rollback.
+- Luna XHigh está implementando a spec e encontra uma lacuna arquitetural → pausar, voltar ao planejamento/Sol High para aquela decisão; não insistir em Luna Max.
+- Sol High respondeu à revisão crítica e não restam dúvidas materiais → voltar a Terra/Luna; não continuar a conversa inteira no Sol.
+
+## 9. Conversas longas, memória e registro
+
+Como o usuário quer deixar o raciocínio registrado, o recurso a preservar é a **qualidade do contexto**, não apenas a continuidade bruta do chat.
+
+Ao final de uma fase ou quando o contexto ficar grande, a skill deve propor um `context packet` curto:
+
+```md
+## Decisões confirmadas
+## Evidências e fontes
+## Alternativas descartadas e motivo
+## Riscos pendentes
+## Spec/plano atual
+## Próximo gate e aprovação necessária
+```
+
+Regras:
+
+- Em projeto com `project-context`, ler o estado existente primeiro e registrar apenas a continuidade relevante ao processo do projeto.
+- Em projeto com OpenSpec, manter a fonte de verdade da spec nele; o chat é apoio de decisão, não um documento paralelo concorrente.
+- Quando não houver processo formal, produzir esse pacote no chat ou no local que o usuário indicar antes de iniciar uma conversa/etapa nova.
+- Preferir uma síntese verificável a manter centenas de mensagens antigas ativas em um modelo caro.
+
+## 10. Política de subagents
+
+Subagent é uma recomendação de estrutura de trabalho, não um botão de “mais inteligência”. A skill nunca cria um automaticamente.
+
+### 10.1 Teste de elegibilidade
+
+Só sugerir subagent se todas as condições forem verdadeiras:
+
+1. A pergunta é independente de uma decisão pendente do usuário.
+2. O escopo pode ser escrito sem sobreposição com o trabalho principal ou outro subagent.
+3. Existe uma saída verificável: mapa, lista de evidências, hipótese testada, relatório ou patch delimitado.
+4. O ganho de paralelismo supera o custo de leitura, consolidação e possível divergência de contexto.
+
+### 10.2 Papéis iniciais
+
+| Necessidade independente | Papel sugerido | Modelo/esforço inicial | Saída exigida |
+|---|---|---|---|
+| Mapear arquivos, símbolos, fluxos e dependências | `code_mapper`/`explorer` | Terra Medium | mapa com caminhos, evidência e lacunas |
+| Confirmar documentação, APIs, versões e benchmarks | `docs_researcher` | Terra Medium | fontes primárias, data de consulta e limitações |
+| Preparar texto/documento repetitivo já aprovado | `documentation_engineer` | Luna Medium | artefato delimitado e itens não resolvidos |
+| Investigar falha, regressão ou causa-raiz | `debugger` | Sol High | hipótese, evidência, reprodução e próximos testes |
+| Revisar risco, segurança, regressões ou plano crítico | `reviewer` | Sol High | achados priorizados e critérios de correção |
+
+O output da skill deve sempre trazer: **papel, pergunta, escopo, saída, modelo/esforço, motivo de paralelizar e a frase explícita de que depende de aprovação antes de iniciar**.
+
+## 11. Evidências, benchmarks e limites de inferência
+
+O repositório manterá um relatório datado de evidências em `docs/research/`. Ele é a fonte de consulta para números; o `SKILL.md` não deve repetir tabelas grandes nem preços que podem envelhecer.
+
+Princípios para interpretar evidência:
+
+- Documentação oficial é a fonte para a finalidade declarada de modelos, esforços e regras do produto.
+- DeepSWE e Artificial Analysis são sinais comparativos úteis para tarefas de agente/código, mas não medem perfeitamente qualidade de planejamento conversacional, seu repositório nem créditos do plano Codex.
+- Preços médios de um benchmark de API não permitem prever a porcentagem da sua cota semanal.
+- A configuração real do usuário — contexto, chamadas de ferramentas, duração, esforço, modo de serviço e retrabalho — pode dominar o consumo percebido.
+- Quando uma fonte não permitir afirmar algo, a skill deve dizer “não confirmado” em vez de preencher a lacuna com uma regra.
+
+## 12. Calibração por uso real
+
+Depois da primeira versão, a política deve ser revisada por amostras de trabalho real. Não precisa registrar cada mensagem; basta registrar tarefas representativas.
+
+| Campo | Pergunta a responder |
+|---|---|
+| fase e tipo de tarefa | era conversa, spec, execução, diagnóstico ou revisão? |
+| modelo e esforço | qual combinação foi usada e por quanto tempo/blocos? |
+| clareza inicial | a tarefa já estava delimitada ou a incerteza era material? |
+| resultado | terminou certo, exigiu escalonamento, voltou ao planejamento ou falhou? |
+| retrabalho | quantas correções ou mudanças de direção foram necessárias? |
+| custo percebido | houve consumo extraordinário de cota? Use como sinal, não como preço exato |
+
+Após algumas amostras por categoria, ajustar a tabela com base em sucesso e retrabalho, não apenas em sensação de velocidade. Antes disso, não declarar percentuais como “80% das tarefas” ou equivalências exatas com GPT-5.5.
+
+## 13. Cenários de aceitação
+
+| Cenário | Comportamento esperado |
+|---|---|
+| “Quero entender esse projeto antes de decidir a feature.” | Terra High; recuperar contexto; fazer perguntas decisivas; não criar plano final por suposição |
+| “Já decidimos; gere a spec para revisão.” | Terra High/XHigh conforme abrangência; produzir spec e gate de aprovação; não implementar |
+| “Esta spec envolve autorização e migração de dados.” | Terra XHigh para fechar; Sol High em revisão curta e dirigida; registrar riscos e rollback |
+| “Aprovado. Altere estes três arquivos e rode testes.” | Luna High ou XHigh conforme integração; encaminhar para execução; Max não é automático |
+| “Execute sozinho esta spec grande, com testes, e me traga o resultado.” | Luna Max se a spec for madura e os critérios forem verificáveis; pausar/escalar se surgir decisão arquitetural nova |
+| “O teste falha e não sei por quê.” | fase Diagnóstico; Terra High se a investigação é direta, Sol High se a causa é desconhecida/complexa; não sugerir correção antes de evidência |
+| “O que você faria agora?” | sempre dar posição clara, trade-off, próximo passo e gate — não devolver uma lista neutra sem recomendação |
+| “Use vários agentes para pensar.” | primeiro aplicar teste de elegibilidade; propor papéis sem sobreposição e pedir aprovação para dispará-los |
+
+## 14. Arquitetura da primeira versão
+
+Após esta spec estar aprovada, a skill terá somente os arquivos necessários para funcionar e evoluir sem inflar contexto:
 
 ```text
 skills/think-with-me/
 ├── SKILL.md
 ├── agents/openai.yaml
-└── references/model-routing.md
+└── references/
+    ├── model-routing.md
+    └── output-contract.md
 
 README.md
 LICENSE
 docs/specs/2026-07-17-think-with-me-design.md
+docs/research/model-routing-evidence-2026-07-17.md
 ```
 
-`SKILL.md` será enxuto e apontará para `references/model-routing.md` apenas quando precisar sugerir roteamento. O README e a licença ficam na raiz para preparar a futura publicação, sem poluir a pasta instalável da skill.
+- `SKILL.md`: workflow, autoridade, classificação de fase, saída mínima e quando abrir cada referência.
+- `references/model-routing.md`: matriz prática, gatilhos de subida/parada e subagents. Deve citar a data/escopo de sua evidência, sem fingir que é uma calculadora de cota.
+- `references/output-contract.md`: exemplos curtos e copy-ready do fechamento, context packet, gate e pedido de aprovação de subagent.
+- `agents/openai.yaml`: metadados de interface gerados e mantidos em sincronia com a skill.
+- `docs/research/`: documentação de manutenção humana, fora da pasta instalável da skill.
 
-## 11. Critérios de aceite da versão inicial
+Não haverá script nesta primeira versão: as decisões são dependentes de contexto e um script criaria uma falsa precisão. Não haverá README dentro da pasta da skill; informações de instalação e publicação vivem na raiz do repositório.
 
-1. `$think-with-me` pode iniciar uma conversa de planejamento sem executar trabalho.
-2. Para uma decisão aberta, oferece uma pergunta por vez e uma opção recomendada.
-3. Para contexto suficiente, oferece uma conclusão direta, sem entrevista artificial.
-4. Em um ponto de decisão, entrega leitura, recomendação, próximo passo e gate de aprovação.
-5. Quando houver tarefa concreta, sugere modelo/esforço com justificativa e sem inventar números de cota.
-6. Só sugere subagent para escopo independente e explícito; nunca o dispara.
-7. A pasta da skill passa a validação estrutural antes de ser instalada localmente.
-8. A instalação local será testada no Codex antes de qualquer publicação pública.
+## 15. Critérios de aceite da versão 1
 
-## 12. Próximo gate
+1. A invocação `$think-with-me` abre uma conversa de colaboração e não inicia execução.
+2. A skill diferencia fase, família, esforço e modo de trabalho em vez de recomendar “o mais forte”.
+3. Para decisão aberta, pergunta uma coisa por vez com recomendação; para contexto suficiente, sintetiza sem entrevista artificial.
+4. Cada encaminhamento material contém leitura, recomendação, próximo passo, roteamento e gate.
+5. A recomendação de Luna Max exige tarefa clara, longa/autônoma e critérios de validação; não aparece automaticamente para toda implementação.
+6. Sol é usado como intervenção delimitada para ambiguidade/risco, não como conversa inteira por padrão.
+7. Subagent só aparece com escopo independente, saída verificável e aprovação explícita; nunca é disparado pela skill.
+8. O processo respeita `project-context`, OpenSpec e a autoridade do usuário sobre aprovação.
+9. Números e alegações de benchmark ficam em relatório datado com fontes e limitações, não escondidos como certeza na instrução da skill.
+10. A skill passa na validação estrutural, é instalada localmente, é exercitada em cenários representativos e só depois considerada para publicação pública.
 
-Revisar esta especificação. Após aprovação, criar a estrutura da skill, escrever `SKILL.md`, a referência de roteamento e os metadados de agente; então validar e instalar localmente. A publicação no GitHub público fica para depois de uso real e ajustes.
+## 16. Gate atual
+
+Esta especificação ampliada precisa de nova validação do usuário. Só depois dela será criado o esqueleto da skill e escrito o `SKILL.md`. A primeira implementação não é autorização para publicar publicamente: publicação exige uso local real, ajustes e decisão explícita do usuário.

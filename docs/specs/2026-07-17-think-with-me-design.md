@@ -9,11 +9,11 @@
 
 Esta skill nasce de um fluxo de trabalho específico, não de uma tabela genérica de benchmarks.
 
-O usuário costuma trabalhar assim:
+Uma pessoa pode trabalhar assim:
 
-1. Recupera e registra contexto do projeto com `project-context` quando ele existe.
+1. Parte de uma ideia, uma conversa, arquivos ou documentação que já possui.
 2. Conversa para entender o problema, o código, as regras de negócio e as alternativas.
-3. Planeja e escreve ou revisa uma spec.
+3. Planeja e escreve ou revisa uma spec quando isso for útil.
 4. Aprova explicitamente o caminho.
 5. Só então pede a execução.
 
@@ -52,7 +52,7 @@ O nome evita amarrar a skill a GPT-5.6. A política de roteamento pode mudar qua
 ### O que a skill não faz
 
 - Não altera arquivos, cria branches, abre PRs, roda comandos, instala coisas, cria repos ou despacha subagents automaticamente.
-- Não substitui `project-context`, OpenSpec, diagnóstico, code review, execução de planos ou qualquer regra de aprovação do projeto.
+- Não depende nem substitui nenhuma outra skill, processo de projeto, formato de documentação ou regra de aprovação.
 - Não pressupõe que o usuário aprovou uma ação porque concordou com uma recomendação.
 - Não inventa um custo de cota a partir de preços de API ou do DeepSWE.
 - Não usa benchmark isolado como prova de que um modelo será melhor no repositório atual.
@@ -165,9 +165,9 @@ Ao final de uma fase ou quando o contexto ficar grande, a skill deve propor um `
 
 Regras:
 
-- Em projeto com `project-context`, ler o estado existente primeiro e registrar apenas a continuidade relevante ao processo do projeto.
-- Em projeto com OpenSpec, manter a fonte de verdade da spec nele; o chat é apoio de decisão, não um documento paralelo concorrente.
-- Quando não houver processo formal, produzir esse pacote no chat ou no local que o usuário indicar antes de iniciar uma conversa/etapa nova.
+- A skill funciona somente com a conversa; arquivos, specs, issues ou processos externos são fontes adicionais apenas quando o usuário os fornece ou indica.
+- Quando o usuário tiver uma fonte de verdade já definida, respeitá-la sem exigir um formato ou ferramenta específicos.
+- Quando não houver local indicado, produzir esse pacote no chat; só registrar fora dele se o usuário pedir e escolher o destino.
 - Preferir uma síntese verificável a manter centenas de mensagens antigas ativas em um modelo caro.
 
 ## 10. Política de subagents
@@ -270,7 +270,7 @@ Não haverá script nesta primeira versão: as decisões são dependentes de con
 5. A recomendação de Luna Max exige tarefa clara, longa/autônoma e critérios de validação; não aparece automaticamente para toda implementação.
 6. Sol é usado como intervenção delimitada para ambiguidade/risco, não como conversa inteira por padrão.
 7. Subagent só aparece com escopo independente, saída verificável e aprovação explícita; nunca é disparado pela skill.
-8. O processo respeita `project-context`, OpenSpec e a autoridade do usuário sobre aprovação.
+8. O processo é independente de outras skills e ferramentas, e respeita a autoridade do usuário sobre aprovação e sobre onde registrar decisões.
 9. Números e alegações de benchmark ficam em relatório datado com fontes e limitações, não escondidos como certeza na instrução da skill.
 10. A skill passa na validação estrutural, é instalada localmente, é exercitada em cenários representativos e só depois considerada para publicação pública.
 

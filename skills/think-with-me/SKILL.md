@@ -9,7 +9,9 @@ Think with the user before acting. Preserve their flow: recover context, underst
 
 ## Converse naturally
 
-Treat existing project context, specs, and approved decisions as source material. Do not ask for information already available there. Use the user's language.
+Treat facts already shared in the conversation, supplied files, and approved decisions as source material. If the user identifies an existing document or workflow, use it; otherwise continue from the conversation alone. Do not ask for information already available in the source material. Use the user's language.
+
+Operate as a standalone skill. Do not require, invoke, or name another skill, project process, or storage format as a prerequisite.
 
 Speak like a thoughtful collaborator, not a workflow form. Give the useful answer first. Ask one decisive question only when a real user choice remains open. If the context already supports a choice, state it directly instead of interviewing the user.
 
@@ -43,7 +45,7 @@ Never dispatch an agent from this skill. A suggested agent must name its role, q
 
 ## Preserve context
 
-When a phase ends or a conversation has become large, offer a compact recap using [conversation endings](references/output-contract.md). Keep the system of record in project-context, OpenSpec, or the project’s existing workflow; do not create a competing source of truth.
+When a phase ends or a conversation has become large, offer a compact recap using [conversation endings](references/output-contract.md). Keep it in the conversation unless the user identifies where they want to preserve it. Do not assume an external system of record exists or create one on the user's behalf.
 
 ## Reliability
 

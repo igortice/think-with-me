@@ -1,6 +1,8 @@
 # Think With Me Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **Status histórico:** a baseline v1 foi implementada e instalada. Este plano registra a criação inicial; a correção atual é governada por [2026-07-17-think-with-me-reliability-correction.md](../specs/2026-07-17-think-with-me-reliability-correction.md) e a política de continuidade/ativação por [2026-07-17-think-with-me-continuity-design.md](../specs/2026-07-17-think-with-me-continuity-design.md). Os forward-tests originais não tiveram evidência persistida e foram substituídos pelos casos em `evals/think-with-me-cases.md`.
+
+> **Nota de execução:** este é um plano histórico. Para mudanças posteriores, seguir a correção de confiabilidade e o gate de revisão: nunca fazer commit, push ou sincronização global sem a revisão do diff e a autorização explícita da pessoa.
 
 **Goal:** Build and install locally the manually-invoked `$think-with-me` skill that guides collaborative planning, makes a recommendation, suggests justified routing, and preserves explicit approvals.
 
@@ -10,8 +12,8 @@
 
 ## Global Constraints
 
-- Make `$think-with-me` manual-only with `policy.allow_implicit_invocation: false` in `agents/openai.yaml`.
-- Recommend; never edit, execute, install, create branches, or dispatch subagents automatically.
+- Historical baseline: `$think-with-me` was manual-only with `policy.allow_implicit_invocation: false`; the active policy is the approved hybrid discovery design.
+- Recommend; never edit, execute, install, create branches, or dispatch subagents.
 - Treat model family, effort, and mode of work as separate decisions.
 - Do not infer Codex quota from DeepSWE costs or API pricing.
 - Work directly in `/Users/igortice/Desv/think-with-me`; do not create a worktree.
@@ -43,7 +45,7 @@
 - Consumes: the name, trigger and behavior in the approved design.
 - Produces: a structurally valid `think-with-me` skill folder.
 
-- [ ] **Step 1: Run the official initializer**
+- [x] **Step 1: Run the official initializer**
 
 Run:
 
@@ -59,7 +61,7 @@ python3 /Users/igortice/.codex/skills/.system/skill-creator/scripts/init_skill.p
 
 Expected: `skills/think-with-me/` has `SKILL.md`, `agents/openai.yaml`, and `references/`.
 
-- [ ] **Step 2: Inspect the generated templates**
+- [x] **Step 2: Inspect the generated templates**
 
 Run:
 
@@ -82,7 +84,7 @@ Expected: normalized frontmatter and quoted UI values. Do not commit placeholder
 - Consumes: design sections 5–13 and the dated evidence report.
 - Produces: detailed material that `SKILL.md` opens only when necessary.
 
-- [ ] **Step 1: Write `references/model-routing.md`**
+- [x] **Step 1: Write `references/model-routing.md`**
 
 Include:
 
@@ -99,6 +101,8 @@ Include:
 
 Preserve these defaults:
 
+> Quando a disponibilidade não tiver sido informada, toda combinação de modelo e esforço abaixo é uma sugestão condicional; a skill não presume que ela existe no seletor.
+
 | Work | Initial recommendation | Escalate only when |
 |---|---|---|
 | Context, understanding, normal planning | Terra High | Dependencies or ambiguity persist after a first synthesis |
@@ -110,11 +114,11 @@ Preserve these defaults:
 
 Add warnings that DeepSWE/API cost is not a Codex quota calculator and benchmark `xhigh` is not assumed equal to the Codex product selector.
 
-- [ ] **Step 2: Write `references/output-contract.md`**
+- [x] **Step 2: Write `references/output-contract.md`**
 
 Use a natural conversational ending rather than fixed headings. It must preserve a clear assistant viewpoint, model guidance when relevant, a one-question pattern with a recommended option, direct synthesis when context suffices, a context recap, a conversational subagent suggestion, and an approved-execution handoff.
 
-- [ ] **Step 3: Verify the references are narrow**
+- [x] **Step 3: Verify the references are narrow**
 
 Run:
 
@@ -137,7 +141,7 @@ Expected: operational instructions and evidence boundaries, not a copied benchma
 - Consumes: references from Task 2.
 - Produces: a concise manual workflow with conditional reference loading.
 
-- [ ] **Step 1: Replace `SKILL.md` with the core contract**
+- [x] **Step 1: Replace `SKILL.md` with the core contract**
 
 Use exactly this frontmatter:
 
@@ -150,7 +154,7 @@ description: Collaboratively understand a problem or idea before acting. Use whe
 
 Require the agent to recover project/spec context; identify phase and open decision; separate facts from user choices; ask one question only when a decision is genuinely open; synthesize directly when it is not; read `model-routing.md` for routing/escalation/subagent advice; read `output-contract.md` for material closure or a context packet; never execute/delegate automatically; and recommend `none` unless a subagent scope is independent and verifiable.
 
-- [ ] **Step 2: Regenerate `agents/openai.yaml` deterministically**
+- [x] **Step 2: Regenerate `agents/openai.yaml` deterministically**
 
 Run:
 
@@ -162,9 +166,9 @@ python3 /Users/igortice/.codex/skills/.system/skill-creator/scripts/generate_ope
   --interface 'default_prompt=Use $think-with-me to help me understand the context, decide a direction, and define the next approved step.'
 ```
 
-Expected: quoted fields, no icon/brand-color fields, a default prompt naming `$think-with-me`, and `policy.allow_implicit_invocation: false`.
+Historical expected output: quoted fields, no icon/brand-color fields, a default prompt naming `$think-with-me`, and the then-current manual-only policy. Validate active metadata against the continuity plan instead.
 
-- [ ] **Step 3: Check for instruction defects**
+- [x] **Step 3: Check for instruction defects**
 
 Run:
 
@@ -187,7 +191,7 @@ Expected: no placeholders; any automatic-execution wording is a prohibition.
 - Consumes: the completed skill folder.
 - Produces: a local-first repository with no documentation pollution inside the skill folder.
 
-- [ ] **Step 1: Create the root README**
+- [x] **Step 1: Create the root README**
 
 Use this structure:
 
@@ -205,11 +209,11 @@ An explicit, local-first Codex skill for collaborative planning before action.
 
 State that `skills/think-with-me/` is the installable folder, the repository remains private/experimental, the skill does not predict quota, and publication has not happened.
 
-- [ ] **Step 2: Amend the design layout scope**
+- [x] **Step 2: Amend the design layout scope**
 
 Change the layout section to keep `README.md` in the local-first version and defer `LICENSE` until the user explicitly chooses a public license before publication. Do not choose a license silently.
 
-- [ ] **Step 3: Run structural validation in an isolated dependency environment**
+- [x] **Step 3: Run structural validation in an isolated dependency environment**
 
 Run:
 
@@ -219,18 +223,17 @@ uv run --with pyyaml python /Users/igortice/.codex/skills/.system/skill-creator/
 
 Expected: validator reports that the skill is valid. If `uv` is unavailable, report that rather than changing global Python.
 
-- [ ] **Step 4: Run hygiene checks and commit**
+- [x] **Step 4: Run hygiene checks; commit only after explicit review approval**
 
 Run:
 
 ```bash
 git diff --check
 git status --short
-git add README.md docs/specs/2026-07-17-think-with-me-design.md skills/think-with-me
-git commit -m "feat: add think-with-me skill"
+git diff -- README.md docs/specs/2026-07-17-think-with-me-design.md skills/think-with-me
 ```
 
-Expected: no whitespace errors and one coherent local-first skill commit.
+Expected: no whitespace errors and one coherent local-first diff ready for review. Commit only after the person explicitly authorizes it.
 
 ## Task 5: Install locally and forward-test without publishing
 
@@ -243,7 +246,7 @@ Expected: no whitespace errors and one coherent local-first skill commit.
 - Consumes: the validated skill directory.
 - Produces: a discoverable local skill and evidence from three representative prompts.
 
-- [ ] **Step 1: Inspect global skills locations without overwriting anything**
+- [x] **Step 1: Inspect global skills locations without overwriting anything**
 
 Run:
 
@@ -251,25 +254,15 @@ Run:
 ls -ld ~/.codex/skills ~/.agents/skills 2>/dev/null
 ```
 
-Expected: identify the active global convention and ensure no existing `think-with-me` folder is overwritten.
+Expected: identify the active global convention before any approved synchronization.
 
-- [ ] **Step 2: Install through the supported local mechanism**
+- [x] **Step 2: Install through the supported distribution mechanism**
 
-Point the discovered global skill location at `/Users/igortice/Desv/think-with-me/skills/think-with-me` using the current Codex/skills.sh local convention. Confirm the mechanism before writing outside the repository; prefer a link over a copy.
+After the person has reviewed the local diff, explicitly authorized commit/push, and explicitly authorized synchronization, synchronize the approved repository source with the supported skills.sh update flow, then compare the global copy with the repository source. The correction specification supersedes the former link preference.
 
 - [ ] **Step 3: Forward-test in fresh context**
 
-Use these prompts:
-
-```text
-Use $think-with-me. I want to understand a project and decide a feature, but the decision is still open.
-
-Use $think-with-me. The spec is approved; implement a normal change across a few files with tests.
-
-Use $think-with-me. We have an auth migration with an unexplained production failure. What should happen next?
-```
-
-Expected: first prompt asks one decisive question or gives a bounded synthesis and recommends Terra High/XHigh without executing; second identifies approval and recommends Luna High/XHigh based on scope without editing automatically; third recommends a bounded Sol High diagnostic path without jumping to Sol Max or a code change.
+Use the current cases in `evals/think-with-me-cases.md`. They cover model-selector uncertainty, authorization, read-only discovery, recording and subagent suggestions. Run them only after the local review is approved; use agent-based forward-tests only with separate authorization.
 
 - [ ] **Step 4: Treat failed forward tests as explicit design fixes**
 

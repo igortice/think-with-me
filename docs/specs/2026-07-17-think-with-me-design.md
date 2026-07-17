@@ -1,9 +1,9 @@
 # Think With Me — especificação de design
 
-**Status:** revisão ampliada para validação
+**Status:** baseline v1 implementada; correções de confiabilidade definidas em [2026-07-17-think-with-me-reliability-correction.md](2026-07-17-think-with-me-reliability-correction.md). O comportamento de continuidade híbrida e o fio de decisão são definidos complementarmente em [2026-07-17-think-with-me-continuity-design.md](2026-07-17-think-with-me-continuity-design.md).
 **Data:** 17 de julho de 2026  
 **Repositório:** `igortice/think-with-me` (privado durante a maturação)
-**Decisão de produto:** esta skill recomenda; o usuário aprova; as skills próprias de execução executam.
+**Decisão de produto:** esta skill recomenda; o usuário aprova; um fluxo de execução separado executa somente depois da autorização explícita.
 
 ## 1. Contexto e problema real
 
@@ -51,7 +51,7 @@ O nome evita amarrar a skill a GPT-5.6. A política de roteamento pode mudar qua
 
 ### O que a skill não faz
 
-- Não altera arquivos, cria branches, abre PRs, roda comandos, instala coisas, cria repos ou despacha subagents automaticamente.
+- Não altera estado: não edita arquivos, cria branches, abre PRs, instala coisas, cria repos, executa implementação ou despacha subagents. Inspeção e pesquisa somente leitura são permitidas para entender contexto.
 - Não depende nem substitui nenhuma outra skill, processo de projeto, formato de documentação ou regra de aprovação.
 - Não pressupõe que o usuário aprovou uma ação porque concordou com uma recomendação.
 - Não inventa um custo de cota a partir de preços de API ou do DeepSWE.
@@ -61,14 +61,14 @@ O nome evita amarrar a skill a GPT-5.6. A política de roteamento pode mudar qua
 
 ## 4. Forma de invocação e ergonomia
 
-O uso será manual, no espírito de `grill-me`, para não carregar instruções em conversas que não pediram este modo:
+O uso explícito permanece o caminho mais previsível, no espírito de `grill-me`, sem impedir a descoberta híbrida aprovada posteriormente:
 
 ```yaml
 name: think-with-me
 description: Collaboratively understand a problem or idea before acting. Use when the user wants to discuss, plan, assess options, receive a clear recommendation, identify the next step, or choose an appropriate model, effort, or subagent.
 ```
 
-A invocação manual é configurada em `agents/openai.yaml` com `policy.allow_implicit_invocation: false`, mantendo o frontmatter no formato aceito pelo validador de skills.
+A configuração inicial manual foi substituída pela política híbrida definida em [2026-07-17-think-with-me-continuity-design.md](2026-07-17-think-with-me-continuity-design.md): `agents/openai.yaml` permite descoberta implícita, enquanto `$think-with-me` continua sendo o caminho explícito e previsível. Isso não cria afinidade de sessão garantida pelo host.
 
 O comportamento de entrevista é **condicional**, não obrigatório:
 
@@ -78,9 +78,9 @@ O comportamento de entrevista é **condicional**, não obrigatório:
 
 ## 5. Contrato de saída
 
-Ao fechar uma decisão, mudança de fase ou bloco de planejamento, a skill continua uma conversa natural. Em vez de formulário, ela termina com uma posição clara: **“Minha visão: eu seguiria com [escolha] porque [motivo].”** Quando for relevante, acrescenta em frases curtas o modelo da conversa, uma sugestão de agente — ou o motivo para não abrir um — e o que precisa ser confirmado antes de executar.
+Ao fechar uma decisão, mudança de fase ou bloco de planejamento, a skill continua uma conversa natural. Em vez de formulário, ela apresenta uma posição clara com escolha, razão decisiva e trade-off. **“Minha visão: eu seguiria com [escolha] porque [motivo].”** é apenas um exemplo possível de redação, não um rótulo ou encerramento obrigatório. Quando for relevante, acrescenta em frases curtas o modelo da conversa, uma sugestão de agente — ou o motivo para não abrir um — e o que precisa ser confirmado antes de executar.
 
-O modelo da conversa atual deve aparecer no início da sessão e em mudanças de fase. O modelo da próxima tarefa aparece somente quando a tarefa estiver delimitada; a skill não exibe campos vazios. A recomendação de subagent também é natural: quando não for útil, explica brevemente por quê; quando for, informa papel, escopo, saída e o que falta aprovar. Sugerir paralelismo sem independência é desperdício e aumenta a chance de contexto divergente.
+A sugestão de modelo para a etapa deve aparecer antes da próxima pergunta, investigação, síntese ou handoff no início ou retomada de uma fase material e quando um risco novo ou evidência de subagent muda o plano; ela nunca descreve o seletor ativo. Quando a disponibilidade não foi informada, o esforço é condicional. O modelo da próxima tarefa aparece somente quando a tarefa estiver delimitada; a skill não exibe campos vazios. A recomendação de subagent também é natural: quando não for útil, explica brevemente por quê; quando for, informa papel, escopo, saída e o que falta aprovar. Sugerir paralelismo sem independência é desperdício e aumenta a chance de contexto divergente.
 
 ## 6. Máquina de fases
 
@@ -116,7 +116,7 @@ Subir é uma decisão justificada por evidência; não é uma reação automáti
 
 ## 8. Política operacional de roteamento
 
-Esta é a política inicial para o fluxo do usuário. A tabela é um ponto de partida que será calibrado por telemetria do seu uso real, não uma promessa de consumo de cota.
+Esta é a política inicial para um fluxo de trabalho deliberado. A tabela é um ponto de partida que será calibrado por uso real, não uma promessa de consumo de cota. Quando a pessoa não informou quais opções o seletor oferece, qualquer combinação nomeada abaixo é condicional: ela não afirma disponibilidade nem descreve o modelo ativo.
 
 | Situação concreta | Principal | Escalar somente se | Por que não começar no nível acima |
 |---|---|---|---|
@@ -152,7 +152,7 @@ Exemplos de gatilhos válidos:
 
 Como o usuário quer deixar o raciocínio registrado, o recurso a preservar é a **qualidade do contexto**, não apenas a continuidade bruta do chat.
 
-Ao final de uma fase ou quando o contexto ficar grande, a skill deve propor um `context packet` curto:
+Ao final de uma fase ou quando o contexto ficar grande, a skill pode oferecer uma recapitulação curta. O formato abaixo é uma referência adaptável, não um template obrigatório:
 
 ```md
 ## Decisões confirmadas
@@ -187,13 +187,13 @@ Só sugerir subagent se todas as condições forem verdadeiras:
 
 | Necessidade independente | Papel sugerido | Modelo/esforço inicial | Saída exigida |
 |---|---|---|---|
-| Mapear arquivos, símbolos, fluxos e dependências | `code_mapper`/`explorer` | Terra Medium | mapa com caminhos, evidência e lacunas |
-| Confirmar documentação, APIs, versões e benchmarks | `docs_researcher` | Terra Medium | fontes primárias, data de consulta e limitações |
-| Preparar texto/documento repetitivo já aprovado | `documentation_engineer` | Luna Medium | artefato delimitado e itens não resolvidos |
-| Investigar falha, regressão ou causa-raiz | `debugger` | Sol High | hipótese, evidência, reprodução e próximos testes |
-| Revisar risco, segurança, regressões ou plano crítico | `reviewer` | Sol High | achados priorizados e critérios de correção |
+| Mapear arquivos, símbolos, fluxos e dependências | `code_mapper`/`explorer` | Terra; menor esforço adequado que a pessoa informou estar disponível | mapa com caminhos, evidência e lacunas |
+| Confirmar documentação, APIs, versões e benchmarks | `docs_researcher` | Terra; menor esforço adequado que a pessoa informou estar disponível | fontes primárias, data de consulta e limitações |
+| Preparar texto/documento repetitivo já aprovado | `documentation_engineer` | Luna; menor esforço adequado que a pessoa informou estar disponível | artefato delimitado e itens não resolvidos |
+| Investigar falha, regressão ou causa-raiz | `debugger` | Sol High, se disponível | hipótese, evidência, reprodução e próximos testes |
+| Revisar risco, segurança, regressões ou plano crítico | `reviewer` | Sol High, se disponível | achados priorizados e critérios de correção |
 
-O output da skill deve sempre trazer: **papel, pergunta, escopo, saída, modelo/esforço, motivo de paralelizar e a frase explícita de que depende de aprovação antes de iniciar**.
+Quando recomendar um subagent, a resposta deve trazer: **papel, pergunta, escopo e exclusões, saída, roteamento de modelo/esforço, motivo de paralelizar e a frase explícita de que depende de aprovação antes de iniciar**.
 
 ## 11. Evidências, benchmarks e limites de inferência
 
@@ -223,6 +223,8 @@ Depois da primeira versão, a política deve ser revisada por amostras de trabal
 Após algumas amostras por categoria, ajustar a tabela com base em sucesso e retrabalho, não apenas em sensação de velocidade. Antes disso, não declarar percentuais como “80% das tarefas” ou equivalências exatas com GPT-5.5.
 
 ## 13. Cenários de aceitação
+
+As combinações nomeadas nestes exemplos também são condicionais quando a disponibilidade não tiver sido informada.
 
 | Cenário | Comportamento esperado |
 |---|---|
@@ -254,26 +256,26 @@ docs/plans/2026-07-17-think-with-me-implementation.md
 ```
 
 - `SKILL.md`: workflow, autoridade, classificação de fase, saída mínima e quando abrir cada referência.
-- `references/model-routing.md`: matriz prática, gatilhos de subida/parada e subagents. Deve citar a data/escopo de sua evidência, sem fingir que é uma calculadora de cota.
+- `references/model-routing.md`: matriz prática, gatilhos de subida/parada e subagents. Expõe limites de evidência sem depender de pesquisa fora da skill instalada nem fingir que é uma calculadora de cota.
 - `references/output-contract.md`: exemplos curtos e copy-ready do fechamento, recapitulação de contexto e pedido de aprovação de subagent.
 - `agents/openai.yaml`: metadados de interface gerados e mantidos em sincronia com a skill.
 - `docs/research/`: documentação de manutenção humana, fora da pasta instalável da skill.
 
-Não haverá script nesta primeira versão: as decisões são dependentes de contexto e um script criaria uma falsa precisão. Não haverá README dentro da pasta da skill; informações de desenvolvimento e publicação vivem na raiz do repositório. A licença será escolhida explicitamente antes de qualquer publicação pública; ela não é necessária para a validação privada local.
+Não haverá script de roteamento: as decisões são dependentes de contexto e um script criaria uma falsa precisão. Esta baseline previa somente um script de manutenção para comparar fonte e instalação global; a passagem posterior de readiness adicionou também uma validação portátil de release. Ambos permanecem fora da skill instalável e não alteram estado. Não haverá README dentro da pasta da skill; informações de desenvolvimento e publicação vivem na raiz do repositório. A licença inicialmente ficou pendente nesta baseline e foi definida como MIT pela passagem posterior de readiness, antes de qualquer publicação pública.
 
 ## 15. Critérios de aceite da versão 1
 
 1. A invocação `$think-with-me` abre uma conversa de colaboração e não inicia execução.
 2. A skill diferencia fase, família, esforço e modo de trabalho em vez de recomendar “o mais forte”.
 3. Para decisão aberta, pergunta uma coisa por vez com recomendação; para contexto suficiente, sintetiza sem entrevista artificial.
-4. Cada encaminhamento material termina com uma visão clara do assistente e, quando relevante, modelo da conversa, orientação sobre subagent e o que precisa de confirmação — sem formato obrigatório de relatório.
+4. Cada encaminhamento material termina com uma visão clara do assistente e, quando relevante, sugestão condicional de modelo, orientação sobre subagent e o que precisa de confirmação — sem formato obrigatório de relatório.
 5. A recomendação de Luna Max exige tarefa clara, longa/autônoma e critérios de validação; não aparece automaticamente para toda implementação.
 6. Sol é usado como intervenção delimitada para ambiguidade/risco, não como conversa inteira por padrão.
 7. Subagent só aparece com escopo independente, saída verificável e aprovação explícita; nunca é disparado pela skill.
 8. O processo é independente de outras skills e ferramentas, e respeita a autoridade do usuário sobre aprovação e sobre onde registrar decisões.
 9. Números e alegações de benchmark ficam em relatório datado com fontes e limitações, não escondidos como certeza na instrução da skill.
-10. A skill passa na validação estrutural, é instalada localmente, é exercitada em cenários representativos e só depois considerada para publicação pública.
+10. A skill passa na validação estrutural, a instalação é comparada com a fonte, e cenários representativos são exercitados antes de qualquer publicação pública.
 
 ## 16. Estado atual
 
-Aprovada a especificação, a implementação local pode criar a estrutura da skill, escrever `SKILL.md`, as referências e os metadados de agente; então validar e instalar localmente. A publicação no GitHub público continua bloqueada até haver uso real, ajustes e uma escolha explícita de licença.
+A baseline v1 foi criada e instalada localmente. A [spec de correção de confiabilidade](2026-07-17-think-with-me-reliability-correction.md) governa as mudanças posteriores de contrato, validação e sincronização; a [passagem de readiness](../plans/2026-07-17-public-release-readiness.md) definiu MIT, documentação de distribuição e validação portátil. A publicação no GitHub público continua bloqueada até haver uso real, ajustes e cenários de avaliação aprovados.

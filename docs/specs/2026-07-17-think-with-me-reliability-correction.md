@@ -1,6 +1,6 @@
 # Think With Me — correção de confiabilidade
 
-**Status:** aguardando revisão da spec  
+**Status:** implementada localmente; aguardando revisão do diff antes de commit, push ou sincronização global
 **Data:** 17 de julho de 2026  
 **Escopo:** corrigir os contratos de autoridade, autonomia, roteamento e manutenção identificados na revisão completa.  
 **Fora de escopo:** adicionar capacidades novas, automatizar execução ou publicar a skill.
@@ -80,9 +80,10 @@ O repositório é a fonte canônica. A cópia global é uma distribuição delib
 O fluxo oficial será:
 
 1. Validar a fonte local.
-2. Publicar a alteração aprovada no repositório privado.
-3. Executar `npx --yes skills update -g think-with-me -y`.
-4. Executar uma verificação somente leitura que compare a fonte com a cópia global.
+2. Apresentar o diff local para revisão da pessoa.
+3. Somente após autorização explícita, fazer o commit e o push aprovados no repositório privado.
+4. Somente após autorização explícita para sincronizar, executar `npx --yes skills update -g think-with-me -y`.
+5. Executar uma verificação somente leitura que compare a fonte com a cópia global.
 
 Um script de manutenção no repositório verificará a igualdade entre `skills/think-with-me/` e a instalação global. Ele não instalará, atualizará ou alterará nada.
 
@@ -134,4 +135,5 @@ Nenhum desses arquivos novos pertence à pasta instalável, exceto as três peç
 2. Criar a verificação de sincronização e os casos de avaliação.
 3. Atualizar documentação de estado e o fluxo de distribuição.
 4. Rodar validação estrutural, verificação de instalação e os cenários comportamentais aprovados.
-5. Sincronizar a cópia global apenas quando a fonte passar em todas as verificações.
+5. Apresentar o diff e aguardar revisão e autorização explícita antes de commit, push ou sincronização global.
+6. Sincronizar a cópia global apenas quando a fonte passar em todas as verificações e a pessoa autorizar essa etapa.

@@ -10,7 +10,7 @@ Uma regra imatura muda com frequência. Distribuí-la agora criaria três interp
 >
 > **Próximo passo:** definir quais resultados o contrato central deve devolver.
 >
-> **Modelo:** **Terra High** — regra em descoberta com trade-offs comuns.
+> _Modelo para o próximo passo: **Terra High** — definir as saídas do contrato ainda em descoberta._
 
 ## One open decision
 
@@ -22,7 +22,7 @@ Centralizar reduz divergência; distribuir aumenta autonomia, mas antecipa contr
 >
 > **Próximo passo:** decidir se a primeira versão terá uma única fonte de verdade. Eu recomendo que sim. Você confirma essa direção?
 >
-> **Modelo:** **Terra High** — a decisão ainda exige comparar alternativas.
+> _Modelo para o próximo passo: **Terra High** — fechar a escolha de uma única fonte de verdade._
 
 ## Narrow follow-up
 
@@ -32,7 +32,7 @@ A distribuição precoce não é tecnicamente impossível; o problema é pagar a
 >
 > **Próximo passo:** definir quais entradas pertencem ao contrato central.
 >
-> **Modelo:** **Terra High** — o contexto continua em refinamento.
+> _Modelo para o próximo passo: **Terra High** — delimitar as entradas sem reabrir a arquitetura._
 
 ## Critical risk
 
@@ -42,18 +42,27 @@ Uma migração irreversível com risco de corrupção muda o problema. Antes do 
 >
 > **Próximo passo:** comprovar uma restauração completa em ambiente isolado. Eu recomendo bloquear a migração até essa evidência existir. Esse restore completo já passou?
 >
-> **Modelo:** **Sol High** ↑ de **Terra High** — surgiu risco de integridade em uma migração irreversível.
-> _Se mudar:_ **Terra High** após comprovar a recuperação.
+> _Modelo para o próximo passo: **Sol High** — comprovar recuperação e integridade antes da migração._
 
 ## Settled synthesis
 
-Quando a direção está fechada e resta apenas padronizar texto, a recomendação pode reduzir custo e esforço sem fingir que o modelo anterior continua ideal.
+Quando a direção está fechada, a transformação será repetida em grande volume e custo e latência são materiais, a recomendação pode reduzir despesa sem fingir que o modelo anterior continua ideal.
 
-> **Minha visão:** a direção já está decidida; agora precisamos preservar consistência ao condensar o material.
+> **Minha visão:** a direção já está decidida; o volume exige preservar consistência com menor custo e latência.
 >
-> **Próximo passo:** definir o formato único do resumo antes de gerar as versões finais.
+> **Próximo passo:** definir o formato único antes de condensar todas as versões em grande volume.
 >
-> **Modelo:** **Luna Medium** — síntese delimitada com prioridade de velocidade e custo.
+> _Modelo para o próximo passo: **Luna Medium** — condensar o conteúdo aprovado em grande volume com menor custo e latência._
+
+## Repeated corrections change the diagnosis
+
+When the user explicitly reports that Terra High, then higher effort, did not restore convergence and repeated corrections remain, use that outcome as evidence rather than recommending from the task category alone.
+
+> **Minha visão:** the rule is now understood, but previous framing errors show that the final contract still needs precise judgment.
+>
+> **Próximo passo:** encode one recommendation derived from this step and the observed convergence evidence.
+>
+> _Modelo para o próximo passo: **Sol High** — integrar as correções e fechar a regra que ainda não convergiu._
 
 ## Keep unrelated process out
 

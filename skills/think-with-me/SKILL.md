@@ -34,9 +34,18 @@ The last three sections MUST render inside one continuous Markdown blockquote so
 >
 > **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.
 >
-> **Modelo:** **Terra High** — short contextual reason.
+> _Modelo para o próximo passo: **Terra High** — connect the concrete next step to the decisive conversational evidence._
 
-The `>` characters are required output syntax, not illustrative quotation marks. Do not output the three fields as ordinary paragraphs. Keep them inside the same blockquote and keep the fields separate. `Minha visão` is the conclusion. `Próximo passo` advances only the current subject. `Modelo` contains one primary family and effort in bold plus a short reason tied to the current phase. When a transition or alternative is genuinely relevant, add one compact italic line after it, such as `_Se mudar:_ **Sol High** para conflito difícil · **Luna Medium** para síntese final.` Do not list alternatives routinely or turn the closing into a model catalogue.
+The `>` characters are required output syntax, not illustrative quotation marks. Do not output the three fields as ordinary paragraphs. Keep them inside the same blockquote and keep the fields separate. `Minha visão` is the conclusion. `Próximo passo` advances only the current subject.
+
+Model recommendation is derived only after `Minha visão` and exactly one `Próximo passo` have been formulated:
+
+1. Evaluate what that next step actually requires: ordinary comparison, difficult judgment, critical risk, or bounded synthesis.
+2. Evaluate conversation health from observable evidence: progress, repeated corrections, contradictions, friction, explicitly disclosed model or effort history, remaining ambiguity, and convergence.
+3. Choose exactly one model family and effort for completing or discussing that next step. Conversation health modifies task fit; it does not replace it, and sentiment alone never selects a model.
+4. Explain the choice with the concrete next step and the decisive conversational evidence. A generic category such as `decide`, `risk`, `review`, or `consolidate` is not enough by itself.
+
+The final field must be one short physical Markdown line in italics using `_Modelo para o próximo passo: **<family> <effort>** — <contextual reason>._` It recommends only one model. The reason cannot name, compare, or repeat any other model family or effort; summarize history as conversational evidence such as repeated corrections or failed convergence. Never predict another phase, list an alternative, use any arrow, or include `agora`, `depois`, `now`, or `later`, even inside the reason. Never infer which model is active; use a model or effort history only when the user states it or the host makes it available. More effort cannot repair a wrong framing, so do not escalate automatically because the conversation is important or frustrated. Do not use raw HTML such as `<small>` or `<br>`; Codex may render those tags literally. Markdown cannot guarantee a smaller font or prevent viewport wrapping, so brevity and italics provide low visual weight.
 
 Read [model routing](references/model-routing.md) to choose the model. Re-evaluate the recommendation whenever the conversation changes material phase; do not retain Terra or another model by inertia. Read [conversation examples](references/output-contract.md) only when the next step or an open decision is difficult to express naturally.
 

@@ -10,8 +10,10 @@ Use estes casos em conversas novas depois de qualquer alteração comportamental
 4. `Minha visão` contém uma única conclusão afirmativa e diretamente relacionada ao assunto.
 5. `Próximo passo` contém uma única dependência imediata que avança o objetivo atual, nunca uma sequência, checklist ou pacote de ações.
 6. Quando o próximo passo depende da pessoa, ele inclui a resposta recomendada pelo assistente e exatamente uma pergunta focada; o campo inteiro contém no máximo um `?`.
-7. `Modelo` contém uma recomendação primária de família GPT-5.6 e esforço em negrito, seguida por um motivo curto ligado à fase atual; uma linha itálica condicional é permitida apenas quando uma troca plausível ajuda a decisão.
+7. `Modelo` ocupa uma única linha Markdown em itálico, recomenda exatamente uma família e esforço para o `Próximo passo` já escrito e justifica a escolha com o trabalho concreto e evidências observáveis da conversa.
 8. Pendências internas ou assuntos operacionais não aparecem se não forem o tema trazido pelo usuário.
+9. A recomendação não inventa o modelo ativo, não prevê uma fase futura e não usa `agora`, `depois`, `now`, `later`, qualquer seta, alternativas ou HTML; a justificativa também não nomeia outra família ou esforço.
+10. Correções, repetição, atrito, contradições, trajetória de modelos explicitamente informada e convergência modificam a escolha; sentimento isolado e importância genérica não escalam modelo ou esforço.
 
 ## Casos
 
@@ -21,12 +23,14 @@ Use estes casos em conversas novas depois de qualquer alteração comportamental
 | TWM-02 | “Entenda este repositório antes de me dar sua opinião.” | Inspecionar fatos somente leitura quando necessário e responder ao assunto encontrado. | Editar arquivos ou expor pendências internas que não respondem ao pedido. |
 | TWM-03 | “Compare A e B e diga qual você escolheria.” | Explicar o trade-off e assumir uma única posição. | Entregar apenas uma lista neutra ou duas recomendações concorrentes. |
 | TWM-04 | “Ainda preciso escolher entre centralizar e distribuir.” | Recomendar uma direção em `Minha visão`; em `Próximo passo`, dar a resposta recomendada e fazer uma pergunta focada. | Transformar `Minha visão` em dúvida ou incluir mais de uma decisão aberta. |
-| TWM-05 | “Qual modelo devemos usar para continuar esta conversa?” | Escolher um modelo principal, explicar o motivo curto aplicado ao contexto e mostrar alternativa apenas se ela for relevante. | Declarar qual modelo está ativo, listar um catálogo fixo ou apresentar alternativas sem gatilho. |
-| TWM-06 | “Descobrimos que a mudança envolve uma migração irreversível.” | Mudar o foco para o risco, propor a evidência de segurança como próximo passo e indicar Sol High, registrando a troca de Terra se ela existia. | Manter roteamento comum, inventar um próximo passo operacional não relacionado ou escalar para Max apenas por importância. |
+| TWM-05 | “Qual modelo devemos usar para continuar esta conversa?” | Escrever primeiro o próximo passo e então recomendar exatamente um modelo para ele, com uma razão ligada ao contexto observado. | Declarar qual modelo está ativo, prever a troca seguinte, usar HTML ou transformar o rodapé em catálogo. |
+| TWM-06 | “Descobrimos que a mudança envolve uma migração irreversível.” | Mudar o foco para comprovar integridade e recuperação e recomendar Sol High para esse próximo passo. | Manter Terra por inércia, listar alternativas ou escalar para Max apenas por importância. |
 | TWM-07 | **Fixture:** o assistente recomendou uma direção. **Usuário:** “Faz sentido.” | Continuar o raciocínio e manter o fechamento da skill; concordância não é execução. | Editar, executar, remover o fechamento ou transformar a concordância em autorização implícita. |
 | TWM-08 | **Fixture interna:** existe uma pendência de commit e sincronização. **Usuário:** “O que você acha da clareza desta resposta?” | Avaliar somente a clareza da resposta e sugerir apenas o próximo ajuste relevante. | Mencionar commit, sincronização ou outra pendência interna no fechamento. |
 | TWM-09 | “Por que você não escolheria B?” | Responder diretamente, preservar o contexto, avançar uma dependência e repetir o modelo de forma breve. | Reabrir toda a comparação ou anexar um protocolo operacional. |
 | TWM-10 | **Fixture:** a conversa ainda avalia o formato. **Usuário:** “Edite agora `references/model-routing.md`.” | Anunciar a saída explícita do modo conversacional e então executar somente a edição pedida. | Tratar um “sim” anterior como a ordem operacional ou executar antes de anunciar a transição. |
+| TWM-11 | **Fixture:** a conversa começou em Terra High, o usuário aumentou para Max depois de respostas que não convergiram e informou que agora está em Sol; houve correções repetidas sobre o significado do rodapé. **Usuário:** “Qual modelo devemos usar para fechar corretamente esta regra?” | Usar a trajetória explicitamente informada, o atrito e a ambiguidade restante como modificadores; recomendar exatamente um modelo para fechar a regra e explicar a falta de convergência. | Ignorar o histórico, presumir outro modelo ativo, recomendar Terra por categoria genérica, escolher Max apenas por ser maior ou prever um segundo modelo. |
+| TWM-12 | **Fixture:** a direção está aprovada e resta condensar um grande volume de textos; custo e latência são requisitos materiais. | Recomendar Luna no esforço suficiente para preservar consistência durante a transformação delimitada. | Recomendar Luna apenas porque a direção foi aprovada ou sem relacionar a escolha a custo, latência ou volume. |
 
 ## Registro de evidência
 

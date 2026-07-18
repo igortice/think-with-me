@@ -1,16 +1,38 @@
 # Model Routing for the Conversation
 
-Recommend the model for the next material phase of the conversation, not for an imagined implementation. Recommend exactly one primary model and effort, then explain it briefly in the final block, such as `**Modelo:** **Terra High** — comparando trade-offs.` A conditional alternative is optional: include it only when a plausible next-phase change would help the person decide.
+Recommend exactly one model and effort for the next step that has already been written. The recommendation is a diagnosis of the remaining work and the conversation's ability to converge, not a generic label for the whole conversation and not a prediction of a future phase.
 
 ## Dynamic choice
 
-Re-evaluate the recommendation whenever the conversation changes material phase: a new technical ambiguity, an irreversible or high-impact constraint, a decision that becomes settled, or a shift to cost/latency-sensitive synthesis. Do not retain Terra, Sol, or Luna by inertia. When the primary choice changes, show the previous model compactly on the same line when that transition helps explain the change.
+Re-evaluate the recommendation whenever the conversation changes material phase: a new technical ambiguity, an irreversible or high-impact constraint, a decision that becomes settled, or a shift to cost/latency-sensitive synthesis. Do not retain Terra, Sol, or Luna by inertia.
 
-| Conversational need | Primary recommendation | Decisive reason |
+First choose by next-step fit:
+
+| Next-step need | Base recommendation | Decisive reason |
 | --- | --- | --- |
-| Understanding context, comparing options, planning, refining an idea, or writing a specification with ordinary trade-offs | **Terra High** | This is the balanced default of this skill for connecting context, alternatives, and ordinary risk. It is a local policy, not a universal OpenAI default. |
-| Difficult technical reasoning, complex professional work, architecture, security, authorization, irreversible change, data integrity, concurrency, or a high cost of error | **Sol High** | The next discussion needs the frontier tier for deeper judgment, not merely a generic planning model. |
-| Summarizing, classifying, extracting, or polishing a direction that is already clear, when cost, latency, or volume matters | **Luna Medium** | The remaining work is bounded synthesis rather than open-ended judgment. Increase to High only when that bounded work still needs multi-step checking. |
+| Understanding context, comparing options, planning, refining an idea, or writing a specification with ordinary trade-offs | **Terra High** | This is the balanced policy of this skill for connecting context, alternatives, and ordinary risk. It is not a universal OpenAI default. |
+| Difficult technical reasoning, complex professional judgment, architecture, security, authorization, irreversible change, data integrity, concurrency, or a high cost of error | **Sol High** | The next step needs the frontier tier for deeper judgment. |
+| Summarizing, classifying, extracting, or polishing a direction that is already clear, when cost, latency, or volume matters | **Luna Medium** | The remaining work is bounded synthesis rather than open-ended judgment. |
+
+Then use conversation health as a modifier:
+
+| Observable evidence | Routing effect |
+| --- | --- |
+| The conversation is progressing and the remaining trade-off is ordinary | Keep the base recommendation; do not escalate for novelty. |
+| Corrections repeat, answers contradict the latest requirement, or framing changes have not restored convergence | Increase depth only when the next step still requires judgment; explain the failed convergence concretely. |
+| The user explicitly reports unsuccessful model or effort changes | Use the outcomes as evidence. More effort on the same wrong framing is not progress. |
+| Direction is accepted and only bounded transformation remains | Prefer Luna only when cost, latency, or volume is materially relevant; otherwise retain the family needed for quality and judgment. |
+| Frustration or urgency appears without additional ambiguity or risk | Do not escalate from sentiment alone. Address the communication problem directly. |
+
+Conversation health modifies next-step fit; neither signal is sufficient alone. Never infer the active model from unavailable host state. If the user states the active model or a model trajectory, treat it as evidence, not as a command to preserve or replace that model. The reasoning may consider that history, but the footer reason must summarize its outcome without naming any second family or effort.
+
+Render one compact line whose reason names the actual next step and the decisive evidence:
+
+```md
+> _Modelo para o próximo passo: **Terra High** — fechar o trade-off de ownership ainda em aberto._
+> _Modelo para o próximo passo: **Sol High** — integrar correções repetidas e fechar o contrato sem nova ambiguidade._
+> _Modelo para o próximo passo: **Luna Medium** — condensar a direção aprovada sem reabrir decisões._
+```
 
 ## Effort
 
@@ -23,4 +45,4 @@ Last reviewed: 2026-07-18.
 - [OpenAI API model catalog](https://developers.openai.com/api/docs/models): Sol is the frontier model for complex reasoning and coding; Terra balances intelligence and cost; Luna is for cost-sensitive, high-volume workloads. The catalog lists reasoning through `max` for all three.
 - [GPT-5.6 product availability](https://openai.com/pt-BR/index/gpt-5-6/): Codex availability and plan-dependent `max` / `ultra` options.
 
-If the context does not materially change, keep the recommendation. Never describe a model as active or instruct the user to remain on it.
+The line contains no second model, future transition, arrow, `agora`, `depois`, `now`, or `later`. Recalculate it from the next step on every response; stable evidence may legitimately produce the same recommendation.

@@ -26,7 +26,7 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 1. Assistente recomenda A e Terra High.
 2. Usuário pergunta: “Por que não B?”
 
-**Esperado:** responder diretamente; `Minha visão` continua afirmativa, `Próximo passo` avança uma dependência e `Modelo` repete Terra High com motivo contextual curto.
+**Esperado:** responder diretamente; `Minha visão` continua afirmativa, `Próximo passo` avança uma dependência e `Modelo` recomenda exatamente uma família e esforço para esse próximo passo.
 
 **Proibido:** repetir toda a análise inicial ou omitir um dos campos finais.
 
@@ -44,7 +44,7 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 1. A conversa comum usa Terra High.
 2. O usuário revela uma migração irreversível com risco de integridade.
 
-**Esperado:** explicar a mudança de contexto, colocar a evidência de segurança como próximo passo e indicar `Sol High ↑ de Terra High` com motivo contextual curto.
+**Esperado:** explicar a mudança de contexto, colocar a evidência de segurança como próximo passo e recomendar somente Sol High para esse próximo passo na linha compacta.
 
 **Proibido:** manter Terra por inércia ou usar Max por importância genérica.
 
@@ -52,10 +52,11 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 
 1. A conversa avaliou alternativas em Terra High.
 2. A pessoa fecha a direção e pede somente uma síntese padronizada.
+3. A pessoa informa que o volume é grande e que custo ou latência importam materialmente.
 
-**Esperado:** mudar para Luna Medium, explicando que a tarefa se tornou síntese delimitada e custo/velocidade importam.
+**Esperado:** recomendar Luna Medium para o próximo passo, explicando que a tarefa se tornou síntese delimitada e custo, latência ou volume importam.
 
-**Proibido:** manter Terra por inércia, usar Sol por hábito ou listar todos os modelos sem uma recomendação principal.
+**Proibido:** recomendar Luna apenas porque a direção foi aceita, manter Terra por inércia, usar Sol por hábito ou listar modelos alternativos/futuros.
 
 ## TWM-M07 — Contexto interno não vira assunto
 
@@ -74,3 +75,14 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 **Esperado:** não classificar a ausência de ativação como falha do comportamento da fonte candidata.
 
 **Proibido:** prometer afinidade de sessão que o host não fornece.
+
+## TWM-M09 — Falta de convergência modifica a recomendação
+
+1. A conversa começa em Terra High para definir um rodapé de recomendação de modelo.
+2. Depois de respostas genéricas que não resolvem o pedido, o usuário informa que aumentou o esforço para Max.
+3. Após novas correções, o usuário informa que está usando Sol e explica que a recomendação deve considerar o que funcionou, o atrito e o próximo passo.
+4. O próximo passo restante é fechar o contrato exato da skill sem repetir a premissa rejeitada.
+
+**Esperado:** formular o próximo passo antes da recomendação; considerar a trajetória informada e as correções repetidas como evidência de falta de convergência; recomendar exatamente um modelo e esforço para fechar o contrato; explicar a escolha com esse contexto concreto.
+
+**Proibido:** dizer `Terra agora → Luna depois`, listar alternativas, inventar o modelo ativo, escolher Max apenas por profundidade nominal ou usar apenas categorias genéricas como `decidir` e `consolidar`.

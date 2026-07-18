@@ -27,7 +27,6 @@ manifest="$(bash "${repo_root}/scripts/candidate-manifest.sh")"
 grep -Fq 'CANDIDATE_ID=' <<<"${manifest}" || fail "candidate manifest has no candidate id"
 grep -Fq 'PACKAGE_SHA256=' <<<"${manifest}" || fail "candidate manifest has no package hash"
 grep -Fq 'FILE_SHA256=' <<<"${manifest}" || fail "candidate manifest has no file hashes"
-bash "${repo_root}/scripts/verify-evidence-record.sh"
 
 skill_file="${repo_root}/skills/think-with-me/SKILL.md"
 routing_file="${repo_root}/skills/think-with-me/references/model-routing.md"
@@ -35,7 +34,7 @@ output_file="${repo_root}/skills/think-with-me/references/output-contract.md"
 
 require_text "${skill_file}" '**Minha visão:**'
 require_text "${skill_file}" '**Próximo passo:**'
-require_text "${skill_file}" '**Modelo:**'
+require_text "${skill_file}" '_Modelo para o próximo passo:'
 require_text "${skill_file}" 'one continuous Markdown blockquote'
 require_text "${skill_file}" 'Do not output the three fields as ordinary paragraphs'
 require_text "${skill_file}" 'one concrete next step'
@@ -45,14 +44,17 @@ require_text "${skill_file}" '`Próximo passo` contains at most one `?` characte
 require_text "${skill_file}" 'A short confirmation or approval keeps this conversational mode active'
 require_text "${skill_file}" 'direct operational instruction that identifies the action to perform'
 require_text "${skill_file}" 'announce that transition before executing it'
-require_text "${routing_file}" 'Recommend exactly one primary model and effort'
+require_text "${skill_file}" 'one short physical Markdown line'
+require_text "${skill_file}" 'Model recommendation is derived only after'
+require_text "${skill_file}" 'conversation health'
+require_text "${routing_file}" 'Recommend exactly one model and effort for the next step'
 require_text "${routing_file}" 'Re-evaluate the recommendation whenever the conversation changes material phase'
-require_text "${routing_file}" 'A conditional alternative is optional'
+require_text "${routing_file}" 'Conversation health modifies next-step fit'
+require_text "${routing_file}" 'Never infer the active model'
 require_text "${output_file}" 'one question and your recommended answer'
-require_text "${output_file}" '**Modelo:** **Terra High** —'
-require_text "${output_file}" '_Se mudar:_'
+require_text "${output_file}" '_Modelo para o próximo passo: **Terra High**'
 
-closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> **Modelo:** **Terra High** — short contextual reason.'
+closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> _Modelo para o próximo passo: **Terra High** — connect the concrete next step to the decisive conversational evidence._'
 if ! rg -U -F -- "${closing_template}" "${skill_file}" >/dev/null; then
   fail "skill does not contain the literal continuous blockquote template"
 fi
@@ -78,8 +80,62 @@ if rg -n -F '**Modelo:** Terra High.' "${skill_file}" "${output_file}" >/dev/nul
   fail "legacy context-free model line still exists in the active contract"
 fi
 
-if ! rg -n -F '**Modelo:** **Sol High** ↑ de **Terra High**' "${output_file}" >/dev/null; then
-  fail "examples do not preserve a visible model transition"
+if rg -n -F '_Se mudar:_' "${skill_file}" "${routing_file}" "${output_file}" >/dev/null; then
+  fail "legacy second-line model alternatives still exist in the active contract"
+fi
+
+model_footer_is_valid() {
+  local footer="$1"
+  local footer_body
+  local bold_delimiters
+  local model_effort
+  local reason
+
+  footer_body="${footer#> }"
+  if rg -qiP '\b(agora|depois|now|later)\b|\p{S}|->|=>|<-|<=|</?[A-Za-z][^>]*>' <<<"${footer_body}"; then
+    return 1
+  fi
+
+  bold_delimiters="$(grep -o '\*\*' <<<"${footer}" | wc -l | tr -d ' ')"
+  [[ "${bold_delimiters}" == "2" ]] || return 1
+
+  model_effort="$(sed -E 's/^> _Modelo para o próximo passo: \*\*([^*]+)\*\*.*/\1/' <<<"${footer}")"
+  [[ "${model_effort}" =~ ^(Terra|Sol|Luna)[[:space:]](None|Low|Medium|High|XHigh|Max)$ ]] || return 1
+
+  reason="$(sed -nE 's/^> _Modelo para o próximo passo: \*\*[^*]+\*\* — (.*)\._$/\1/p' <<<"${footer}")"
+  [[ -n "${reason}" && "${reason}" =~ [^[:space:]] ]] || return 1
+  ! rg -qi '\b(Terra|Sol|Luna|None|Low|Medium|High|XHigh|Max)\b' <<<"${reason}"
+}
+
+model_footer_count=0
+while IFS= read -r footer; do
+  model_footer_count=$((model_footer_count + 1))
+  model_footer_is_valid "${footer}" || fail "invalid model footer: ${footer}"
+done < <(rg --no-filename '^> _Modelo para o próximo passo:' "${skill_file}" "${routing_file}" "${output_file}")
+[[ "${model_footer_count}" -gt 0 ]] || fail "no model footer examples found"
+
+invalid_model_footers=(
+  '> _Modelo para o próximo passo: **Sol High** — Agora fechar a regra._'
+  '> _Modelo para o próximo passo: **Sol High** → **Luna Medium**._'
+  '> <small>Modelo para o próximo passo: **Sol High** — fechar a regra.</small>'
+  '> _Modelo para o próximo passo: **Sol High / Max** — fechar a regra._'
+  '> _Modelo para o próximo passo: **Sol High** — Terra falhou e precisamos fechar._'
+  '> _Modelo para o próximo passo: **Sol High** — terra falhou e precisamos fechar._'
+  '> _Modelo para o próximo passo: **Sol High** — Max não resolveu o enquadramento._'
+  '> _Modelo para o próximo passo: **Sol High** — fechar a regra ← sem transição._'
+  '> _Modelo para o próximo passo: **Sol High** — fechar a regra ➡ sem transição._'
+  '> _Modelo para o próximo passo: **Sol High** — fechar a regra ⬅ sem transição._'
+  '> _Modelo para o próximo passo: **Sol High** — fechar a regra 🔄 sem transição._'
+  '> _Modelo para o próximo passo: **Sol High** — _'
+)
+for footer in "${invalid_model_footers[@]}"; do
+  if model_footer_is_valid "${footer}"; then
+    fail "model footer validator accepted invalid fixture: ${footer}"
+  fi
+done
+
+if rg -n '^> .*<br>|  $' "${skill_file}" "${routing_file}" "${output_file}" >/dev/null; then
+  fail "model contract permits an explicit Markdown or HTML line break"
 fi
 
 if rg -n -F 'require_text "${skill_root}/SKILL.md"' "${repo_root}/scripts/validate-structure.sh" >/dev/null; then
@@ -91,5 +147,7 @@ require_text "${repo_root}/scripts/validate-structure.sh" 'Structural validation
 if grep -Fq 'Public-release validation passed.' "${repo_root}/scripts/validate-skill.sh"; then
   fail "legacy validator still claims public-release validation"
 fi
+
+bash "${repo_root}/scripts/verify-evidence-record.sh"
 
 echo "Evidence Gate v1 checks passed."

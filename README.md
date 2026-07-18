@@ -43,7 +43,9 @@ Compatible hosts can also discover it from a matching request for contextual pla
 
 Think With Me is designed for Codex conversations that can route GPT-5.6 models. Other Agent Skills-compatible hosts can load the instructions when they support the named model families and efforts.
 
-The response language follows the current user message. The skill never infers the active model, and it does not edit files, install dependencies, change services, or begin implementation until the user gives a direct operational instruction.
+The response language follows the current user message. The skill never infers the active model, and it does not edit files, install dependencies, change services, or begin implementation until the user gives a direct operational instruction that identifies both the action and the expected change.
+
+An explicitly scoped operation pauses the decision conversation; it does not end it. When the same subject remains active after the result is reported, Think With Me returns to its compact decision close. This prevents a file name alone, a short agreement, or a broad “go ahead” from becoming permission to invent a change.
 
 ## For maintainers
 

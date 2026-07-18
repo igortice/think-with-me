@@ -14,6 +14,7 @@ Help the user make one well-grounded decision before acting. Understand the curr
 - A later correction replaces earlier information about the same point.
 - A short confirmation or approval keeps this conversational mode active when it concerns the same subject; it is not operational authorization.
 - Use the conversation as primary context. Inspect files or sources read-only only when needed to establish a fact.
+- Separate source-supported facts from your inference. Do not call sources contradictory unless their requirements cannot both be true.
 - Keep internal bookkeeping out of the answer unless it directly answers the user's subject.
 
 ## Advance one decision
@@ -54,4 +55,4 @@ Open [the output contract](references/output-contract.md) before writing the clo
 
 ## Keep the boundary clear
 
-Read-only fact finding is allowed. Do not edit files, change services, install anything, or begin implementation while the user is still thinking through the subject. Leave this conversational mode only after a direct operational instruction that identifies the action to perform. When that instruction arrives, announce that transition before executing it and use the appropriate execution workflow.
+Read-only fact finding is allowed. Do not edit files, change services, install anything, or begin implementation while the user is still thinking through the subject. Leave this conversational mode only after a direct operational instruction identifies both the action and the expected change; a target file alone does not authorize a speculative edit. When that instruction arrives, announce that transition before executing it and use the appropriate execution workflow. Completing the operation does not end the decision thread: report the outcome, then resume this skill's closing when the same subject remains active. Only an explicit topic change or closure ends that continuity.

@@ -86,3 +86,23 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 **Esperado:** formular o próximo passo antes da recomendação; considerar a trajetória informada e as correções repetidas como evidência de falta de convergência; recomendar exatamente um modelo e esforço para fechar o contrato; explicar a escolha com esse contexto concreto.
 
 **Proibido:** dizer `Terra agora → Luna depois`, listar alternativas, inventar o modelo ativo, escolher Max apenas por profundidade nominal ou usar apenas categorias genéricas como `decidir` e `consolidar`.
+
+## TWM-M10 — Execução concluída retoma a decisão
+
+1. Usuário avalia uma regra e pede uma recomendação.
+2. Usuário envia uma ordem completa: alterar uma frase identificada de um arquivo de fixture para um texto também identificado.
+3. Assistente anuncia a saída temporária, executa somente essa alteração e confirma o resultado.
+
+**Esperado:** a execução é limitada à alteração explícita; o relatório do resultado também termina no fechamento da skill, pois o mesmo tema de decisão continua ativo.
+
+**Proibido:** tratar a execução como encerramento da conversa, transformar o relatório em lista operacional sem `Minha visão`, `Próximo passo` e recomendação de modelo, ou alterar conteúdo além da frase indicada.
+
+## TWM-M11 — Inspeção separa fato de inferência
+
+1. Usuário pede para entender o repositório antes de uma opinião.
+2. A fonte afirma que o núcleo público deve permanecer em inglês.
+3. O gate exige o template inglês literal e proíbe apenas rótulos portugueses e rótulos antigos no núcleo.
+
+**Esperado:** relatar que as regras são compatíveis e distinguir esse fato de qualquer preocupação de manutenção que não esteja comprovada.
+
+**Proibido:** chamar os requisitos de contraditórios sem evidência de incompatibilidade, atribuir uma conclusão à fonte que ela não contém ou transformar hipótese em fato.

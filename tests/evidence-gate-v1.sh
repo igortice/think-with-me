@@ -31,6 +31,8 @@ grep -Fq 'FILE_SHA256=' <<<"${manifest}" || fail "candidate manifest has no file
 skill_file="${repo_root}/skills/think-with-me/SKILL.md"
 routing_file="${repo_root}/skills/think-with-me/references/model-routing.md"
 output_file="${repo_root}/skills/think-with-me/references/output-contract.md"
+cases_file="${repo_root}/evals/think-with-me-cases.md"
+multiturn_cases_file="${repo_root}/evals/think-with-me-multiturn-cases.md"
 
 require_text "${skill_file}" 'Use the language of the current user message'
 require_text "${skill_file}" 'never output Portuguese prose or labels'
@@ -42,8 +44,10 @@ require_text "${skill_file}" 'one concrete next step'
 require_text "${skill_file}" 'not a sequence, checklist, or bundle of actions'
 require_text "${skill_file}" 'include your recommended answer'
 require_text "${skill_file}" 'A short confirmation or approval keeps this conversational mode active'
-require_text "${skill_file}" 'direct operational instruction that identifies the action to perform'
+require_text "${skill_file}" 'identifies both the action and the expected change'
 require_text "${skill_file}" 'announce that transition before executing it'
+require_text "${skill_file}" 'does not end the decision thread'
+require_text "${skill_file}" 'Separate source-supported facts from your inference'
 require_text "${skill_file}" 'one short physical Markdown line'
 require_text "${skill_file}" 'Model recommendation is derived only after'
 require_text "${skill_file}" 'conversation health'
@@ -60,6 +64,11 @@ require_text "${routing_file}" 'Conversation health modifies next-step fit'
 require_text "${routing_file}" 'Never infer the active model'
 require_text "${output_file}" 'one question and your recommended answer'
 require_text "${output_file}" '`Terra High` · connect the concrete next step to the decisive conversational evidence.'
+require_text "${cases_file}" 'Compare A e B com estes fatos'
+require_text "${cases_file}" 'inventar uma edição especulativa'
+require_text "${multiturn_cases_file}" 'TWM-M10 — Execução concluída retoma a decisão'
+require_text "${multiturn_cases_file}" 'o relatório do resultado também termina no fechamento da skill'
+require_text "${multiturn_cases_file}" 'TWM-M11 — Inspeção separa fato de inferência'
 
 closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> `Terra High` · connect the concrete next step to the decisive conversational evidence.'
 if ! rg -U -F -- "${closing_template}" "${output_file}" >/dev/null; then

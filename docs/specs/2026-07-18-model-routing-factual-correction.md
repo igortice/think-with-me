@@ -25,8 +25,9 @@ Modificar o pacote instalável, suas avaliações e o gate de evidência.
 - Adicionar fontes oficiais da OpenAI e data de revisão no próprio arquivo.
 - Manter `think-with-me` ativo durante a mesma conversa de entendimento,
   inclusive após concordância ou aprovação de uma direção; sair dele apenas
-  diante de uma instrução operacional explícita.
-- Substituir a linha seca de modelo por uma recomendação compacta em itálico de
+  temporariamente diante de uma instrução operacional que identifique a ação e
+  a mudança esperada, retomando o fechamento se o mesmo assunto continuar.
+- Renderizar a recomendação como uma linha compacta em código inline, com
   exatamente um modelo e esforço para o `Próximo passo` apresentado logo acima.
 - Calcular a recomendação somente depois de formular `Minha visão` e `Próximo
   passo`; o rodapé não escolhe um modelo para a conversa em abstrato.
@@ -53,7 +54,7 @@ Modificar o pacote instalável, suas avaliações e o gate de evidência.
 ## Fora de escopo
 
 - Alterar a autoridade somente leitura ou iniciar execução sem uma instrução
-  operacional explícita.
+  operacional que identifique tanto a ação quanto a mudança esperada.
 - Mudar a família/modelo de uma conversa já em andamento por inércia.
 - Criar regras baseadas em benchmarks ou prometer custo, disponibilidade ou
   limites de plano.
@@ -73,12 +74,16 @@ conversacionais e os limites para escalar serão tratados como política local d
 skill.
 
 O fechamento continuará um blockquote contínuo. Seus campos serão `Minha
-visão`, `Próximo passo` e `Modelo`; o último sempre será uma única linha
-Markdown em itálico, escrita somente depois dos dois campos anteriores. Ela
-conterá exatamente uma recomendação e uma justificativa contextual curta:
+visão`, `Próximo passo` e uma única linha final com o modelo em código inline,
+escrita somente depois dos dois campos anteriores. Ela conterá exatamente uma
+recomendação e uma justificativa contextual curta:
 
 ```md
-> _Modelo para o próximo passo: **Sol High** — fechar esta regra após correções repetidas._
+> **Minha visão:** as correções repetidas mostram que a regra ainda precisa de julgamento preciso.
+>
+> **Próximo passo:** fechar a formulação única que eliminaria a ambiguidade restante.
+>
+> `Sol High` · integrar as correções repetidas sem reabrir a regra.
 ```
 
 No caso que originou esta revisão, a trajetória explícita `Terra High` → `Max`
@@ -112,10 +117,12 @@ será avaliada na resposta em que ela se tornar o próximo passo real.
 5. Executar uma conversa nova com o cenário aprovado e confirmar que a resposta
    considera próximo passo, correções e convergência sem inventar o modelo
    ativo.
-6. Executar `bash scripts/verify-global-install.sh` antes da sincronização,
+6. Executar um cenário em que uma edição com mudança esperada é concluída e
+   confirmar que o relatório retoma o fechamento quando o assunto continua.
+7. Executar `bash scripts/verify-global-install.sh` antes da sincronização,
    confirmando que a divergência esperada é apenas a alteração local.
-7. Sincronizar os quatro arquivos do pacote com a instalação global aprovada.
-8. Executar novamente `bash scripts/verify-global-install.sh`,
+8. Sincronizar os quatro arquivos do pacote com a instalação global aprovada.
+9. Executar novamente `bash scripts/verify-global-install.sh`,
    `bash tests/evidence-gate-v1.sh` e `git diff --check`.
 
 ## Critério de aceite
@@ -123,4 +130,5 @@ será avaliada na resposta em que ela se tornar o próximo passo real.
 A referência deixa claro o papel de Sol, Terra e Luna e a distinção entre
 família e esforço, contém fontes oficiais datadas, recalcula uma única
 recomendação a partir do próximo passo e da saúde da conversa, nunca inventa o
-modelo ativo e preserva o blockquote público compacto.
+modelo ativo e preserva o blockquote público compacto antes e depois de uma
+execução explicitamente delimitada.

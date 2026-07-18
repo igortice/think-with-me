@@ -5,7 +5,7 @@
 
 ## Candidato
 
-- `PACKAGE_SHA256`: `71062ac2f1d8dc01e440805e378cd40ed4ab5fbe5d030407a0faf6715312f30d`
+- `PACKAGE_SHA256`: `7c8a500c15b656b512c69a0f2a191a93c9b855d2499f99d4d2a6a61ef96e2784`
 - Fonte: `skills/think-with-me/`
 - Instalação verificada: `<global-skills>/think-with-me/`
 
@@ -26,7 +26,7 @@ O contrato proíbe, na terceira linha, `Modelo para o próximo passo`, itálico,
 ## Contract validation passed
 
 - `UV_CACHE_DIR=.cache/uv UV_TOOL_DIR=.cache/uv-tools XDG_DATA_HOME=.cache/xdg bash scripts/validate-skill.sh` retornou `Structural validation passed.`
-- `bash tests/evidence-gate-v1.sh` valida o template canônico em português e inglês, cada exemplo ativo e fixtures negativos para o formato antigo, HTML, dois modelos, setas e previsões futuras.
+- `bash tests/evidence-gate-v1.sh` valida o template canônico em português e inglês, cada exemplo ativo e fixtures negativos para o formato antigo, HTML, dois modelos, setas, previsões futuras, instrução operacional incompleta, retomada após execução e separação entre fato e inferência.
 - `git diff --check` não encontrou erro de espaço em branco.
 
 ## Paridade global
@@ -36,7 +36,7 @@ O contrato proíbe, na terceira linha, `Modelo para o próximo passo`, itálico,
 
 ## Runtime limitation
 
-Foi iniciada uma execução efêmera e somente leitura de `$think-with-me` no Codex CLI, já com a cópia global nova. O CLI identificou o modelo e carregou a sessão, mas encerrou antes de gerar a resposta por uma incompatibilidade local do cache de modelos: `missing field supports_reasoning_summaries`. Portanto, esta evidência não declara um forward test aprovado; a validação comportamental externa deve ser repetida quando esse runtime estiver saudável.
+O Codex CLI ainda emitiu o aviso local de cache `missing field supports_reasoning_summaries`, mas as sessões efêmeras completaram e geraram respostas. Foram aprovados quatro forward tests sobre a instalação global atual: (1) uma solicitação de edição sem mudança esperada não alterou arquivo e manteve o fechamento da skill; (2) uma inspeção distinguiu fatos compatíveis de uma preocupação ainda não provada; (3) o caso concreto A/B escolheu a centralização da regra instável e preservou o fechamento; e (4) em uma cópia isolada do repositório, uma edição explicitamente definida alterou somente o título solicitado, verificou o diff e retomou o fechamento da decisão no mesmo tema. Os avisos de cache e de estado são não bloqueantes neste ambiente, mas devem continuar sendo observados em futuras execuções.
 
 ## Limites
 

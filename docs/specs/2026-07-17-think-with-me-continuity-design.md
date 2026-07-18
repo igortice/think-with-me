@@ -22,6 +22,7 @@ A correção mais recente substitui a informação anterior sobre o mesmo ponto.
 - O fechamento sempre reapresenta, de forma breve, a visão, o próximo passo e o modelo.
 - Quando a próxima dependência é uma decisão da pessoa, `Próximo passo` contém a recomendação do assistente e exatamente uma pergunta focada.
 - O fechamento não recapitula o workflow, não enumera pendências e não expõe contexto interno irrelevante.
+- Uma execução só pausa essa conversa quando a ordem identifica a ação e a mudança esperada. Depois de relatar o resultado, o fechamento volta se o mesmo assunto continuar ativo; somente uma mudança ou encerramento explícito de tema encerra a continuidade.
 
 ## Limite do host
 
@@ -29,4 +30,4 @@ A fonte pode preservar continuidade enquanto estiver selecionada. Uma conversa n
 
 ## Avaliação
 
-Os casos multi-turno verificam decisão preservada, correção mais recente, follow-up estreito, recomendação e pergunta concentradas no próximo passo, mudança de modelo por risco e ausência de vazamento de contexto interno.
+Os casos multi-turno verificam decisão preservada, correção mais recente, follow-up estreito, recomendação e pergunta concentradas no próximo passo, mudança de modelo por risco, retorno ao fechamento depois de uma execução delimitada e ausência de vazamento de contexto interno.

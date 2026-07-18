@@ -10,11 +10,11 @@
 
 ## Red comportamental encontrado
 
-As tasks `019f72c3-1cd3-7311-b8ff-51c6356b0c99` e `019f72c3-0af3-76f2-9ec1-37c8a821de42` confirmaram os três rótulos e o modelo curto, mas mostraram que `Próximo passo` ainda podia agrupar várias ações. O contrato foi endurecido para exigir uma única dependência imediata, nunca sequência, checklist ou pacote de ações. Esses resultados não liberam o candidato.
+Duas execuções independentes confirmaram os três rótulos e o modelo curto, mas mostraram que `Próximo passo` ainda podia agrupar várias ações. O contrato foi endurecido para exigir uma única dependência imediata, nunca sequência, checklist ou pacote de ações. Esses resultados não liberam o candidato.
 
 ## TWM-04, TWM-M03 e continuação aprovada
 
-- Task: `019f72c4-6bcb-7ff2-877d-3c8170e33310`
+- Execução de avaliação: cenário de continuidade.
 - Turno inicial: escolha entre centralizar uma regra instável e distribuí-la entre três serviços.
 - Follow-up: “Por que você não escolheria distribuir desde já?”
 - Continuação: “Confirmo centralizar. O que fazemos agora?”
@@ -31,7 +31,7 @@ As tasks `019f72c3-1cd3-7311-b8ff-51c6356b0c99` e `019f72c3-0af3-76f2-9ec1-37c8a
 
 ## TWM-06 — risco crítico
 
-- Task: `019f72c4-6f18-7fe2-96a4-fceb2a553c17`
+- Execução de avaliação: cenário de risco crítico.
 - Prompt: migração irreversível com risco de corrupção e restore ainda não comprovado.
 
 | Invariante | Resultado | Evidência |
@@ -48,23 +48,23 @@ As tasks `019f72c3-1cd3-7311-b8ff-51c6356b0c99` e `019f72c3-0af3-76f2-9ec1-37c8a
 
 ## Forward-test da instalação global
 
-- Paridade: `bash scripts/verify-global-install.sh` confirmou igualdade dos quatro arquivos entre a fonte e `/Users/igortice/.agents/skills/think-with-me/`.
-- Task: `019f72c6-ca5f-7f62-993d-60d6d29d2f99`.
+- Paridade: `bash scripts/verify-global-install.sh` confirmou igualdade dos quatro arquivos entre a fonte e `<global-skills>/think-with-me/`.
+- Execução de avaliação: cenário global final.
 - Invocação: `$think-with-me`, sem instrução para carregar a fonte do repositório.
 - Resultado: **pass**. A resposta recomendou centralização, colocou uma única decisão imediata em `Próximo passo`, incluiu a resposta recomendada e uma pergunta, não vazou processo interno e terminou somente com `**Modelo:** Terra High.`
 
 ## Correção visual — blockquote contínuo
 
-- Task local: `019f72c9-0e4d-7492-b83f-ab7bb8fb81ed`.
+- Execução de avaliação: cenário local de layout.
 - Motivo: o usuário pediu a barra vertical visível ao lado dos três campos finais.
 - Resultado: **pass**. A transcrição detalhada contém literalmente `> **Minha visão:**`, uma linha `>` de separação, `> **Próximo passo:**`, outra linha `>` e `> **Modelo:** Terra High.`. Os três campos pertencem ao mesmo blockquote; o corpo normal não foi incluído na barra.
 
 ## Correção de pergunta duplicada e teste global final
 
-- A task global `019f72ca-2e18-75e2-b8d9-c1ca1b0a8b9c` confirmou a barra, mas formulou a mesma decisão com duas perguntas. Esse resultado não liberou o candidato.
+- Uma execução global confirmou a barra, mas formulou a mesma decisão com duas perguntas. Esse resultado não liberou o candidato.
 - O contrato passou a proibir pergunta seguida de nova confirmação e limita `Próximo passo` a um único `?`.
-- A task local `019f72cb-707d-78e0-8bb0-4e1a6483709a` confirmou blockquote contínuo, uma dependência, resposta recomendada e uma única pergunta.
-- Depois da sincronização e da paridade confirmada, a task global `019f72cc-2c0e-7fc3-917d-d8bbb3e57f25` passou por invocação normal de `$think-with-me`: os três campos estavam no mesmo blockquote, `Próximo passo` tinha uma recomendação e somente uma pergunta, e `Modelo` continha apenas `Terra High.`
+- Uma execução local confirmou blockquote contínuo, uma dependência, resposta recomendada e uma única pergunta.
+- Depois da sincronização e da paridade confirmada, uma execução global passou por invocação normal de `$think-with-me`: os três campos estavam no mesmo blockquote, `Próximo passo` tinha uma recomendação e somente uma pergunta, e `Modelo` continha apenas `Terra High.`
 
 ## Veredito final
 

@@ -1,6 +1,6 @@
 # Conversation Examples
 
-These examples show how to answer naturally and then advance one dependency. The normal answer stays outside the quote; the three-field closing is one continuous blockquote so it renders with a vertical bar.
+These examples show how to answer naturally and then advance one dependency. The normal answer stays outside the quote; the three-field closing is one continuous blockquote so it renders with a vertical bar. Its labels follow the user's language.
 
 ## Normal continuation
 
@@ -11,6 +11,18 @@ Uma regra imatura muda com frequência. Distribuí-la agora criaria três interp
 > **Próximo passo:** definir quais resultados o contrato central deve devolver.
 >
 > _Modelo para o próximo passo: **Terra High** — definir as saídas do contrato ainda em descoberta._
+
+## English continuation
+
+Keep the same contract when the user writes in English; only the labels change.
+
+The rule is still evolving, so distributing it would create several interpretations and make each correction require coordination.
+
+> **My view:** centralizing the first version is safer because it preserves one source of truth while the rule matures.
+>
+> **Next step:** define the outputs the central contract must return.
+>
+> _Model for the next step: **Terra High** — define the contract outputs while the rule remains under discovery._
 
 ## One open decision
 

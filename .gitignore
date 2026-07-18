@@ -1,3 +1,6 @@
 # Local Codex continuity maintained by project-context
 .codex/project-context/
 AGENTS.md
+
+# Local validation and package-manager caches
+.cache/

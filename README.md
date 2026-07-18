@@ -1,78 +1,84 @@
 # Think With Me
 
-An Agent Skill that understands the conversation, gives one clear view, identifies the next relevant step, and recommends the GPT-5.6 model and effort best suited to continue. `$think-with-me` remains the explicit and predictable path; compatible hosts may also discover it for contextual advice, comparison, and planning requests.
+Think through a decision before acting: get a clear position, identify one immediate next step, and receive a contextual GPT-5.6 model recommendation for that step.
 
-> **Status:** private preview. The repository is prepared for a future public release but is not yet published to skills.sh.
+Designed for Codex conversations where the quality of the next decision matters more than moving quickly with an unexamined assumption.
 
-## Install after public release
+## What you get
 
-Once this repository is public, install the skill with:
+- A real point of view grounded in the current conversation and any safely discoverable facts.
+- One immediate dependency instead of a backlog, checklist, or generic process.
+- Exactly one GPT-5.6 model and effort recommendation for that dependency.
+- A compact closing that adapts its labels to the user's language while retaining the same order: view, next step, then model.
+
+## Example
+
+```md
+Centralizing first keeps the rule easy to correct while we are still learning its boundaries.
+
+> **My view:** centralize the first version because one source of truth is safer while the rule is still evolving.
+>
+> **Next step:** define the outputs the central contract must return.
+>
+> _Model for the next step: **Terra High** — define the contract outputs while the rule remains under discovery._
+```
+
+For Portuguese conversations, the same closing uses `Minha visão`, `Próximo passo`, and `Modelo para o próximo passo`.
+
+## Install
+
+Install it globally for Codex:
+
+```bash
+npx skills add igortice/think-with-me --skill think-with-me -g -a codex
+```
+
+Or omit `-g -a codex` to let the Skills CLI choose the detected supported agent and scope:
 
 ```bash
 npx skills add igortice/think-with-me --skill think-with-me
 ```
 
-Then invoke `$think-with-me` when you want to reason through a change before execution.
+## Use it
 
-## What it does
+Invoke it explicitly when you want to reason before execution:
 
-Think With Me uses the conversation as context, separates facts from choices, and answers naturally before ending with three compact fields: `Minha visão`, `Próximo passo`, and `Modelo`. Those fields render together in one Markdown blockquote with a visible vertical bar. The next step advances one dependency from the current objective; when it is a user decision, the skill gives its recommended answer and asks one focused question. It keeps internal bookkeeping out of the answer unless that bookkeeping is the subject being discussed.
-
-## What it does not do
-
-The skill may inspect supplied context with read-only tools, but it does not edit files, create branches, change external services, install dependencies, or execute an implementation while the user is still thinking through the subject. It does not use benchmark costs to predict a Codex quota.
-
-## Repository layout
-
-The installable artifact is [skills/think-with-me](skills/think-with-me/). It is deliberately small:
-
-- `SKILL.md` contains the conversational and closing contract.
-- `references/model-routing.md` contains the small conversation-only routing table.
-- `references/output-contract.md` contains examples that separate the conclusion, next step, and short model recommendation.
-
-The repository root contains human-facing documentation, evaluation cases, and maintainer utilities. They are intentionally outside the installable skill folder.
-
-## Validation
-
-Run the structural validation:
-
-```bash
-bash scripts/validate-structure.sh
+```text
+$think-with-me Help me compare these rollout options before changing anything.
 ```
 
-Before a behavioral evaluation, identify the candidate being tested:
+It can also be discovered for requests such as:
+
+- “Help me decide between these approaches before touching the code.”
+- “Give me your view, the next decision, and the right model for this conversation.”
+- “We keep correcting this plan; what should we resolve next?”
+
+## Compatibility and boundaries
+
+Think With Me is designed for Codex with GPT-5.6 model routing. Other Agent Skills-compatible hosts can load the instructions, but the model recommendation is useful only when the host exposes the named model families and efforts.
+
+The skill works in the user's language. It keeps the three closing fields in one continuous Markdown blockquote, never infers the active model, and does not execute edits, installs, service changes, or other operational work until the user gives a direct instruction.
+
+## Package layout
+
+The installable artifact is [skills/think-with-me](skills/think-with-me/):
+
+- [SKILL.md](skills/think-with-me/SKILL.md) contains the activation and conversation contract.
+- [agents/openai.yaml](skills/think-with-me/agents/openai.yaml) supplies Codex-facing display metadata and a default prompt.
+- [references/model-routing.md](skills/think-with-me/references/model-routing.md) contains the contextual routing policy.
+- [references/output-contract.md](skills/think-with-me/references/output-contract.md) contains output examples in Portuguese and English.
+
+## Maintaining the skill
+
+Validate the package and its behavioral evidence before synchronizing an installed copy:
 
 ```bash
-bash scripts/candidate-manifest.sh
+UV_CACHE_DIR=.cache/uv UV_TOOL_DIR=.cache/uv-tools XDG_DATA_HOME=.cache/xdg bash scripts/validate-skill.sh
+bash tests/evidence-gate-v1.sh
 ```
 
-Then use the [behavior cases](evals/think-with-me-cases.md) after behavior changes and the [trigger cases](evals/trigger-cases.md) after changing the frontmatter description. Record the real result with the evidence template, then run `bash tests/evidence-gate-v1.sh`; it checks the static contract and that the current package hash appears in the completed behavior evidence. A structural pass alone does not prove conversational behavior. The cases are intentionally outside the installable skill folder.
+The [publication runbook](docs/release/skills-sh-publication.md) separates source review, repository visibility, the first public installation, and skills.sh verification. These remain distinct actions.
 
-## Maintainer review gate
+## License
 
-The repository source is canonical. All changes remain local until the user has reviewed the diff. A commit, push, global synchronization, GitHub visibility change, and publication are separate state-changing actions: none happens until the user explicitly authorizes that specific step after review.
-
-For a local Codex installation, only after approved synchronization:
-
-```bash
-npx --yes skills update -g think-with-me -y
-bash scripts/verify-global-install.sh
-```
-
-The verification script is read-only. Do not update the global copy before the local diff has been reviewed and approved.
-
-## Publication
-
-This repository uses the [MIT License](LICENSE). It does not need `skills.sh.json` while it contains one skill; that file only becomes useful when the repository needs to group multiple skills on its skills.sh page.
-
-See the [public-release runbook](docs/release/skills-sh-publication.md) for the deliberate sequence from local review to skills.sh verification.
-
-## Evidence and design
-
-- [Design specification](docs/specs/2026-07-17-think-with-me-design.md)
-- [Reliability correction](docs/specs/2026-07-17-think-with-me-reliability-correction.md)
-- [Public-release readiness plan](docs/plans/2026-07-17-public-release-readiness.md)
-- [Model-routing evidence](docs/research/model-routing-evidence-2026-07-17.md)
-- [Original implementation plan](docs/plans/2026-07-17-think-with-me-implementation.md)
-
-The routing policy is a starting point. Calibrate it with representative tasks, accepted results, rework, and observed credit use.
+[MIT](LICENSE)

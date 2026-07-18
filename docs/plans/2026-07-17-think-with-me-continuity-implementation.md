@@ -264,7 +264,7 @@ Run `UV_CACHE_DIR=/private/tmp/think-with-me-validate-uv UV_TOOL_DIR=/private/tm
 
 Expected: `Public-release validation passed.`
 
-Then run `UV_CACHE_DIR=/private/tmp/think-with-me-verify-uv uv run --with pyyaml python /Users/igortice/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/think-with-me`.
+Then run `UV_CACHE_DIR=/private/tmp/think-with-me-verify-uv uv run --with pyyaml python <codex-skill-root>/skill-creator/scripts/quick_validate.py skills/think-with-me`.
 
 Expected: `Skill is valid!` when the helper exists in the local Codex installation. If it is absent, validate `openai.yaml` with PyYAML and record that the missing helper is an environment limitation rather than a skill failure.
 

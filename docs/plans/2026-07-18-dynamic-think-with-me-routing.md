@@ -130,10 +130,10 @@ Expected: structural validation and the evidence gate pass; whitespace check is 
 ### Task 4: Synchronize, verify, and record durable state
 
 **Files:**
-- Modify: `/Users/igortice/.agents/skills/think-with-me/SKILL.md`
-- Modify: `/Users/igortice/.agents/skills/think-with-me/agents/openai.yaml`
-- Modify: `/Users/igortice/.agents/skills/think-with-me/references/model-routing.md`
-- Modify: `/Users/igortice/.agents/skills/think-with-me/references/output-contract.md`
+- Modify: `<global-skills>/think-with-me/SKILL.md`
+- Modify: `<global-skills>/think-with-me/agents/openai.yaml`
+- Modify: `<global-skills>/think-with-me/references/model-routing.md`
+- Modify: `<global-skills>/think-with-me/references/output-contract.md`
 - Modify: `.codex/project-context/CURRENT_STATE.md`
 - Modify: `.codex/project-context/DECISIONS.md`
 - Modify: `.codex/project-context/worklog/2026-07.md`

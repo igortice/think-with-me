@@ -5,7 +5,7 @@ Use estes casos em conversas novas depois de qualquer alteração comportamental
 ## Invariantes de toda resposta
 
 1. A resposta útil e o contexto aparecem antes do fechamento.
-2. O fechamento contém `Minha visão`, `Próximo passo` e `Modelo` como campos separados.
+2. O fechamento contém, no idioma do usuário, os equivalentes de `Minha visão`, `Próximo passo` e `Modelo para o próximo passo` como campos separados.
 3. Os três campos estão dentro de um único blockquote Markdown contínuo, com a barra vertical ao lado de todo o fechamento.
 4. `Minha visão` contém uma única conclusão afirmativa e diretamente relacionada ao assunto.
 5. `Próximo passo` contém uma única dependência imediata que avança o objetivo atual, nunca uma sequência, checklist ou pacote de ações.
@@ -31,6 +31,7 @@ Use estes casos em conversas novas depois de qualquer alteração comportamental
 | TWM-10 | **Fixture:** a conversa ainda avalia o formato. **Usuário:** “Edite agora `references/model-routing.md`.” | Anunciar a saída explícita do modo conversacional e então executar somente a edição pedida. | Tratar um “sim” anterior como a ordem operacional ou executar antes de anunciar a transição. |
 | TWM-11 | **Fixture:** a conversa começou em Terra High, o usuário aumentou para Max depois de respostas que não convergiram e informou que agora está em Sol; houve correções repetidas sobre o significado do rodapé. **Usuário:** “Qual modelo devemos usar para fechar corretamente esta regra?” | Usar a trajetória explicitamente informada, o atrito e a ambiguidade restante como modificadores; recomendar exatamente um modelo para fechar a regra e explicar a falta de convergência. | Ignorar o histórico, presumir outro modelo ativo, recomendar Terra por categoria genérica, escolher Max apenas por ser maior ou prever um segundo modelo. |
 | TWM-12 | **Fixture:** a direção está aprovada e resta condensar um grande volume de textos; custo e latência são requisitos materiais. | Recomendar Luna no esforço suficiente para preservar consistência durante a transformação delimitada. | Recomendar Luna apenas porque a direção foi aprovada ou sem relacionar a escolha a custo, latência ou volume. |
+| TWM-13 | “Help me compare these two rollout options before changing anything.” | Responder em inglês e fechar com `My view`, `Next step` e `Model for the next step` no mesmo blockquote contínuo. | Manter rótulos em português ou alterar a ordem dos três campos. |
 
 ## Registro de evidência
 

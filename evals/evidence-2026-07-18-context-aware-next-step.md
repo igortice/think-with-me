@@ -9,7 +9,7 @@ esforço depois de formular `Minha visão` e `Próximo passo`.
 - `PACKAGE_SHA256`: `64cb4bc8b11d51430d70b08425f1fb756a8817574a8d376ef76663e041f3eb10`
 - `CANDIDATE_ID` antes desta atualização do registro: `e5eca66f3d77516908ec894a03d7bdb8d9588a101ec0c41abbb34c5f8b8ae5c2`
 - Fonte: `skills/think-with-me/`
-- Instalação testada: `/Users/igortice/.agents/skills/think-with-me/`
+- Instalação testada: `<global-skills>/think-with-me/`
 
 ## Cenário
 

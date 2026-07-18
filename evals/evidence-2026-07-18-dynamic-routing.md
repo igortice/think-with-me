@@ -9,7 +9,7 @@ roteamento dinâmico e apresentação compacta do modelo.
 - `PACKAGE_SHA256`: `3615f1c47c72a09a0c852f512190e2cf44c361356cc63d28bc18283b27304c64`
 - `CANDIDATE_ID`: `a729e1d03876a09830f23e6bab3d65491606736df2110f0a07501d4870c47092`
 - Fonte: `skills/think-with-me/`
-- Instalação testada: `/Users/igortice/.agents/skills/think-with-me/`
+- Instalação testada: `<global-skills>/think-with-me/`
 
 ## Validação estática e paridade
 

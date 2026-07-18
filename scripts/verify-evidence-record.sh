@@ -2,7 +2,7 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-evidence_file="${repo_root}/evals/evidence-2026-07-18-context-aware-next-step.md"
+evidence_file="${repo_root}/evals/evidence-2026-07-18-public-readiness.md"
 
 fail() {
   echo "FAIL: $*" >&2

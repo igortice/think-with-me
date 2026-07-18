@@ -2,6 +2,10 @@
 
 Recommend exactly one model and effort for the next step that has already been written. The recommendation is a diagnosis of the remaining work and the conversation's ability to converge, not a generic label for the whole conversation and not a prediction of a future phase.
 
+## Output language
+
+Keep the three closing fields in the user's language. Preserve the same order and compact one-line footer: Portuguese uses `Minha visão`, `Próximo passo`, and `Modelo para o próximo passo`; English uses `My view`, `Next step`, and `Model for the next step`; other languages use concise natural equivalents.
+
 ## Dynamic choice
 
 Re-evaluate the recommendation whenever the conversation changes material phase: a new technical ambiguity, an irreversible or high-impact constraint, a decision that becomes settled, or a shift to cost/latency-sensitive synthesis. Do not retain Terra, Sol, or Luna by inertia.
@@ -32,6 +36,7 @@ Render one compact line whose reason names the actual next step and the decisive
 > _Modelo para o próximo passo: **Terra High** — fechar o trade-off de ownership ainda em aberto._
 > _Modelo para o próximo passo: **Sol High** — integrar correções repetidas e fechar o contrato sem nova ambiguidade._
 > _Modelo para o próximo passo: **Luna Medium** — condensar a direção aprovada sem reabrir decisões._
+> _Model for the next step: **Terra High** — resolve the remaining ownership trade-off in the user's language._
 ```
 
 ## Effort

@@ -10,6 +10,7 @@ Este documento é um runbook de manutenção. Ele não autoriza nenhuma ação e
 - `bash scripts/validate-skill.sh` executa a validação portátil do padrão Agent Skills.
 - Os casos de comportamento e de ativação ficam em `evals/`.
 - Não há `skills.sh.json`: com uma única skill, ele não acrescenta valor.
+- O README público explica o valor da skill, mostra uma saída curta, declara a compatibilidade com Codex/GPT-5.6 e deixa claro que os rótulos finais acompanham o idioma da conversa.
 
 ## Sequência de publicação
 
@@ -17,21 +18,22 @@ Este documento é um runbook de manutenção. Ele não autoriza nenhuma ação e
 2. Exercitar casos representativos de `evals/think-with-me-cases.md` e `evals/trigger-cases.md`.
 3. Apresentar o diff local para revisão humana.
 4. Fazer commit e push somente após autorização explícita para cada ação.
-5. Tornar o repositório `igortice/think-with-me` público somente após autorização explícita.
-6. Conferir o README público e o comando de instalação:
+5. Revisar os arquivos rastreados para remover caminhos pessoais, IDs internos e instruções locais que não devem ser públicos.
+6. Tornar o repositório `igortice/think-with-me` público somente após autorização explícita.
+7. Conferir o README público e o comando de instalação:
 
    ```bash
-   npx skills add igortice/think-with-me --skill think-with-me
+   npx skills add igortice/think-with-me --skill think-with-me -g -a codex
    ```
 
-7. Executar ou pedir uma primeira instalação pública pelo CLI. O skills.sh descobre repositórios por telemetria de instalação; a indexação e a página podem levar alguns minutos por causa do cache.
-8. Conferir a página esperada:
+8. Executar ou pedir uma primeira instalação pública pelo CLI. O skills.sh descobre repositórios por telemetria de instalação; a indexação e a página podem levar alguns minutos por causa do cache.
+9. Conferir a página esperada:
 
    ```text
    https://www.skills.sh/igortice/think-with-me/think-with-me
    ```
 
-9. Conferir se auditorias apareceram. Elas são automáticas depois da primeira instalação e podem levar alguns minutos.
+10. Conferir se auditorias apareceram. Elas são automáticas depois da primeira instalação e podem levar alguns minutos.
 
 ## Depois da publicação
 

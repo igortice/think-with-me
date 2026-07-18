@@ -18,7 +18,7 @@
 - Recommend; never edit, execute, install, create branches, or dispatch subagents.
 - Treat model family, effort, and mode of work as separate decisions.
 - Do not infer Codex quota from DeepSWE costs or API pricing.
-- Work directly in `/Users/igortice/Desv/think-with-me`; do not create a worktree.
+- Work directly in the repository root; do not create a worktree.
 - Keep publication and license selection out of this local-first implementation.
 
 ---
@@ -52,9 +52,9 @@
 Run:
 
 ```bash
-python3 /Users/igortice/.codex/skills/.system/skill-creator/scripts/init_skill.py \
+python3 <codex-skill-root>/skill-creator/scripts/init_skill.py \
   think-with-me \
-  --path /Users/igortice/Desv/think-with-me/skills \
+  --path ./skills \
   --resources references \
   --interface 'display_name=Think With Me' \
   --interface 'short_description=Plan together before acting' \
@@ -161,7 +161,7 @@ Require the agent to recover project/spec context; identify phase and open decis
 Run:
 
 ```bash
-python3 /Users/igortice/.codex/skills/.system/skill-creator/scripts/generate_openai_yaml.py \
+python3 <codex-skill-root>/skill-creator/scripts/generate_openai_yaml.py \
   skills/think-with-me \
   --interface 'display_name=Think With Me' \
   --interface 'short_description=Plan together before acting' \
@@ -220,7 +220,7 @@ Change the layout section to keep `README.md` in the local-first version and def
 Run:
 
 ```bash
-uv run --with pyyaml python /Users/igortice/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/think-with-me
+uv run --with pyyaml python <codex-skill-root>/skill-creator/scripts/quick_validate.py skills/think-with-me
 ```
 
 Expected: validator reports that the skill is valid. If `uv` is unavailable, report that rather than changing global Python.

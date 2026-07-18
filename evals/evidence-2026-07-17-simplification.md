@@ -12,7 +12,7 @@
 
 ## TWM-03 e TWM-M03 — decisão comum e follow-up
 
-- Task: `019f72af-c085-7142-b658-0b1fcb58f5f1`
+- Execução de avaliação: cenário independente A.
 - Prompt inicial: comparar centralização de uma regra imatura com distribuição imediata entre três serviços.
 - Follow-up: “Por que você não escolheria distribuir desde já?”
 
@@ -27,7 +27,7 @@
 
 ## TWM-06 — risco crítico
 
-- Task: `019f72b0-d4cd-7cb3-83cf-5ec274cd2998`
+- Execução de avaliação: cenário independente B.
 - Prompt: migração irreversível em produção com risco de corrupção de dados.
 
 | Invariante | Resultado | Evidência |
@@ -44,7 +44,7 @@ O resumo compacto de `wait_threads` removeu a marcação Markdown e produziu a i
 
 ## Forward-test da instalação global
 
-- Task: `019f72b6-72fe-7bb3-8685-b82b87396ce7`
+- Execução de avaliação: cenário de instalação global.
 - Invocação: `$think-with-me`, sem instrução para ler a fonte do repositório.
 - Paridade: `bash scripts/verify-global-install.sh` confirmou que os quatro arquivos globais correspondem à fonte local; `SKILL.md` teve o mesmo SHA-256 nos dois locais.
 - Resultado: **pass**. A resposta centralizou a regra imatura, não vazou processos internos e terminou com `Meu ponto de vista` e `Modelo para continuar` em Markdown, recomendando GPT-5.6 Terra High.

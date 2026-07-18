@@ -35,6 +35,12 @@ output_file="${repo_root}/skills/think-with-me/references/output-contract.md"
 require_text "${skill_file}" '**Minha visão:**'
 require_text "${skill_file}" '**Próximo passo:**'
 require_text "${skill_file}" '_Modelo para o próximo passo:'
+require_text "${skill_file}" 'Use the user'"'"'s language for the three closing labels'
+require_text "${skill_file}" 'Determine that language from the current user message'
+require_text "${skill_file}" 'do not emit Portuguese labels'
+require_text "${skill_file}" '**My view:**'
+require_text "${skill_file}" '**Next step:**'
+require_text "${skill_file}" '_Model for the next step:'
 require_text "${skill_file}" 'one continuous Markdown blockquote'
 require_text "${skill_file}" 'Do not output the three fields as ordinary paragraphs'
 require_text "${skill_file}" 'one concrete next step'
@@ -53,14 +59,20 @@ require_text "${routing_file}" 'Conversation health modifies next-step fit'
 require_text "${routing_file}" 'Never infer the active model'
 require_text "${output_file}" 'one question and your recommended answer'
 require_text "${output_file}" '_Modelo para o próximo passo: **Terra High**'
+require_text "${output_file}" '_Model for the next step: **Terra High**'
 
 closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> _Modelo para o próximo passo: **Terra High** — connect the concrete next step to the decisive conversational evidence._'
 if ! rg -U -F -- "${closing_template}" "${skill_file}" >/dev/null; then
   fail "skill does not contain the literal continuous blockquote template"
 fi
 
-if rg -n '^> \*\*Minha visão:\*\*.*\?' "${skill_file}" "${output_file}" >/dev/null; then
-  fail "Minha visão must not contain a question"
+english_closing_template=$'> **My view:** one clear conclusion about the subject and the decisive reason.\n>\n> **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> _Model for the next step: **Terra High** — connect the concrete next step to the decisive conversational evidence._'
+if ! rg -U -F -- "${english_closing_template}" "${skill_file}" >/dev/null; then
+  fail "skill does not contain the literal English continuous blockquote template"
+fi
+
+if rg -n '^> \*\*(Minha visão|My view):\*\*.*\?' "${skill_file}" "${output_file}" >/dev/null; then
+  fail "the localized view field must not contain a question"
 fi
 
 if rg -n -F '**Meu ponto de vista:**' "${skill_file}" "${output_file}" >/dev/null; then
@@ -99,10 +111,10 @@ model_footer_is_valid() {
   bold_delimiters="$(grep -o '\*\*' <<<"${footer}" | wc -l | tr -d ' ')"
   [[ "${bold_delimiters}" == "2" ]] || return 1
 
-  model_effort="$(sed -E 's/^> _Modelo para o próximo passo: \*\*([^*]+)\*\*.*/\1/' <<<"${footer}")"
+  model_effort="$(sed -E 's/^> _(Modelo para o próximo passo|Model for the next step): \*\*([^*]+)\*\*.*/\2/' <<<"${footer}")"
   [[ "${model_effort}" =~ ^(Terra|Sol|Luna)[[:space:]](None|Low|Medium|High|XHigh|Max)$ ]] || return 1
 
-  reason="$(sed -nE 's/^> _Modelo para o próximo passo: \*\*[^*]+\*\* — (.*)\._$/\1/p' <<<"${footer}")"
+  reason="$(sed -nE 's/^> _(Modelo para o próximo passo|Model for the next step): \*\*[^*]+\*\* — (.*)\._$/\2/p' <<<"${footer}")"
   [[ -n "${reason}" && "${reason}" =~ [^[:space:]] ]] || return 1
   ! rg -qi '\b(Terra|Sol|Luna|None|Low|Medium|High|XHigh|Max)\b' <<<"${reason}"
 }
@@ -112,6 +124,10 @@ while IFS= read -r footer; do
   model_footer_count=$((model_footer_count + 1))
   model_footer_is_valid "${footer}" || fail "invalid model footer: ${footer}"
 done < <(rg --no-filename '^> _Modelo para o próximo passo:' "${skill_file}" "${routing_file}" "${output_file}")
+while IFS= read -r footer; do
+  model_footer_count=$((model_footer_count + 1))
+  model_footer_is_valid "${footer}" || fail "invalid model footer: ${footer}"
+done < <(rg --no-filename '^> _Model for the next step:' "${skill_file}" "${routing_file}" "${output_file}")
 [[ "${model_footer_count}" -gt 0 ]] || fail "no model footer examples found"
 
 invalid_model_footers=(

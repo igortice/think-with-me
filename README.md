@@ -13,7 +13,6 @@ Designed for Codex conversations where the quality of the next decision matters 
 
 ## Example
 
-```md
 Centralizing first keeps the rule easy to correct while we are still learning its boundaries.
 
 > **My view:** centralize the first version because one source of truth is safer while the rule is still evolving.
@@ -21,7 +20,6 @@ Centralizing first keeps the rule easy to correct while we are still learning it
 > **Next step:** define the outputs the central contract must return.
 >
 > _Model for the next step: **Terra High** — define the contract outputs while the rule remains under discovery._
-```
 
 For Portuguese conversations, the same closing uses `Minha visão`, `Próximo passo`, and `Modelo para o próximo passo`.
 

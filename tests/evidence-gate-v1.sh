@@ -32,27 +32,29 @@ skill_file="${repo_root}/skills/think-with-me/SKILL.md"
 routing_file="${repo_root}/skills/think-with-me/references/model-routing.md"
 output_file="${repo_root}/skills/think-with-me/references/output-contract.md"
 
-require_text "${skill_file}" '**Minha visão:**'
-require_text "${skill_file}" '**Próximo passo:**'
-require_text "${skill_file}" '_Modelo para o próximo passo:'
-require_text "${skill_file}" 'Use the user'"'"'s language for the three closing labels'
-require_text "${skill_file}" 'Determine that language from the current user message'
-require_text "${skill_file}" 'do not emit Portuguese labels'
-require_text "${skill_file}" '**My view:**'
-require_text "${skill_file}" '**Next step:**'
-require_text "${skill_file}" '_Model for the next step:'
+require_text "${skill_file}" 'Use the language of the current user message'
+require_text "${skill_file}" 'never output Portuguese prose or labels'
 require_text "${skill_file}" 'one continuous Markdown blockquote'
+require_text "${skill_file}" 'For an English user message, use `My view`, `Next step`, and `Model for the next step` exactly:'
+require_text "${skill_file}" 'Open [the output contract](references/output-contract.md) before writing the closing'
 require_text "${skill_file}" 'Do not output the three fields as ordinary paragraphs'
 require_text "${skill_file}" 'one concrete next step'
 require_text "${skill_file}" 'not a sequence, checklist, or bundle of actions'
 require_text "${skill_file}" 'include your recommended answer'
-require_text "${skill_file}" '`Próximo passo` contains at most one `?` character'
 require_text "${skill_file}" 'A short confirmation or approval keeps this conversational mode active'
 require_text "${skill_file}" 'direct operational instruction that identifies the action to perform'
 require_text "${skill_file}" 'announce that transition before executing it'
 require_text "${skill_file}" 'one short physical Markdown line'
 require_text "${skill_file}" 'Model recommendation is derived only after'
 require_text "${skill_file}" 'conversation health'
+require_text "${skill_file}" 'Do not substitute generic product or effort names for the selected family and effort.'
+require_text "${output_file}" '**Minha visão:**'
+require_text "${output_file}" '**Próximo passo:**'
+require_text "${output_file}" '_Modelo para o próximo passo:'
+require_text "${output_file}" '**My view:**'
+require_text "${output_file}" '**Next step:**'
+require_text "${output_file}" '_Model for the next step:'
+require_text "${output_file}" '`Próximo passo` contains at most one `?` character'
 require_text "${routing_file}" 'Recommend exactly one model and effort for the next step'
 require_text "${routing_file}" 'Re-evaluate the recommendation whenever the conversation changes material phase'
 require_text "${routing_file}" 'Conversation health modifies next-step fit'
@@ -62,13 +64,20 @@ require_text "${output_file}" '_Modelo para o próximo passo: **Terra High**'
 require_text "${output_file}" '_Model for the next step: **Terra High**'
 
 closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> _Modelo para o próximo passo: **Terra High** — connect the concrete next step to the decisive conversational evidence._'
-if ! rg -U -F -- "${closing_template}" "${skill_file}" >/dev/null; then
-  fail "skill does not contain the literal continuous blockquote template"
+if ! rg -U -F -- "${closing_template}" "${output_file}" >/dev/null; then
+  fail "output contract does not contain the literal Portuguese blockquote template"
 fi
 
 english_closing_template=$'> **My view:** one clear conclusion about the subject and the decisive reason.\n>\n> **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> _Model for the next step: **Terra High** — connect the concrete next step to the decisive conversational evidence._'
+if ! rg -U -F -- "${english_closing_template}" "${output_file}" >/dev/null; then
+  fail "output contract does not contain the literal English blockquote template"
+fi
 if ! rg -U -F -- "${english_closing_template}" "${skill_file}" >/dev/null; then
-  fail "skill does not contain the literal English continuous blockquote template"
+  fail "public core does not contain the literal English blockquote template"
+fi
+
+if rg -n -i 'grilling|Minha visão|Próximo passo|Modelo para o próximo passo' "${skill_file}" >/dev/null; then
+  fail "public core contains internal or language-specific copy"
 fi
 
 if rg -n '^> \*\*(Minha visão|My view):\*\*.*\?' "${skill_file}" "${output_file}" >/dev/null; then

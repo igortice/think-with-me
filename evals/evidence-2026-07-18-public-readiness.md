@@ -1,11 +1,11 @@
 # Think With Me — evidência de readiness público
 
 **Data:** 18 de julho de 2026  
-**Escopo:** validar a cópia global do candidato público, incluindo os rótulos finais no idioma da mensagem atual.
+**Escopo:** validar a cópia global do candidato público, incluindo os rótulos finais no idioma da mensagem atual e a prévia pública enxuta.
 
 ## Candidato
 
-- `PACKAGE_SHA256`: `82493e083bf69396332c6232643402379f37da232d4190136e5a7deb320f78e7`
+- `PACKAGE_SHA256`: `0809a29031e2bd39385b52914e092d46e999b29ee0db13b464375b7911608f99`
 - Fonte: `skills/think-with-me/`
 - Instalação verificada: `<global-skills>/think-with-me/`
 
@@ -41,6 +41,32 @@ Resultado: **pass**.
 - `bash scripts/verify-global-install.sh` retornou `Global think-with-me installation matches the repository source.`
 - `npx skills add . --skill think-with-me -g -a codex -y` instalou a fonte local validada na cópia global do Codex.
 - `git diff --check` não encontrou erro de espaço em branco.
+
+## Regressão da prévia pública e forward-test final
+
+Para reduzir a prévia do skills.sh, o núcleo público foi separado dos templates
+multilíngues. A primeira versão compacta ficou curta demais: no mesmo caso
+TWM-13 ela respondeu com `View` e um modelo genérico, sem a família escolhida.
+Esse resultado falhou e não liberou o candidato.
+
+A correção manteve o núcleo inteiramente em inglês, sem `grilling` e sem
+rótulos em português, mas recolocou um único template completo em inglês e a
+proibição explícita de usar português quando a mensagem atual estiver em
+inglês. Os exemplos completos de outros idiomas permaneceram na referência de
+contrato de saída.
+
+O forward-test final, também efêmero e somente leitura, retornou:
+
+```md
+> **My view:** Choose option A: centralize the evolving eligibility rule in one service first. It gives you one authoritative interpretation, one test surface, and avoids three services drifting while the rule is still changing.
+>
+> **Next step:** Define the rule’s single-service contract: required inputs, eligibility outcomes, and ownership of rule changes. This establishes whether the central service can serve all three consumers cleanly before any rollout work begins.
+>
+> _Model for the next step: **Terra High** — define the shared contract from the still-evolving rule and the need to prevent cross-service divergence._
+```
+
+Resultado final: **pass**. A resposta ficou inteiramente em inglês, preservou
+o blockquote contínuo e usou exatamente uma família e esforço no rodapé.
 
 ## Limites
 

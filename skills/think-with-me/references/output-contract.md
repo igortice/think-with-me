@@ -2,6 +2,26 @@
 
 These examples show how to answer naturally and then advance one dependency. The normal answer stays outside the quote; the three-field closing is one continuous blockquote so it renders with a vertical bar. Its labels follow the user's language.
 
+## Canonical closing templates
+
+Use the Portuguese template when the current user message is Portuguese:
+
+> **Minha visão:** one clear conclusion about the subject and the decisive reason.
+>
+> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.
+>
+> _Modelo para o próximo passo: **Terra High** — connect the concrete next step to the decisive conversational evidence._
+
+Use the English template when the current user message is English:
+
+> **My view:** one clear conclusion about the subject and the decisive reason.
+>
+> **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.
+>
+> _Model for the next step: **Terra High** — connect the concrete next step to the decisive conversational evidence._
+
+For other languages, preserve these three roles with concise natural labels. `Próximo passo` contains at most one `?` character when the next step is a user decision.
+
 ## Normal continuation
 
 Uma regra imatura muda com frequência. Distribuí-la agora criaria três interpretações e transformaria cada aprendizado em coordenação entre serviços.

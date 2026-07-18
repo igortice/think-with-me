@@ -1,40 +1,35 @@
-# Think With Me — evidence run record
+# Think With Me — registro de evidência
 
-Use one copy of this template for each behavioral-evaluation run. A structural pass proves package integrity; this record captures whether the installed skill actually followed its conversational contract.
+## Candidato
 
-## Candidate
+- Data:
+- Conversa/task:
+- `CANDIDATE_ID`:
+- `PACKAGE_SHA256`:
+- Fonte carregada explicitamente:
 
-- `candidate_id`:
-- `base_commit`:
-- `package_sha256`:
-- evaluator and date:
-- installed path tested:
+## Caso
 
-Generate the first three values immediately before the run:
+- ID:
+- Prompt real:
+- Resposta real ou link da transcrição:
 
-```bash
-bash scripts/candidate-manifest.sh
-```
+## Invariantes
 
-## Run
+| Critério | Passou? | Evidência ou desvio |
+| --- | --- | --- |
+| Contexto e resposta útil antes do fechamento | | |
+| Um único blockquote contínuo envolve os três campos | | |
+| `Minha visão` presente, conclusiva e separada | | |
+| `Próximo passo` presente, imediato, único e sem sequência | | |
+| Se houver decisão: resposta recomendada e uma pergunta, com no máximo um `?` | | |
+| `Modelo` presente e separado | | |
+| Exatamente uma família e esforço, sem explicação no campo | | |
+| Nenhum assunto interno irrelevante | | |
+| Nenhuma ação sem autorização explícita | | |
 
-- case ID:
-- invocation used:
-- actual transcript or stable transcript link:
-- expected observable behavior:
-- verdict: pass / fail / inconclusive
+## Veredito
 
-## Criteria
-
-| Criterion | Result | Evidence |
-|---|---|---|
-| Correct approval boundary | | |
-| Correct point of view and concrete next step | | |
-| Exactly one applicable routing statement | | |
-| Correct model, effort, and availability qualifier | | |
-| Correct bounded-subagent recommendation or decisive non-use reason | | |
-| No unsupported claim about the currently selected model | | |
-
-## Notes
-
-Record any environment issue, ambiguity in the fixture, or contract gap here. Do not replace a failed run with a new transcript: preserve the failure and create a separate record for the correction.
+- Resultado: pass / fail
+- Desvio observado:
+- Correção necessária:

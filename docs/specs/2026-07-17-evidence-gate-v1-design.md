@@ -1,5 +1,7 @@
 # Think With Me — Evidence Gate v1
 
+> **Historical status:** candidate identification remains useful, but the routing and delegation criteria in this document were superseded on 2026-07-17 by the simplified conversational contract. Current acceptance criteria live in `evals/think-with-me-cases.md` and `tests/evidence-gate-v1.sh`.
+
 **Status:** implementado localmente; baseline comportamental ainda pendente
 **Data:** 17 de julho de 2026
 **Objetivo:** tornar a qualidade da skill verificável por um candidato identificado, evidências separadas e uma revisão humana final, sem multiplicar subagentes nem transformar cada mudança em uma revisão circular.

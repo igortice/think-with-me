@@ -1,5 +1,7 @@
 # Think With Me Implementation Plan
 
+> **Historical status:** superseded on 2026-07-17 by [the simplification plan](2026-07-17-think-with-me-simplification.md). This file records the original implementation and is not the current behavior contract.
+
 > **Status histórico:** a baseline v1 foi implementada e instalada. Este plano registra a criação inicial; a correção atual é governada por [2026-07-17-think-with-me-reliability-correction.md](../specs/2026-07-17-think-with-me-reliability-correction.md) e a política de continuidade/ativação por [2026-07-17-think-with-me-continuity-design.md](../specs/2026-07-17-think-with-me-continuity-design.md). Os forward-tests originais não tiveram evidência persistida e foram substituídos pelos casos em `evals/think-with-me-cases.md`.
 
 > **Nota de execução:** este é um plano histórico. Para mudanças posteriores, seguir a correção de confiabilidade e o gate de revisão: nunca fazer commit, push ou sincronização global sem a revisão do diff e a autorização explícita da pessoa.

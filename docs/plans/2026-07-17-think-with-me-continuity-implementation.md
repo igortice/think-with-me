@@ -1,5 +1,7 @@
 # Think With Me Continuity Implementation Plan
 
+> **Historical status:** superseded on 2026-07-17 by [the simplification plan](2026-07-17-think-with-me-simplification.md). This file records the earlier implementation and is not the current behavior contract.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` (recommended) or `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Make `think-with-me` sustain a natural decision thread while preserving model/effort and subagent recommendations at meaningful continuation points.

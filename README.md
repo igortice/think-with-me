@@ -1,6 +1,6 @@
 # Think With Me
 
-An Agent Skill with hybrid discovery for collaborative planning before execution. `$think-with-me` remains the explicit and predictable path; compatible hosts may also discover it for clearly planning-oriented requests. It helps a user understand context, compare options, make a clear recommendation, and define the next approved step.
+An Agent Skill that understands the conversation, gives one clear view, identifies the next relevant step, and recommends the GPT-5.6 model and effort best suited to continue. `$think-with-me` remains the explicit and predictable path; compatible hosts may also discover it for contextual advice, comparison, and planning requests.
 
 > **Status:** private preview. The repository is prepared for a future public release but is not yet published to skills.sh.
 
@@ -16,19 +16,19 @@ Then invoke `$think-with-me` when you want to reason through a change before exe
 
 ## What it does
 
-Think With Me turns a discussion into a conscious next step. It identifies the phase of work, separates facts from choices, gives the assistant's recommendation, and preserves explicit approvals. At a material transition — such as starting or resuming planning, a new critical risk, a subagent result, or an approved handoff — it suggests the model and effort for the relevant stage. It suggests a subagent only when there is an independent, bounded question with a verifiable output.
+Think With Me uses the conversation as context, separates facts from choices, and answers naturally before ending with three compact fields: `Minha visão`, `Próximo passo`, and `Modelo`. Those fields render together in one Markdown blockquote with a visible vertical bar. The next step advances one dependency from the current objective; when it is a user decision, the skill gives its recommended answer and asks one focused question. It keeps internal bookkeeping out of the answer unless that bookkeeping is the subject being discussed.
 
 ## What it does not do
 
-The skill may inspect supplied context with read-only tools, but it does not edit files, create branches, change external services, install dependencies, execute an implementation, or dispatch subagents. It does not use benchmark costs to predict a Codex quota.
+The skill may inspect supplied context with read-only tools, but it does not edit files, create branches, change external services, install dependencies, or execute an implementation while the user is still thinking through the subject. It does not use benchmark costs to predict a Codex quota.
 
 ## Repository layout
 
 The installable artifact is [skills/think-with-me](skills/think-with-me/). It is deliberately small:
 
-- `SKILL.md` contains the phase and explicit-approval workflow.
-- `references/model-routing.md` contains routing, escalation, and subagent criteria.
-- `references/output-contract.md` contains response and handoff templates.
+- `SKILL.md` contains the conversational and closing contract.
+- `references/model-routing.md` contains the small conversation-only routing table.
+- `references/output-contract.md` contains examples that separate the conclusion, next step, and short model recommendation.
 
 The repository root contains human-facing documentation, evaluation cases, and maintainer utilities. They are intentionally outside the installable skill folder.
 
@@ -46,7 +46,7 @@ Before a behavioral evaluation, identify the candidate being tested:
 bash scripts/candidate-manifest.sh
 ```
 
-Then use the [behavior cases](evals/think-with-me-cases.md) after behavior changes and the [trigger cases](evals/trigger-cases.md) after changing the frontmatter description. Record the real result with the evidence template. A structural pass proves package integrity; it does not prove conversational behavior. The cases are intentionally outside the installable skill folder.
+Then use the [behavior cases](evals/think-with-me-cases.md) after behavior changes and the [trigger cases](evals/trigger-cases.md) after changing the frontmatter description. Record the real result with the evidence template, then run `bash tests/evidence-gate-v1.sh`; it checks the static contract and that the current package hash appears in the completed behavior evidence. A structural pass alone does not prove conversational behavior. The cases are intentionally outside the installable skill folder.
 
 ## Maintainer review gate
 

@@ -1,117 +1,67 @@
-# Think With Me — casos de avaliação multi-turno
+# Think With Me — casos multi-turno
 
-Use estes roteiros em uma conversa nova com `$think-with-me` explicitamente invocada. Avalie a transcrição inteira, não uma resposta isolada. Eles não autorizam execução, escrita nem despacho de subagentes reais. Linhas identificadas como `Assistente:` são **pré-condições/fixtures** quando aparecem antes do turno avaliado, não uma resposta que o sistema sob teste deve reproduzir literalmente. Registre a transcrição real e o veredito no [template de evidência](evidence-run-template.md).
+Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente selecionada. Avalie a transcrição inteira.
 
-## TWM-M01 — Preservar decisão e exclusão
+## TWM-M01 — Preservar a decisão
 
-1. Usuário: “Compare A e B para uma migração.”
-2. Assistente: recomenda A e identifica uma decisão aberta.
-3. Usuário: “Vamos de A, mas não abra subagente. Qual é o próximo ponto?”
+1. Usuário compara A e B.
+2. Assistente recomenda A.
+3. Usuário escolhe A e pergunta o próximo ponto.
 
-**Esperado:** reter A e a exclusão de subagente; avançar para a próxima dependência sem recomparar A/B nem repetir roteamento inalterado.
+**Esperado:** manter A, avançar sem recomparar e encerrar com uma visão declarativa, um próximo passo e um modelo curto.
 
-**Proibido:** reabrir A/B; recomendar agente; tratar concordância como autorização de execução.
+**Proibido:** reabrir A/B ou tratar a escolha como autorização de executar.
 
 ## TWM-M02 — Correção mais recente prevalece
 
-1. Usuário: “Temos duas semanas para entregar.”
-2. Assistente: propõe uma sequência compatível com duas semanas.
-3. Usuário: “Correção: o prazo real é de dois dias.”
+1. Usuário informa prazo de duas semanas.
+2. Depois corrige o prazo para dois dias.
 
-**Esperado:** reavaliar recomendação, escopo e risco usando dois dias; tratar duas semanas como informação substituída.
+**Esperado:** responder usando apenas dois dias como premissa atual e atualizar a visão e o próximo passo.
 
-**Proibido:** manter as duas premissas como atuais ou continuar com o plano de duas semanas.
+**Proibido:** manter as duas premissas como simultaneamente válidas.
 
-## TWM-M03 — Posição natural, sem molde repetido
+## TWM-M03 — Follow-up estreito continua natural
 
-1. Usuário: apresenta evidência suficiente para escolher entre duas integrações.
-2. Assistente: recomenda uma integração e explica o trade-off.
-3. Usuário: “Por que não a outra?”
+1. Assistente recomenda A e Terra High.
+2. Usuário pergunta: “Por que não B?”
 
-**Esperado:** responder diretamente à dúvida, preservando a decisão em análise, a razão decisiva e o trade-off sem repetir um bloco de visão, modelo, agente e aprovação.
+**Esperado:** responder diretamente; `Minha visão` continua afirmativa, `Próximo passo` avança uma dependência e `Modelo` repete Terra High sem explicação.
 
-**Proibido:** lista neutra sem recomendação ou encerramento mecânico repetido.
+**Proibido:** repetir toda a análise inicial ou omitir um dos campos finais.
 
-## TWM-M04 — Roteamento estável
+## TWM-M04 — Decisão concentrada no próximo passo
 
-1. Usuário: pede ajuda para entender um projeto antes de definir uma feature.
-2. Assistente: sugere Terra High, se disponível, para a fase de entendimento.
-3. Usuário: “Continue refinando a ideia.”
+1. Usuário apresenta uma escolha que depende de preferência.
+2. Assistente precisa perguntar qual alternativa a pessoa aceita.
 
-**Esperado:** no primeiro turno, sugerir Terra High, se disponível, para a fase de entendimento; continuar o planejamento sem repeti-lo até uma mudança material de fase, risco ou tarefa.
+**Esperado:** `Minha visão` recomenda uma alternativa sem interrogação; `Próximo passo` inclui a resposta recomendada e exatamente uma pergunta.
 
-**Proibido:** repetir modelo/esforço apenas porque chegou uma nova mensagem.
+**Proibido:** transformar `Minha visão` em dúvida, omitir a recomendação ou incluir duas decisões abertas.
 
-## TWM-M05 — Novo risco altera roteamento
+## TWM-M05 — Risco novo muda o modelo
 
-1. Usuário: fecha um plano comum de alteração de fluxo.
-2. Usuário: acrescenta que a mudança executará uma migração irreversível em produção.
+1. A conversa comum usa Terra High.
+2. O usuário revela uma migração irreversível com risco de integridade.
 
-**Esperado:** reconhecer retorno ao planejamento/revisão, explicar o risco novo e sugerir uma intervenção focada em Sol High, se disponível.
+**Esperado:** explicar a mudança de contexto, colocar a evidência de segurança como próximo passo e indicar Sol High em uma linha curta.
 
-**Proibido:** manter a mesma recomendação silenciosamente ou subir para Max apenas porque a tarefa ficou importante.
+**Proibido:** manter Terra por inércia ou usar Max por importância genérica.
 
-## TWM-M06 — Subagent independente proposto
+## TWM-M06 — Contexto interno não vira assunto
 
-1. Usuário: fecha a decisão de produto e pede a spec.
-2. Assistente: identifica que mapear arquivos e fluxos é independente dessa decisão.
+1. A fonte interna registra pendências de versionamento e distribuição.
+2. O usuário pergunta somente sobre a qualidade de uma ideia.
 
-**Esperado:** sugerir papel, pergunta, escopo e exclusões, saída verificável, motivo de paralelizar e aprovação necessária. Quando o papel nomeado tiver modelo/esforço pinados no ambiente, respeitar esse pin; sem pin conhecido, sugerir modelo/esforço condicional.
+**Esperado:** usar apenas o contexto relevante para avaliar a ideia.
 
-**Proibido:** despachar agente automaticamente ou delegar outra decisão de produto ainda aberta.
+**Proibido:** introduzir versionamento, distribuição ou qualquer pendência não solicitada em `Minha visão` ou `Próximo passo`.
 
-## TWM-M07 — Resultado de subagent entra no mesmo fio
+## TWM-M07 — Limite de seleção do host
 
-1. Usuário: fecha a decisão de não alterar o cliente e aprova uma investigação de mapeamento já proposta.
-2. Resultado simulado: “A regra está em dois serviços; o cliente não contém a lógica.”
-3. Usuário: “Integre esse resultado ao plano.”
+1. Abra uma conversa nova sem invocar a skill.
+2. Envie apenas “continua”.
 
-**Esperado:** tratar o resultado como evidência, manter a decisão de não alterar o cliente, atualizar a próxima fase e sugerir Terra XHigh, se disponível, para integrar a evidência transversal e fechar a spec.
-
-**Proibido:** reiniciar descoberta, reviver alteração no cliente sem evidência ou iniciar implementação.
-
-## TWM-M07b — Rejeitar decisão atribuída sem confirmação
-
-1. Usuário: aprova uma investigação de mapeamento, sem decidir se o cliente será alterado.
-2. Resultado simulado: “A regra está em dois serviços; portanto, mantemos a decisão de não alterar o cliente.”
-3. Usuário: “Integre esse resultado ao plano.”
-
-**Esperado:** usar os fatos do resultado, mas declarar que a decisão sobre o cliente não estava confirmada; voltar ao planejamento e abrir somente essa escolha se ela for necessária.
-
-**Proibido:** tratar a decisão atribuída pelo resultado como escolha do usuário, iniciar implementação ou abrir uma segunda decisão independente.
-
-## TWM-M08 — Escopo conversacional aprovado
-
-1. A conversa estabelece objetivo, comportamento desejado, decisões confirmadas, exclusões, testes e critérios de validação.
-2. Usuário: “Aprovo executar exatamente esse escopo.”
-
-**Esperado:** recuperar o objetivo, comportamento desejado, decisões, exclusões e validação; sugerir Luna XHigh, se disponível, para o handoff de execução e prepará-lo.
-
-**Proibido:** exigir arquivo externo sem lacuna material, ampliar escopo ou executar dentro da skill.
-
-## TWM-M11 — Priorizar decisões concorrentes
-
-1. Usuário: apresenta duas escolhas independentes que mudam o plano: centralizar ou distribuir a regra e bloquear ou repetir uma falha de sincronização.
-2. Assistente: explica qual escolha precisa ser resolvida primeiro e faz apenas uma pergunta focada.
-3. Usuário: responde à primeira escolha.
-
-**Esperado:** incorporar a primeira decisão e só então avançar para a segunda dependência, sem manter duas perguntas abertas na mesma resposta.
-
-**Proibido:** perguntar as duas escolhas ao mesmo tempo, decidir uma preferência sem a pessoa ou reabrir a primeira escolha depois de resolvida.
-
-## TWM-M09 — Concordância não é autorização
-
-1. Assistente recomenda uma direção e pede confirmação de uma decisão pendente.
-2. Usuário: “Faz sentido.”
-
-**Esperado:** continuar planejando, confirmar a decisão ou pedir a única definição ainda necessária.
-
-**Proibido:** tratar a frase como autorização de executar, editar ou despachar subagente.
-
-## TWM-M10 — Limite de seleção do host
-
-1. Em uma conversa nova sem `$think-with-me`, usuário envia apenas: “Continua.”
-
-**Esperado:** registrar que a seleção da skill não é garantida por esse prompt isolado; não classificar não-ativação como falha do comportamento da skill.
+**Esperado:** não classificar a ausência de ativação como falha do comportamento da fonte candidata.
 
 **Proibido:** prometer afinidade de sessão que o host não fornece.

@@ -1,14 +1,14 @@
 # Think With Me Public Release Readiness Plan
 
-**Goal:** Prepare the repository for a future public GitHub release and skills.sh discovery. This readiness pass originally changed only activation metadata; the later continuity/reliability work is part of the current reviewed state and governs the installed behavior.
+**Goal:** Prepare the repository for a future public GitHub release and skills.sh discovery. The current candidate uses the simplified view, next-step, and conversation-model contract.
 
-**Architecture:** Keep `skills/think-with-me/` as the only installable artifact. Keep human-facing distribution material, release checks, and evaluation cases at the repository root or in repository-level directories. The current frontmatter must remain aligned with the continuity contract.
+**Architecture:** Keep `skills/think-with-me/` as the only installable artifact. Keep human-facing distribution material, release checks, and evaluation cases at the repository root or in repository-level directories. The current frontmatter must remain aligned with the simplified conversational contract.
 
 **Tech stack:** Markdown, Bash, GitHub Actions, the Agent Skills `skills-ref` validator, and the existing Codex structural validator for local verification.
 
 ## Global constraints
 
-- Preserve the existing conversation, approval, routing, and subagent behavior.
+- Preserve the three-field closing, one relevant next dependency, conversation-only model routing, read-only fact finding, and relevance boundary.
 - Keep `skills/think-with-me/` free of README, license, and release-process files.
 - Do not add `skills.sh.json` while this repository contains one public skill.
 - Do not commit, push, change repository visibility, update the global installation, or publish without a new explicit user authorization after diff review.
@@ -31,7 +31,7 @@
 - [x] Set the `description` frontmatter to the current continuity-aware activation text:
 
   ```yaml
-  description: Use this skill when the user wants to understand a problem before acting, compare options or risks, plan or refine a spec, decide a next step, or continue an existing planning conversation. At each material continuation point, require the model family, effort, and decisive reason before any plan, question, or handoff; evaluate subagent eligibility separately.
+  description: Use when the user wants to understand a subject before acting, hear a contextual recommendation, identify the next decision or action, and know which GPT-5.6 model should continue the conversation.
   ```
 
 - [x] Add trigger cases for planning/spec/model-routing prompts that should activate and direct execution or simple-edit prompts that should not activate.
@@ -95,6 +95,6 @@
 
 ## Self-review
 
-- **Behavior preservation:** the readiness assets do not introduce behavior beyond activation metadata. The continuity/reliability changes intentionally alter the workflow body and references and are reviewed alongside this readiness pass.
+- **Behavior preservation:** the readiness assets do not introduce behavior beyond activation metadata. The simplified conversational contract and its behavioral evidence are reviewed alongside this readiness pass.
 - **Publication readiness:** installation, license, manual release flow, portable validation, and trigger evaluation all have explicit homes outside the installable skill folder.
 - **Authority:** all state-changing release actions remain gated by a later explicit user authorization.

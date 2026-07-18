@@ -9,8 +9,8 @@ Em hosts que escolhem skills automaticamente, execute cada prompt em uma convers
 | TWM-T01 | “Antes de mexer no código, quero entender o fluxo atual e decidir a melhor abordagem.” | Sim | Planejamento e entendimento antes da execução. |
 | TWM-T02 | “Tenho duas formas de fazer esta migração; me ajude a comparar riscos e fechar uma spec.” | Sim | Comparação de opções e elaboração de spec. |
 | TWM-T03 | “Qual família de modelo e esforço fazem sentido para planejar esta mudança?” | Sim | Roteamento de modelo para uma etapa de planejamento. |
-| TWM-T04 | “Continue refinando este plano e me diga qual é a próxima decisão.” | Sim | Retomada explícita de planejamento e decisão pendente. |
-| TWM-T05 | “Quero decidir o próximo passo e se vale abrir um subagente.” | Sim | Planejamento com recomendação de continuidade e delegação. |
+| TWM-T04 | “Continue refinando esta ideia, dê sua visão e diga o próximo passo.” | Sim | Retomada explícita de uma conversa de entendimento que precisa avançar. |
+| TWM-T05 | “Com base neste contexto, qual é a sua visão, o que fazemos agora e qual GPT-5.6 devemos usar?” | Sim | Pedido direto de posição contextual, próximo passo e recomendação de modelo. |
 | TWM-T06 | “Corrija o typo no título deste README.” | Não | Edição pequena e direta, sem decisão de planejamento. |
 | TWM-T07 | “Rode os testes e me diga quais falharam.” | Não | Execução de uma ação delimitada, não planejamento antes da execução. |
 | TWM-T08 | “Traduza este parágrafo para inglês.” | Não | Transformação pontual de texto, sem decisão aberta. |

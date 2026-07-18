@@ -42,10 +42,17 @@ require_text "${skill_file}" 'one concrete next step'
 require_text "${skill_file}" 'not a sequence, checklist, or bundle of actions'
 require_text "${skill_file}" 'include your recommended answer'
 require_text "${skill_file}" '`Próximo passo` contains at most one `?` character'
-require_text "${routing_file}" 'Recommend exactly one model and effort'
+require_text "${skill_file}" 'A short confirmation or approval keeps this conversational mode active'
+require_text "${skill_file}" 'direct operational instruction that identifies the action to perform'
+require_text "${skill_file}" 'announce that transition before executing it'
+require_text "${routing_file}" 'Recommend exactly one primary model and effort'
+require_text "${routing_file}" 'Re-evaluate the recommendation whenever the conversation changes material phase'
+require_text "${routing_file}" 'A conditional alternative is optional'
 require_text "${output_file}" 'one question and your recommended answer'
+require_text "${output_file}" '**Modelo:** **Terra High** —'
+require_text "${output_file}" '_Se mudar:_'
 
-closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> **Modelo:** Terra High.'
+closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> **Modelo:** **Terra High** — short contextual reason.'
 if ! rg -U -F -- "${closing_template}" "${skill_file}" >/dev/null; then
   fail "skill does not contain the literal continuous blockquote template"
 fi
@@ -67,8 +74,12 @@ if rg -n -i 'subagent|handoff|project-context|commit|push|sync|approval routing|
   fail "installable contract still contains orchestration or repository-governance vocabulary"
 fi
 
-if rg -n '\*\*Modelo:\*\* .*(porque|—|- )' "${output_file}" >/dev/null; then
-  fail "an example makes the final model line verbose"
+if rg -n -F '**Modelo:** Terra High.' "${skill_file}" "${output_file}" >/dev/null; then
+  fail "legacy context-free model line still exists in the active contract"
+fi
+
+if ! rg -n -F '**Modelo:** **Sol High** ↑ de **Terra High**' "${output_file}" >/dev/null; then
+  fail "examples do not preserve a visible model transition"
 fi
 
 if rg -n -F 'require_text "${skill_root}/SKILL.md"' "${repo_root}/scripts/validate-structure.sh" >/dev/null; then

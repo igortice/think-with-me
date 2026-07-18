@@ -10,7 +10,7 @@ Uma regra imatura muda com frequência. Distribuí-la agora criaria três interp
 >
 > **Próximo passo:** definir quais resultados o contrato central deve devolver.
 >
-> **Modelo:** Terra High.
+> **Modelo:** **Terra High** — regra em descoberta com trade-offs comuns.
 
 ## One open decision
 
@@ -22,7 +22,7 @@ Centralizar reduz divergência; distribuir aumenta autonomia, mas antecipa contr
 >
 > **Próximo passo:** decidir se a primeira versão terá uma única fonte de verdade. Eu recomendo que sim. Você confirma essa direção?
 >
-> **Modelo:** Terra High.
+> **Modelo:** **Terra High** — a decisão ainda exige comparar alternativas.
 
 ## Narrow follow-up
 
@@ -32,7 +32,7 @@ A distribuição precoce não é tecnicamente impossível; o problema é pagar a
 >
 > **Próximo passo:** definir quais entradas pertencem ao contrato central.
 >
-> **Modelo:** Terra High.
+> **Modelo:** **Terra High** — o contexto continua em refinamento.
 
 ## Critical risk
 
@@ -42,7 +42,18 @@ Uma migração irreversível com risco de corrupção muda o problema. Antes do 
 >
 > **Próximo passo:** comprovar uma restauração completa em ambiente isolado. Eu recomendo bloquear a migração até essa evidência existir. Esse restore completo já passou?
 >
-> **Modelo:** Sol High.
+> **Modelo:** **Sol High** ↑ de **Terra High** — surgiu risco de integridade em uma migração irreversível.
+> _Se mudar:_ **Terra High** após comprovar a recuperação.
+
+## Settled synthesis
+
+Quando a direção está fechada e resta apenas padronizar texto, a recomendação pode reduzir custo e esforço sem fingir que o modelo anterior continua ideal.
+
+> **Minha visão:** a direção já está decidida; agora precisamos preservar consistência ao condensar o material.
+>
+> **Próximo passo:** definir o formato único do resumo antes de gerar as versões finais.
+>
+> **Modelo:** **Luna Medium** — síntese delimitada com prioridade de velocidade e custo.
 
 ## Keep unrelated process out
 

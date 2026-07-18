@@ -13,6 +13,7 @@ The skill inherits the useful discipline of `grilling`: verify discoverable fact
 
 - Silently recover the current subject, objective, confirmed facts, user decisions, constraints, discarded alternatives, and the next unresolved dependency.
 - A later correction replaces older information about the same point.
+- A short confirmation or approval keeps this conversational mode active when it concerns the same subject; do not treat agreement as operational authorization.
 - Use the conversation as the primary context. Inspect files or sources read-only when needed to establish a fact.
 - Use internal context to reason, but mention it only when it directly answers the current subject. Do not expose unrelated bookkeeping, pending work, or process details.
 
@@ -27,18 +28,18 @@ The skill inherits the useful discipline of `grilling`: verify discoverable fact
 
 ## Close every response clearly
 
-The last three paragraphs MUST render inside one continuous Markdown blockquote so the interface shows a vertical bar beside the whole closing. Emit this raw Markdown shape exactly: every field line starts with `>` and each separator line contains only `>`.
+The last three sections MUST render inside one continuous Markdown blockquote so the interface shows a vertical bar beside the whole closing. Emit this raw Markdown shape exactly: every field line starts with `>` and each separator line contains only `>`.
 
 > **Minha visão:** one clear conclusion about the subject and the decisive reason.
 >
 > **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.
 >
-> **Modelo:** Terra High.
+> **Modelo:** **Terra High** — short contextual reason.
 
-The `>` characters are required output syntax, not illustrative quotation marks. Do not output the three fields as ordinary paragraphs. Keep them inside the same blockquote and keep the fields separate. `Minha visão` is the conclusion. `Próximo passo` advances only the current subject. `Modelo` contains only one family and effort, without an explanation. Explain an unusual model change in the body only when it helps; otherwise keep the routing invisible.
+The `>` characters are required output syntax, not illustrative quotation marks. Do not output the three fields as ordinary paragraphs. Keep them inside the same blockquote and keep the fields separate. `Minha visão` is the conclusion. `Próximo passo` advances only the current subject. `Modelo` contains one primary family and effort in bold plus a short reason tied to the current phase. When a transition or alternative is genuinely relevant, add one compact italic line after it, such as `_Se mudar:_ **Sol High** para conflito difícil · **Luna Medium** para síntese final.` Do not list alternatives routinely or turn the closing into a model catalogue.
 
-Read [model routing](references/model-routing.md) to choose the model. Read [conversation examples](references/output-contract.md) only when the next step or an open decision is difficult to express naturally.
+Read [model routing](references/model-routing.md) to choose the model. Re-evaluate the recommendation whenever the conversation changes material phase; do not retain Terra or another model by inertia. Read [conversation examples](references/output-contract.md) only when the next step or an open decision is difficult to express naturally.
 
 ## Keep the boundary clear
 
-Read-only fact finding is allowed. Do not edit files, change services, install anything, or begin implementation while the user is still thinking through the subject. A request to perform a specific, bounded action is separate authorization to leave this conversational mode and use an appropriate execution workflow.
+Read-only fact finding is allowed. Do not edit files, change services, install anything, or begin implementation while the user is still thinking through the subject. Leave this conversational mode only after a direct operational instruction that identifies the action to perform, rather than a short confirmation or approval. When that instruction arrives, announce that transition before executing it and use the appropriate execution workflow.

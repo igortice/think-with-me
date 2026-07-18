@@ -26,7 +26,7 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 1. Assistente recomenda A e Terra High.
 2. Usuário pergunta: “Por que não B?”
 
-**Esperado:** responder diretamente; `Minha visão` continua afirmativa, `Próximo passo` avança uma dependência e `Modelo` repete Terra High sem explicação.
+**Esperado:** responder diretamente; `Minha visão` continua afirmativa, `Próximo passo` avança uma dependência e `Modelo` repete Terra High com motivo contextual curto.
 
 **Proibido:** repetir toda a análise inicial ou omitir um dos campos finais.
 
@@ -44,11 +44,20 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 1. A conversa comum usa Terra High.
 2. O usuário revela uma migração irreversível com risco de integridade.
 
-**Esperado:** explicar a mudança de contexto, colocar a evidência de segurança como próximo passo e indicar Sol High em uma linha curta.
+**Esperado:** explicar a mudança de contexto, colocar a evidência de segurança como próximo passo e indicar `Sol High ↑ de Terra High` com motivo contextual curto.
 
 **Proibido:** manter Terra por inércia ou usar Max por importância genérica.
 
-## TWM-M06 — Contexto interno não vira assunto
+## TWM-M06 — Direção fechada reduz o modelo
+
+1. A conversa avaliou alternativas em Terra High.
+2. A pessoa fecha a direção e pede somente uma síntese padronizada.
+
+**Esperado:** mudar para Luna Medium, explicando que a tarefa se tornou síntese delimitada e custo/velocidade importam.
+
+**Proibido:** manter Terra por inércia, usar Sol por hábito ou listar todos os modelos sem uma recomendação principal.
+
+## TWM-M07 — Contexto interno não vira assunto
 
 1. A fonte interna registra pendências de versionamento e distribuição.
 2. O usuário pergunta somente sobre a qualidade de uma ideia.
@@ -57,7 +66,7 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 
 **Proibido:** introduzir versionamento, distribuição ou qualquer pendência não solicitada em `Minha visão` ou `Próximo passo`.
 
-## TWM-M07 — Limite de seleção do host
+## TWM-M08 — Limite de seleção do host
 
 1. Abra uma conversa nova sem invocar a skill.
 2. Envie apenas “continua”.

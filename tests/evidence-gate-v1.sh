@@ -35,7 +35,7 @@ output_file="${repo_root}/skills/think-with-me/references/output-contract.md"
 require_text "${skill_file}" 'Use the language of the current user message'
 require_text "${skill_file}" 'never output Portuguese prose or labels'
 require_text "${skill_file}" 'one continuous Markdown blockquote'
-require_text "${skill_file}" 'For an English user message, use `My view`, `Next step`, and `Model for the next step` exactly:'
+require_text "${skill_file}" 'For an English user message, use `My view` and `Next step` exactly, then render the model as an inline-code label:'
 require_text "${skill_file}" 'Open [the output contract](references/output-contract.md) before writing the closing'
 require_text "${skill_file}" 'Do not output the three fields as ordinary paragraphs'
 require_text "${skill_file}" 'one concrete next step'
@@ -50,25 +50,23 @@ require_text "${skill_file}" 'conversation health'
 require_text "${skill_file}" 'Do not substitute generic product or effort names for the selected family and effort.'
 require_text "${output_file}" '**Minha visão:**'
 require_text "${output_file}" '**Próximo passo:**'
-require_text "${output_file}" '_Modelo para o próximo passo:'
 require_text "${output_file}" '**My view:**'
 require_text "${output_file}" '**Next step:**'
-require_text "${output_file}" '_Model for the next step:'
+require_text "${output_file}" '`Terra High` ·'
 require_text "${output_file}" '`Próximo passo` contains at most one `?` character'
 require_text "${routing_file}" 'Recommend exactly one model and effort for the next step'
 require_text "${routing_file}" 'Re-evaluate the recommendation whenever the conversation changes material phase'
 require_text "${routing_file}" 'Conversation health modifies next-step fit'
 require_text "${routing_file}" 'Never infer the active model'
 require_text "${output_file}" 'one question and your recommended answer'
-require_text "${output_file}" '_Modelo para o próximo passo: **Terra High**'
-require_text "${output_file}" '_Model for the next step: **Terra High**'
+require_text "${output_file}" '`Terra High` · connect the concrete next step to the decisive conversational evidence.'
 
-closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> _Modelo para o próximo passo: **Terra High** — connect the concrete next step to the decisive conversational evidence._'
+closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> `Terra High` · connect the concrete next step to the decisive conversational evidence.'
 if ! rg -U -F -- "${closing_template}" "${output_file}" >/dev/null; then
   fail "output contract does not contain the literal Portuguese blockquote template"
 fi
 
-english_closing_template=$'> **My view:** one clear conclusion about the subject and the decisive reason.\n>\n> **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> _Model for the next step: **Terra High** — connect the concrete next step to the decisive conversational evidence._'
+english_closing_template=$'> **My view:** one clear conclusion about the subject and the decisive reason.\n>\n> **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> `Terra High` · connect the concrete next step to the decisive conversational evidence.'
 if ! rg -U -F -- "${english_closing_template}" "${output_file}" >/dev/null; then
   fail "output contract does not contain the literal English blockquote template"
 fi
@@ -76,7 +74,7 @@ if ! rg -U -F -- "${english_closing_template}" "${skill_file}" >/dev/null; then
   fail "public core does not contain the literal English blockquote template"
 fi
 
-if rg -n -i 'grilling|Minha visão|Próximo passo|Modelo para o próximo passo' "${skill_file}" >/dev/null; then
+if rg -n -i 'grilling|Minha visão|Próximo passo|Modelo para o próximo passo|Model for the next step' "${skill_file}" >/dev/null; then
   fail "public core contains internal or language-specific copy"
 fi
 
@@ -108,23 +106,21 @@ fi
 model_footer_is_valid() {
   local footer="$1"
   local footer_body
-  local bold_delimiters
   local model_effort
   local reason
 
+  [[ "${footer}" =~ ^\>\ \`([^\`]+)\`\ ·\ (.+)$ ]] || return 1
+  model_effort="${BASH_REMATCH[1]}"
+  reason="${BASH_REMATCH[2]}"
   footer_body="${footer#> }"
-  if rg -qiP '\b(agora|depois|now|later)\b|\p{S}|->|=>|<-|<=|</?[A-Za-z][^>]*>' <<<"${footer_body}"; then
+
+  if rg -qiP '\b(agora|depois|now|later)\b|\p{S}|—|->|=>|<-|<=|</?[A-Za-z][^>]*>' <<<"${reason}"; then
     return 1
   fi
 
-  bold_delimiters="$(grep -o '\*\*' <<<"${footer}" | wc -l | tr -d ' ')"
-  [[ "${bold_delimiters}" == "2" ]] || return 1
-
-  model_effort="$(sed -E 's/^> _(Modelo para o próximo passo|Model for the next step): \*\*([^*]+)\*\*.*/\2/' <<<"${footer}")"
   [[ "${model_effort}" =~ ^(Terra|Sol|Luna)[[:space:]](None|Low|Medium|High|XHigh|Max)$ ]] || return 1
-
-  reason="$(sed -nE 's/^> _(Modelo para o próximo passo|Model for the next step): \*\*[^*]+\*\* — (.*)\._$/\2/p' <<<"${footer}")"
   [[ -n "${reason}" && "${reason}" =~ [^[:space:]] ]] || return 1
+  ! rg -q '\*\*|_|—' <<<"${footer}"
   ! rg -qi '\b(Terra|Sol|Luna|None|Low|Medium|High|XHigh|Max)\b' <<<"${reason}"
 }
 
@@ -132,26 +128,22 @@ model_footer_count=0
 while IFS= read -r footer; do
   model_footer_count=$((model_footer_count + 1))
   model_footer_is_valid "${footer}" || fail "invalid model footer: ${footer}"
-done < <(rg --no-filename '^> _Modelo para o próximo passo:' "${skill_file}" "${routing_file}" "${output_file}")
-while IFS= read -r footer; do
-  model_footer_count=$((model_footer_count + 1))
-  model_footer_is_valid "${footer}" || fail "invalid model footer: ${footer}"
-done < <(rg --no-filename '^> _Model for the next step:' "${skill_file}" "${routing_file}" "${output_file}")
+done < <(rg --no-filename '^> `(Terra|Sol|Luna) (None|Low|Medium|High|XHigh|Max)` · ' "${skill_file}" "${routing_file}" "${output_file}")
 [[ "${model_footer_count}" -gt 0 ]] || fail "no model footer examples found"
 
 invalid_model_footers=(
-  '> _Modelo para o próximo passo: **Sol High** — Agora fechar a regra._'
-  '> _Modelo para o próximo passo: **Sol High** → **Luna Medium**._'
-  '> <small>Modelo para o próximo passo: **Sol High** — fechar a regra.</small>'
-  '> _Modelo para o próximo passo: **Sol High / Max** — fechar a regra._'
-  '> _Modelo para o próximo passo: **Sol High** — Terra falhou e precisamos fechar._'
-  '> _Modelo para o próximo passo: **Sol High** — terra falhou e precisamos fechar._'
-  '> _Modelo para o próximo passo: **Sol High** — Max não resolveu o enquadramento._'
-  '> _Modelo para o próximo passo: **Sol High** — fechar a regra ← sem transição._'
-  '> _Modelo para o próximo passo: **Sol High** — fechar a regra ➡ sem transição._'
-  '> _Modelo para o próximo passo: **Sol High** — fechar a regra ⬅ sem transição._'
-  '> _Modelo para o próximo passo: **Sol High** — fechar a regra 🔄 sem transição._'
-  '> _Modelo para o próximo passo: **Sol High** — _'
+  '> `Sol High` · Agora fechar a regra.'
+  '> `Sol High` → `Luna Medium` · fechar a regra.'
+  '> <small>`Sol High` · fechar a regra.</small>'
+  '> `Sol High / Max` · fechar a regra.'
+  '> `Sol High` · Terra falhou e precisamos fechar.'
+  '> `Sol High` · terra falhou e precisamos fechar.'
+  '> `Sol High` · Max não resolveu o enquadramento.'
+  '> `Sol High` · fechar a regra ← sem transição.'
+  '> `Sol High` · fechar a regra ➡ sem transição.'
+  '> `Sol High` · fechar a regra ⬅ sem transição.'
+  '> `Sol High` · fechar a regra 🔄 sem transição.'
+  '> `Sol High` · '
 )
 for footer in "${invalid_model_footers[@]}"; do
   if model_footer_is_valid "${footer}"; then

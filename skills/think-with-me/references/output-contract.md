@@ -1,6 +1,6 @@
 # Conversation Examples
 
-These examples show how to answer naturally and then advance one dependency. The normal answer stays outside the quote; the three-field closing is one continuous blockquote so it renders with a vertical bar. Its labels follow the user's language.
+These examples show how to answer naturally and then advance one dependency. The normal answer stays outside the quote; the three-field closing is one continuous blockquote so it renders with a vertical bar. The view and next-step labels follow the user's language; the third line is the selected model as an inline-code label.
 
 ## Canonical closing templates
 
@@ -10,7 +10,7 @@ Use the Portuguese template when the current user message is Portuguese:
 >
 > **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.
 >
-> _Modelo para o próximo passo: **Terra High** — connect the concrete next step to the decisive conversational evidence._
+> `Terra High` · connect the concrete next step to the decisive conversational evidence.
 
 Use the English template when the current user message is English:
 
@@ -18,9 +18,9 @@ Use the English template when the current user message is English:
 >
 > **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.
 >
-> _Model for the next step: **Terra High** — connect the concrete next step to the decisive conversational evidence._
+> `Terra High` · connect the concrete next step to the decisive conversational evidence.
 
-For other languages, preserve these three roles with concise natural labels. `Próximo passo` contains at most one `?` character when the next step is a user decision.
+For other languages, preserve these three roles with concise natural view and next-step labels. The final line has no translated model-field label. `Próximo passo` contains at most one `?` character when the next step is a user decision.
 
 ## Normal continuation
 
@@ -30,7 +30,7 @@ Uma regra imatura muda com frequência. Distribuí-la agora criaria três interp
 >
 > **Próximo passo:** definir quais resultados o contrato central deve devolver.
 >
-> _Modelo para o próximo passo: **Terra High** — definir as saídas do contrato ainda em descoberta._
+> `Terra High` · definir as saídas do contrato ainda em descoberta.
 
 ## English continuation
 
@@ -42,7 +42,7 @@ The rule is still evolving, so distributing it would create several interpretati
 >
 > **Next step:** define the outputs the central contract must return.
 >
-> _Model for the next step: **Terra High** — define the contract outputs while the rule remains under discovery._
+> `Terra High` · define the contract outputs while the rule remains under discovery.
 
 ## One open decision
 
@@ -54,7 +54,7 @@ Centralizar reduz divergência; distribuir aumenta autonomia, mas antecipa contr
 >
 > **Próximo passo:** decidir se a primeira versão terá uma única fonte de verdade. Eu recomendo que sim. Você confirma essa direção?
 >
-> _Modelo para o próximo passo: **Terra High** — fechar a escolha de uma única fonte de verdade._
+> `Terra High` · fechar a escolha de uma única fonte de verdade.
 
 ## Narrow follow-up
 
@@ -64,7 +64,7 @@ A distribuição precoce não é tecnicamente impossível; o problema é pagar a
 >
 > **Próximo passo:** definir quais entradas pertencem ao contrato central.
 >
-> _Modelo para o próximo passo: **Terra High** — delimitar as entradas sem reabrir a arquitetura._
+> `Terra High` · delimitar as entradas sem reabrir a arquitetura.
 
 ## Critical risk
 
@@ -74,7 +74,7 @@ Uma migração irreversível com risco de corrupção muda o problema. Antes do 
 >
 > **Próximo passo:** comprovar uma restauração completa em ambiente isolado. Eu recomendo bloquear a migração até essa evidência existir. Esse restore completo já passou?
 >
-> _Modelo para o próximo passo: **Sol High** — comprovar recuperação e integridade antes da migração._
+> `Sol High` · comprovar recuperação e integridade antes da migração.
 
 ## Settled synthesis
 
@@ -84,7 +84,7 @@ Quando a direção está fechada, a transformação será repetida em grande vol
 >
 > **Próximo passo:** definir o formato único antes de condensar todas as versões em grande volume.
 >
-> _Modelo para o próximo passo: **Luna Medium** — condensar o conteúdo aprovado em grande volume com menor custo e latência._
+> `Luna Medium` · condensar o conteúdo aprovado em grande volume com menor custo e latência.
 
 ## Repeated corrections change the diagnosis
 
@@ -94,7 +94,7 @@ When the user explicitly reports that Terra High, then higher effort, did not re
 >
 > **Próximo passo:** encode one recommendation derived from this step and the observed convergence evidence.
 >
-> _Modelo para o próximo passo: **Sol High** — integrar as correções e fechar a regra que ainda não convergiu._
+> `Sol High` · integrar as correções e fechar a regra que ainda não convergiu.
 
 ## Keep unrelated process out
 

@@ -21,8 +21,9 @@ package_hash="$(sed -n 's/^PACKAGE_SHA256=//p' <<<"${manifest}")"
 [[ -n "${package_hash}" ]] || fail "candidate manifest has no package hash"
 
 require_text "${package_hash}"
-require_text "## Forward test passed"
+require_text "## Contract validation passed"
 require_text "Global think-with-me installation matches the repository source."
+require_text "## Runtime limitation"
 require_text "No implementation commit, push, or publication was made before this evidence record."
 
 echo "Behavior evidence matches the current package."

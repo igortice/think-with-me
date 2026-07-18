@@ -19,9 +19,9 @@ Centralizing first keeps the rule easy to correct while we are still learning it
 >
 > **Next step:** define the outputs the central contract must return.
 >
-> _Model for the next step: **Terra High** — define the contract outputs while the rule remains under discovery._
+> `Terra High` · define the contract outputs while the rule remains under discovery.
 
-The three labels follow the language of the current user message while preserving the same roles: view, next step, and model recommendation.
+The view and next-step labels follow the language of the current user message. The final line is a short model label and reason, so it stays visually quiet while still explaining the recommendation.
 
 ## Install for Codex
 

@@ -4,7 +4,7 @@ Recommend exactly one model and effort for the next step that has already been w
 
 ## Output language
 
-Keep the three closing fields in the user's language. Preserve the same order and compact one-line footer: Portuguese uses `Minha visão`, `Próximo passo`, and `Modelo para o próximo passo`; English uses `My view`, `Next step`, and `Model for the next step`; other languages use concise natural equivalents.
+Keep the closing in the user's language. Preserve the same order: localized view, localized next step, then one compact model line. Portuguese uses `Minha visão` and `Próximo passo`; English uses `My view` and `Next step`; other languages use concise natural equivalents. The third line has no model-field label: it starts with the selected family and effort in inline code.
 
 ## Dynamic choice
 
@@ -30,13 +30,13 @@ Then use conversation health as a modifier:
 
 Conversation health modifies next-step fit; neither signal is sufficient alone. Never infer the active model from unavailable host state. If the user states the active model or a model trajectory, treat it as evidence, not as a command to preserve or replace that model. The reasoning may consider that history, but the footer reason must summarize its outcome without naming any second family or effort.
 
-Render one compact line whose reason names the actual next step and the decisive evidence:
+Render one compact physical Markdown line whose reason names the actual next step and the decisive evidence. Use an inline-code model label, then ` · `, then the short reason:
 
 ```md
-> _Modelo para o próximo passo: **Terra High** — fechar o trade-off de ownership ainda em aberto._
-> _Modelo para o próximo passo: **Sol High** — integrar correções repetidas e fechar o contrato sem nova ambiguidade._
-> _Modelo para o próximo passo: **Luna Medium** — condensar a direção aprovada sem reabrir decisões._
-> _Model for the next step: **Terra High** — resolve the remaining ownership trade-off in the user's language._
+> `Terra High` · fechar o trade-off de ownership ainda em aberto.
+> `Sol High` · integrar correções repetidas e fechar o contrato sem nova ambiguidade.
+> `Luna Medium` · condensar a direção aprovada sem reabrir decisões.
+> `Terra High` · resolve the remaining ownership trade-off in the user's language.
 ```
 
 ## Effort
@@ -50,4 +50,4 @@ Last reviewed: 2026-07-18.
 - [OpenAI API model catalog](https://developers.openai.com/api/docs/models): Sol is the frontier model for complex reasoning and coding; Terra balances intelligence and cost; Luna is for cost-sensitive, high-volume workloads. The catalog lists reasoning through `max` for all three.
 - [GPT-5.6 product availability](https://openai.com/pt-BR/index/gpt-5-6/): Codex availability and plan-dependent `max` / `ultra` options.
 
-The line contains no second model, future transition, arrow, `agora`, `depois`, `now`, or `later`. Recalculate it from the next step on every response; stable evidence may legitimately produce the same recommendation.
+The line contains no second model, future transition, arrow, `agora`, `depois`, `now`, or `later`. It does not use a translated model-field label, italics, bold text, an em dash, or HTML. Recalculate it from the next step on every response; stable evidence may legitimately produce the same recommendation.

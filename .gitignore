@@ -4,3 +4,4 @@ AGENTS.md
 
 # Local validation and package-manager caches
 .cache/
+.superpowers/

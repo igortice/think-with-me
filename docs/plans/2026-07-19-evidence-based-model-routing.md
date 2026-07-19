@@ -256,9 +256,9 @@ Require candidate ID, package SHA-256, source configuration, prompt, raw `agentM
 
 Record the approved design, RED result, implemented policy, commands run, current package hash, known runtime limitations, global parity state, and the exact statement `No implementation commit, push, publication, or global synchronization preceded this evidence record.`
 
-- [ ] **Step 3: Repoint evidence verification**
+- [ ] **Step 3: Prepare evidence verification requirements**
 
-Set `evidence_file` in `scripts/verify-evidence-record.sh` to `evals/evidence-2026-07-19-evidence-based-routing.md`. Require the current package hash and headings `## Static validation passed`, `## Runtime behavior passed`, `## Independent review`, and `## Global parity`.
+Prepare `scripts/verify-evidence-record.sh` to target `evals/evidence-2026-07-19-evidence-based-routing.md` after Task 5 records runtime behavior. The final verifier will require the current package hash and headings `## Static validation passed`, `## Runtime behavior passed`, `## Independent review`, and `## Global parity`.
 
 - [ ] **Step 4: Remove literal Terra dependencies from the gate**
 
@@ -278,7 +278,7 @@ UV_CACHE_DIR=.cache/uv UV_TOOL_DIR=.cache/uv-tools XDG_DATA_HOME=.cache/xdg bash
 git diff --check
 ```
 
-Expected: all commands pass after the evidence record contains the current package hash.
+Expected: structural validation and `git diff --check` pass. The evidence gate reaches the dated evidence check and fails only because runtime behavior is still marked pending; Task 5 closes that intentional RED state.
 
 ---
 
@@ -303,9 +303,9 @@ Use raw `agentMessage.text`, not a normalized wait summary. Verify one view, one
 
 Add each prompt, selected configuration, decisive reason, invariant result, and representative raw closing to the dated evidence record. Do not claim cost observations when the host does not expose them.
 
-- [ ] **Step 4: Recompute the candidate hash and close the gate**
+- [ ] **Step 4: Repoint the verifier, recompute the candidate hash, and close the gate**
 
-Run `bash scripts/candidate-manifest.sh`, update the package hash in the evidence record, then run `bash tests/evidence-gate-v1.sh`.
+Point `scripts/verify-evidence-record.sh` to the dated record and require the final headings from Task 4. Run `bash scripts/candidate-manifest.sh`, update the package hash in the evidence record, then run `bash tests/evidence-gate-v1.sh`.
 
 Expected: `Behavior evidence matches the current package.` and `Evidence Gate v1 checks passed.`
 

@@ -56,7 +56,7 @@
 - Consumes: the approved design and the current output-contract invariants.
 - Produces: explicit fixtures that reject family-first routing and the old Terra default before implementation changes.
 
-- [ ] **Step 1: Add model-routing invariants to the one-turn cases**
+- [x] **Step 1: Add model-routing invariants to the one-turn cases**
 
 Add these invariants after the existing ten:
 
@@ -68,11 +68,11 @@ Add these invariants after the existing ten:
 15. Empates e fontes divergentes preservam a opção conservadora até existir evidência local suficiente.
 ```
 
-- [ ] **Step 2: Replace policy-specific expectations in existing fixtures**
+- [x] **Step 2: Replace policy-specific expectations in existing fixtures**
 
 Set `TWM-01`, `TWM-03`, `TWM-04`, `TWM-05`, and `TWM-13` to expect the quality floor for unresolved judgment. Keep `TWM-06` on the same floor, remove wording that treats it as exceptional, and keep `TWM-12` as a bounded high-volume economy case. Do not change activation, language, continuity, or authorization expectations.
 
-- [ ] **Step 3: Add multi-turn reduction cases**
+- [x] **Step 3: Add multi-turn reduction cases**
 
 Append these exact cases:
 
@@ -97,11 +97,11 @@ Append these exact cases:
 **Proibido:** descrever a configuração econômica como equivalente ao baseline de conversa.
 ```
 
-- [ ] **Step 4: Create the dedicated routing case matrix**
+- [x] **Step 4: Create the dedicated routing case matrix**
 
 Create `evals/model-routing-cases.md` with twelve cases: open product discovery, contextual comparison, technical specification, irreversible migration, repeated framing corrections, short settled rewrite without material cost pressure, high-volume schema extraction, long-horizon coding, Artificial Analysis versus DeepSWE disagreement, confidence-interval tie, explicit deepest-reasoning request, and frustration without additional ambiguity. Each row must state required evidence, expected configuration policy, and forbidden inference.
 
-- [ ] **Step 5: Add RED static assertions**
+- [x] **Step 5: Add RED static assertions**
 
 Add requirements for these future strings to `tests/evidence-gate-v1.sh`:
 
@@ -126,7 +126,7 @@ if rg -Fq 'Select the family first, then the effort.' "${routing_file}"; then
 fi
 ```
 
-- [ ] **Step 6: Run RED**
+- [x] **Step 6: Run RED**
 
 Run: `bash tests/evidence-gate-v1.sh`
 

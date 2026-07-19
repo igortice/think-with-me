@@ -100,7 +100,7 @@ Append these exact cases:
 
 - [x] **Step 4: Create the dedicated routing case matrix**
 
-Create `evals/model-routing-cases.md` with twelve cases: open product discovery, contextual comparison, technical specification, irreversible migration, repeated framing corrections, short settled rewrite without material cost pressure, high-volume schema extraction, long-horizon coding, Artificial Analysis versus DeepSWE disagreement, confidence-interval tie, explicit deepest-reasoning request, and frustration without additional ambiguity. Each row must state required evidence, expected configuration policy, and forbidden inference.
+Create `evals/model-routing-cases.md` with the twelve core cases: open product discovery, contextual comparison, technical specification, irreversible migration, repeated framing corrections, short settled rewrite without material cost pressure, high-volume schema extraction, long-horizon coding, Artificial Analysis versus DeepSWE disagreement, confidence-interval tie, explicit deepest-reasoning request, and frustration without additional ambiguity. Add positive and near-miss cases for the provisional `Sol Medium` value candidate. Each row must state required evidence, expected configuration policy, and forbidden inference.
 
 - [x] **Step 5: Add RED static assertions**
 
@@ -168,7 +168,7 @@ Mark:
 - Sustained quality floor: `Sol High`.
 - Selective depth: `Sol XHigh`; `Sol Max` only under the explicit deepest-reasoning gate.
 - Value candidate, not baseline-equivalent: `Sol Medium`.
-- Provisional bounded-volume route: `Luna Medium`, pending local synthesis evidence.
+- Provisional representative pilot: `Luna Medium`; full-volume use remains pending local synthesis evidence.
 - No preferred route in this snapshot: Terra configurations.
 ```
 
@@ -218,11 +218,11 @@ Use these sections in this order:
 ## Factual basis and review date
 ```
 
-Encode `Sol High` as the default for unresolved contextual judgment, `Sol XHigh` as selective depth, `Sol Max` behind the explicit deepest-reasoning gate, `Sol Medium` as a non-equivalent value candidate, `Luna Medium` as provisional bounded-volume transformation, and no preferred Terra route.
+Encode `Sol High` as the default for unresolved contextual judgment, `Sol XHigh` as selective depth, `Sol Max` behind the explicit deepest-reasoning gate, `Sol Medium` as a non-equivalent value candidate, `Luna Medium` as a provisional representative pilot until local synthesis evidence qualifies full-volume use, and no preferred Terra route.
 
 - [x] **Step 3: Preserve footer validation while updating examples**
 
-Replace ordinary `Terra High` examples with policy-consistent `Sol High` examples. Keep the high-volume settled transformation example on the bounded route and ensure its reason names volume and verifiability rather than claiming equivalent intelligence.
+Replace ordinary `Terra High` examples with policy-consistent `Sol High` examples. Keep the high-volume settled transformation example on a representative bounded pilot until a qualifying local run exists, and ensure its reason names volume and verifiability rather than claiming equivalent intelligence.
 
 - [x] **Step 4: Update public documentation**
 
@@ -310,7 +310,7 @@ Add each prompt, selected configuration, decisive reason, invariant result, and 
 
 Point `scripts/verify-evidence-record.sh` to the dated record and require the final headings from Task 4. Run `bash scripts/candidate-manifest.sh`, update the package hash in the evidence record, then run `bash tests/evidence-gate-v1.sh`.
 
-Expected: `Behavior evidence matches the current package.` and `Evidence Gate v1 checks passed.`
+Expected after the final review and parity markers exist: `Evidence record is bound to the current package; runtime source fidelity remains host-unverified.` and `Evidence Gate v1 checks passed.`
 
 ---
 

@@ -21,7 +21,7 @@ Apply these five policy states from the dated evidence snapshot:
 - Sustained quality floor: `Sol High` for unresolved contextual judgment and every case without sufficient domain-matched evidence to reduce.
 - Selective depth: `Sol XHigh` for material residual ambiguity or difficult cross-cutting judgment; `Sol Max` only behind the explicit deepest-reasoning gate.
 - Value candidate, not baseline-equivalent: `Sol Medium` for low-risk bounded analysis only when material economy pressure and cheap verification justify a local, provisional choice.
-- Provisional bounded-volume route: `Luna Medium` for mechanical transformation after the direction is closed, subject to the boundedness and verification gates below.
+- Provisional pilot route: `Luna Medium` for a representative sample of mechanical transformation after the direction is closed, subject to the boundedness and verification gates below. Full-volume use remains ineligible until a qualifying local pilot passes.
 - No preferred route: Terra has no preferred route in the current evidence snapshot.
 
 These states are configuration-specific. Do not create a route merely to represent every family, and do not describe an economic candidate as equivalent to the historical baseline.
@@ -29,6 +29,8 @@ These states are configuration-specific. Do not create a route merely to represe
 ## Escalate selectively
 
 Use `Sol XHigh` when the next step still requires judgment and concrete evidence identifies material residual ambiguity, such as cross-cutting constraints, unresolved tension between relevant sources, repeated framing corrections, or a difficult-to-detect failure involving security, authorization, integrity, concurrency, or irreversible change. Evident risk can justify selective depth immediately; do not wait for a failed response.
+
+Irreversibility or impact alone does not select `Sol XHigh`; without concrete difficult-to-detect failure modes or material residual ambiguity, preserve the `Sol High` floor and direct the next step to evidence of recovery and integrity.
 
 Use `Sol Max` only when the remaining problem is unusually difficult and bounded, and the user explicitly requests the deepest available reasoning or concrete evidence shows that the preceding depth did not resolve the material ambiguity. Importance, urgency, novelty, or frustration alone does not pass this gate.
 
@@ -38,7 +40,7 @@ An economic route is eligible only after the quality contract has filtered out c
 
 `Sol Medium` is a non-equivalent value candidate for bounded, low-risk analysis whose result can be checked cheaply. Its cross-source evidence is conflicting, so any use remains domain-specific and provisional rather than a new default.
 
-`Luna Medium` is a provisional route only for mechanical transformation, classification, extraction, or condensation at material volume when the direction is closed, no substantive decision is hidden, the output has a verifiable format, and an individual failure has low impact. Record the local reason for boundedness, volume pressure, cheap verification, retries, and total task cost. Do not generalize it to open conversation before local synthesis evidence establishes the required quality.
+`Luna Medium` is a provisional route only for mechanical transformation, classification, extraction, or condensation at material volume when the direction is closed, no substantive decision is hidden, the output has a verifiable format, and an individual failure has low impact. Until a qualifying local pilot has met versioned quality, retry, and total-cost criteria, recommend `Luna Medium` only for that representative pilot, not for the full corpus. Record the local reason for boundedness, volume pressure, cheap verification, retries, and total task cost. Do not generalize it to open conversation or scale it to production volume before local synthesis evidence establishes the required quality.
 
 ## Handle uncertainty and conflicting evidence
 
@@ -69,7 +71,7 @@ Valid policy-consistent examples:
 ```md
 > `Sol High` · fechar o trade-off de ownership ainda em aberto.
 > `Sol XHigh` · reconciliar as restrições transversais ainda ambíguas.
-> `Luna Medium` · extrair o schema fechado em volume com validação automática.
+> `Luna Medium` · validar um lote piloto do schema fechado com checagem automática.
 > `Sol High` · resolve the remaining ownership trade-off in the user's language.
 ```
 

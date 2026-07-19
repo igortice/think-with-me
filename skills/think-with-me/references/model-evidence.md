@@ -85,6 +85,13 @@ Per-token price must never be presented as total task cost.
 - **Sources:** [Capability-index methodology](https://artificialanalysis.ai/methodology/capability-indices),
   [Coding capability page](https://artificialanalysis.ai/models/capabilities/coding),
   and [GPT-5.6 analysis](https://artificialanalysis.ai/articles/gpt-5-6-has-landed/).
+- **Preserved chart artifacts:** the user-supplied filtered captures are
+  [Coding Index](../../../docs/research/assets/artificial-analysis-coding-index-2026-07-19.png)
+  (`SHA-256 d0c93da184aef6abbb1c36bba9ec031c254184e2af42751cec4f5d164b242f32`)
+  and [Intelligence versus cost](../../../docs/research/assets/artificial-analysis-intelligence-cost-2026-07-19.png)
+  (`SHA-256 846653101b0963757832edd10aed75ea6d962d1870d07d3611a762bef722eefc`).
+  Both came from the same 10-model filter in the user-provided URL, with the
+  first capture on `#intelligence-tabs` and the second on `#cost-tabs`.
 - **Configuration:** the ten configurations in the table below.
 - **Domain:** coding capability and broad intelligence-versus-cost comparison.
 - **Harness:** the Coding Index is a 50/50 aggregate of Terminal-Bench 2.1 and
@@ -203,8 +210,8 @@ Per-token price must never be presented as total task cost.
 - **Total task cost:** unknown.
 - **Limitations:** absent evidence cannot establish baseline equivalence or
   generalize Luna Medium to open-ended reasoning.
-- **Supported policy decision:** only a provisional, bounded-volume route is
-  justified, and it remains gated on local synthesis evidence.
+- **Supported policy decision:** only a provisional representative pilot is
+  justified; full-volume use remains gated on a qualifying local synthesis run.
 
 ## Cross-source interpretation
 
@@ -216,8 +223,10 @@ Per-token price must never be presented as total task cost.
   its advantage over the historical baseline there is small and its DeepSWE
   Pass@1 is lower. Preserve that disagreement: it is a value candidate, not a
   baseline-equivalent default.
-- Sol XHigh and Max improve DeepSWE Pass@1 with higher mean cost, tokens, and
-  steps. The evidence supports selective depth, with Max gated explicitly.
+- Sol XHigh and Max have higher DeepSWE Pass@1 point estimates than Sol High,
+  but their reported intervals overlap Sol High's. Their mean cost, tokens, and
+  steps are also higher. The evidence supports selective depth, with Max gated
+  explicitly; it does not establish a statistically distinct improvement.
 - Terra Max and Sol High have overlapping DeepSWE intervals, while Terra Max
   uses substantially more output tokens and agent steps and has higher mean
   task cost in that harness. This snapshot does not establish a preferred Terra
@@ -234,7 +243,7 @@ composite ranking is permitted.
 - Sustained quality floor: `Sol High`.
 - Selective depth: `Sol XHigh`; `Sol Max` only under the explicit deepest-reasoning gate.
 - Value candidate, not baseline-equivalent: `Sol Medium`.
-- Provisional bounded-volume route: `Luna Medium`, pending local synthesis evidence.
+- Provisional representative pilot: `Luna Medium`; full-volume use remains pending local synthesis evidence.
 - No preferred route in this snapshot: Terra configurations.
 
 Any future change to these states must add a dated record with the same evidence

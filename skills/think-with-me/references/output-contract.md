@@ -74,7 +74,7 @@ A distribuição precoce não é tecnicamente impossível; o problema é pagar a
 
 ## Critical risk
 
-Uma migração irreversível com risco de corrupção muda o problema. Antes do plano comum, precisamos provar restauração e integridade.
+Uma migração irreversível muda o problema, mas irreversibilidade isolada não prova ambiguidade residual nem falha difícil de detectar. Antes do plano comum, precisamos provar restauração e integridade.
 
 > **Minha visão:** não devemos avançar enquanto a recuperação não estiver comprovada.
 >
@@ -82,23 +82,33 @@ Uma migração irreversível com risco de corrupção muda o problema. Antes do 
 >
 > `Sol High` · comprovar recuperação e integridade antes da migração.
 
+## Selective depth for difficult-to-detect risk
+
+Quando a mesma migração também apresenta um modo concreto de corrupção silenciosa que os checks atuais não detectam, a ambiguidade residual passa pelo gate de profundidade seletiva.
+
+> **Minha visão:** não devemos autorizar a migração enquanto o modo de corrupção silenciosa permanecer fora dos checks de integridade.
+>
+> **Próximo passo:** construir uma prova isolada que injete a falha e demonstre sua detecção antes de qualquer mudança em produção.
+>
+> `Sol XHigh` · investigar falhas de integridade difíceis de detectar antes de autorizar a migração.
+
 ## Settled synthesis
 
-Quando a direção está fechada, a transformação é delimitada e repetida em grande volume, o formato permite verificação barata e custo e latência são materiais, a recomendação pode usar a rota provisória sem alegar equivalência com o piso de conversa.
+Quando a direção está fechada, a transformação é delimitada e repetida em grande volume, o formato permite verificação barata e custo e latência são materiais, a recomendação pode usar a rota provisória primeiro em um piloto representativo, sem alegar equivalência com o piso de conversa ou liberar o corpus inteiro.
 
 > **Minha visão:** a direção já está decidida; o formato delimitado e verificável permite tratar o volume com menor custo e latência.
 >
-> **Próximo passo:** condensar mecanicamente o conteúdo aprovado em grande volume no formato único com validação automática.
+> **Próximo passo:** executar primeiro um lote piloto representativo no formato único, medindo qualidade, retries e custo total com validação automática.
 >
-> `Luna Medium` · condensar mecanicamente o conteúdo aprovado em grande volume no formato único com validação automática.
+> `Luna Medium` · validar o lote piloto delimitado com critérios automáticos antes de ampliar o volume.
 
 ## Repeated corrections change the diagnosis
 
-When the user explicitly reports that prior configurations did not restore convergence and repeated corrections remain, use that outcome as evidence rather than recommending from the task category alone.
+Quando o usuário informa explicitamente que configurações anteriores não restauraram a convergência e ainda restam correções repetidas, use esse resultado como evidência em vez de recomendar apenas pela categoria da tarefa.
 
-> **Minha visão:** the rule is now understood, but previous framing errors show that the final contract still needs precise judgment.
+> **Minha visão:** a regra está compreendida, mas os erros anteriores de enquadramento mostram que o contrato final ainda exige julgamento preciso.
 >
-> **Próximo passo:** encode one recommendation derived from this step and the observed convergence evidence.
+> **Próximo passo:** codificar uma recomendação derivada deste passo e da evidência de convergência observada.
 >
 > `Sol High` · integrar as correções e fechar a regra que ainda não convergiu.
 

@@ -213,7 +213,9 @@ houver pelo menos um destes sinais materiais:
 - tarefa profissional limitada em que uma falha seria difícil de detectar.
 
 A seleção pode ocorrer desde o início diante de risco evidente; ela não depende
-de primeiro produzir uma resposta ruim.
+de primeiro produzir uma resposta ruim. Irreversibilidade ou impacto isolados
+permanecem em `Sol High`; `Sol XHigh` exige também um modo concreto de falha
+difícil de detectar ou ambiguidade residual material.
 
 `Sol Max` será reservado a um problema incomumente difícil e delimitado quando o
 usuário pedir explicitamente a análise mais profunda disponível ou quando
@@ -239,7 +241,10 @@ classificação, extração ou condensação em grande volume quando:
 
 Essa rota decorre do posicionamento oficial e deve ser tratada como provisória
 até ser validada pelas avaliações locais de síntese. Ela não representa o piso
-de boa conversa.
+de boa conversa. Enquanto não houver um run local qualificante, a recomendação
+deve limitar `Luna Medium` a um piloto representativo com critérios versionados
+de qualidade, retries e custo total; o corpus integral só fica elegível depois
+que esse piloto passar.
 
 ### Configurações sem rota preferencial inicial
 

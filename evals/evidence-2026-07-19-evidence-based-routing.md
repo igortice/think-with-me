@@ -1,12 +1,14 @@
 # Think With Me — evidence-based model-routing record
 
+RUNTIME_SOURCE_FIDELITY: host-unverified
+
 **Date:** 19 July 2026
 **Scope:** bind the evidence-based routing policy to the candidate package and
 prepare the gate for fresh-context runtime validation.
 
 ## Candidate
 
-- `PACKAGE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
+- `PACKAGE_SHA256`: `c5b7dad52d349b26e90b62dd3f633b9d8a40674317ce066a918d00d7db197ea1`
 - Package source: `skills/think-with-me/`
 - Runtime evidence source configuration:
   `host-selected default; family/effort not exposed by create_thread/read_thread`.
@@ -14,7 +16,7 @@ prepare the gate for fresh-context runtime validation.
   by the skill in its footer.
 - Runtime sample `CANDIDATE_ID` at capture:
   `2e62c84dccb460c3d2ad008dc58ff8533f715e098907be710256e4e1a8ed2c47`.
-- Candidate commit loaded by every current sample:
+- Candidate commit requested in every current sample:
   `072edf31c26e6916a6ac5bd50fd5be475dbea01c`.
 
 ## Approved design
@@ -51,7 +53,7 @@ atomic routing policy implemented by Task 3. Its supported states are
 `Sol High` for the sustained floor, `Sol XHigh` for selective depth, `Sol Max`
 only behind the explicit deepest-reasoning gate, `Sol Medium` as a
 non-equivalent value candidate, and `Luna Medium` as a provisional
-bounded-volume route. No Terra configuration has a preferred route in this
+representative pilot until a qualifying local run passes. No Terra configuration has a preferred route in this
 snapshot. Task 4 changes only the evidence bindings, validation manifest,
 canonical gate fixtures, and release review inputs.
 
@@ -80,12 +82,14 @@ commands against the package hash and raw behavior record above.
 
 ## Runtime behavior passed
 
-Five fresh Codex App tasks explicitly loaded the local candidate at commit
-`072edf31c26e6916a6ac5bd50fd5be475dbea01c`, did not use the global
-installation, and returned one final raw `agentMessage.text` each. Every sample
-used the same source configuration recorded under Candidate; the host did not
-expose its running family or effort. The configuration selected in each raw
-footer is therefore an observed skill output, not an inference about the host.
+Five fresh Codex App tasks were explicitly instructed to load the local
+candidate at commit `072edf31c26e6916a6ac5bd50fd5be475dbea01c`, avoid the
+global installation, and returned one final raw `agentMessage.text` each. The
+host did not expose which skill source it actually loaded, nor its running
+family or effort. These are behavioral observations from explicit candidate
+instructions, not proof of runtime source fidelity. The configuration selected
+in each raw footer is an observed response output, not an inference about the
+host.
 
 The invariants below use these meanings:
 
@@ -107,7 +111,7 @@ The invariants below use these meanings:
 - Host task duration: `49331 ms`.
 - `CANDIDATE_ID` at capture:
   `2e62c84dccb460c3d2ad008dc58ff8533f715e098907be710256e4e1a8ed2c47`.
-- `PACKAGE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
+- `RUNTIME_CAPTURE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
 - Source configuration: `host-selected default; family/effort not exposed by create_thread/read_thread`.
 - Selected configuration: `Sol High`.
 - Decisive reason: ownership and the operational-dependency trade-off remain
@@ -155,7 +159,7 @@ O principal custo é criar dependência operacional: latência, disponibilidade 
 - Host task duration: `41350 ms`.
 - `CANDIDATE_ID` at capture:
   `2e62c84dccb460c3d2ad008dc58ff8533f715e098907be710256e4e1a8ed2c47`.
-- `PACKAGE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
+- `RUNTIME_CAPTURE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
 - Source configuration: `host-selected default; family/effort not exposed by create_thread/read_thread`.
 - Selected configuration: `Sol XHigh`.
 - Decisive reason: the prompt supplies irreversible change plus unproved
@@ -200,7 +204,7 @@ Não avancem com a migração em produção ainda. Sendo irreversível, “ter b
 - Host task duration: `49205 ms`.
 - `CANDIDATE_ID` at capture:
   `2e62c84dccb460c3d2ad008dc58ff8533f715e098907be710256e4e1a8ed2c47`.
-- `PACKAGE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
+- `RUNTIME_CAPTURE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
 - Source configuration: `host-selected default; family/effort not exposed by create_thread/read_thread`.
 - Selected configuration: `Luna Medium`.
 - Decisive reason: the schema and rules are closed, 50,000 documents are
@@ -246,7 +250,7 @@ O trabalho agora é mecânico e altamente verificável: documentos independentes
 - Host task duration: `46489 ms`.
 - `CANDIDATE_ID` at capture:
   `2e62c84dccb460c3d2ad008dc58ff8533f715e098907be710256e4e1a8ed2c47`.
-- `PACKAGE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
+- `RUNTIME_CAPTURE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
 - Source configuration: `host-selected default; family/effort not exposed by create_thread/read_thread`.
 - Selected configuration: `Sol High`.
 - Decisive reason: Artificial Analysis and DeepSWE cover different domains and
@@ -293,7 +297,7 @@ Como os harnesses são diferentes, os resultados não se anulam nem podem ser co
 - Host task duration: `40927 ms`.
 - `CANDIDATE_ID` at capture:
   `2e62c84dccb460c3d2ad008dc58ff8533f715e098907be710256e4e1a8ed2c47`.
-- `PACKAGE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
+- `RUNTIME_CAPTURE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
 - Source configuration: `host-selected default; family/effort not exposed by create_thread/read_thread`.
 - Selected configuration: `Sol High`.
 - Decisive reason: frustration and two prior corrections justify preserving

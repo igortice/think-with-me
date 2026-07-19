@@ -6,7 +6,8 @@
 - Conversa/task:
 - `CANDIDATE_ID`:
 - `PACKAGE_SHA256`:
-- Fonte carregada explicitamente:
+- Fonte solicitada explicitamente:
+- Fidelidade da fonte em runtime (`verificada pelo host` / `não verificada pelo host`):
 
 ## Caso
 

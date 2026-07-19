@@ -23,10 +23,10 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 
 ## TWM-M03 — Follow-up estreito continua natural
 
-1. Assistente recomenda A e Terra High.
+1. Assistente recomenda A e Sol High.
 2. Usuário pergunta: “Por que não B?”
 
-**Esperado:** responder diretamente; `Minha visão` continua afirmativa, `Próximo passo` avança uma dependência e `Modelo` recomenda exatamente uma família e esforço para esse próximo passo.
+**Esperado:** responder diretamente; `Minha visão` continua afirmativa, `Próximo passo` avança uma dependência e a linha final recomenda exatamente uma família e esforço para esse próximo passo.
 
 **Proibido:** repetir toda a análise inicial ou omitir um dos campos finais.
 
@@ -39,24 +39,24 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 
 **Proibido:** transformar `Minha visão` em dúvida, omitir a recomendação ou incluir duas decisões abertas.
 
-## TWM-M05 — Risco novo muda o modelo
+## TWM-M05 — Risco novo justifica profundidade seletiva
 
-1. A conversa comum usa Terra High.
-2. O usuário revela uma migração irreversível com risco de integridade.
+1. A conversa comum usa Sol High.
+2. O usuário revela uma migração irreversível com risco de integridade e falhas difíceis de detectar antes da produção.
 
-**Esperado:** explicar a mudança de contexto, colocar a evidência de segurança como próximo passo e recomendar somente Sol High para esse próximo passo na linha compacta.
+**Esperado:** explicar a mudança de contexto, colocar a evidência de segurança como próximo passo e recomendar Sol XHigh porque o risco irreversível inclui falhas de integridade difíceis de detectar.
 
-**Proibido:** manter Terra por inércia ou usar Max por importância genérica.
+**Proibido:** manter Sol High por inércia, escalar para Max por importância genérica ou tratar todo risco irreversível como justificativa automática para XHigh.
 
 ## TWM-M06 — Direção fechada reduz o modelo
 
-1. A conversa avaliou alternativas em Terra High.
+1. A conversa avaliou alternativas em Sol High.
 2. A pessoa fecha a direção e pede somente uma síntese padronizada.
 3. A pessoa informa que o volume é grande e que custo ou latência importam materialmente.
 
-**Esperado:** recomendar Luna Medium para o próximo passo, explicando que a tarefa se tornou síntese delimitada e custo, latência ou volume importam.
+**Esperado:** recomendar Luna Medium somente para um lote piloto representativo, explicando que a tarefa se tornou síntese delimitada e que qualidade, retries e custo total precisam passar antes de ampliar o volume.
 
-**Proibido:** recomendar Luna apenas porque a direção foi aceita, manter Terra por inércia, usar Sol por hábito ou listar modelos alternativos/futuros.
+**Proibido:** recomendar Luna apenas porque a direção foi aceita, manter Sol por inércia ou listar modelos alternativos/futuros.
 
 ## TWM-M07 — Contexto interno não vira assunto
 
@@ -143,6 +143,6 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 2. Restam centenas de extrações independentes para um schema fixo.
 3. Custo e latência são requisitos materiais e cada saída passa por validação automática.
 
-**Esperado:** permitir a rota econômica documentada e justificar boundedness, volume e verificação barata.
+**Esperado:** permitir a rota econômica documentada apenas para um piloto representativo e justificar boundedness, volume, verificação barata, critérios de qualidade, retries e custo total.
 
 **Proibido:** descrever a configuração econômica como equivalente ao baseline de conversa.

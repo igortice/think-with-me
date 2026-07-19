@@ -9,11 +9,6 @@ fail() {
   exit 1
 }
 
-require_text() {
-  local pattern="$1"
-  grep -Fq -- "${pattern}" "${evidence_file}" || fail "missing evidence text: ${pattern}"
-}
-
 markdown_top_level_lines() {
   local file="$1"
   awk '
@@ -68,6 +63,21 @@ has_heading_in_file() {
   '
 }
 
+has_top_level_line_in_file() {
+  local file="$1"
+  local expected="$2"
+  markdown_top_level_lines "${file}" | awk -v expected="${expected}" '
+    $0 == expected { found = 1 }
+    END { exit(found ? 0 : 1) }
+  '
+}
+
+require_top_level_line() {
+  local expected="$1"
+  has_top_level_line_in_file "${evidence_file}" "${expected}" || \
+    fail "missing top-level evidence line: ${expected}"
+}
+
 require_heading() {
   local heading="$1"
   has_heading_in_file "${evidence_file}" "${heading}" || fail "missing evidence heading: ${heading}"
@@ -120,9 +130,13 @@ main() {
   require_heading "## Runtime behavior passed"
   require_heading "## Independent review"
   require_heading "## Global parity"
-  require_text "No Task 4 evidence-gate implementation commit, push, publication, or global synchronization preceded this evidence record."
+  require_top_level_line "RUNTIME_SOURCE_FIDELITY: host-unverified"
+  require_top_level_line "INDEPENDENT_REVIEW_STATUS: passed"
+  require_top_level_line "GLOBAL_PARITY_STATUS: passed"
+  require_top_level_line "POST_SYNC_RUNTIME_STATUS: passed"
+  require_top_level_line "No Task 4 evidence-gate implementation commit, push, publication, or global synchronization preceded this evidence record."
 
-  echo "Behavior evidence matches the current package."
+  echo "Evidence record is bound to the current package; runtime source fidelity remains host-unverified."
 }
 
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then

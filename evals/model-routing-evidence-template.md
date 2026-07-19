@@ -10,7 +10,8 @@ thread summary.
 - Case ID:
 - `CANDIDATE_ID`:
 - `PACKAGE_SHA256`:
-- Candidate source loaded explicitly:
+- Candidate source requested explicitly:
+- Runtime source fidelity (`verified by host` / `host-unverified`):
 - Source configuration (`family + effort` running the sample):
 
 ## Prompt

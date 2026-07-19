@@ -24,6 +24,8 @@ require_file "${repo_root}/scripts/verify-evidence-record.sh"
 require_file "${repo_root}/evals/evidence-run-template.md"
 require_file "${repo_root}/evals/model-routing-evidence-template.md"
 require_file "${repo_root}/evals/evidence-2026-07-19-evidence-based-routing.md"
+require_file "${repo_root}/docs/research/assets/artificial-analysis-coding-index-2026-07-19.png"
+require_file "${repo_root}/docs/research/assets/artificial-analysis-intelligence-cost-2026-07-19.png"
 
 manifest="$(bash "${repo_root}/scripts/candidate-manifest.sh")"
 grep -Fq 'CANDIDATE_ID=' <<<"${manifest}" || fail "candidate manifest has no candidate id"
@@ -81,6 +83,8 @@ require_text "${routing_file}" 'Sol High is the conservative quality floor'
 require_text "${routing_file}" 'Treat family and effort as one atomic configuration'
 require_text "${routing_file}" 'Do not average heterogeneous benchmarks'
 require_text "${routing_file}" 'Terra has no preferred route in the current evidence snapshot'
+require_text "${routing_file}" 'Irreversibility or impact alone does not select `Sol XHigh`'
+require_text "${routing_file}" 'Until a qualifying local pilot has met versioned quality, retry, and total-cost criteria, recommend `Luna Medium` only for that representative pilot, not for the full corpus.'
 require_text "${evidence_file}" 'Esta é fonte primária **para a metodologia do Artificial Analysis**, mas não é fonte primária do produto OpenAI nem substitui o DeepSWE'
 require_text "${evidence_file}" 'A metodologia do AA não deve preencher lacunas do DeepSWE.'
 require_text "${model_evidence_file}" 'This file is the versioned evidence source for model-routing policy.'
@@ -88,8 +92,18 @@ require_text "${model_evidence_file}" '## Artificial Analysis snapshot'
 require_text "${model_evidence_file}" 'the Coding Index is a 50/50 aggregate of Terminal-Bench 2.1 and'
 require_text "${model_evidence_file}" '## DeepSWE v1.1 snapshot'
 require_text "${model_evidence_file}" '## Local behavioral evidence status'
+require_text "${model_evidence_file}" 'Sol XHigh and Max have higher DeepSWE Pass@1 point estimates than Sol High,'
+require_text "${model_evidence_file}" "but their reported intervals overlap Sol High's."
+require_text "${model_evidence_file}" 'docs/research/assets/artificial-analysis-coding-index-2026-07-19.png'
+require_text "${model_evidence_file}" 'd0c93da184aef6abbb1c36bba9ec031c254184e2af42751cec4f5d164b242f32'
+require_text "${model_evidence_file}" 'docs/research/assets/artificial-analysis-intelligence-cost-2026-07-19.png'
+require_text "${model_evidence_file}" '846653101b0963757832edd10aed75ea6d962d1870d07d3611a762bef722eefc'
 require_text "${output_file}" 'one question and your recommended answer'
 require_text "${output_file}" '`Sol High` · connect the concrete next step to the decisive conversational evidence.'
+require_text "${output_file}" 'Quando o usuário informa explicitamente que configurações anteriores não restauraram a convergência e ainda restam correções repetidas, use esse resultado como evidência em vez de recomendar apenas pela categoria da tarefa.'
+require_text "${output_file}" '**Minha visão:** a regra está compreendida, mas os erros anteriores de enquadramento mostram que o contrato final ainda exige julgamento preciso.'
+require_text "${output_file}" 'executar primeiro um lote piloto representativo'
+require_text "${output_file}" '`Sol XHigh` · investigar falhas de integridade difíceis de detectar antes de autorizar a migração.'
 require_text "${cases_file}" 'Compare A e B com estes fatos'
 require_text "${cases_file}" 'inventar uma edição especulativa'
 require_text "${cases_file}" '11. A configuração é escolhida como o par indivisível `família + effort`; a resposta não escolhe uma família antes de avaliar o effort.'
@@ -97,10 +111,14 @@ require_text "${cases_file}" '12. Decisões abertas que exigem contexto ou julga
 require_text "${cases_file}" '13. Uma rota econômica só aparece quando o trabalho está delimitado, é barato verificar o resultado e custo, latência ou volume são materiais.'
 require_text "${cases_file}" '14. Benchmarks de domínios ou harnesses diferentes não são somados nem usados para declarar equivalência universal.'
 require_text "${cases_file}" '15. Empates e fontes divergentes preservam a opção conservadora até existir evidência local suficiente.'
-require_text "${cases_file}" 'Permitir `Luna Medium` somente depois de eliminar configurações que não atingem o critério de qualidade e comparar o custo total da tarefa entre as restantes; registrar a justificativa econômica como evidência local e provisória para a transformação delimitada e verificável.'
+require_text "${cases_file}" 'Permitir `Luna Medium` somente para um lote piloto representativo depois de eliminar configurações que não atingem o critério de qualidade; exigir critérios de qualidade, retries e custo total antes de ampliar o volume.'
 require_text "${multiturn_cases_file}" 'TWM-M10 — Execução concluída retoma a decisão'
 require_text "${multiturn_cases_file}" 'o relatório do resultado também termina no fechamento da skill'
 require_text "${multiturn_cases_file}" 'TWM-M11 — Inspeção separa fato de inferência'
+require_text "${multiturn_cases_file}" 'Assistente recomenda A e Sol High.'
+require_text "${multiturn_cases_file}" 'A conversa comum usa Sol High.'
+require_text "${multiturn_cases_file}" 'recomendar Sol XHigh porque o risco irreversível inclui falhas de integridade difíceis de detectar'
+require_text "${multiturn_cases_file}" 'A conversa avaliou alternativas em Sol High.'
 require_text "${skill_file}" 'This continuity applies only while the host has loaded this skill for the current turn.'
 require_text "${skill_file}" 'This source does not guarantee that the host will load this skill on a later turn.'
 require_text "${skill_file}" 'When a later turn explicitly invokes this skill, recover the same decision context without asking the user to restate it.'
@@ -123,7 +141,7 @@ require_text "${multiturn_cases_file}" 'resumo normalizado de `wait_threads`'
 require_text "${multiturn_cases_file}" 'TWM-M14 — Direção aceita não reduz qualidade por si só'
 require_text "${multiturn_cases_file}" 'preservar o piso de qualidade porque ainda existe julgamento substantivo.'
 require_text "${multiturn_cases_file}" 'TWM-M15 — Economia delimitada e verificável'
-require_text "${multiturn_cases_file}" 'permitir a rota econômica documentada e justificar boundedness, volume e verificação barata.'
+require_text "${multiturn_cases_file}" 'permitir a rota econômica documentada apenas para um piloto representativo e justificar boundedness, volume, verificação barata, critérios de qualidade, retries e custo total.'
 require_file "${routing_cases_file}"
 require_text "${routing_cases_file}" 'MR-01 | Descoberta aberta de produto'
 require_text "${routing_cases_file}" 'MR-02 | Comparação contextual'
@@ -137,18 +155,29 @@ require_text "${routing_cases_file}" 'MR-09 | Discordância entre Artificial Ana
 require_text "${routing_cases_file}" 'MR-10 | Empate por intervalo de confiança'
 require_text "${routing_cases_file}" 'MR-11 | Pedido explícito de raciocínio mais profundo'
 require_text "${routing_cases_file}" 'MR-12 | Frustração sem ambiguidade adicional'
+require_text "${routing_cases_file}" 'MR-13 | Análise delimitada com economia material'
+require_text "${routing_cases_file}" 'MR-14 | Análise delimitada sem economia material'
+require_text "${routing_cases_file}" 'MR-15 | Análise com julgamento substantivo'
 require_text "${routing_cases_file}" 'Uma economia só pode comparar custo total da tarefa depois de eliminar configurações que não atingem a qualidade requerida; toda justificativa econômica permanece evidência local e provisória.'
-require_text "${routing_cases_file}" 'Permitir `Luna Medium` somente depois de eliminar configurações que não atingem o critério de qualidade e comparar o custo total da tarefa entre as restantes; registrar a justificativa econômica como evidência local e provisória.'
+require_text "${routing_cases_file}" 'Permitir `Luna Medium` somente para um lote piloto representativo depois de eliminar configurações que não atingem o critério de qualidade; medir qualidade, retries e custo total antes de ampliar o volume.'
 require_text "${routing_cases_file}" 'O turno anterior recomendou `Sol High`; direção e texto-alvo estão definidos, mas custo, latência e volume não são materiais.'
 require_text "${routing_cases_file}" 'Manter `Sol High`; não há rota econômica justificada.'
 require_text "${routing_cases_file}" 'Preservar `Sol High` até haver evidência local comparável.'
 require_text "${routing_cases_file}" 'Preservar `Sol High` e pedir evidência local suficiente antes de reduzir.'
 require_text "${routing_cases_file}" 'A configuração anterior é `Sol High`; resta reescrever uma única frase já aprovada, com critérios claros e sem novo risco ou ambiguidade.'
 require_text "${routing_cases_file}" 'Manter `Sol High` e corrigir a comunicação; não escalar só pelo sentimento.'
+require_text "${routing_cases_file}" 'Permitir `Sol Medium` como candidato provisório e não equivalente somente para essa análise delimitada.'
+require_text "${routing_cases_file}" 'Preservar `Sol High`; boundedness sem pressão econômica material não justifica a rota de valor.'
+require_text "${routing_cases_file}" 'Preservar `Sol High`; julgamento substantivo torna `Sol Medium` inelegível mesmo com pressão econômica.'
+require_text "${routing_cases_file}" 'Permitir `Sol Max` somente porque a profundidade máxima foi pedida explicitamente e é pertinente ao problema delimitado e materialmente difícil.'
 require_text "${metadata_file}" 'display_name: "Think With Me"'
 require_text "${metadata_file}" 'short_description: "Understand a decision before acting, choose the next step, and select a GPT-5.6 model"'
 require_text "${metadata_file}" 'default_prompt: "Use $think-with-me to understand this conversation, give your view, recommend the immediate next step, and select the GPT-5.6 model for that step in my language."'
 require_text "${metadata_file}" 'allow_implicit_invocation: true'
+require_text "${repo_root}/evals/model-routing-evidence-template.md" 'Candidate source requested explicitly:'
+require_text "${repo_root}/evals/model-routing-evidence-template.md" 'Runtime source fidelity (`verified by host` / `host-unverified`):'
+require_text "${repo_root}/evals/evidence-run-template.md" 'Fonte solicitada explicitamente:'
+require_text "${repo_root}/evals/evidence-run-template.md" 'Fidelidade da fonte em runtime (`verificada pelo host` / `não verificada pelo host`):'
 require_text "${trigger_cases_file}" 'TWM-T01'
 require_text "${trigger_cases_file}" 'TWM-T08'
 require_text "${trigger_cases_file}" 'TWM-T09'
@@ -177,6 +206,17 @@ fi
 
 if rg -Fq 'Select the family first, then the effort.' "${routing_file}"; then
   fail 'routing still selects family before effort'
+fi
+
+if rg -Fq 'Sol XHigh and Max improve DeepSWE Pass@1' "${model_evidence_file}"; then
+  fail 'model evidence overstates overlapping DeepSWE point estimates as improvement'
+fi
+
+if rg -Fq 'Assistente recomenda A e Terra High.' "${multiturn_cases_file}" ||
+   rg -Fq 'A conversa comum usa Terra High.' "${multiturn_cases_file}" ||
+   rg -Fq 'A conversa avaliou alternativas em Terra High.' "${multiturn_cases_file}" ||
+   rg -Fq 'recomendar somente Sol High para esse próximo passo' "${multiturn_cases_file}"; then
+  fail 'multiturn fixtures still encode the superseded Terra baseline or block selective depth'
 fi
 
 if rg -Fq '**Status:** implementada, validada e sincronizada globalmente' "${routing_spec_file}"; then
@@ -289,6 +329,10 @@ require_text "${repo_root}/scripts/verify-evidence-record.sh" 'reject_heading "#
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Runtime behavior passed"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Independent review"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Global parity"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "INDEPENDENT_REVIEW_STATUS: passed"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "GLOBAL_PARITY_STATUS: passed"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "POST_SYNC_RUNTIME_STATUS: passed"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "RUNTIME_SOURCE_FIDELITY: host-unverified"'
 
 if grep -Fq 'Public-release validation passed.' "${repo_root}/scripts/validate-skill.sh"; then
   fail "legacy validator still claims public-release validation"
@@ -298,6 +342,7 @@ verifier_script="${repo_root}/scripts/verify-evidence-record.sh"
 if ! bash -c '
   source "$1"
   declare -F has_heading_in_file >/dev/null
+  declare -F has_top_level_line_in_file >/dev/null
   declare -F verify_package_hashes >/dev/null
 ' _ "${verifier_script}"; then
   fail "evidence verifier does not expose its parsers through a source-safe internal interface"
@@ -331,6 +376,16 @@ printf '%s\n' \
   '## Runtime behavior passed' >"${top_level_heading_fixture}"
 has_heading_in_file "${top_level_heading_fixture}" "## Runtime behavior passed" || \
   fail "evidence heading parser rejected a genuine top-level heading"
+
+fenced_provenance_fixture="${parser_fixture_dir}/fenced-provenance.md"
+printf '%s\n' \
+  '```text' \
+  'No Task 4 evidence-gate implementation commit, push, publication, or global synchronization preceded this evidence record.' \
+  '```' >"${fenced_provenance_fixture}"
+if has_top_level_line_in_file "${fenced_provenance_fixture}" \
+  'No Task 4 evidence-gate implementation commit, push, publication, or global synchronization preceded this evidence record.'; then
+  fail "evidence parser accepted fenced-only provenance"
+fi
 
 indented_pending_heading_fixture="${parser_fixture_dir}/indented-pending-heading.md"
 printf '%s\n' '  ## Runtime behavior pending' >"${indented_pending_heading_fixture}"

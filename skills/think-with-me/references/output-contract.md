@@ -14,7 +14,7 @@ Use the Portuguese template when the current user message is Portuguese:
 >
 > **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.
 >
-> `Terra High` · connect the concrete next step to the decisive conversational evidence.
+> `Sol High` · connect the concrete next step to the decisive conversational evidence.
 
 Use the English template when the current user message is English:
 
@@ -22,7 +22,7 @@ Use the English template when the current user message is English:
 >
 > **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.
 >
-> `Terra High` · connect the concrete next step to the decisive conversational evidence.
+> `Sol High` · connect the concrete next step to the decisive conversational evidence.
 
 For other languages, preserve these three roles with concise natural view and next-step labels. The final line has no translated model-field label. `Próximo passo` contains at most one `?` character when the next step is a user decision.
 
@@ -34,7 +34,7 @@ Uma regra imatura muda com frequência. Distribuí-la agora criaria três interp
 >
 > **Próximo passo:** definir quais resultados o contrato central deve devolver.
 >
-> `Terra High` · definir as saídas do contrato ainda em descoberta.
+> `Sol High` · definir as saídas do contrato ainda em descoberta.
 
 ## English continuation
 
@@ -46,7 +46,7 @@ The rule is still evolving, so distributing it would create several interpretati
 >
 > **Next step:** define the outputs the central contract must return.
 >
-> `Terra High` · define the contract outputs while the rule remains under discovery.
+> `Sol High` · define the contract outputs while the rule remains under discovery.
 
 ## One open decision
 
@@ -58,7 +58,7 @@ Centralizar reduz divergência; distribuir aumenta autonomia, mas antecipa contr
 >
 > **Próximo passo:** decidir se a primeira versão terá uma única fonte de verdade. Eu recomendo que sim. Você confirma essa direção?
 >
-> `Terra High` · fechar a escolha de uma única fonte de verdade.
+> `Sol High` · fechar a escolha de uma única fonte de verdade.
 
 ## Narrow follow-up
 
@@ -68,7 +68,7 @@ A distribuição precoce não é tecnicamente impossível; o problema é pagar a
 >
 > **Próximo passo:** definir quais entradas pertencem ao contrato central.
 >
-> `Terra High` · delimitar as entradas sem reabrir a arquitetura.
+> `Sol High` · delimitar as entradas sem reabrir a arquitetura.
 
 ## Critical risk
 
@@ -82,17 +82,17 @@ Uma migração irreversível com risco de corrupção muda o problema. Antes do 
 
 ## Settled synthesis
 
-Quando a direção está fechada, a transformação será repetida em grande volume e custo e latência são materiais, a recomendação pode reduzir despesa sem fingir que o modelo anterior continua ideal.
+Quando a direção está fechada, a transformação é delimitada e repetida em grande volume, o formato permite verificação barata e custo e latência são materiais, a recomendação pode usar a rota provisória sem alegar equivalência com o piso de conversa.
 
-> **Minha visão:** a direção já está decidida; o volume exige preservar consistência com menor custo e latência.
+> **Minha visão:** a direção já está decidida; o formato delimitado e verificável permite tratar o volume com menor custo e latência.
 >
-> **Próximo passo:** definir o formato único antes de condensar todas as versões em grande volume.
+> **Próximo passo:** definir a validação automática do formato único antes da condensação em grande volume.
 >
-> `Luna Medium` · condensar o conteúdo aprovado em grande volume com menor custo e latência.
+> `Luna Medium` · condensar o formato delimitado em grande volume com validação automática.
 
 ## Repeated corrections change the diagnosis
 
-When the user explicitly reports that Terra High, then higher effort, did not restore convergence and repeated corrections remain, use that outcome as evidence rather than recommending from the task category alone.
+When the user explicitly reports that prior configurations did not restore convergence and repeated corrections remain, use that outcome as evidence rather than recommending from the task category alone.
 
 > **Minha visão:** the rule is now understood, but previous framing errors show that the final contract still needs precise judgment.
 >

@@ -35,7 +35,7 @@ Use the language of the current user message, not the application locale, prior 
 >
 > **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.
 >
-> `Terra High` · connect the concrete next step to the decisive conversational evidence.
+> `Sol High` · connect the concrete next step to the decisive conversational evidence.
 
 For another language, keep this exact structure and load the localized view and next-step labels from the output contract. The model label is always the selected family and effort in inline code; do not add a translated model-field label.
 
@@ -47,13 +47,16 @@ Model recommendation is derived only after the view and exactly one next step ar
 
 ## Choose the model from the next step
 
-- Evaluate what the remaining step requires: ordinary comparison, difficult judgment, critical risk, or bounded synthesis.
-- Evaluate conversation health from observable progress, repeated corrections, contradictions, friction, disclosed model history, remaining ambiguity, and convergence.
-- Choose exactly one family and effort for that step. Conversation health modifies task fit; sentiment alone never selects a model.
+- Define the quality contract required by the single next step after the view and next step have been formed.
+- Identify the relevant domain without transferring benchmark results from a different domain or harness.
+- Evaluate family and effort together as one atomic configuration, never as two sequential choices.
+- Keep only configurations supported by sufficient evidence for the required quality; unresolved contextual judgment retains the conservative quality floor.
+- Apply conversation health from observable progress, repeated corrections, contradictions, friction, disclosed model history, remaining ambiguity, and convergence; sentiment alone never selects a model.
+- Compare total task cost only among eligible configurations, then recommend exactly one configuration for that step.
 
 ## Open detailed references only when needed
 
-Open [the output contract](references/output-contract.md) before writing the closing for exact localized labels, templates, and examples. Open [model routing](references/model-routing.md) when the next step requires a model recommendation.
+Open [the output contract](references/output-contract.md) before writing the closing for exact localized labels, templates, and examples. Open [model routing](references/model-routing.md) and its linked [model evidence](references/model-evidence.md) when the next step requires a model recommendation.
 
 ## Keep the boundary clear
 

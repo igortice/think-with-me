@@ -19,9 +19,11 @@ Centralizing first keeps the rule easy to correct while we are still learning it
 >
 > **Next step:** define the outputs the central contract must return.
 >
-> `Terra High` · define the contract outputs while the rule remains under discovery.
+> `Sol High` · define the contract outputs while the rule remains under discovery.
 
 The view and next-step labels follow the language of the current user message. The final line is a short model label and reason, so it stays visually quiet while still explaining the recommendation.
+
+Lower-cost recommendations apply only to bounded, verifiable work when cost, latency, or volume pressure is material. The skill filters for the required quality first and compares total task cost only among configurations that remain eligible.
 
 ## Install for Codex
 

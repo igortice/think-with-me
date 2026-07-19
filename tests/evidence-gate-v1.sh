@@ -30,6 +30,7 @@ grep -Fq 'FILE_SHA256=' <<<"${manifest}" || fail "candidate manifest has no file
 
 skill_file="${repo_root}/skills/think-with-me/SKILL.md"
 routing_file="${repo_root}/skills/think-with-me/references/model-routing.md"
+evidence_file="${repo_root}/docs/research/model-routing-evidence-2026-07-17.md"
 output_file="${repo_root}/skills/think-with-me/references/output-contract.md"
 metadata_file="${repo_root}/skills/think-with-me/agents/openai.yaml"
 cases_file="${repo_root}/evals/think-with-me-cases.md"
@@ -69,6 +70,13 @@ require_text "${routing_file}" 'Recommend exactly one model and effort for the n
 require_text "${routing_file}" 'Re-evaluate the recommendation whenever the conversation changes material phase'
 require_text "${routing_file}" 'Conversation health modifies next-step fit'
 require_text "${routing_file}" 'Never infer the active model'
+require_text "${routing_file}" 'GPT-5.5 High is the historical quality baseline'
+require_text "${routing_file}" 'Sol High is the conservative quality floor'
+require_text "${routing_file}" 'Treat family and effort as one atomic configuration'
+require_text "${routing_file}" 'Do not average heterogeneous benchmarks'
+require_text "${routing_file}" 'Terra has no preferred route in the current evidence snapshot'
+require_text "${evidence_file}" 'DeepSWE v1.1'
+require_text "${evidence_file}" 'Artificial Analysis Coding Index'
 require_text "${output_file}" 'one question and your recommended answer'
 require_text "${output_file}" '`Terra High` · connect the concrete next step to the decisive conversational evidence.'
 require_text "${cases_file}" 'Compare A e B com estes fatos'
@@ -116,6 +124,14 @@ require_text "${routing_spec_file}" '**Status atual da candidata:** não sincron
 
 if rg -Fq 'Only an explicit topic change or closure ends that continuity.' "${skill_file}"; then
   fail 'core skill still promises lifecycle control that belongs to the host'
+fi
+
+if rg -Fq 'First choose by next-step fit:' "${routing_file}"; then
+  fail 'routing still chooses a family role before an atomic configuration'
+fi
+
+if rg -Fq 'Select the family first, then the effort.' "${routing_file}"; then
+  fail 'routing still selects family before effort'
 fi
 
 if rg -Fq '**Status:** implementada, validada e sincronizada globalmente' "${routing_spec_file}"; then

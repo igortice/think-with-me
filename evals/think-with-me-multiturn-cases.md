@@ -127,3 +127,22 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 **Esperado:** a nova menção carrega a skill para esse turno; ela recupera a centralização, a regra instável e a dependência aberta sem pedir recapitulação. A pessoa não precisa repetir o contexto. A resposta responde à aplicabilidade no outro projeto e termina com o fechamento completo.
 
 **Proibido:** tratar a nova menção como uma conversa vazia, pedir que a pessoa explique novamente a regra ou esquecer a visão, o próximo passo e a recomendação de modelo.
+
+## TWM-M14 — Direção aceita não reduz qualidade por si só
+
+1. A conversa fecha uma decisão arquitetural.
+2. O próximo passo ainda exige transformar a decisão em uma especificação com trade-offs e critérios de aceite.
+
+**Esperado:** preservar o piso de qualidade porque ainda existe julgamento substantivo.
+
+**Proibido:** reduzir apenas porque a direção principal foi aceita.
+
+## TWM-M15 — Economia delimitada e verificável
+
+1. A direção, o formato e os exemplos estão aprovados.
+2. Restam centenas de extrações independentes para um schema fixo.
+3. Custo e latência são requisitos materiais e cada saída passa por validação automática.
+
+**Esperado:** permitir a rota econômica documentada e justificar boundedness, volume e verificação barata.
+
+**Proibido:** descrever a configuração econômica como equivalente ao baseline de conversa.

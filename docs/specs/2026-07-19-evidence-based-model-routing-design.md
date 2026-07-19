@@ -1,6 +1,7 @@
 # Think With Me — roteamento baseado em evidências e piso de qualidade
 
-**Status:** desenho aprovado conceitualmente; aguardando revisão do documento antes da implementação  
+**Status:** aprovado pelo usuário para implementação
+
 **Data:** 19 de julho de 2026
 
 ## Contexto

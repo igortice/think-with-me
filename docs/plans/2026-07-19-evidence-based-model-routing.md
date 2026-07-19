@@ -324,15 +324,15 @@ Expected after the final review and parity markers exist: `Evidence record is bo
 - Consumes: green local candidate and runtime evidence.
 - Produces: independently reviewed candidate, synchronized global installation, and parity proof.
 
-- [ ] **Step 1: Run an independent read-only review**
+- [x] **Step 1: Run an independent read-only review**
 
 Review for policy correctness, source fidelity, hidden Terra-first assumptions, unsupported benchmark generalization, stale literal examples, weakened output invariants, and missing behavior cases.
 
-- [ ] **Step 2: Correct findings and rerun all gates**
+- [x] **Step 2: Correct findings and rerun all gates**
 
 Use `apply_patch` for corrections. Rerun the static gate, structural validation, shell syntax checks, and `git diff --check`.
 
-- [ ] **Step 3: Synchronize the approved local package globally**
+- [x] **Step 3: Synchronize the approved local package globally**
 
 Run:
 
@@ -343,15 +343,15 @@ bash scripts/verify-global-install.sh
 
 Expected: `Global think-with-me installation matches the repository source.`
 
-- [ ] **Step 4: Run one post-sync fresh session**
+- [x] **Step 4: Run one post-sync fresh session**
 
 Invoke `$think-with-me` from the global installation on an unresolved contextual comparison. Confirm raw output uses the new floor and preserves the output contract.
 
-- [ ] **Step 5: Update final evidence and rerun parity**
+- [x] **Step 5: Update final evidence and rerun parity**
 
 Record global parity and post-sync runtime result, recompute the package hash if package files changed, and rerun all gates.
 
-- [ ] **Step 6: Commit the complete implementation**
+- [x] **Step 6: Commit the complete implementation**
 
 Stage only the files in this plan and commit with:
 
@@ -365,12 +365,12 @@ Do not push.
 
 ## Final Verification
 
-- [ ] `bash tests/evidence-gate-v1.sh`
-- [ ] `UV_CACHE_DIR=.cache/uv UV_TOOL_DIR=.cache/uv-tools XDG_DATA_HOME=.cache/xdg bash scripts/validate-skill.sh`
-- [ ] `bash -n scripts/*.sh tests/*.sh`
-- [ ] `git diff --check HEAD^ HEAD`
-- [ ] `bash scripts/verify-global-install.sh`
-- [ ] fresh global runtime sample passes
-- [ ] independent review has no unresolved material finding
-- [ ] `git status --short` is clean
-- [ ] branch is not pushed without explicit authorization
+- [x] `bash tests/evidence-gate-v1.sh`
+- [x] `UV_CACHE_DIR=.cache/uv UV_TOOL_DIR=.cache/uv-tools XDG_DATA_HOME=.cache/xdg bash scripts/validate-skill.sh`
+- [x] `bash -n scripts/*.sh tests/*.sh`
+- [x] `git diff --check HEAD^ HEAD`
+- [x] `bash scripts/verify-global-install.sh`
+- [x] fresh global runtime sample passes
+- [x] independent review has no unresolved material finding
+- [x] `git status --short` is clean
+- [x] branch is not pushed without explicit authorization

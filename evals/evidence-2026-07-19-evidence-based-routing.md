@@ -1,6 +1,7 @@
 # Think With Me — evidence-based model-routing record
 
 RUNTIME_SOURCE_FIDELITY: host-unverified
+INDEPENDENT_REVIEW_STATUS: passed
 GLOBAL_PARITY_STATUS: passed
 POST_SYNC_RUNTIME_STATUS: passed
 
@@ -452,18 +453,21 @@ comparison above is the qualifying English sample.
 
 ## Independent review
 
-Independent review belongs to Task 6 and remains pending. Tasks 4 and 5 record
-only task-scoped self-review, not the independent gate. Task 4 review hardened
-Markdown fence tracking so mixed delimiters, shorter nested fences, and
-fence-like lines with suffixes cannot expose a raw heading as top-level.
-Top-level content is normalized across zero to three leading spaces so an
-indented pending heading cannot escape detection. The review also replaced
-loose hash search with exact structured-line parsing that rejects every
-noncanonical top-level package-hash field, including alternative list markers
-and malformed values, and rejects conflicts after indentation normalization.
-Fenced occurrences and Markdown code blocks indented by four or more spaces
-remain ignored. This review is not a substitute for the independent Task 6
-gate.
+Task 6 ran independent read-only spec and quality reviews. The broad review
+found six Important and two Minor inconsistencies across statistical wording,
+language examples, High/XHigh thresholds, the Luna pilot boundary, stale
+Terra-first fixtures, missing Sol Medium cases, final-status enforcement,
+top-level provenance, and snapshot reproducibility. The corrective delta added
+the missing gates and preserved the Artificial Analysis captures and hashes.
+
+A second review invalidated the original MR-04 because its prompt lacked the
+fact needed for selective depth. The design was made unambiguous and the case
+was rerun post-sync with silent corruption explicitly present. Final review of
+`4439881..cfa57bd` approved both Spec and Quality with 0 Critical, 0 Important,
+and 0 Minor findings. It also confirmed the two raw post-sync outputs against
+their original rollouts, the current package hash, global parity, and the
+truthful `host-unverified` runtime-source limitation. No material review finding
+remains unresolved.
 
 ## Global parity
 

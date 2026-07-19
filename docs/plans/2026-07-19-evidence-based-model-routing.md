@@ -39,6 +39,7 @@
 | `evals/model-routing-evidence-template.md` | Reusable record for actual runtime samples. |
 | `evals/evidence-2026-07-19-evidence-based-routing.md` | Package-bound implementation and runtime evidence. |
 | `tests/evidence-gate-v1.sh` | Static invariants for the existing contract and new routing policy. |
+| `scripts/validate-structure.sh` | Installable-package manifest updated for the new evidence reference. |
 | `scripts/verify-evidence-record.sh` | Hash-bound verification of the new evidence record. |
 | `docs/release/skills-sh-publication.md` | Release checks updated only where the new evidence files change required review. |
 
@@ -240,6 +241,7 @@ Expected: progress past the new routing assertions and fail only on the first st
 **Files:**
 - Create: `evals/model-routing-evidence-template.md`
 - Create: `evals/evidence-2026-07-19-evidence-based-routing.md`
+- Modify: `scripts/validate-structure.sh`
 - Modify: `scripts/verify-evidence-record.sh`
 - Modify: `tests/evidence-gate-v1.sh`
 - Modify: `docs/release/skills-sh-publication.md`

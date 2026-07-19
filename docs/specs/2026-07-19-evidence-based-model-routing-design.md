@@ -208,8 +208,9 @@ houver pelo menos um destes sinais materiais:
 - ambiguidade transversal que afeta várias decisões;
 - evidências relevantes que precisam ser reconciliadas e permanecem em tensão;
 - correções repetidas que mostram falha de enquadramento;
-- segurança, autorização, integridade de dados, concorrência ou mudança
-  irreversível com alto custo de erro;
+- modo concreto de falha difícil de detectar ou ambiguidade residual material
+  envolvendo segurança, autorização, integridade de dados, concorrência ou
+  mudança irreversível;
 - tarefa profissional limitada em que uma falha seria difícil de detectar.
 
 A seleção pode ocorrer desde o início diante de risco evidente; ela não depende

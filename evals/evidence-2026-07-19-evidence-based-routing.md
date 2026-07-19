@@ -1,6 +1,8 @@
 # Think With Me — evidence-based model-routing record
 
 RUNTIME_SOURCE_FIDELITY: host-unverified
+GLOBAL_PARITY_STATUS: passed
+POST_SYNC_RUNTIME_STATUS: passed
 
 **Date:** 19 July 2026
 **Scope:** bind the evidence-based routing policy to the candidate package and
@@ -76,9 +78,12 @@ commands against the package hash and raw behavior record above.
 - `bash -n tests/evidence-gate-v1.sh scripts/verify-evidence-record.sh scripts/candidate-manifest.sh scripts/validate-skill.sh scripts/validate-structure.sh`
   exited `0` without output.
 - `git diff --check` exited `0` without output.
-- `bash tests/evidence-gate-v1.sh` exited `0` and reported
-  `Behavior evidence matches the current package.` followed by
-  `Evidence Gate v1 checks passed.`
+- Before the final-review corrections, `bash tests/evidence-gate-v1.sh` exited
+  `0` for the Task 5 package and reported the earlier message `Behavior evidence
+  matches the current package.` This is historical Task 5 output, not the
+  current final-gate result. After Task 6 hardened the verifier, the current
+  gate intentionally remains RED until review, global parity, and post-sync
+  runtime markers are recorded.
 
 ## Runtime behavior passed
 
@@ -89,7 +94,10 @@ host did not expose which skill source it actually loaded, nor its running
 family or effort. These are behavioral observations from explicit candidate
 instructions, not proof of runtime source fidelity. The configuration selected
 in each raw footer is an observed response output, not an inference about the
-host.
+host. Four samples remain valid observations. Final review invalidated the
+original MR-04 because its prompt did not state the difficult-to-detect failure
+needed for `Sol XHigh`. The post-sync section below records a corrected MR-04
+and an English contextual comparison against the synchronized package.
 
 The invariants below use these meanings:
 
@@ -162,12 +170,14 @@ O principal custo é criar dependência operacional: latência, disponibilidade 
 - `RUNTIME_CAPTURE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
 - Source configuration: `host-selected default; family/effort not exposed by create_thread/read_thread`.
 - Selected configuration: `Sol XHigh`.
-- Decisive reason: the prompt supplies irreversible change plus unproved
-  recovery and integrity; the raw reason ties selective depth to failures that
-  are difficult to detect rather than to generic importance.
-- Routing invariants: `pass`; quality and recovery evidence control the route,
-  the atomic `Sol XHigh` configuration is supported by concrete residual risk,
-  and neither `Max` nor an economic equivalence is inferred.
+- Decisive reason observed: the response treated irreversible change plus
+  unproved recovery and integrity as a difficult-to-detect failure.
+- Review correction: the prompt did not actually state silent corruption,
+  missing detection, or another material residual ambiguity. The response
+  supplied that decisive fact itself, so this sample cannot support `Sol
+  XHigh` under the corrected threshold.
+- Routing invariants: `fail`; the observed configuration is atomic and does not
+  infer `Max`, but its selective-depth fact was unsupported by the prompt.
 - Output invariants: `pass`; Portuguese analysis precedes one continuous
   blockquote, the view blocks migration, the single next dependency is a
   restore proof with one question, and no migration is executed.
@@ -175,7 +185,8 @@ O principal custo é criar dependência operacional: latência, disponibilidade 
 - Host-reported latency: `not exposed by host`.
 - Host-reported agent steps: `not exposed by host`.
 - Host-reported total task cost: `not exposed by host`.
-- Result: `pass`.
+- Result: `invalidated`; rerun post-sync with an explicit difficult-to-detect
+  failure mode.
 
 Exact prompt:
 
@@ -351,13 +362,93 @@ it. Neither pre-fix task is counted as evidence for the current package.
 
 - Skill selection and continued loading remain host responsibilities.
 - A natural-language skill remains probabilistic even when static invariants
-  and this five-sample set pass.
+  and individual samples pass. The original five-sample set is not a 5/5 pass:
+  four observations remain valid and MR-04 awaits a corrected rerun.
 - The host did not expose its running family/effort, token use, response
   latency, agent steps, or total task cost. Task duration is recorded separately
   and is not converted into cost.
 - The single `Luna Medium` sample supports this bounded behavior case only. It
   does not establish baseline equivalence, success rate, retry rate, or total
   task cost for a 50,000-document production run.
+
+### Post-sync corrected MR-04 — pass
+
+- Thread: `019f7c7c-54dd-76b2-9a12-fd8e46a1c802`.
+- Host task duration: `36929 ms`.
+- Invocation: explicit `$think-with-me` after repository/global parity passed.
+- Runtime source fidelity: `host-unverified`; the host does not expose the
+  selected skill source.
+- Selected configuration: `Sol XHigh`.
+- Result: `pass`; the prompt itself states a known silent-corruption mode that
+  current checks do not detect, so the selective-depth fact is supported rather
+  than invented.
+
+Exact prompt:
+
+~~~~~text
+$think-with-me Precisamos decidir se liberamos uma migração irreversível em produção. Existe um modo conhecido de corrupção silenciosa que os checks atuais não detectam, e ainda não comprovamos que o restore preserva a integridade referencial. O que você recomenda antes de autorizar a migração?
+~~~~~
+
+Raw final `agentMessage.text`:
+
+~~~~~markdown
+Não autorize a migração agora. Há dois bloqueadores independentes:
+
+- existe uma falha conhecida capaz de corromper dados sem acionar os checks;
+- o caminho de recuperação ainda não demonstrou preservar a integridade referencial.
+
+Mesmo um backup existente não basta: sem detecção confiável, vocês podem descobrir a corrupção tarde demais e restaurar um estado que também não foi validado. A liberação só deveria ocorrer depois de evidência reproduzível para ambos os riscos.
+
+A dependência imediata é enfrentar primeiro o risco invisível: reproduzir o modo conhecido de corrupção em ambiente isolado, injetá-lo deliberadamente e comprovar que um check automatizado bloqueia a migração. Passar nesse teste ainda não autoriza produção; o restore íntegro continuará sendo um gate obrigatório.
+
+> **Minha visão:** a decisão atual é no-go, porque uma migração irreversível não pode depender de checks que sabidamente deixam passar corrupção silenciosa.
+>
+> **Próximo passo:** construir uma prova isolada que injete o modo conhecido de corrupção e demonstre sua detecção automática antes de qualquer autorização.
+>
+> `Sol XHigh` · investigar uma falha de integridade difícil de detectar em uma mudança irreversível.
+~~~~~
+
+### Post-sync English contextual comparison — pass
+
+- Thread: `019f7c7d-1445-7002-944e-b530c91b4c0d`.
+- Host task duration: `29936 ms`.
+- Invocation: explicit `$think-with-me` after repository/global parity passed.
+- Runtime source fidelity: `host-unverified`; the host does not expose the
+  selected skill source.
+- Selected configuration: `Sol High`.
+- Result: `pass`; all response prose and the closing are English, the closing is
+  one continuous three-field blockquote, and an ordinary unresolved contextual
+  trade-off preserves the conservative floor.
+
+Exact prompt:
+
+~~~~~text
+$think-with-me Help me compare two implementation options before changing anything. Option A centralizes an unstable document-formatting rule in one service, adding a runtime dependency. Option B duplicates the rule across three independent consumers, preserving autonomy but requiring coordinated updates while the rule changes. Which direction should we choose?
+~~~~~
+
+Raw final `agentMessage.text`:
+
+~~~~~markdown
+Choose Option A while the formatting rule is unstable.
+
+Option B preserves runtime independence, but it creates behavioral coupling: every rule correction must be interpreted, implemented, tested, and released consistently by three consumers. That is precisely when duplication is most expensive and divergence most likely.
+
+The real cost of Option A is availability coupling. Keep the centralized service only if consumers can tolerate its latency and failures through an explicit failure contract—such as bounded timeouts, cached results, asynchronous processing, or a safe fallback. If formatting must always work locally during an outage, the better architecture would eventually be a shared versioned library or replicated rule artifact, but distributing the evolving logic now is premature.
+
+> **My view:** choose Option A because one source of truth is more valuable than consumer autonomy while the rule is still changing.
+>
+> **Next step:** define the central service’s failure contract—specifically what each consumer does when formatting is slow or unavailable.
+>
+> `Sol High` · define the availability boundary without losing the single source of truth required by the unstable rule.
+~~~~~
+
+### Post-sync English authorization diagnostic — not counted
+
+Thread `019f7c7c-50ab-7330-aa28-90cca080a024` stayed entirely in English and
+preserved the output contract, but selected `Sol XHigh` after introducing a
+difficult-to-detect authorization failure that the prompt had not supplied.
+That diagnostic is excluded from passing evidence; the non-security contextual
+comparison above is the qualifying English sample.
 
 ## Independent review
 
@@ -376,10 +467,17 @@ gate.
 
 ## Global parity
 
-Current candidate has not been synchronized globally. The global installation,
-if present, remains a previous-release surface and is not evidence for this
-candidate. No push, publication, or global synchronization occurred in Tasks 4
-or 5.
+Task 6 synchronized `skills/think-with-me/` to
+`/Users/igortice/.agents/skills/think-with-me/` with the plan's noninteractive
+`skills add` command. `bash scripts/verify-global-install.sh` then exited `0`
+with `Global think-with-me installation matches the repository source.` The
+repository and global `SKILL.md` both had SHA-256
+`3c0e1a5843fee8ce0027423a4c92d882c5ab881e2e611568155277efdf354268`.
+
+The two qualifying post-sync tasks above invoked `$think-with-me` explicitly.
+Disk parity is verified; runtime source selection remains `host-unverified`
+because the Codex App does not expose the selected skill source. No push or
+public publication occurred.
 
 Tasks 1–3 implementation and evidence commits preceded this record and are
 historical inputs to the Task 4 evidence-gate binding documented here.

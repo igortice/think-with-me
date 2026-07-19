@@ -93,10 +93,14 @@ Known runtime limitations at this point:
 Independent review belongs to Task 6 and is pending. Task 4 will record only a
 task-scoped pre-commit review before its commit. Follow-up review hardened
 Markdown fence tracking so mixed delimiters, shorter nested fences, and
-fence-like lines with suffixes cannot expose a raw heading as top-level. It also
-replaced loose hash search with exact structured-line parsing that rejects
-missing, malformed, or conflicting package hashes. This review is not a
-substitute for the independent Task 6 gate.
+fence-like lines with suffixes cannot expose a raw heading as top-level.
+Top-level content is normalized across zero to three leading spaces so an
+indented pending heading cannot escape detection. The review also replaced
+loose hash search with exact structured-line parsing that rejects every
+noncanonical top-level package-hash field, including alternative list markers
+and malformed values, and rejects conflicts after indentation normalization.
+Fenced occurrences remain ignored. This review is not a substitute for the
+independent Task 6 gate.
 
 ## Global parity
 

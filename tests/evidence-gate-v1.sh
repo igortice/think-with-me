@@ -330,6 +330,11 @@ printf '%s\n' \
 has_heading_in_file "${top_level_heading_fixture}" "## Runtime behavior passed" || \
   fail "evidence heading parser rejected a genuine top-level heading"
 
+indented_pending_heading_fixture="${parser_fixture_dir}/indented-pending-heading.md"
+printf '%s\n' '  ## Runtime behavior pending' >"${indented_pending_heading_fixture}"
+has_heading_in_file "${indented_pending_heading_fixture}" "## Runtime behavior pending" || \
+  fail "evidence heading parser ignored a top-level heading indented by up to three spaces"
+
 current_package_hash="$(sed -n 's/^PACKAGE_SHA256=//p' <<<"${manifest}")"
 conflicting_package_hash='0000000000000000000000000000000000000000000000000000000000000000'
 
@@ -347,6 +352,43 @@ printf '%s\n' \
 if ( verify_package_hashes "${conflicting_hash_fixture}" "${current_package_hash}" ) 2>/dev/null; then
   fail "evidence hash parser accepted conflicting structured hashes"
 fi
+
+star_hash_fixture="${parser_fixture_dir}/star-hash.md"
+printf '%s\n' \
+  "- \`PACKAGE_SHA256\`: \`${current_package_hash}\`" \
+  "* \`PACKAGE_SHA256\`: \`${conflicting_package_hash}\`" >"${star_hash_fixture}"
+if ( verify_package_hashes "${star_hash_fixture}" "${current_package_hash}" ) 2>/dev/null; then
+  fail "evidence hash parser accepted a conflicting asterisk field"
+fi
+
+plus_hash_fixture="${parser_fixture_dir}/plus-hash.md"
+printf '%s\n' \
+  "- \`PACKAGE_SHA256\`: \`${current_package_hash}\`" \
+  "+ \`PACKAGE_SHA256\`: \`${conflicting_package_hash}\`" >"${plus_hash_fixture}"
+if ( verify_package_hashes "${plus_hash_fixture}" "${current_package_hash}" ) 2>/dev/null; then
+  fail "evidence hash parser accepted a conflicting plus field"
+fi
+
+indented_hash_fixture="${parser_fixture_dir}/indented-hashes.md"
+printf '%s\n' \
+  "- \`PACKAGE_SHA256\`: \`${current_package_hash}\`" \
+  " - \`PACKAGE_SHA256\`: \`${conflicting_package_hash}\`" \
+  "  - \`PACKAGE_SHA256\`: \`${conflicting_package_hash}\`" \
+  "   - \`PACKAGE_SHA256\`: \`${conflicting_package_hash}\`" >"${indented_hash_fixture}"
+if ( verify_package_hashes "${indented_hash_fixture}" "${current_package_hash}" ) 2>/dev/null; then
+  fail "evidence hash parser accepted conflicting fields indented by one to three spaces"
+fi
+
+fenced_old_hash_fixture="${parser_fixture_dir}/fenced-old-hash.md"
+printf '%s\n' \
+  "- \`PACKAGE_SHA256\`: \`${current_package_hash}\`" \
+  '```text' \
+  "* \`PACKAGE_SHA256\`: \`${conflicting_package_hash}\`" \
+  "+ \`PACKAGE_SHA256\`: \`${conflicting_package_hash}\`" \
+  "   - \`PACKAGE_SHA256\`: \`${conflicting_package_hash}\`" \
+  '```' >"${fenced_old_hash_fixture}"
+( verify_package_hashes "${fenced_old_hash_fixture}" "${current_package_hash}" ) || \
+  fail "evidence hash parser rejected an old hash that appears only inside a fence"
 
 raw_only_hash_fixture="${parser_fixture_dir}/raw-only-hash.md"
 printf '%s\n' \

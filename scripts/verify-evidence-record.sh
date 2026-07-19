@@ -44,7 +44,11 @@ markdown_top_level_lines() {
           next
         }
 
-        print line
+        if (indent <= 3) {
+          print content
+        } else {
+          print line
+        }
         next
       }
 
@@ -94,7 +98,7 @@ verify_package_hashes() {
       hash_count=$((hash_count + 1))
       [[ "${recorded_hash}" == "${package_hash}" ]] || \
         fail "evidence contains a conflicting package hash: ${recorded_hash}"
-    elif [[ "${line}" == -*"PACKAGE_SHA256"* ]]; then
+    elif [[ "${line}" == *"PACKAGE_SHA256"* ]]; then
       fail "evidence contains a malformed package hash line: ${line}"
     fi
   done < <(markdown_top_level_lines "${file}")

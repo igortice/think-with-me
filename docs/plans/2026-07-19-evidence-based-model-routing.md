@@ -195,11 +195,11 @@ Expected: every evidence class, limitation, and routing decision is discoverable
 - Consumes: `model-evidence.md`, the approved design, and RED fixtures.
 - Produces: an installable skill that applies the quality floor before economy and health modifiers.
 
-- [ ] **Step 1: Update the core selection summary**
+- [x] **Step 1: Update the core selection summary**
 
 Replace the generic four-category list under `Choose the model from the next step` with an ordered summary that requires: quality contract, domain, atomic configuration, evidence sufficiency, conversation health, then cost among eligible candidates. Keep the instruction to derive the recommendation after the view and next step.
 
-- [ ] **Step 2: Replace `model-routing.md`**
+- [x] **Step 2: Replace `model-routing.md`**
 
 Use these sections in this order:
 
@@ -219,19 +219,19 @@ Use these sections in this order:
 
 Encode `Sol High` as the default for unresolved contextual judgment, `Sol XHigh` as selective depth, `Sol Max` behind the explicit deepest-reasoning gate, `Sol Medium` as a non-equivalent value candidate, `Luna Medium` as provisional bounded-volume transformation, and no preferred Terra route.
 
-- [ ] **Step 3: Preserve footer validation while updating examples**
+- [x] **Step 3: Preserve footer validation while updating examples**
 
 Replace ordinary `Terra High` examples with policy-consistent `Sol High` examples. Keep the high-volume settled transformation example on the bounded route and ensure its reason names volume and verifiability rather than claiming equivalent intelligence.
 
-- [ ] **Step 4: Update public documentation**
+- [x] **Step 4: Update public documentation**
 
 Use a `Sol High` README example for an unresolved contextual decision. Add one short paragraph explaining that lower-cost recommendations apply only to bounded, verifiable work with material cost, latency, or volume pressure.
 
-- [ ] **Step 5: Run GREEN static policy checks**
+- [x] **Step 5: Run GREEN static policy checks**
 
 Run: `bash tests/evidence-gate-v1.sh`
 
-Expected: progress past the routing assertions and fail only on the not-yet-updated package evidence record.
+Expected: progress past the new routing assertions and fail only on the first stale evidence-path or literal-template requirement owned by Task 4.
 
 ---
 

@@ -2,6 +2,8 @@
 
 These examples show how to answer naturally and then advance one dependency. The normal answer stays outside the quote; the three-field closing is one continuous blockquote so it renders with a vertical bar. The view and next-step labels follow the user's language; the third line is the selected model as an inline-code label.
 
+Write all prose before the closing and the closing itself in that same language; examples and placeholder text never override the current user message's language.
+
 ## Host activation boundary
 
 This output contract only applies when the skill is loaded for that response. It cannot retain or invoke itself on a later turn; host selection, an explicit new invocation, or a host-level mechanism determines whether the contract is available again.

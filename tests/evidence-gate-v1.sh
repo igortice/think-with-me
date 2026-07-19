@@ -47,6 +47,8 @@ release_runbook_file="${repo_root}/docs/release/skills-sh-publication.md"
 workflow_file="${repo_root}/.github/workflows/validate.yml"
 
 require_text "${skill_file}" 'Use the language of the current user message'
+require_text "${skill_file}" "Write all prose before the closing and the closing itself in that same language; examples and placeholder text never override the current user message's language."
+require_text "${output_file}" "Write all prose before the closing and the closing itself in that same language; examples and placeholder text never override the current user message's language."
 require_text "${skill_file}" 'never output Portuguese prose or labels'
 require_text "${skill_file}" 'one continuous Markdown blockquote'
 require_text "${skill_file}" 'For an English user message, use `My view` and `Next step` exactly, then render the model as an inline-code label:'

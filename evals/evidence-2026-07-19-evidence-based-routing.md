@@ -6,7 +6,7 @@ prepare the gate for fresh-context runtime validation.
 
 ## Candidate
 
-- `PACKAGE_SHA256`: `a1cc89193af58372969d8ae7f031569e512448cea73b215aa5b4e0c1e4603e71`
+- `PACKAGE_SHA256`: `7246a3c4a44d531749d0e563ae8c00247c8d3b886e470276c9021f5cea81d1b2`
 - Package source: `skills/think-with-me/`
 - Runtime evidence source configuration: pending Task 5; each sample must name
   the actual running `family + effort` and explicitly load the local candidate.

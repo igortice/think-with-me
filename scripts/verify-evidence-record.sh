@@ -46,8 +46,6 @@ markdown_top_level_lines() {
 
         if (indent <= 3) {
           print content
-        } else {
-          print line
         }
         next
       }

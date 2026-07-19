@@ -390,6 +390,17 @@ printf '%s\n' \
 ( verify_package_hashes "${fenced_old_hash_fixture}" "${current_package_hash}" ) || \
   fail "evidence hash parser rejected an old hash that appears only inside a fence"
 
+indented_code_fixture="${parser_fixture_dir}/indented-code.md"
+printf '%s\n' \
+  "- \`PACKAGE_SHA256\`: \`${current_package_hash}\`" \
+  "    - \`PACKAGE_SHA256\`: \`${conflicting_package_hash}\`" \
+  '    ## Runtime behavior pending' >"${indented_code_fixture}"
+( verify_package_hashes "${indented_code_fixture}" "${current_package_hash}" ) || \
+  fail "evidence hash parser rejected a historical hash inside an indented code block"
+if has_heading_in_file "${indented_code_fixture}" "## Runtime behavior pending"; then
+  fail "evidence heading parser accepted a heading inside an indented code block"
+fi
+
 raw_only_hash_fixture="${parser_fixture_dir}/raw-only-hash.md"
 printf '%s\n' \
   "The current package hash is ${current_package_hash}." \

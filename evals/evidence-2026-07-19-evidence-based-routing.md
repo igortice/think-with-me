@@ -99,8 +99,9 @@ indented pending heading cannot escape detection. The review also replaced
 loose hash search with exact structured-line parsing that rejects every
 noncanonical top-level package-hash field, including alternative list markers
 and malformed values, and rejects conflicts after indentation normalization.
-Fenced occurrences remain ignored. This review is not a substitute for the
-independent Task 6 gate.
+Fenced occurrences and Markdown code blocks indented by four or more spaces
+remain ignored. This review is not a substitute for the independent Task 6
+gate.
 
 ## Global parity
 

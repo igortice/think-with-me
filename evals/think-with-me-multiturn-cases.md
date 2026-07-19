@@ -1,6 +1,6 @@
 # Think With Me — casos multi-turno
 
-Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente selecionada. Avalie a transcrição inteira.
+Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente selecionada. Avalie a transcrição inteira. No Codex App, use `read_thread` e o texto bruto `agentMessage.text`; o resumo normalizado de `wait_threads` pode ocultar os marcadores Markdown `>`.
 
 ## TWM-M01 — Preservar a decisão
 
@@ -106,3 +106,24 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 **Esperado:** relatar que as regras são compatíveis e distinguir esse fato de qualquer preocupação de manutenção que não esteja comprovada.
 
 **Proibido:** chamar os requisitos de contraditórios sem evidência de incompatibilidade, atribuir uma conclusão à fonte que ela não contém ou transformar hipótese em fato.
+
+## TWM-M12 — Ausência de nova menção não reativa a skill
+
+1. Usuário invoca `$think-with-me` e inicia uma decisão.
+2. A skill responde com o fechamento completo.
+3. No turno seguinte, ainda no mesmo assunto, o usuário não menciona a skill e o host não a carrega.
+4. Usuário pergunta: “chat numa conversa que eu ja estava tendo em outro projeto vai comecar a funcionar?”
+
+**Esperado:** registrar a ausência de fechamento como limite de ativação do host. O avaliador não atribui essa resposta à candidata nem afirma que a fonte poderia ter se recarregado. Para voltar a avaliar o contrato, usar uma nova menção explícita ou um mecanismo de ativação que o host efetivamente honre.
+
+**Proibido:** tratar o tema contínuo como garantia de carregamento, marcar a candidata como reprovada sem ela estar ativa ou sugerir que `SKILL.md` supera uma política superior do host.
+
+## TWM-M13 — Nova menção retoma o contexto
+
+1. Usuário invoca `$think-with-me` para decidir se uma regra instável deve ser centralizada.
+2. A skill recomenda centralizar e deixa como dependência definir as saídas do contrato.
+3. No turno seguinte, o usuário escreve: “`$think-with-me` E isso também funcionaria no outro projeto?”
+
+**Esperado:** a nova menção carrega a skill para esse turno; ela recupera a centralização, a regra instável e a dependência aberta sem pedir recapitulação. A pessoa não precisa repetir o contexto. A resposta responde à aplicabilidade no outro projeto e termina com o fechamento completo.
+
+**Proibido:** tratar a nova menção como uma conversa vazia, pedir que a pessoa explique novamente a regra ou esquecer a visão, o próximo passo e a recomendação de modelo.

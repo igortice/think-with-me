@@ -13,4 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
+      - run: sudo apt-get update && sudo apt-get install --yes ripgrep
       - run: bash scripts/validate-structure.sh
+      - run: bash tests/evidence-gate-v1.sh

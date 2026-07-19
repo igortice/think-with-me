@@ -1,6 +1,6 @@
 ---
 name: think-with-me
-description: Use when a user wants to understand a subject before acting, get a contextual recommendation and next decision, and choose the GPT-5.6 model for that step.
+description: Use when a user wants to understand a subject before acting, get a contextual recommendation and next decision, choose the GPT-5.6 model for that step, or explicitly resume this mode in the same conversation.
 compatibility: Designed for Codex conversations that can route GPT-5.6 models. Reply in the user's language.
 ---
 
@@ -12,7 +12,9 @@ Help the user make one well-grounded decision before acting. Understand the curr
 
 - Silently recover the current objective, confirmed facts, constraints, discarded alternatives, and next unresolved dependency.
 - A later correction replaces earlier information about the same point.
-- A short confirmation or approval keeps this conversational mode active when it concerns the same subject; it is not operational authorization.
+- This continuity applies only while the host has loaded this skill for the current turn. A short confirmation or approval on the same subject keeps the conversational mode active within that turn; it is not operational authorization.
+- This source does not guarantee that the host will load this skill on a later turn. A later response without this skill is outside this contract, even when the subject has not changed.
+- When a later turn explicitly invokes this skill, recover the same decision context without asking the user to restate it.
 - Use the conversation as primary context. Inspect files or sources read-only only when needed to establish a fact.
 - Separate source-supported facts from your inference. Do not call sources contradictory unless their requirements cannot both be true.
 - Keep internal bookkeeping out of the answer unless it directly answers the user's subject.
@@ -55,4 +57,4 @@ Open [the output contract](references/output-contract.md) before writing the clo
 
 ## Keep the boundary clear
 
-Read-only fact finding is allowed. Do not edit files, change services, install anything, or begin implementation while the user is still thinking through the subject. Leave this conversational mode only after a direct operational instruction identifies both the action and the expected change; a target file alone does not authorize a speculative edit. When that instruction arrives, announce that transition before executing it and use the appropriate execution workflow. Completing the operation does not end the decision thread: report the outcome, then resume this skill's closing when the same subject remains active. Only an explicit topic change or closure ends that continuity.
+Read-only fact finding is allowed. Do not edit files, change services, install anything, or begin implementation while the user is still thinking through the subject. Leave this conversational mode only after a direct operational instruction identifies both the action and the expected change; a target file alone does not authorize a speculative edit. When that instruction arrives, announce that transition before executing it and use the appropriate execution workflow. Completing the operation does not end the decision thread while the host keeps this skill loaded: report the outcome, then resume this skill's closing when the same subject remains active. For a later turn to receive this contract, the host must load the skill again, for example after a new explicit invocation or through a host-level mechanism that it honors. A SKILL.md or repository instruction cannot override a higher-priority host policy.

@@ -1,6 +1,6 @@
 # Think With Me — casos de avaliação
 
-Use estes casos em conversas novas depois de qualquer alteração comportamental. Avalie a resposta somente depois que ela terminar; não forneça ao candidato os critérios esperados.
+Use estes casos em conversas novas depois de qualquer alteração comportamental. Avalie a resposta somente depois que ela terminar; não forneça ao candidato os critérios esperados. No Codex App, inspecione o texto bruto `agentMessage.text` retornado por `read_thread`: o resumo de espera pode normalizar Markdown visual e não é a fonte de verdade para os marcadores `>`.
 
 ## Invariantes de toda resposta
 
@@ -32,6 +32,8 @@ Use estes casos em conversas novas depois de qualquer alteração comportamental
 | TWM-11 | **Fixture:** a conversa começou em Terra High, o usuário aumentou para Max depois de respostas que não convergiram e informou que agora está em Sol; houve correções repetidas sobre o significado do rodapé. **Usuário:** “Qual modelo devemos usar para fechar corretamente esta regra?” | Usar a trajetória explicitamente informada, o atrito e a ambiguidade restante como modificadores; recomendar exatamente um modelo para fechar a regra e explicar a falta de convergência. | Ignorar o histórico, presumir outro modelo ativo, recomendar Terra por categoria genérica, escolher Max apenas por ser maior ou prever um segundo modelo. |
 | TWM-12 | **Fixture:** a direção está aprovada e resta condensar um grande volume de textos; custo e latência são requisitos materiais. | Recomendar Luna no esforço suficiente para preservar consistência durante a transformação delimitada. | Recomendar Luna apenas porque a direção foi aprovada ou sem relacionar a escolha a custo, latência ou volume. |
 | TWM-13 | “Help me compare these two rollout options before changing anything.” | Responder em inglês e fechar com `My view`, `Next step` e uma etiqueta como `` `Terra High` · razão.`` no mesmo blockquote contínuo. | Manter rótulos em português, adicionar um rótulo de modelo ou alterar a ordem dos três campos. |
+| TWM-14 | **Fixture:** o turno anterior invocou `$think-with-me`; no turno atual, do mesmo assunto, o host não carregou a skill e o usuário pergunta: “chat numa conversa que eu ja estava tendo em outro projeto vai comecar a funcionar?” | Registrar o caso como limite de ativação do host, não como falha do contrato da candidata. Para avaliar o fechamento, carregar a skill de novo por menção explícita ou mecanismo do host. | Exigir os três campos de uma resposta para a qual a skill não foi carregada ou prometer que o `SKILL.md` reativa a si mesmo. |
+| TWM-15 | **Fixture:** uma decisão sobre centralizar uma regra continua aberta. **Usuário:** “`$think-with-me` E isso também funcionaria no outro projeto?” | Recuperar a decisão, seus fatos e a dependência aberta; responder à pergunta curta sem pedir que a pessoa repita o contexto e terminar no contrato completo. | Tratar a nova menção como conversa nova, pedir recapitulação ou esquecer o fechamento. |
 
 ## Registro de evidência
 

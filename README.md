@@ -37,7 +37,15 @@ Invoke the skill when you want to reason before execution:
 $think-with-me Help me compare these rollout options before changing anything.
 ```
 
-Compatible hosts can also discover it from a matching request for contextual planning or a decision before action.
+Some compatible hosts may also discover it from a matching request for contextual planning or a decision before action. Explicit `$think-with-me` is the reliable activation path.
+
+For a short follow-up in the same decision, invoke it again and keep writing naturally:
+
+```text
+$think-with-me E isso também funcionaria no outro projeto?
+```
+
+A new explicit invocation reactivates the skill without resetting the conversation context. The user does not need to repeat the objective, confirmed facts, or prior decision.
 
 ## Language, compatibility, and boundaries
 
@@ -45,7 +53,9 @@ Think With Me is designed for Codex conversations that can route GPT-5.6 models.
 
 The response language follows the current user message. The skill never infers the active model, and it does not edit files, install dependencies, change services, or begin implementation until the user gives a direct operational instruction that identifies both the action and the expected change.
 
-An explicitly scoped operation pauses the decision conversation; it does not end it. When the same subject remains active after the result is reported, Think With Me returns to its compact decision close. This prevents a file name alone, a short agreement, or a broad “go ahead” from becoming permission to invent a change.
+An explicitly scoped operation pauses the decision conversation; it does not end it while the host has the skill loaded. When the same subject remains active after the result is reported, Think With Me returns to its compact decision close in that loaded response. This prevents a file name alone, a short agreement, or a broad “go ahead” from becoming permission to invent a change.
+
+The skill does not keep itself loaded in later turns. If a host treats skills as turn-scoped, invoke `$think-with-me` again or configure a host-level activation rule or hook that the host honors. A repository instruction can help only when the host follows it; it cannot override a higher-priority host policy.
 
 ## For maintainers
 

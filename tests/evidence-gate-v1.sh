@@ -31,8 +31,15 @@ grep -Fq 'FILE_SHA256=' <<<"${manifest}" || fail "candidate manifest has no file
 skill_file="${repo_root}/skills/think-with-me/SKILL.md"
 routing_file="${repo_root}/skills/think-with-me/references/model-routing.md"
 output_file="${repo_root}/skills/think-with-me/references/output-contract.md"
+metadata_file="${repo_root}/skills/think-with-me/agents/openai.yaml"
 cases_file="${repo_root}/evals/think-with-me-cases.md"
 multiturn_cases_file="${repo_root}/evals/think-with-me-multiturn-cases.md"
+trigger_cases_file="${repo_root}/evals/trigger-cases.md"
+readme_file="${repo_root}/README.md"
+continuity_spec_file="${repo_root}/docs/specs/2026-07-17-think-with-me-continuity-design.md"
+routing_spec_file="${repo_root}/docs/specs/2026-07-18-model-routing-factual-correction.md"
+release_runbook_file="${repo_root}/docs/release/skills-sh-publication.md"
+workflow_file="${repo_root}/.github/workflows/validate.yml"
 
 require_text "${skill_file}" 'Use the language of the current user message'
 require_text "${skill_file}" 'never output Portuguese prose or labels'
@@ -43,7 +50,7 @@ require_text "${skill_file}" 'Do not output the three fields as ordinary paragra
 require_text "${skill_file}" 'one concrete next step'
 require_text "${skill_file}" 'not a sequence, checklist, or bundle of actions'
 require_text "${skill_file}" 'include your recommended answer'
-require_text "${skill_file}" 'A short confirmation or approval keeps this conversational mode active'
+require_text "${skill_file}" 'A short confirmation or approval on the same subject keeps the conversational mode active within that turn'
 require_text "${skill_file}" 'identifies both the action and the expected change'
 require_text "${skill_file}" 'announce that transition before executing it'
 require_text "${skill_file}" 'does not end the decision thread'
@@ -69,6 +76,51 @@ require_text "${cases_file}" 'inventar uma edição especulativa'
 require_text "${multiturn_cases_file}" 'TWM-M10 — Execução concluída retoma a decisão'
 require_text "${multiturn_cases_file}" 'o relatório do resultado também termina no fechamento da skill'
 require_text "${multiturn_cases_file}" 'TWM-M11 — Inspeção separa fato de inferência'
+require_text "${skill_file}" 'This continuity applies only while the host has loaded this skill for the current turn.'
+require_text "${skill_file}" 'This source does not guarantee that the host will load this skill on a later turn.'
+require_text "${skill_file}" 'When a later turn explicitly invokes this skill, recover the same decision context without asking the user to restate it.'
+require_text "${output_file}" 'only applies when the skill is loaded for that response'
+require_text "${readme_file}" 'does not keep itself loaded in later turns'
+require_text "${readme_file}" 'A new explicit invocation reactivates the skill without resetting the conversation context.'
+require_text "${continuity_spec_file}" '## Ativação entre turnos depende do host'
+require_text "${continuity_spec_file}" 'A nova menção explícita reativa o contrato sem zerar o contexto.'
+require_text "${routing_spec_file}" 'somente enquanto a skill estiver carregada no turno atual'
+require_text "${cases_file}" 'TWM-14'
+require_text "${cases_file}" 'o host não carregou a skill'
+require_text "${cases_file}" 'TWM-15'
+require_text "${cases_file}" '`agentMessage.text`'
+require_text "${multiturn_cases_file}" 'TWM-M12 — Ausência de nova menção não reativa a skill'
+require_text "${multiturn_cases_file}" 'o host não a carrega'
+require_text "${multiturn_cases_file}" 'não atribui essa resposta à candidata'
+require_text "${multiturn_cases_file}" 'TWM-M13 — Nova menção retoma o contexto'
+require_text "${multiturn_cases_file}" 'não precisa repetir o contexto'
+require_text "${multiturn_cases_file}" 'resumo normalizado de `wait_threads`'
+require_text "${metadata_file}" 'display_name: "Think With Me"'
+require_text "${metadata_file}" 'short_description: "Understand a decision before acting, choose the next step, and select a GPT-5.6 model"'
+require_text "${metadata_file}" 'default_prompt: "Use $think-with-me to understand this conversation, give your view, recommend the immediate next step, and select the GPT-5.6 model for that step in my language."'
+require_text "${metadata_file}" 'allow_implicit_invocation: true'
+require_text "${trigger_cases_file}" 'TWM-T01'
+require_text "${trigger_cases_file}" 'TWM-T08'
+require_text "${trigger_cases_file}" 'TWM-T09'
+require_text "${trigger_cases_file}" 'Auditoria de documentação e testes antes de decidir uma correção.'
+require_text "${trigger_cases_file}" 'Uma descoberta positiva melhora a ativação; ela não garante'
+require_text "${workflow_file}" '- run: sudo apt-get update && sudo apt-get install --yes ripgrep'
+require_text "${workflow_file}" '- run: bash tests/evidence-gate-v1.sh'
+require_text "${release_runbook_file}" 'bash tests/evidence-gate-v1.sh'
+require_text "${release_runbook_file}" 'evals/think-with-me-multiturn-cases.md'
+require_text "${release_runbook_file}" 'TWM-M12'
+require_text "${release_runbook_file}" 'TWM-M13'
+require_text "${release_runbook_file}" '`agentMessage.text`'
+require_text "${release_runbook_file}" 'cópia candidata local, repositório GitHub e página do skills.sh'
+require_text "${routing_spec_file}" '**Status atual da candidata:** não sincronizada globalmente.'
+
+if rg -Fq 'Only an explicit topic change or closure ends that continuity.' "${skill_file}"; then
+  fail 'core skill still promises lifecycle control that belongs to the host'
+fi
+
+if rg -Fq '**Status:** implementada, validada e sincronizada globalmente' "${routing_spec_file}"; then
+  fail 'historical routing spec presents an older global synchronization as the current candidate state'
+fi
 
 closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> `Terra High` · connect the concrete next step to the decisive conversational evidence.'
 if ! rg -U -F -- "${closing_template}" "${output_file}" >/dev/null; then

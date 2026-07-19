@@ -14,26 +14,35 @@ Este documento é um runbook de manutenção. Ele não autoriza nenhuma ação e
 
 ## Sequência de publicação
 
-1. Rodar `bash scripts/validate-skill.sh` e a validação estrutural do Codex quando disponível.
-2. Exercitar casos representativos de `evals/think-with-me-cases.md` e `evals/trigger-cases.md`.
-3. Apresentar o diff local para revisão humana.
-4. Fazer commit e push somente após autorização explícita para cada ação.
-5. Revisar os arquivos rastreados para remover caminhos pessoais, IDs internos e instruções locais que não devem ser públicos.
-6. Tornar o repositório `igortice/think-with-me` público somente após autorização explícita.
-7. Conferir o README público e o comando de instalação:
+1. Rodar a validação estrutural e o gate semântico:
+
+   ```bash
+   bash scripts/validate-skill.sh
+   bash tests/evidence-gate-v1.sh
+   git diff --check
+   ```
+
+2. Exercitar casos representativos de `evals/think-with-me-cases.md`, `evals/think-with-me-multiturn-cases.md` e `evals/trigger-cases.md`. Em particular, executar `TWM-M12` como limite de ativação do host — uma resposta sem a skill carregada não é resultado da candidata — e `TWM-M13` para confirmar que uma nova menção explícita recupera o contexto.
+3. No Codex App, inspecionar a transcrição bruta `agentMessage.text` retornada por `read_thread`; o resumo normalizado de `wait_threads` pode esconder os marcadores `>` do blockquote.
+4. Apresentar o diff local para revisão humana.
+5. Fazer commit e push somente após autorização explícita para cada ação.
+6. Revisar os arquivos rastreados para remover caminhos pessoais, IDs internos e instruções locais que não devem ser públicos.
+7. Tornar o repositório `igortice/think-with-me` público somente após autorização explícita.
+8. Conferir o README público e o comando de instalação:
 
    ```bash
    npx skills add igortice/think-with-me --skill think-with-me -g -a codex
    ```
 
-8. Executar ou pedir uma primeira instalação pública pelo CLI. O skills.sh descobre repositórios por telemetria de instalação; a indexação e a página podem levar alguns minutos por causa do cache.
-9. Conferir a página esperada:
+9. Executar ou pedir uma primeira instalação pública pelo CLI. O skills.sh descobre repositórios por telemetria de instalação; a indexação e a página podem levar alguns minutos por causa do cache.
+10. Verificar separadamente a cópia candidata local, repositório GitHub e página do skills.sh. A instalação global é uma quarta superfície de runtime e só deve ser sincronizada após revisão e autorização.
+11. Conferir a página esperada:
 
    ```text
    https://www.skills.sh/igortice/think-with-me/think-with-me
    ```
 
-10. Conferir se auditorias apareceram. Elas são automáticas depois da primeira instalação e podem levar alguns minutos.
+12. Conferir se auditorias apareceram. Elas são automáticas depois da primeira instalação e podem levar alguns minutos.
 
 ## Depois da publicação
 

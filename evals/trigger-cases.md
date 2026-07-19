@@ -14,5 +14,6 @@ Em hosts que escolhem skills automaticamente, execute cada prompt em uma convers
 | TWM-T06 | “Corrija o typo no título deste README.” | Não | Edição pequena e direta, sem decisão de planejamento. |
 | TWM-T07 | “Rode os testes e me diga quais falharam.” | Não | Execução de uma ação delimitada, não planejamento antes da execução. |
 | TWM-T08 | “Traduza este parágrafo para inglês.” | Não | Transformação pontual de texto, sem decisão aberta. |
+| TWM-T09 | “Antes de corrigir, analise se nossa documentação e nossos testes refletem tudo que fizemos.” | Sim | Auditoria de documentação e testes antes de decidir uma correção. |
 
 Um resultado aceitável exige que os casos positivos sejam cobertos sem fazer a skill disparar nos três casos negativos. Revise a descrição por conceitos gerais, não por palavras isoladas dos prompts. Uma descoberta positiva melhora a ativação; ela não garante que uma continuação curta sem contexto, como “continua”, manterá a skill selecionada pelo host.

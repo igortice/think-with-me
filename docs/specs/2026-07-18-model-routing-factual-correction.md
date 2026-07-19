@@ -1,6 +1,7 @@
 # Think With Me — correção factual do roteamento GPT-5.6
 
-**Status:** implementada, validada e sincronizada globalmente
+**Status histórico:** a correção factual deste documento foi implementada, validada e sincronizada globalmente no release de 18 de julho de 2026.
+**Status atual da candidata:** não sincronizada globalmente.
 **Data:** 18 de julho de 2026
 
 ## Objetivo
@@ -23,10 +24,11 @@ Modificar o pacote instalável, suas avaliações e o gate de evidência.
   disponíveis para a família na API; mencionar `ultra` somente como capacidade
   do Codex dependente de acesso/plano.
 - Adicionar fontes oficiais da OpenAI e data de revisão no próprio arquivo.
-- Manter `think-with-me` ativo durante a mesma conversa de entendimento,
+- Manter `think-with-me` ativo somente enquanto a skill estiver carregada no turno atual,
   inclusive após concordância ou aprovação de uma direção; sair dele apenas
   temporariamente diante de uma instrução operacional que identifique a ação e
-  a mudança esperada, retomando o fechamento se o mesmo assunto continuar.
+  a mudança esperada, retomando o fechamento se o mesmo assunto continuar e o
+  host a carregar novamente.
 - Renderizar a recomendação como uma linha compacta em código inline, com
   exatamente um modelo e esforço para o `Próximo passo` apresentado logo acima.
 - Calcular a recomendação somente depois de formular `Minha visão` e `Próximo
@@ -130,5 +132,6 @@ será avaliada na resposta em que ela se tornar o próximo passo real.
 A referência deixa claro o papel de Sol, Terra e Luna e a distinção entre
 família e esforço, contém fontes oficiais datadas, recalcula uma única
 recomendação a partir do próximo passo e da saúde da conversa, nunca inventa o
-modelo ativo e preserva o blockquote público compacto antes e depois de uma
-execução explicitamente delimitada.
+modelo ativo e preserva o blockquote público compacto somente enquanto a skill
+estiver carregada no turno atual, inclusive depois de uma execução
+explicitamente delimitada.

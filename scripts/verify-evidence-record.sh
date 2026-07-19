@@ -22,8 +22,10 @@ package_hash="$(sed -n 's/^PACKAGE_SHA256=//p' <<<"${manifest}")"
 
 require_text "${package_hash}"
 require_text "## Contract validation passed"
-require_text "Global think-with-me installation matches the repository source."
 require_text "## Runtime limitation"
+require_text "Instalação global de referência:"
+require_text "release anterior"
+require_text "Current candidate has not been synchronized globally."
 require_text "No implementation commit, push, or publication was made before this evidence record."
 
 echo "Behavior evidence matches the current package."

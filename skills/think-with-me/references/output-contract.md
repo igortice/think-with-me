@@ -86,9 +86,9 @@ Quando a direção está fechada, a transformação é delimitada e repetida em 
 
 > **Minha visão:** a direção já está decidida; o formato delimitado e verificável permite tratar o volume com menor custo e latência.
 >
-> **Próximo passo:** definir a validação automática do formato único antes da condensação em grande volume.
+> **Próximo passo:** condensar mecanicamente o conteúdo aprovado em grande volume no formato único com validação automática.
 >
-> `Luna Medium` · condensar o formato delimitado em grande volume com validação automática.
+> `Luna Medium` · condensar mecanicamente o conteúdo aprovado em grande volume no formato único com validação automática.
 
 ## Repeated corrections change the diagnosis
 

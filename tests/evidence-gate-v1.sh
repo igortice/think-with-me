@@ -292,6 +292,80 @@ if grep -Fq 'Public-release validation passed.' "${repo_root}/scripts/validate-s
   fail "legacy validator still claims public-release validation"
 fi
 
+verifier_script="${repo_root}/scripts/verify-evidence-record.sh"
+if ! bash -c '
+  source "$1"
+  declare -F has_heading_in_file >/dev/null
+  declare -F verify_package_hashes >/dev/null
+' _ "${verifier_script}"; then
+  fail "evidence verifier does not expose its parsers through a source-safe internal interface"
+fi
+
+source "${verifier_script}"
+parser_fixture_dir="$(mktemp -d "${TMPDIR:-/tmp}/think-with-me-evidence-parser.XXXXXX")"
+trap 'rm -rf -- "${parser_fixture_dir}"' EXIT
+
+mixed_fence_fixture="${parser_fixture_dir}/mixed-fence.md"
+printf '%s\n' \
+  '````markdown' \
+  '~~~text' \
+  '## Runtime behavior passed' \
+  '~~~' \
+  '```markdown' \
+  '## Runtime behavior passed' \
+  '```' \
+  '````not-a-close' \
+  '## Runtime behavior passed' \
+  '````' >"${mixed_fence_fixture}"
+if has_heading_in_file "${mixed_fence_fixture}" "## Runtime behavior passed"; then
+  fail "evidence heading parser accepted a heading inside mixed or nested Markdown fences"
+fi
+
+top_level_heading_fixture="${parser_fixture_dir}/top-level-heading.md"
+printf '%s\n' \
+  '~~~text' \
+  '## Runtime behavior passed' \
+  '~~~' \
+  '## Runtime behavior passed' >"${top_level_heading_fixture}"
+has_heading_in_file "${top_level_heading_fixture}" "## Runtime behavior passed" || \
+  fail "evidence heading parser rejected a genuine top-level heading"
+
+current_package_hash="$(sed -n 's/^PACKAGE_SHA256=//p' <<<"${manifest}")"
+conflicting_package_hash='0000000000000000000000000000000000000000000000000000000000000000'
+
+valid_hash_fixture="${parser_fixture_dir}/valid-hashes.md"
+printf '%s\n' \
+  "- \`PACKAGE_SHA256\`: \`${current_package_hash}\`" \
+  "- \`PACKAGE_SHA256\`: \`${current_package_hash}\`" >"${valid_hash_fixture}"
+( verify_package_hashes "${valid_hash_fixture}" "${current_package_hash}" ) || \
+  fail "evidence hash parser rejected repeated current structured hashes"
+
+conflicting_hash_fixture="${parser_fixture_dir}/conflicting-hash.md"
+printf '%s\n' \
+  "- \`PACKAGE_SHA256\`: \`${current_package_hash}\`" \
+  "- \`PACKAGE_SHA256\`: \`${conflicting_package_hash}\`" >"${conflicting_hash_fixture}"
+if ( verify_package_hashes "${conflicting_hash_fixture}" "${current_package_hash}" ) 2>/dev/null; then
+  fail "evidence hash parser accepted conflicting structured hashes"
+fi
+
+raw_only_hash_fixture="${parser_fixture_dir}/raw-only-hash.md"
+printf '%s\n' \
+  "The current package hash is ${current_package_hash}." \
+  '```text' \
+  "- \`PACKAGE_SHA256\`: \`${current_package_hash}\`" \
+  '```' >"${raw_only_hash_fixture}"
+if ( verify_package_hashes "${raw_only_hash_fixture}" "${current_package_hash}" ) 2>/dev/null; then
+  fail "evidence hash parser accepted a current hash found only in prose or raw output"
+fi
+
+malformed_hash_fixture="${parser_fixture_dir}/malformed-hash.md"
+printf '%s\n' \
+  "Current hash: ${current_package_hash}" \
+  '- `PACKAGE_SHA256`: `1234`' >"${malformed_hash_fixture}"
+if ( verify_package_hashes "${malformed_hash_fixture}" "${current_package_hash}" ) 2>/dev/null; then
+  fail "evidence hash parser accepted a malformed structured hash"
+fi
+
 bash "${repo_root}/scripts/verify-evidence-record.sh"
 
 echo "Evidence Gate v1 checks passed."

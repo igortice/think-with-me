@@ -69,4 +69,3 @@ Paste the complete raw agentMessage.text here, including Markdown markers.
 - Result: `pass` / `fail`
 - Reviewer:
 - Review date:
-

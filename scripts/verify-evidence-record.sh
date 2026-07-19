@@ -47,6 +47,6 @@ reject_heading "## Runtime behavior pending"
 require_heading "## Runtime behavior passed"
 require_heading "## Independent review"
 require_heading "## Global parity"
-require_text "No implementation commit, push, publication, or global synchronization preceded this evidence record."
+require_text "No Task 4 evidence-gate implementation commit, push, publication, or global synchronization preceded this evidence record."
 
 echo "Behavior evidence matches the current package."

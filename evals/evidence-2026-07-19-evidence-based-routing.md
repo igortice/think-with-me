@@ -101,8 +101,7 @@ Current candidate has not been synchronized globally. The global installation,
 if present, remains a previous-release surface and is not evidence for this
 candidate. No push or publication has occurred in Task 4.
 
-The required precedence statement below is scoped to the Task 4 evidence-gate
-binding changes recorded here. Task 3 policy commits are earlier historical
-inputs and are documented in the implemented-policy section above.
+Tasks 1–3 implementation and evidence commits preceded this record and are
+historical inputs to the Task 4 evidence-gate binding documented here.
 
-No implementation commit, push, publication, or global synchronization preceded this evidence record.
+No Task 4 evidence-gate implementation commit, push, publication, or global synchronization preceded this evidence record.

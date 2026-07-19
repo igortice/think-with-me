@@ -256,7 +256,7 @@ Require candidate ID, package SHA-256, source configuration, prompt, raw `agentM
 
 - [ ] **Step 2: Create the dated evidence record**
 
-Record the approved design, RED result, implemented policy, commands run, current package hash, known runtime limitations, global parity state, and the exact statement `No implementation commit, push, publication, or global synchronization preceded this evidence record.`
+Record the approved design, RED result, implemented policy, commands run, current package hash, known runtime limitations, global parity state, and the exact truthful statement `No Task 4 evidence-gate implementation commit, push, publication, or global synchronization preceded this evidence record.` Earlier Task 1–3 commits remain explicit historical inputs rather than being obscured by this precedence assertion.
 
 - [ ] **Step 3: Prepare evidence verification requirements**
 

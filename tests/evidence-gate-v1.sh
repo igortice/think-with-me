@@ -22,6 +22,8 @@ require_file "${repo_root}/scripts/candidate-manifest.sh"
 require_file "${repo_root}/scripts/validate-structure.sh"
 require_file "${repo_root}/scripts/verify-evidence-record.sh"
 require_file "${repo_root}/evals/evidence-run-template.md"
+require_file "${repo_root}/evals/model-routing-evidence-template.md"
+require_file "${repo_root}/evals/evidence-2026-07-19-evidence-based-routing.md"
 
 manifest="$(bash "${repo_root}/scripts/candidate-manifest.sh")"
 grep -Fq 'CANDIDATE_ID=' <<<"${manifest}" || fail "candidate manifest has no candidate id"
@@ -31,6 +33,7 @@ grep -Fq 'FILE_SHA256=' <<<"${manifest}" || fail "candidate manifest has no file
 skill_file="${repo_root}/skills/think-with-me/SKILL.md"
 routing_file="${repo_root}/skills/think-with-me/references/model-routing.md"
 evidence_file="${repo_root}/docs/research/model-routing-evidence-2026-07-17.md"
+model_evidence_file="${repo_root}/skills/think-with-me/references/model-evidence.md"
 output_file="${repo_root}/skills/think-with-me/references/output-contract.md"
 metadata_file="${repo_root}/skills/think-with-me/agents/openai.yaml"
 cases_file="${repo_root}/evals/think-with-me-cases.md"
@@ -65,7 +68,7 @@ require_text "${output_file}" '**Minha visão:**'
 require_text "${output_file}" '**Próximo passo:**'
 require_text "${output_file}" '**My view:**'
 require_text "${output_file}" '**Next step:**'
-require_text "${output_file}" '`Terra High` ·'
+require_text "${output_file}" '`Sol High` ·'
 require_text "${output_file}" '`Próximo passo` contains at most one `?` character'
 require_text "${routing_file}" 'Recommend exactly one model and effort for the next step'
 require_text "${routing_file}" 'Re-evaluate the recommendation whenever the conversation changes material phase'
@@ -76,12 +79,15 @@ require_text "${routing_file}" 'Sol High is the conservative quality floor'
 require_text "${routing_file}" 'Treat family and effort as one atomic configuration'
 require_text "${routing_file}" 'Do not average heterogeneous benchmarks'
 require_text "${routing_file}" 'Terra has no preferred route in the current evidence snapshot'
-require_text "${evidence_file}" 'DeepSWE v1.1'
-require_text "${evidence_file}" 'Artificial Analysis Coding Index'
 require_text "${evidence_file}" 'Esta é fonte primária **para a metodologia do Artificial Analysis**, mas não é fonte primária do produto OpenAI nem substitui o DeepSWE'
 require_text "${evidence_file}" 'A metodologia do AA não deve preencher lacunas do DeepSWE.'
+require_text "${model_evidence_file}" 'This file is the versioned evidence source for model-routing policy.'
+require_text "${model_evidence_file}" '## Artificial Analysis snapshot'
+require_text "${model_evidence_file}" 'the Coding Index is a 50/50 aggregate of Terminal-Bench 2.1 and'
+require_text "${model_evidence_file}" '## DeepSWE v1.1 snapshot'
+require_text "${model_evidence_file}" '## Local behavioral evidence status'
 require_text "${output_file}" 'one question and your recommended answer'
-require_text "${output_file}" '`Terra High` · connect the concrete next step to the decisive conversational evidence.'
+require_text "${output_file}" '`Sol High` · connect the concrete next step to the decisive conversational evidence.'
 require_text "${cases_file}" 'Compare A e B com estes fatos'
 require_text "${cases_file}" 'inventar uma edição especulativa'
 require_text "${cases_file}" '11. A configuração é escolhida como o par indivisível `família + effort`; a resposta não escolhe uma família antes de avaliar o effort.'
@@ -154,6 +160,9 @@ require_text "${release_runbook_file}" 'TWM-M12'
 require_text "${release_runbook_file}" 'TWM-M13'
 require_text "${release_runbook_file}" '`agentMessage.text`'
 require_text "${release_runbook_file}" 'cópia candidata local, repositório GitHub e página do skills.sh'
+require_text "${release_runbook_file}" 'skills/think-with-me/references/model-evidence.md'
+require_text "${release_runbook_file}" 'evals/model-routing-cases.md'
+require_text "${release_runbook_file}" 'evals/evidence-2026-07-19-evidence-based-routing.md'
 require_text "${routing_spec_file}" '**Status atual da candidata:** não sincronizada globalmente.'
 
 if rg -Fq 'Only an explicit topic change or closure ends that continuity.' "${skill_file}"; then
@@ -172,12 +181,12 @@ if rg -Fq '**Status:** implementada, validada e sincronizada globalmente' "${rou
   fail 'historical routing spec presents an older global synchronization as the current candidate state'
 fi
 
-closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> `Terra High` · connect the concrete next step to the decisive conversational evidence.'
+closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> `Sol High` · connect the concrete next step to the decisive conversational evidence.'
 if ! rg -U -F -- "${closing_template}" "${output_file}" >/dev/null; then
   fail "output contract does not contain the literal Portuguese blockquote template"
 fi
 
-english_closing_template=$'> **My view:** one clear conclusion about the subject and the decisive reason.\n>\n> **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> `Terra High` · connect the concrete next step to the decisive conversational evidence.'
+english_closing_template=$'> **My view:** one clear conclusion about the subject and the decisive reason.\n>\n> **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> `Sol High` · connect the concrete next step to the decisive conversational evidence.'
 if ! rg -U -F -- "${english_closing_template}" "${output_file}" >/dev/null; then
   fail "output contract does not contain the literal English blockquote template"
 fi
@@ -271,6 +280,13 @@ if rg -n -F 'require_text "${skill_root}/SKILL.md"' "${repo_root}/scripts/valida
 fi
 
 require_text "${repo_root}/scripts/validate-structure.sh" 'Structural validation passed.'
+require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-evidence.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-19-evidence-based-routing.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Static validation passed"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'reject_heading "## Runtime behavior pending"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Runtime behavior passed"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Independent review"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Global parity"'
 
 if grep -Fq 'Public-release validation passed.' "${repo_root}/scripts/validate-skill.sh"; then
   fail "legacy validator still claims public-release validation"

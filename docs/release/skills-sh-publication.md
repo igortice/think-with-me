@@ -22,7 +22,7 @@ Este documento é um runbook de manutenção. Ele não autoriza nenhuma ação e
    git diff --check
    ```
 
-2. Exercitar casos representativos de `evals/think-with-me-cases.md`, `evals/think-with-me-multiturn-cases.md` e `evals/trigger-cases.md`. Em particular, executar `TWM-M12` como limite de ativação do host — uma resposta sem a skill carregada não é resultado da candidata — e `TWM-M13` para confirmar que uma nova menção explícita recupera o contexto.
+2. Revisar `skills/think-with-me/references/model-evidence.md`, exercitar casos representativos de `evals/think-with-me-cases.md`, `evals/think-with-me-multiturn-cases.md`, `evals/model-routing-cases.md` e `evals/trigger-cases.md`, e registrar os resultados em `evals/evidence-2026-07-19-evidence-based-routing.md`. Em particular, executar `TWM-M12` como limite de ativação do host — uma resposta sem a skill carregada não é resultado da candidata — e `TWM-M13` para confirmar que uma nova menção explícita recupera o contexto.
 3. No Codex App, inspecionar a transcrição bruta `agentMessage.text` retornada por `read_thread`; o resumo normalizado de `wait_threads` pode esconder os marcadores `>` do blockquote.
 4. Apresentar o diff local para revisão humana.
 5. Fazer commit e push somente após autorização explícita para cada ação.

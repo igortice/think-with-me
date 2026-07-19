@@ -18,10 +18,11 @@ require_file "${repo_root}/README.md"
 require_file "${repo_root}/LICENSE"
 require_file "${skill_root}/SKILL.md"
 require_file "${skill_root}/agents/openai.yaml"
+require_file "${skill_root}/references/model-evidence.md"
 require_file "${skill_root}/references/model-routing.md"
 require_file "${skill_root}/references/output-contract.md"
 
-expected_manifest=$'SKILL.md\nagents/openai.yaml\nreferences/model-routing.md\nreferences/output-contract.md'
+expected_manifest=$'SKILL.md\nagents/openai.yaml\nreferences/model-evidence.md\nreferences/model-routing.md\nreferences/output-contract.md'
 actual_manifest="$(cd "${skill_root}" && find . -type f -print | sed 's#^./##' | LC_ALL=C sort)"
 [[ "${actual_manifest}" == "${expected_manifest}" ]] || fail "installable package contains unexpected or missing files"
 

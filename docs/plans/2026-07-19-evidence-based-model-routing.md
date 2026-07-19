@@ -143,23 +143,23 @@ Expected: FAIL on the first missing quality-baseline or evidence-reference asser
 - Consumes: official OpenAI documentation, Artificial Analysis results, DeepSWE v1.1 results, and the user-provided historical baseline.
 - Produces: a dated, domain-scoped evidence source used by the routing policy and gates.
 
-- [ ] **Step 1: Add the evidence schema and hierarchy**
+- [x] **Step 1: Add the evidence schema and hierarchy**
 
 Define `official fact`, `independent empirical result`, `local behavioral result`, and `explicit user outcome`. Require source date, configuration, domain, harness, metric, uncertainty, total cost, limitations, and supported policy decision.
 
-- [ ] **Step 2: Record the OpenAI facts**
+- [x] **Step 2: Record the OpenAI facts**
 
 Record that Sol is the frontier family for complex professional reasoning and coding, Terra balances intelligence and price, Luna targets cost-sensitive volume, all three expose the documented effort range, and per-token price is not total task cost. Link only official OpenAI pages.
 
-- [ ] **Step 3: Record the Artificial Analysis snapshot**
+- [x] **Step 3: Record the Artificial Analysis snapshot**
 
 Include the selected Coding Index results and broad intelligence-versus-cost observations from 19 July 2026. Label Coding Index as a 50/50 Terminal-Bench 2.1 and SciCode aggregate and state that it does not evaluate Portuguese multi-turn decision quality.
 
-- [ ] **Step 4: Record the DeepSWE v1.1 snapshot**
+- [x] **Step 4: Record the DeepSWE v1.1 snapshot**
 
 Include the four-run values for GPT-5.5 High, Sol Medium/High/XHigh/Max, Terra High/XHigh/Max, and Luna XHigh/Max. Record `Pass@1`, 95% run-to-run interval, mean task cost, output tokens, and agent steps. State that the common `mini-swe-agent` bash harness isolates model capability but does not reproduce the native Codex harness.
 
-- [ ] **Step 5: Derive only supported policy states**
+- [x] **Step 5: Derive only supported policy states**
 
 Mark:
 
@@ -171,7 +171,7 @@ Mark:
 - No preferred route in this snapshot: Terra configurations.
 ```
 
-- [ ] **Step 6: Validate source links and terminology**
+- [x] **Step 6: Validate source links and terminology**
 
 Run:
 

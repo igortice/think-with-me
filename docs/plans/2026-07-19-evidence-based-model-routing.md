@@ -250,27 +250,27 @@ Expected: progress past the new routing assertions and fail only on the first st
 - Consumes: the implemented package and routing cases.
 - Produces: candidate-hash-bound evidence and release checks that cannot silently validate the old policy.
 
-- [ ] **Step 1: Create the runtime evidence template**
+- [x] **Step 1: Create the runtime evidence template**
 
 Require candidate ID, package SHA-256, source configuration, prompt, raw `agentMessage.text`, routing invariants, output invariants, cost evidence when available, observed deviation, and pass/fail result.
 
-- [ ] **Step 2: Create the dated evidence record**
+- [x] **Step 2: Create the dated evidence record**
 
 Record the approved design, RED result, implemented policy, commands run, current package hash, known runtime limitations, global parity state, and the exact truthful statement `No Task 4 evidence-gate implementation commit, push, publication, or global synchronization preceded this evidence record.` Earlier Task 1–3 commits remain explicit historical inputs rather than being obscured by this precedence assertion.
 
-- [ ] **Step 3: Prepare evidence verification requirements**
+- [x] **Step 3: Prepare evidence verification requirements**
 
 Prepare `scripts/verify-evidence-record.sh` to target `evals/evidence-2026-07-19-evidence-based-routing.md` after Task 5 records runtime behavior. The final verifier will require the current package hash and headings `## Static validation passed`, `## Runtime behavior passed`, `## Independent review`, and `## Global parity`.
 
-- [ ] **Step 4: Remove literal Terra dependencies from the gate**
+- [x] **Step 4: Remove literal Terra dependencies from the gate**
 
 Replace literal canonical-template requirements for `Terra High` with a structural template using `Sol High`. Keep the footer parser accepting all documented family/effort labels, because formatting validity is separate from routing eligibility.
 
-- [ ] **Step 5: Update release review inputs**
+- [x] **Step 5: Update release review inputs**
 
 Add `model-evidence.md`, `model-routing-cases.md`, and the dated evidence record to the release review checklist. Do not alter publication authority.
 
-- [ ] **Step 6: Run local validation**
+- [x] **Step 6: Run local validation**
 
 Run:
 

@@ -294,19 +294,19 @@ Expected: structural validation and `git diff --check` pass. The evidence gate r
 - Consumes: the candidate package and representative cases from `model-routing-cases.md`.
 - Produces: raw runtime evidence that the installed behavior matches the static policy.
 
-- [ ] **Step 1: Run the minimum fresh-context sample**
+- [x] **Step 1: Run the minimum fresh-context sample**
 
 Run independent sessions for: open contextual comparison, irreversible risk, settled high-volume extraction, benchmark conflict, and frustration without extra ambiguity. Load the local candidate explicitly in each session.
 
-- [ ] **Step 2: Inspect raw responses**
+- [x] **Step 2: Inspect raw responses**
 
 Use raw `agentMessage.text`, not a normalized wait summary. Verify one view, one next step, one configuration, the correct floor/economy behavior, and no unsupported equivalence claim.
 
-- [ ] **Step 3: Record actual results**
+- [x] **Step 3: Record actual results**
 
 Add each prompt, selected configuration, decisive reason, invariant result, and representative raw closing to the dated evidence record. Do not claim cost observations when the host does not expose them.
 
-- [ ] **Step 4: Repoint the verifier, recompute the candidate hash, and close the gate**
+- [x] **Step 4: Repoint the verifier, recompute the candidate hash, and close the gate**
 
 Point `scripts/verify-evidence-record.sh` to the dated record and require the final headings from Task 4. Run `bash scripts/candidate-manifest.sh`, update the package hash in the evidence record, then run `bash tests/evidence-gate-v1.sh`.
 

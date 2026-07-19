@@ -288,6 +288,7 @@ Expected: structural validation and `git diff --check` pass. The evidence gate r
 
 **Files:**
 - Modify: `evals/evidence-2026-07-19-evidence-based-routing.md`
+- Modify: `scripts/verify-evidence-record.sh`
 
 **Interfaces:**
 - Consumes: the candidate package and representative cases from `model-routing-cases.md`.

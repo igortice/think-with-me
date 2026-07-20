@@ -2,7 +2,9 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-evidence_file="${repo_root}/evals/evidence-2026-07-19-evidence-based-routing.md"
+evidence_file="${repo_root}/evals/evidence-2026-07-20-model-comparison-routing.md"
+initial_captures_file="${repo_root}/evals/runtime-captures-2026-07-20.md"
+final_captures_file="${repo_root}/evals/runtime-captures-2026-07-20-final.md"
 
 fail() {
   echo "FAIL: $*" >&2
@@ -114,6 +116,30 @@ verify_package_hashes() {
   [[ "${hash_count}" -gt 0 ]] || fail "evidence contains no structured package hash lines"
 }
 
+verify_runtime_capture_hash() {
+  local evidence="$1"
+  local captures="$2"
+  local field="$3"
+  local hash_line_pattern="^- \`${field}\`: \`([0-9A-Fa-f]{64})\`$"
+  local line
+  local expected
+  local actual
+  local hash_count=0
+
+  [[ -f "${captures}" ]] || fail "missing runtime capture artifact: ${captures#"${repo_root}/"}"
+  while IFS= read -r line; do
+    if [[ "${line}" =~ ${hash_line_pattern} ]]; then
+      expected="${BASH_REMATCH[1]}"
+      hash_count=$((hash_count + 1))
+    fi
+  done < <(markdown_top_level_lines "${evidence}")
+  [[ "${hash_count}" -eq 1 && "${expected}" =~ ^[0-9a-f]{64}$ ]] || \
+    fail "evidence must contain exactly one valid ${field} field"
+  actual="$(shasum -a 256 "${captures}" | awk '{print $1}')"
+  [[ "${actual}" == "${expected}" ]] || \
+    fail "runtime capture hash mismatch: expected ${expected}, got ${actual}"
+}
+
 main() {
   local manifest
   local package_hash
@@ -125,18 +151,22 @@ main() {
   [[ -n "${package_hash}" ]] || fail "candidate manifest has no package hash"
 
   verify_package_hashes "${evidence_file}" "${package_hash}"
+  verify_runtime_capture_hash "${evidence_file}" "${initial_captures_file}" "INITIAL_RUNTIME_CAPTURES_SHA256"
+  verify_runtime_capture_hash "${evidence_file}" "${final_captures_file}" "FINAL_RUNTIME_CAPTURES_SHA256"
   require_heading "## Static validation passed"
   reject_heading "## Runtime behavior pending"
   require_heading "## Runtime behavior passed"
   require_heading "## Independent review"
   require_heading "## Global parity"
+  require_heading "## Post-install runtime"
   require_top_level_line "RUNTIME_SOURCE_FIDELITY: host-unverified"
+  require_top_level_line "LOCAL_CANDIDATE_STATUS: passed"
   require_top_level_line "INDEPENDENT_REVIEW_STATUS: passed"
-  require_top_level_line "GLOBAL_PARITY_STATUS: passed"
-  require_top_level_line "POST_SYNC_RUNTIME_STATUS: passed"
-  require_top_level_line "No Task 4 evidence-gate implementation commit, push, publication, or global synchronization preceded this evidence record."
+  require_top_level_line "GLOBAL_PARITY_STATUS: not-run"
+  require_top_level_line "POST_INSTALL_RUNTIME_STATUS: not-run"
+  require_top_level_line "No commit, push, publication, global synchronization, or skills.sh installation preceded this candidate evidence record."
 
-  echo "Evidence record is bound to the current package; runtime source fidelity remains host-unverified."
+  echo "Local evidence is bound to the current package; global parity and post-install runtime remain separate release checks."
 }
 
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then

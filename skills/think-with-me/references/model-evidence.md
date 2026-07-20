@@ -1,6 +1,6 @@
 # Model Evidence Snapshot
 
-Snapshot date: **2026-07-19**.
+Snapshot review date: **2026-07-20**.
 
 This file is the versioned evidence source for model-routing policy. Every
 result remains scoped to its own domain and harness. Values from different
@@ -85,13 +85,16 @@ Per-token price must never be presented as total task cost.
 - **Sources:** [Capability-index methodology](https://artificialanalysis.ai/methodology/capability-indices),
   [Coding capability page](https://artificialanalysis.ai/models/capabilities/coding),
   and [GPT-5.6 analysis](https://artificialanalysis.ai/articles/gpt-5-6-has-landed/).
-- **Preserved chart artifacts:** the user-supplied filtered captures are
-  [Coding Index](../../../docs/research/assets/artificial-analysis-coding-index-2026-07-19.png)
-  (`SHA-256 d0c93da184aef6abbb1c36bba9ec031c254184e2af42751cec4f5d164b242f32`)
-  and [Intelligence versus cost](../../../docs/research/assets/artificial-analysis-intelligence-cost-2026-07-19.png)
-  (`SHA-256 846653101b0963757832edd10aed75ea6d962d1870d07d3611a762bef722eefc`).
-  Both came from the same 10-model filter in the user-provided URL, with the
-  first capture on `#intelligence-tabs` and the second on `#cost-tabs`.
+- **Preserved chart artifacts:** the source repository archives the
+  user-supplied filtered Coding Index capture with `SHA-256
+  d0c93da184aef6abbb1c36bba9ec031c254184e2af42751cec4f5d164b242f32`
+  and the Intelligence-versus-cost capture with `SHA-256
+  846653101b0963757832edd10aed75ea6d962d1870d07d3611a762bef722eefc`.
+  The binary captures are release evidence rather than installable runtime
+  dependencies. Both came from the same 10-model filter in the user-provided
+  URL, with the first capture on `#intelligence-tabs` and the second on
+  `#cost-tabs`. The exact filter, both tabs, and the refresh procedure are
+  preserved in the [comparison refresh contract](model-comparison.md#refresh-contract).
 - **Configuration:** the ten configurations in the table below.
 - **Domain:** coding capability and broad intelligence-versus-cost comparison.
 - **Harness:** the Coding Index is a 50/50 aggregate of Terminal-Bench 2.1 and
@@ -130,11 +133,15 @@ Per-token price must never be presented as total task cost.
 ## DeepSWE v1.1 snapshot
 
 - **Class:** independent empirical result.
-- **Source date:** 2026-07-19, checked from the raw v1.1 artifact.
+- **Source date:** live artifact checked and preserved 2026-07-20; its
+  `generated_at` value is `2026-07-17T08:18:55.870582+00:00`.
 - **Sources:** [DeepSWE methodology](https://deepswe.datacurve.ai/blog/deepswe),
   [v1.1 changes](https://deepswe.datacurve.ai/blog/deepswe-v1-1),
   [reproducible repository](https://github.com/datacurve-ai/deep-swe), and
   [raw v1.1 leaderboard](https://deepswe.datacurve.ai/artifacts/v1.1/leaderboard-live.json).
+- **Preserved artifact:** the source repository archives the reviewed JSON as
+  `deepswe-v1.1-leaderboard-2026-07-20.json` with SHA-256
+  `050663ae245106a7fc59312565059f46bd6ee10fa587131dd09a5062af5ed24d`.
 - **Configuration:** GPT-5.5 High; Sol Medium, High, XHigh, and Max; Terra High,
   XHigh, and Max; Luna XHigh and Max.
 - **Domain:** 113 original long-horizon software-engineering tasks across 91
@@ -167,11 +174,31 @@ Per-token price must never be presented as total task cost.
 | Sol High | 69% | ±1.4 pp | $3.47 | 28,450 | 36.9 |
 | Sol XHigh | 71% | ±0.8 pp | $4.70 | 40,745 | 44.0 |
 | Sol Max | 73% | ±2.8 pp | $8.39 | 60,014 | 61.3 |
-| Terra High | 54% | ±4.3 pp | $1.13 | 21,517 | 33.5 |
+| Terra High | 53.8% | ±4.3 pp | $1.13 | 21,517 | 33.5 |
 | Terra XHigh | 60% | ±2.1 pp | $2.13 | 39,617 | 43.1 |
 | Terra Max | 70% | ±2.6 pp | $4.95 | 71,939 | 75.9 |
-| Luna XHigh | 57% | ±2.2 pp | $1.54 | 44,678 | 71.1 |
+| Luna XHigh | 56.9% | ±2.2 pp | $1.54 | 44,678 | 71.1 |
 | Luna Max | 67% | ±4.0 pp | $3.03 | 73,400 | 101.7 |
+
+## Decision-facing comparison views
+
+The installable [Portable Model Quality and Cost Comparison](model-comparison.md)
+preserves the DeepSWE and Artificial Analysis tables as separate views. It is
+a presentation layer over the evidence above, not a new benchmark or a
+combined score. It travels with the skill so a downloaded installation can
+show the comparison without access to repository-only research files.
+
+The DeepSWE view keeps its Pass@1 interval, mean task cost, output tokens, and
+steps together because they come from the same harness. The Artificial
+Analysis view keeps Coding Index, Intelligence Index, and its approximate
+mean task cost together without importing DeepSWE uncertainty. Sol Max, Sol XHigh, Terra Max, Sol High, and Luna Max remain simultaneously visible as domain-scoped candidates;
+none is removed merely because another occupies a nearby quality band.
+
+For decision support, cost differences may be calculated only within the same
+source and harness. In the dated DeepSWE snapshot, `Sol XHigh` costs $3.69, or
+about 44.0%, less per mean task than `Sol Max`, while their reported Pass@1
+intervals overlap. This supports a software-engineering value trade-off; it
+does not prove equal behavior or conversational quality.
 
 ## Explicit user outcome and baseline
 
@@ -225,26 +252,39 @@ Per-token price must never be presented as total task cost.
   baseline-equivalent default.
 - Sol XHigh and Max have higher DeepSWE Pass@1 point estimates than Sol High,
   but their reported intervals overlap Sol High's. Their mean cost, tokens, and
-  steps are also higher. The evidence supports selective depth, with Max gated
-  explicitly; it does not establish a statistically distinct improvement.
+  steps are also higher. Sol XHigh is materially cheaper than Max in that
+  harness and remains a near-top value candidate when the current task matches
+  the measured domain. Max remains visible as the highest point estimate, but
+  the evidence does not establish a statistically distinct improvement.
 - Terra Max and Sol High have overlapping DeepSWE intervals, while Terra Max
   uses substantially more output tokens and agent steps and has higher mean
-  task cost in that harness. This snapshot does not establish a preferred Terra
-  route.
+  task cost in that harness. Terra Max remains a domain-scoped upper-band
+  candidate, but this snapshot does not establish a cost advantage or transfer
+  its result to open conversation.
 - Luna Max can overlap the DeepSWE baseline pass-rate band, but its high token
-  and step use does not support substituting it for the baseline. Luna Medium
-  has no recorded local result in this snapshot.
+  and step use create a different execution trade-off. It remains a
+  domain-scoped candidate when lower mean task cost matters and a longer run is
+  acceptable; this does not support substituting it for the conversational
+  baseline. Luna Medium has no recorded local result in this snapshot.
 
 These are scoped deductions, not a new score. No cross-source average or
 composite ranking is permitted.
 
 ## Supported policy states
 
-- Sustained quality floor: `Sol High`.
-- Selective depth: `Sol XHigh`; `Sol Max` only under the explicit deepest-reasoning gate.
+These states form an open evidence portfolio, not a top-N ranking:
+
+- Sustained conversational quality floor: `Sol High`.
+- Selective depth: `Sol XHigh`; `Sol Max` remains behind the explicit deepest-reasoning recommendation gate.
+- Domain-scoped DeepSWE upper band: `Sol Max`, `Sol XHigh`, `Terra Max`, `Sol High`, and `Luna Max`, with selection driven by the current quality contract, cost, uncertainty, tokens, and steps.
 - Value candidate, not baseline-equivalent: `Sol Medium`.
 - Provisional representative pilot: `Luna Medium`; full-volume use remains pending local synthesis evidence.
-- No preferred route in this snapshot: Terra configurations.
+- Recorded without a distinct preferred role from the current sources: `Terra High`, `Terra XHigh`, and `Luna XHigh`.
+
+The compact response footer still recommends one atomic configuration for the
+current next step. When a nearby eligible option could change an informed
+choice, the prose may preserve that alternative and state its measured
+quality, uncertainty, and total-task-cost trade-off.
 
 Any future change to these states must add a dated record with the same evidence
 fields, preserve the original domain and harness, and explain which uncertainty

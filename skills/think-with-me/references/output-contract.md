@@ -8,6 +8,8 @@ Write all prose before the closing and the closing itself in that same language;
 
 This output contract only applies when the skill is loaded for that response. It cannot retain or invoke itself on a later turn; host selection, an explicit new invocation, or a host-level mechanism determines whether the contract is available again.
 
+When an explicit new invocation makes this contract available again, resume the exact unresolved dependency already established in the conversation. Do not replace contract outputs with availability, inputs, rollout, or another newly invented dependency unless the user supplies information that changes the decision.
+
 ## Canonical closing templates
 
 Use the Portuguese template when the current user message is Portuguese:
@@ -98,7 +100,7 @@ Quando a direção está fechada, a transformação é delimitada e repetida em 
 
 > **Minha visão:** a direção já está decidida; o formato delimitado e verificável permite tratar o volume com menor custo e latência.
 >
-> **Próximo passo:** executar primeiro um lote piloto representativo no formato único, medindo qualidade, retries e custo total com validação automática.
+> **Próximo passo:** executar um lote piloto representativo no formato único, com critérios prévios de aprovação para qualidade, retries e custo total.
 >
 > `Luna Medium` · validar o lote piloto delimitado com critérios automáticos antes de ampliar o volume.
 

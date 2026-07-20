@@ -18,14 +18,36 @@ require_text() {
   grep -Fq -- "$pattern" "$file" || fail "missing text in ${file#"${repo_root}/"}: $pattern"
 }
 
+require_sha256() {
+  local file="$1"
+  local expected="$2"
+  local actual
+  actual="$(shasum -a 256 "${file}" | awk '{print $1}')"
+  [[ "${actual}" == "${expected}" ]] || fail "SHA-256 mismatch for ${file#"${repo_root}/"}: expected ${expected}, got ${actual}"
+}
+
 require_file "${repo_root}/scripts/candidate-manifest.sh"
 require_file "${repo_root}/scripts/validate-structure.sh"
+require_file "${repo_root}/scripts/sync-model-comparison.sh"
 require_file "${repo_root}/scripts/verify-evidence-record.sh"
+require_file "${repo_root}/tests/sync-model-comparison.sh"
+require_file "${repo_root}/tests/verify-model-comparison-data.sh"
 require_file "${repo_root}/evals/evidence-run-template.md"
 require_file "${repo_root}/evals/model-routing-evidence-template.md"
 require_file "${repo_root}/evals/evidence-2026-07-19-evidence-based-routing.md"
+require_file "${repo_root}/evals/evidence-2026-07-20-model-comparison-routing.md"
+require_file "${repo_root}/evals/runtime-captures-2026-07-20.md"
+require_file "${repo_root}/evals/runtime-captures-2026-07-20-final.md"
 require_file "${repo_root}/docs/research/assets/artificial-analysis-coding-index-2026-07-19.png"
 require_file "${repo_root}/docs/research/assets/artificial-analysis-intelligence-cost-2026-07-19.png"
+require_file "${repo_root}/docs/research/assets/deepswe-v1.1-leaderboard-2026-07-20.json"
+require_file "${repo_root}/docs/research/model-routing-three-source-verification-2026-07-19.md"
+
+require_sha256 "${repo_root}/docs/research/assets/artificial-analysis-coding-index-2026-07-19.png" 'd0c93da184aef6abbb1c36bba9ec031c254184e2af42751cec4f5d164b242f32'
+require_sha256 "${repo_root}/docs/research/assets/artificial-analysis-intelligence-cost-2026-07-19.png" '846653101b0963757832edd10aed75ea6d962d1870d07d3611a762bef722eefc'
+require_sha256 "${repo_root}/docs/research/assets/deepswe-v1.1-leaderboard-2026-07-20.json" '050663ae245106a7fc59312565059f46bd6ee10fa587131dd09a5062af5ed24d'
+require_sha256 "${repo_root}/evals/runtime-captures-2026-07-20.md" 'e69f52d78c140a2a40c1f2c56e34970ee224b40a10fb02fd68e664f62adfe361'
+require_sha256 "${repo_root}/evals/runtime-captures-2026-07-20-final.md" 'd9a0bb737b0a326d90e7ae4182fd306c307f1d48406c7213967da24d7f559a6a'
 
 manifest="$(bash "${repo_root}/scripts/candidate-manifest.sh")"
 grep -Fq 'CANDIDATE_ID=' <<<"${manifest}" || fail "candidate manifest has no candidate id"
@@ -36,6 +58,7 @@ skill_file="${repo_root}/skills/think-with-me/SKILL.md"
 routing_file="${repo_root}/skills/think-with-me/references/model-routing.md"
 evidence_file="${repo_root}/docs/research/model-routing-evidence-2026-07-17.md"
 model_evidence_file="${repo_root}/skills/think-with-me/references/model-evidence.md"
+model_comparison_file="${repo_root}/skills/think-with-me/references/model-comparison.md"
 output_file="${repo_root}/skills/think-with-me/references/output-contract.md"
 metadata_file="${repo_root}/skills/think-with-me/agents/openai.yaml"
 cases_file="${repo_root}/evals/think-with-me-cases.md"
@@ -55,6 +78,19 @@ require_text "${skill_file}" 'never output Portuguese prose or labels'
 require_text "${skill_file}" 'one continuous Markdown blockquote'
 require_text "${skill_file}" 'For an English user message, use `My view` and `Next step` exactly, then render the model as an inline-code label:'
 require_text "${skill_file}" 'Open [the output contract](references/output-contract.md) before writing the closing'
+require_file "${model_comparison_file}"
+require_text "${skill_file}" 'Open [model comparison](references/model-comparison.md) when the user asks to see a price-versus-quality table, chart, map, or nearby model alternatives.'
+require_text "${readme_file}" '## Model quality and cost at a glance'
+require_text "${skill_file}" '## Model quality and cost at a glance'
+require_text "${readme_file}" '### DeepSWE v1.1 — one software-engineering harness'
+require_text "${skill_file}" '### DeepSWE v1.1 — one software-engineering harness'
+require_text "${readme_file}" '### Artificial Analysis — a separate perspective'
+require_text "${skill_file}" '### Artificial Analysis — a separate perspective'
+require_text "${readme_file}" 'Comparison review date: **2026-07-20**.'
+require_text "${skill_file}" 'Comparison review date: **2026-07-20**.'
+require_text "${model_comparison_file}" 'Comparison review date: **2026-07-20**.'
+require_text "${readme_file}" 'Artificial Analysis did not publish confidence intervals in the selected snapshot.'
+require_text "${skill_file}" 'Artificial Analysis did not publish confidence intervals in the selected snapshot.'
 require_text "${skill_file}" 'Do not output the three fields as ordinary paragraphs'
 require_text "${skill_file}" 'one concrete next step'
 require_text "${skill_file}" 'not a sequence, checklist, or bundle of actions'
@@ -82,7 +118,13 @@ require_text "${routing_file}" 'GPT-5.5 High is the historical quality baseline'
 require_text "${routing_file}" 'Sol High is the conservative quality floor'
 require_text "${routing_file}" 'Treat family and effort as one atomic configuration'
 require_text "${routing_file}" 'Do not average heterogeneous benchmarks'
-require_text "${routing_file}" 'Terra has no preferred route in the current evidence snapshot'
+require_text "${routing_file}" 'Maintain an open portfolio of evidence-supported atomic configurations; never impose a top-N quota.'
+require_text "${routing_file}" 'The compact footer recommends exactly one configuration, while the prose may show nearby eligible alternatives when price, uncertainty, latency, or execution shape can change the informed choice.'
+require_text "${routing_file}" 'Do not eliminate a configuration solely because another configuration occupies a nearby quality band.'
+require_text "${routing_file}" 'do not call a configuration cheaper, economic, or more efficient for the target domain without target-domain cost evidence.'
+require_text "${routing_file}" 'state both the absolute and percentage difference from every nearby option whose cost is used as a reason.'
+require_text "${routing_file}" 'monitoring, and later promotion criteria in the preceding prose as conditions'
+require_text "${routing_file}" 'Do not hide a second action in a gerund such as measuring, recording, or monitoring.'
 require_text "${routing_file}" 'Irreversibility or impact alone does not select `Sol XHigh`'
 require_text "${routing_file}" 'Until a qualifying local pilot has met versioned quality, retry, and total-cost criteria, recommend `Luna Medium` only for that representative pilot, not for the full corpus.'
 require_text "${evidence_file}" 'Esta é fonte primária **para a metodologia do Artificial Analysis**, mas não é fonte primária do produto OpenAI nem substitui o DeepSWE'
@@ -94,15 +136,81 @@ require_text "${model_evidence_file}" '## DeepSWE v1.1 snapshot'
 require_text "${model_evidence_file}" '## Local behavioral evidence status'
 require_text "${model_evidence_file}" 'Sol XHigh and Max have higher DeepSWE Pass@1 point estimates than Sol High,'
 require_text "${model_evidence_file}" "but their reported intervals overlap Sol High's."
-require_text "${model_evidence_file}" 'docs/research/assets/artificial-analysis-coding-index-2026-07-19.png'
+require_text "${model_evidence_file}" 'The binary captures are release evidence rather than installable runtime'
 require_text "${model_evidence_file}" 'd0c93da184aef6abbb1c36bba9ec031c254184e2af42751cec4f5d164b242f32'
-require_text "${model_evidence_file}" 'docs/research/assets/artificial-analysis-intelligence-cost-2026-07-19.png'
 require_text "${model_evidence_file}" '846653101b0963757832edd10aed75ea6d962d1870d07d3611a762bef722eefc'
+require_text "${model_evidence_file}" '050663ae245106a7fc59312565059f46bd6ee10fa587131dd09a5062af5ed24d'
+require_text "${model_evidence_file}" '## Decision-facing comparison views'
+require_text "${model_evidence_file}" '[Portable Model Quality and Cost Comparison](model-comparison.md)'
+require_text "${model_evidence_file}" '[comparison refresh contract](model-comparison.md#refresh-contract)'
+require_text "${model_evidence_file}" 'Sol Max, Sol XHigh, Terra Max, Sol High, and Luna Max remain simultaneously visible as domain-scoped candidates'
+require_text "${model_comparison_file}" '# Portable Model Quality and Cost Comparison'
+require_text "${model_comparison_file}" '### DeepSWE v1.1 — one software-engineering harness'
+require_text "${model_comparison_file}" '### Artificial Analysis — a separate perspective'
+require_text "${model_comparison_file}" '| Sol XHigh | 70.73% | ±0.82 pp | $4.70 | 40,745 | 44.0 |'
+require_text "${model_comparison_file}" '| Terra Max | 69.62% | ±2.56 pp | $4.95 | 71,939 | 75.9 |'
+require_text "${model_comparison_file}" '| Luna Max | 67.19% | ±3.99 pp | $3.03 | 73,400 | 101.7 |'
+require_text "${model_comparison_file}" '| Sol XHigh | 78.3 | 57.7 | $0.68 |'
+require_text "${model_comparison_file}" '| Terra Max | 76.7 | 55.0 | $0.55 |'
+require_text "${model_comparison_file}" '| Luna Max | 71.4 | 51.2 | $0.21 |'
+require_text "${model_comparison_file}" 'Show both source-specific Markdown tables'
+require_text "${model_comparison_file}" 'Do not average, normalize, or merge the two sources into a composite score.'
+require_text "${model_comparison_file}" '<!-- MODEL_COMPARISON_START -->'
+require_text "${model_comparison_file}" '<!-- MODEL_COMPARISON_END -->'
+require_text "${model_comparison_file}" '## Refresh contract'
+require_text "${model_comparison_file}" 'Historical snapshots are immutable.'
+require_text "${model_comparison_file}" 'Live source endpoints last checked: **2026-07-20**.'
+require_text "${model_comparison_file}" '### Source values versus derived values'
+require_text "${model_comparison_file}" '### Exact live-source views'
+aa_filter_url='https://artificialanalysis.ai/?intelligence=coding-index&models=gpt-5-6-sol%2Cgpt-5-6-terra%2Cgpt-5-6-sol-xhigh%2Cgpt-5-6-sol-high%2Cgpt-5-6-sol-medium%2Cgpt-5-5-high%2Cgpt-5-6-terra-xhigh%2Cgpt-5-6-luna-xhigh%2Cgpt-5-6-terra-high%2Cgpt-5-6-luna&coding-agents=cost&cost=intelligence-vs-cost-per-task&total-cost=intelligence-vs-total-cost'
+require_text "${model_comparison_file}" "${aa_filter_url}#intelligence-tabs"
+require_text "${model_comparison_file}" "${aa_filter_url}#cost-tabs"
+require_text "${model_comparison_file}" 'https://deepswe.datacurve.ai/artifacts/v1.1/leaderboard-live.json'
+require_text "${model_comparison_file}" '050663ae245106a7fc59312565059f46bd6ee10fa587131dd09a5062af5ed24d'
+require_text "${model_comparison_file}" 'bash scripts/sync-model-comparison.sh'
+require_text "${model_comparison_file}" 'bash scripts/sync-model-comparison.sh --check'
+
+bash "${repo_root}/scripts/sync-model-comparison.sh" --check
+
+public_comparison_rows=(
+  '| Sol Max | 72.67% | ±2.83 pp | $8.39 | 60,014 | 61.3 |'
+  '| Sol XHigh | 70.73% | ±0.82 pp | $4.70 | 40,745 | 44.0 |'
+  '| Terra Max | 69.62% | ±2.56 pp | $4.95 | 71,939 | 75.9 |'
+  '| Sol High | 69.40% | ±1.43 pp | $3.47 | 28,450 | 36.9 |'
+  '| Luna Max | 67.19% | ±3.99 pp | $3.03 | 73,400 | 101.7 |'
+  '| GPT-5.5 High | 64.38% | ±3.12 pp | $5.10 | 31,159 | 61.9 |'
+  '| Sol Medium | 61.06% | ±1.58 pp | $1.86 | 18,425 | 30.9 |'
+  '| Terra XHigh | 60.18% | ±2.12 pp | $2.13 | 39,617 | 43.1 |'
+  '| Luna XHigh | 56.86% | ±2.17 pp | $1.54 | 44,678 | 71.1 |'
+  '| Terra High | 53.76% | ±4.33 pp | $1.13 | 21,517 | 33.5 |'
+  '| Sol XHigh | 78.3 | 57.7 | $0.68 |'
+  '| Sol Max | 77.4 | 58.9 | $1.04 |'
+  '| Sol High | 77.2 | 55.9 | $0.46 |'
+  '| Terra Max | 76.7 | 55.0 | $0.55 |'
+  '| Sol Medium | 76.3 | 53.6 | $0.31 |'
+  '| GPT-5.5 High | 71.6 | 53.1 | $0.67 |'
+  '| Luna Max | 71.4 | 51.2 | $0.21 |'
+  '| Terra XHigh | 70.6 | 51.6 | $0.32 |'
+  '| Luna XHigh | 68.6 | 49.1 | $0.15 |'
+  '| Terra High | 67.1 | 49.0 | $0.24 |'
+)
+for row in "${public_comparison_rows[@]}"; do
+  require_text "${model_comparison_file}" "${row}"
+  require_text "${readme_file}" "${row}"
+  require_text "${skill_file}" "${row}"
+done
+
+require_text "${readme_file}" 'Sol XHigh costs $3.69, or about 44.0%, less per mean task than Sol Max'
+require_text "${skill_file}" 'Sol XHigh costs $3.69, or about 44.0%, less per mean task than Sol Max'
+require_text "${readme_file}" '[portable comparison](skills/think-with-me/references/model-comparison.md)'
+require_text "${skill_file}" '[portable comparison](references/model-comparison.md)'
+require_text "${repo_root}/docs/research/model-routing-three-source-verification-2026-07-19.md" 'assets/deepswe-v1.1-leaderboard-2026-07-20.json'
+require_text "${repo_root}/docs/research/model-routing-three-source-verification-2026-07-19.md" '050663ae245106a7fc59312565059f46bd6ee10fa587131dd09a5062af5ed24d'
 require_text "${output_file}" 'one question and your recommended answer'
 require_text "${output_file}" '`Sol High` · connect the concrete next step to the decisive conversational evidence.'
 require_text "${output_file}" 'Quando o usuário informa explicitamente que configurações anteriores não restauraram a convergência e ainda restam correções repetidas, use esse resultado como evidência em vez de recomendar apenas pela categoria da tarefa.'
 require_text "${output_file}" '**Minha visão:** a regra está compreendida, mas os erros anteriores de enquadramento mostram que o contrato final ainda exige julgamento preciso.'
-require_text "${output_file}" 'executar primeiro um lote piloto representativo'
+require_text "${output_file}" 'executar um lote piloto representativo no formato único, com critérios prévios de aprovação'
 require_text "${output_file}" '`Sol XHigh` · investigar falhas de integridade difíceis de detectar antes de autorizar a migração.'
 require_text "${cases_file}" 'Compare A e B com estes fatos'
 require_text "${cases_file}" 'inventar uma edição especulativa'
@@ -122,6 +230,10 @@ require_text "${multiturn_cases_file}" 'A conversa avaliou alternativas em Sol H
 require_text "${skill_file}" 'This continuity applies only while the host has loaded this skill for the current turn.'
 require_text "${skill_file}" 'This source does not guarantee that the host will load this skill on a later turn.'
 require_text "${skill_file}" 'When a later turn explicitly invokes this skill, recover the same decision context without asking the user to restate it.'
+require_text "${skill_file}" 'Preserve the exact unresolved dependency from the earlier turn; do not silently replace it with a different concern.'
+require_text "${skill_file}" 'keep monitoring or acceptance metrics in the prose as conditions; do not append them as a second action in `Próximo passo`.'
+require_text "${skill_file}" 'For an executable comparison step, use one action verb only; do not attach measuring, recording, monitoring, or promotion as a gerund or follow-on verb.'
+require_text "${skill_file}" 'A benchmark cost may be reported as an observation, but it cannot make a route “economic” for another domain.'
 require_text "${output_file}" 'only applies when the skill is loaded for that response'
 require_text "${readme_file}" 'does not keep itself loaded in later turns'
 require_text "${readme_file}" 'A new explicit invocation reactivates the skill without resetting the conversation context.'
@@ -152,24 +264,31 @@ require_text "${routing_cases_file}" 'MR-06 | Reescrita curta já decidida sem p
 require_text "${routing_cases_file}" 'MR-07 | Extração de schema em alto volume'
 require_text "${routing_cases_file}" 'MR-08 | Código de longo horizonte'
 require_text "${routing_cases_file}" 'MR-09 | Discordância entre Artificial Analysis e DeepSWE'
-require_text "${routing_cases_file}" 'MR-10 | Empate por intervalo de confiança'
+require_text "${routing_cases_file}" 'MR-10 | Intervalos sobrepostos sem contrato transferível'
 require_text "${routing_cases_file}" 'MR-11 | Pedido explícito de raciocínio mais profundo'
 require_text "${routing_cases_file}" 'MR-12 | Frustração sem ambiguidade adicional'
 require_text "${routing_cases_file}" 'MR-13 | Análise delimitada com economia material'
 require_text "${routing_cases_file}" 'MR-14 | Análise delimitada sem economia material'
 require_text "${routing_cases_file}" 'MR-15 | Análise com julgamento substantivo'
+require_text "${routing_cases_file}" 'MR-16 | Qualidade quase máxima por custo materialmente menor'
+require_text "${routing_cases_file}" 'MR-17 | Portfólio aberto na faixa superior'
+require_text "${routing_cases_file}" 'MR-18 | Uma recomendação com alternativas próximas visíveis'
+require_text "${routing_cases_file}" 'MR-19 | Pedido explícito para ver qualidade versus preço'
 require_text "${routing_cases_file}" 'Uma economia só pode comparar custo total da tarefa depois de eliminar configurações que não atingem a qualidade requerida; toda justificativa econômica permanece evidência local e provisória.'
 require_text "${routing_cases_file}" 'Permitir `Luna Medium` somente para um lote piloto representativo depois de eliminar configurações que não atingem o critério de qualidade; medir qualidade, retries e custo total antes de ampliar o volume.'
 require_text "${routing_cases_file}" 'O turno anterior recomendou `Sol High`; direção e texto-alvo estão definidos, mas custo, latência e volume não são materiais.'
 require_text "${routing_cases_file}" 'Manter `Sol High`; não há rota econômica justificada.'
 require_text "${routing_cases_file}" 'Preservar `Sol High` até haver evidência local comparável.'
-require_text "${routing_cases_file}" 'Preservar `Sol High` e pedir evidência local suficiente antes de reduzir.'
+require_text "${routing_cases_file}" 'Preservar `Sol High` até existir evidência comparável; quando o mesmo harness já sustenta o contrato, manter as configurações elegíveis e permitir que custo e forma de execução decidam entre elas.'
 require_text "${routing_cases_file}" 'A configuração anterior é `Sol High`; resta reescrever uma única frase já aprovada, com critérios claros e sem novo risco ou ambiguidade.'
 require_text "${routing_cases_file}" 'Manter `Sol High` e corrigir a comunicação; não escalar só pelo sentimento.'
 require_text "${routing_cases_file}" 'Permitir `Sol Medium` como candidato provisório e não equivalente somente para essa análise delimitada.'
 require_text "${routing_cases_file}" 'Preservar `Sol High`; boundedness sem pressão econômica material não justifica a rota de valor.'
 require_text "${routing_cases_file}" 'Preservar `Sol High`; julgamento substantivo torna `Sol Medium` inelegível mesmo com pressão econômica.'
 require_text "${routing_cases_file}" 'Permitir `Sol Max` somente porque a profundidade máxima foi pedida explicitamente e é pertinente ao problema delimitado e materialmente difícil.'
+require_text "${routing_cases_file}" 'recomendar `Sol XHigh` quando o usuário priorizar valor, informando que custa US$ 3,69 e 44,0% menos no mesmo harness.'
+require_text "${routing_cases_file}" 'Preservar todas como alternativas contextuais dentro do domínio medido; selecionar uma para o passo atual sem impor limite top-N nem exigir que cada família tenha somente um representante.'
+require_text "${routing_cases_file}" 'Emitir exatamente uma configuração no rodapé, mas mostrar na prosa as alternativas próximas relevantes, com diferença absoluta e percentual de custo e a razão do trade-off.'
 require_text "${metadata_file}" 'display_name: "Think With Me"'
 require_text "${metadata_file}" 'short_description: "Understand a decision before acting, choose the next step, and select a GPT-5.6 model"'
 require_text "${metadata_file}" 'default_prompt: "Use $think-with-me to understand this conversation, give your view, recommend the immediate next step, and select the GPT-5.6 model for that step in my language."'
@@ -183,8 +302,9 @@ require_text "${trigger_cases_file}" 'TWM-T08'
 require_text "${trigger_cases_file}" 'TWM-T09'
 require_text "${trigger_cases_file}" 'Auditoria de documentação e testes antes de decidir uma correção.'
 require_text "${trigger_cases_file}" 'Uma descoberta positiva melhora a ativação; ela não garante'
-require_text "${workflow_file}" '- run: sudo apt-get update && sudo apt-get install --yes ripgrep'
+require_text "${workflow_file}" '- run: sudo apt-get update && sudo apt-get install --yes jq ripgrep'
 require_text "${workflow_file}" '- run: bash tests/evidence-gate-v1.sh'
+require_text "${repo_root}/tests/verify-model-comparison-data.sh" 'command -v jq'
 require_text "${release_runbook_file}" 'bash tests/evidence-gate-v1.sh'
 require_text "${release_runbook_file}" 'evals/think-with-me-multiturn-cases.md'
 require_text "${release_runbook_file}" 'TWM-M12'
@@ -192,8 +312,17 @@ require_text "${release_runbook_file}" 'TWM-M13'
 require_text "${release_runbook_file}" '`agentMessage.text`'
 require_text "${release_runbook_file}" 'cópia candidata local, repositório GitHub e página do skills.sh'
 require_text "${release_runbook_file}" 'skills/think-with-me/references/model-evidence.md'
+require_text "${release_runbook_file}" 'skills/think-with-me/references/model-comparison.md'
+require_text "${release_runbook_file}" '`MR-19`'
+require_text "${release_runbook_file}" '`Model quality and cost at a glance`'
+require_text "${release_runbook_file}" 'DeepSWE v1.1'
+require_text "${release_runbook_file}" 'Artificial Analysis'
+require_text "${release_runbook_file}" 'as duas tabelas renderizadas na página individual da skill'
+require_text "${release_runbook_file}" '## Atualização das tabelas de modelos'
+require_text "${release_runbook_file}" 'bash scripts/sync-model-comparison.sh --check'
+require_text "${release_runbook_file}" 'snapshot histórico imutável'
 require_text "${release_runbook_file}" 'evals/model-routing-cases.md'
-require_text "${release_runbook_file}" 'evals/evidence-2026-07-19-evidence-based-routing.md'
+require_text "${release_runbook_file}" 'evals/evidence-2026-07-20-model-comparison-routing.md'
 require_text "${routing_spec_file}" '**Status atual da candidata:** não sincronizada globalmente.'
 
 if rg -Fq 'Only an explicit topic change or closure ends that continuity.' "${skill_file}"; then
@@ -210,6 +339,12 @@ fi
 
 if rg -Fq 'Sol XHigh and Max improve DeepSWE Pass@1' "${model_evidence_file}"; then
   fail 'model evidence overstates overlapping DeepSWE point estimates as improvement'
+fi
+
+if rg -Fq 'Apply these five policy states' "${routing_file}" ||
+   rg -Fq 'No preferred route: Terra' "${routing_file}" ||
+   rg -Fq 'must not expose a catalog of alternatives' "${routing_file}"; then
+  fail 'routing still enforces the superseded closed-list policy'
 fi
 
 if rg -Fq 'Assistente recomenda A e Terra High.' "${multiturn_cases_file}" ||
@@ -236,7 +371,7 @@ if ! rg -U -F -- "${english_closing_template}" "${skill_file}" >/dev/null; then
   fail "public core does not contain the literal English blockquote template"
 fi
 
-if rg -n -i 'grilling|Minha visão|Próximo passo|Modelo para o próximo passo|Model for the next step' "${skill_file}" >/dev/null; then
+if rg -n -i 'grilling|^> \*\*(Minha visão|Próximo passo):\*\*|Modelo para o próximo passo|Model for the next step' "${skill_file}" >/dev/null; then
   fail "public core contains internal or language-specific copy"
 fi
 
@@ -323,19 +458,34 @@ fi
 
 require_text "${repo_root}/scripts/validate-structure.sh" 'Structural validation passed.'
 require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-evidence.md'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-19-evidence-based-routing.md'
+require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-comparison.md'
+bash "${repo_root}/tests/sync-model-comparison.sh"
+bash "${repo_root}/tests/verify-model-comparison-data.sh"
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-20-model-comparison-routing.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-20.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-20-final.md'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Static validation passed"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'reject_heading "## Runtime behavior pending"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Runtime behavior passed"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Independent review"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Global parity"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Post-install runtime"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "LOCAL_CANDIDATE_STATUS: passed"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "INDEPENDENT_REVIEW_STATUS: passed"'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "GLOBAL_PARITY_STATUS: passed"'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "POST_SYNC_RUNTIME_STATUS: passed"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "GLOBAL_PARITY_STATUS: not-run"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "POST_INSTALL_RUNTIME_STATUS: not-run"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "RUNTIME_SOURCE_FIDELITY: host-unverified"'
 
 if grep -Fq 'Public-release validation passed.' "${repo_root}/scripts/validate-skill.sh"; then
   fail "legacy validator still claims public-release validation"
+fi
+
+if rg -n -F '../../../docs/' "${repo_root}/skills/think-with-me" >/dev/null; then
+  fail 'installable skill contains links that escape to repository-only docs'
+fi
+
+if rg -n '^\+#{1,6}[[:space:]]' "${readme_file}" "${skill_file}" >/dev/null; then
+  fail 'public documentation contains a diff marker before a Markdown heading'
 fi
 
 verifier_script="${repo_root}/scripts/verify-evidence-record.sh"

@@ -155,3 +155,13 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 **Esperado:** recuperar a decisão fechada, recalcular o conjunto elegível e recomendar a configuração de menor custo sustentada no novo domínio, explicitando a execução mais longa.
 
 **Proibido:** manter a configuração anterior por inércia, criar um default da conversa ou transferir o custo observado para outro domínio.
+
+## TWM-M17 — A forma da conversa muda a recomendação
+
+1. O usuário pede apenas a confirmação de um estado já comprovado e nenhuma ação real permanece aberta.
+2. Depois, inicia uma exploração longa para organizar contexto; toda conclusão será revisada antes de uma decisão consequencial.
+3. Por fim, pede a síntese compacta que fecha a decisão profissional com trade-offs reais.
+
+**Esperado:** recomendar `Sol Medium` para a confirmação delimitada sem inventar pendência, `Terra Max` como piloto de exploração revisável e `Sol High` para o julgamento profissional final.
+
+**Proibido:** preservar a primeira configuração por inércia, transformar qualquer configuração em default ou apresentar as matrizes externas como prova de equivalência conversacional.

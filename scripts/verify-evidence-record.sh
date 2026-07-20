@@ -2,9 +2,9 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-evidence_file="${repo_root}/evals/evidence-2026-07-20-model-comparison-routing.md"
-initial_captures_file="${repo_root}/evals/runtime-captures-2026-07-20.md"
-final_captures_file="${repo_root}/evals/runtime-captures-2026-07-20-final.md"
+evidence_file="${repo_root}/evals/evidence-2026-07-20-contextual-model-portfolio.md"
+initial_captures_file="${repo_root}/evals/runtime-captures-2026-07-20-contextual-portfolio.md"
+final_captures_file="${repo_root}/evals/runtime-captures-2026-07-20-contextual-portfolio-final.md"
 
 fail() {
   echo "FAIL: $*" >&2

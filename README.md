@@ -73,6 +73,8 @@ and [Artificial Analysis coding capability](https://artificialanalysis.ai/models
 
 See the full [portable comparison](skills/think-with-me/references/model-comparison.md) for limitations, decision guidance, and the refresh contract.
 
+The tables define an evidence portfolio, not a permanent default. The skill rebuilds the eligible set for each immediate next step, then uses the applicable domain, required quality, total task cost, uncertainty, tokens, steps, latency, retries, and conversation health to recommend one atomic configuration. That is why `Sol Max`, `Sol XHigh`, `Terra Max`, `Sol High`, or `Luna Max` may each be correct in a different matched situation, while lower-cost routes remain gated by boundedness and verification.
+
 
 ## What a response looks like
 

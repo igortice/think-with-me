@@ -114,6 +114,8 @@ Model recommendation is derived only after the view and exactly one next step ar
 - Identify the relevant domain without transferring benchmark results from a different domain or harness. A benchmark cost may be reported as an observation, but it cannot make a route “economic” for another domain.
 - Evaluate family and effort together as one atomic configuration, never as two sequential choices.
 - Keep only configurations supported by sufficient evidence for the required quality; unresolved contextual judgment retains the conservative quality floor.
+- Never turn a conservative fallback into a permanent conversation default. Rebuild the eligible set whenever the immediate next step changes materially.
+- In domain-matched evidence, keep every configuration that satisfies the quality contract eligible until the user's priorities over total cost, uncertainty, tokens, steps, latency, and retries distinguish one.
 - Apply conversation health from observable progress, repeated corrections, contradictions, friction, disclosed model history, remaining ambiguity, and convergence; sentiment alone never selects a model.
 - Compare total task cost only among eligible configurations, then recommend exactly one configuration for that step.
 

@@ -104,6 +104,26 @@ Quando a direção está fechada, a transformação é delimitada e repetida em 
 >
 > `Luna Medium` · validar o lote piloto delimitado com critérios automáticos antes de ampliar o volume.
 
+## Matched long-horizon cost trade-off
+
+Quando o próximo passo corresponde ao domínio DeepSWE, a qualidade necessária mantém a faixa superior elegível e o custo total é material, a configuração de menor custo médio pode vencer mesmo aceitando mais tokens, passos e provável duração. No snapshot datado, Luna Max custa $0.44, ou cerca de 12.7%, menos por tarefa média que Sol High, mas usa 44,950 tokens de saída e 64.8 passos a mais; essa troca deve permanecer explícita e limitada ao harness medido.
+
+> **Minha visão:** no trabalho longo que corresponde ao harness medido, a economia por tarefa justifica aceitar uma execução bem mais extensa quando prazo e volume de contexto não são restrições dominantes.
+>
+> **Próximo passo:** executar uma tarefa representativa com o contrato de aceitação já definido.
+>
+> `Luna Max` · testar a rota de menor custo médio no trabalho longo correspondente ao harness.
+
+## Representative Terra pilot
+
+Terra Max permanece elegível na faixa superior do domínio medido, mas não tem vantagem econômica nem conversacional estabelecida. A recomendação só cabe como piloto representativo quando o objetivo imediato é produzir evidência local de convergência e o custo, os tokens, os passos e a provável duração maiores são aceitáveis; critérios e registro dessa evidência pertencem à prosa, não como uma segunda ação no campo seguinte.
+
+> **Minha visão:** ainda não existe evidência local para transformar o resultado do benchmark em preferência de uso, então a configuração deve ser tratada como hipótese mensurável.
+>
+> **Próximo passo:** executar uma tarefa longa representativa com critérios de convergência previamente fechados.
+>
+> `Terra Max` · produzir evidência local no piloto representativo do domínio medido.
+
 ## Repeated corrections change the diagnosis
 
 Quando o usuário informa explicitamente que configurações anteriores não restauraram a convergência e ainda restam correções repetidas, use esse resultado como evidência em vez de recomendar apenas pela categoria da tarefa.

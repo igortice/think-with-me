@@ -14,13 +14,17 @@ Treat family and effort as one atomic configuration. Evaluate pairs such as `Sol
 
 The compact footer recommends exactly one configuration, while the prose may show nearby eligible alternatives when price, uncertainty, latency, or execution shape can change the informed choice. Keep that disclosure decision-relevant rather than turning every answer into an indiscriminate catalog.
 
+No configuration is a permanent conversation default. Build an eligible set for the immediate next step from the applicable domain, required quality, material cost or latency pressure, tolerated tokens and steps, retry cost, and conversation health. Build the eligible set again whenever the immediate next step changes materially. A previous recommendation is trajectory evidence, not a routing lock.
+
 ## Maintain an open evidence portfolio
 
 Maintain an open portfolio of evidence-supported atomic configurations; never impose a top-N quota. A configuration remains recorded when its evidence supports a distinct trade-off, even when another configuration has a nearby point estimate. Eligibility is recalculated for the current next step, domain, quality contract, and user priority.
 
-- Sustained quality floor: `Sol High` for unresolved contextual judgment and every case without sufficient domain-matched evidence to reduce.
-- Selective depth: `Sol XHigh` for material residual ambiguity or difficult cross-cutting judgment; `Sol Max` remains the explicit deepest-reasoning route.
-- Domain-scoped upper band: `Sol Max`, `Sol XHigh`, `Terra Max`, `Sol High`, and `Luna Max` remain simultaneous candidates for long-horizon software-engineering work that closely matches the DeepSWE harness. Their point estimates, intervals, cost, tokens, and steps create different trade-offs; this does not establish equivalence for open conversation.
+- `Sol Max` can win only behind the explicit deepest-reasoning gate when the highest observed point estimate matters more than its substantially higher cost, tokens, and steps.
+- `Sol XHigh` can win for difficult residual ambiguity or, in matched long-horizon software engineering, as the lower-cost near-top route whose reported interval overlaps the highest point estimate.
+- `Terra Max` is eligible only for a representative long-horizon pilot that collects local convergence evidence and accepts its higher mean cost, tokens, and steps; current sources do not establish a conversational or economic advantage.
+- `Sol High` can win when upper-band quality is required and compact execution matters: in the matched DeepSWE snapshot it is near Terra Max's point estimate with lower mean cost, tokens, and steps, while remaining the conservative floor outside matched evidence.
+- `Luna Max` can win inside the matched DeepSWE domain when total task cost is material and its higher token use, step count, and likely duration are acceptable.
 - Value candidate, not baseline-equivalent: `Sol Medium` for low-risk bounded analysis when material economy pressure and cheap verification justify a local, provisional choice.
 - Provisional pilot route: `Luna Medium` for a representative sample of mechanical transformation after the direction is closed, subject to the boundedness and verification gates below. Full-volume use remains ineligible until a qualifying local pilot passes.
 - Recorded without a preferred role: `Terra High`, `Terra XHigh`, and `Luna XHigh` stay in the evidence portfolio, but the current sources do not establish a distinct preferred route for them.

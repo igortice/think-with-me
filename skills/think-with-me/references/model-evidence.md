@@ -274,9 +274,11 @@ composite ranking is permitted.
 
 These states form an open evidence portfolio, not a top-N ranking:
 
-- Sustained conversational quality floor: `Sol High`.
-- Selective depth: `Sol XHigh`; `Sol Max` remains behind the explicit deepest-reasoning recommendation gate.
-- Domain-scoped DeepSWE upper band: `Sol Max`, `Sol XHigh`, `Terra Max`, `Sol High`, and `Luna Max`, with selection driven by the current quality contract, cost, uncertainty, tokens, and steps.
+- Contextual upper-band candidate: `Sol Max` only behind the explicit deepest-reasoning gate when its highest observed point estimate is worth its higher cost, tokens, and steps.
+- Contextual upper-band candidate: `Sol XHigh` for material residual ambiguity or a matched long-horizon value trade-off near the highest observed point estimate.
+- Contextual upper-band candidate: `Terra Max` only as a representative matched-domain pilot that collects local convergence evidence; current sources establish neither a conversational nor an economic advantage.
+- Contextual upper-band candidate and sustained conversational quality floor: `Sol High`, especially when compact execution matters or domain-matched evidence is insufficient.
+- Contextual upper-band candidate: `Luna Max` for matched long-horizon software engineering when lower mean task cost matters and substantially higher tokens, steps, and likely duration are acceptable.
 - Value candidate, not baseline-equivalent: `Sol Medium`.
 - Provisional representative pilot: `Luna Medium`; full-volume use remains pending local synthesis evidence.
 - Recorded without a distinct preferred role from the current sources: `Terra High`, `Terra XHigh`, and `Luna XHigh`.

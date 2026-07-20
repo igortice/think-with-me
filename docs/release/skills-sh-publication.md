@@ -23,7 +23,7 @@ Este documento é um runbook de manutenção. Ele não autoriza nenhuma ação e
    git diff --check
    ```
 
-2. Revisar `skills/think-with-me/references/model-evidence.md` e a comparação portátil `skills/think-with-me/references/model-comparison.md`; exercitar casos representativos de `evals/think-with-me-cases.md`, `evals/think-with-me-multiturn-cases.md`, `evals/model-routing-cases.md` e `evals/trigger-cases.md`, preservar as respostas brutas em `evals/runtime-captures-2026-07-20.md` e registrar os resultados da candidata atual em `evals/evidence-2026-07-20-model-comparison-routing.md`. O registro de 19 de julho permanece histórico e imutável. Em particular, executar `TWM-M12` como limite de ativação do host — uma resposta sem a skill carregada não é resultado da candidata —, `TWM-M13` para confirmar que uma nova menção explícita recupera o contexto e `MR-19` para provar que uma instalação contendo somente o pacote consegue mostrar os dois quadros separados.
+2. Revisar `skills/think-with-me/references/model-evidence.md` e a comparação portátil `skills/think-with-me/references/model-comparison.md`; exercitar casos representativos de `evals/think-with-me-cases.md`, `evals/think-with-me-multiturn-cases.md`, `evals/model-routing-cases.md` e `evals/trigger-cases.md`. O ciclo anterior preservado em `evals/runtime-captures-2026-07-20.md` e `evals/evidence-2026-07-20-model-comparison-routing.md` permanece histórico e imutável. Para a candidata conversacional atual, preservar as respostas brutas em `evals/runtime-captures-2026-07-20-conversational-routing.md` e `evals/runtime-captures-2026-07-20-conversational-routing-final.md`, e registrar os resultados em `evals/evidence-2026-07-20-conversational-routing.md`. Em particular, executar `TWM-M12` como limite de ativação do host — uma resposta sem a skill carregada não é resultado da candidata —, `TWM-M13` para confirmar que uma nova menção explícita recupera o contexto, `MR-19` para provar que uma instalação contendo somente o pacote consegue mostrar os dois quadros separados e `MR-25` a `MR-29` mais `TWM-M17` para validar a matriz conversacional, o assunto resolvido e o recálculo entre fases.
 3. No Codex App, inspecionar a transcrição bruta `agentMessage.text` retornada por `read_thread`; o resumo normalizado de `wait_threads` pode esconder os marcadores `>` do blockquote.
 4. Apresentar o diff local para revisão humana.
 5. Fazer commit e push somente após autorização explícita para cada ação.
@@ -42,6 +42,10 @@ Este documento é um runbook de manutenção. Ele não autoriza nenhuma ação e
     explícitos, não alegações de publicação. Depois de uma instalação ou
     atualização autorizada, criar um novo registro datado para a paridade
     global e o smoke test pós-instalação, sem reescrever a evidência local.
+    Para a candidata conversacional de 20 de julho, esse registro é
+    `evals/install-2026-07-20-conversational-routing.md`; ele confirma a
+    paridade global e o recálculo `Sol Medium` → `Terra Max` → `Sol High` sem
+    transformar o registro de evidência local em alegação pós-instalação.
 11. Conferir a página esperada:
 
    ```text

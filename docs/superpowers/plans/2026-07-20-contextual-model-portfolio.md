@@ -284,7 +284,7 @@ git commit -m "test: validate contextual model portfolio"
 ### Task 4: Synchronize the Usable Global Version
 
 **Files:**
-- Replace contents under: `/Users/igortice/.agents/skills/think-with-me/`
+- Replace contents under the user-level install target, normally `~/.agents/skills/think-with-me/`
 - Verify against: `skills/think-with-me/`
 
 **Interfaces:**
@@ -305,7 +305,7 @@ Expected: both gates PASS and the branch is clean.
 
 - [ ] **Step 2: Replace the global package exactly**
 
-Synchronize every file under `skills/think-with-me/` to `/Users/igortice/.agents/skills/think-with-me/` and remove no files outside that exact target package. Do not push or publish.
+Synchronize every file under `skills/think-with-me/` to the resolved user-level install target, normally `~/.agents/skills/think-with-me/`, and remove no files outside that exact target package. Do not push or publish.
 
 - [ ] **Step 3: Verify parity**
 

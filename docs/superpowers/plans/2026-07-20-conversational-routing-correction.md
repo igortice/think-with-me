@@ -82,7 +82,7 @@
 ### Task 4: Synchronize and verify the global package
 
 **Files:**
-- Replace exact package contents under: `/Users/igortice/.agents/skills/think-with-me/`
+- Replace exact package contents under the user-level install target, normally `~/.agents/skills/think-with-me/`
 - Create: `evals/install-2026-07-20-conversational-routing.md`
 
 **Interfaces:**

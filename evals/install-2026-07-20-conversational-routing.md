@@ -2,9 +2,9 @@
 
 ## Global parity
 
-Only the six files under `skills/think-with-me/` were copied to
-`/Users/igortice/.agents/skills/think-with-me/`. No push or public publication
-was performed.
+Only the six files under `skills/think-with-me/` were copied to the resolved
+user-level target, normally `~/.agents/skills/think-with-me/`. No push or
+public publication was performed.
 
 Command:
 

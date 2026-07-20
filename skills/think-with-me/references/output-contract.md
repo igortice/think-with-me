@@ -40,6 +40,54 @@ Uma regra imatura muda com frequência. Distribuí-la agora criaria três interp
 >
 > `Sol High` · definir as saídas do contrato ainda em descoberta.
 
+## Resolved routine confirmation
+
+Quando a pessoa pede apenas para confirmar um estado já comprovado e nenhuma
+decisão real permanece aberta, não invente uma tarefa operacional futura para
+alimentar o rodapé. A recomendação descreve a confirmação atual,
+que é delimitada, reversível e barata de verificar.
+
+> **Minha visão:** o estado já foi confirmado pelas verificações e não existe correção pendente.
+>
+> **Próximo passo:** nenhuma ação adicional é necessária para o uso local.
+>
+> `Sol Medium` · confirmar um estado delimitado e verificável sem inventar nova pendência.
+
+## Long reviewable exploration
+
+Quando a conversa precisa organizar muito contexto e explorar possibilidades,
+mas toda conclusão será revisada antes de uma decisão consequencial, use a rota
+como piloto conversacional e diga na prosa que ela ainda não prova equivalência.
+
+> **Minha visão:** vale ampliar a exploração agora porque a direção ainda será revisada antes de produzir consequência.
+>
+> **Próximo passo:** organizar as hipóteses que realmente distinguem as alternativas.
+>
+> `Terra Max` · sustentar a exploração longa que ainda passará por revisão.
+
+## Long reviewable drafting
+
+Quando o próximo passo é elaborar um rascunho longo e estruturado, custo importa,
+uma execução extensa é aceitável e haverá revisão antes do uso consequencial, a
+rota é provisória e não herda a economia de nenhum benchmark externo.
+
+> **Minha visão:** a elaboração pode priorizar custo e extensão porque o texto ainda passará por revisão antes do uso final.
+>
+> **Próximo passo:** produzir o rascunho estruturado a partir da direção já fechada.
+>
+> `Luna Max` · elaborar o rascunho longo cuja revisão ainda antecede o uso consequencial.
+
+## Compact consequential judgment
+
+Quando a exploração termina e o próximo passo fecha uma decisão profissional
+com trade-offs reais, preserve o contrato conservador somente para essa fase.
+
+> **Minha visão:** a evidência já está organizada e agora falta assumir o trade-off que decide a direção final.
+>
+> **Próximo passo:** escolher a alternativa que preserva ownership explícito e reversibilidade.
+>
+> `Sol High` · fechar o julgamento profissional compacto com trade-offs reais.
+
 ## English continuation
 
 Keep the same contract when the user writes in English; only the labels change.
@@ -133,6 +181,15 @@ Quando o usuário informa explicitamente que configurações anteriores não res
 > **Próximo passo:** codificar uma recomendação derivada deste passo e da evidência de convergência observada.
 >
 > `Sol High` · integrar as correções e fechar a regra que ainda não convergiu.
+
+Quando as correções também revelam uma contradição transversal concreta que
+ainda precisa ser reconciliada, a ambiguidade residual passa pelo gate seletivo.
+
+> **Minha visão:** as respostas anteriores falharam porque ownership e autorização ainda impõem requisitos incompatíveis na formulação atual.
+>
+> **Próximo passo:** reconciliar a contradição entre ownership e autorização no mesmo contrato.
+>
+> `Sol XHigh` · resolver a contradição transversal exposta pelas correções repetidas.
 
 ## Keep unrelated process out
 

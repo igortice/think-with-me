@@ -218,8 +218,9 @@ does not prove equal behavior or conversational quality.
 - **Total task cost:** unknown.
 - **Limitations:** this outcome defines the acceptance baseline but is not a
   published benchmark score and supplies no numeric equivalence threshold.
-- **Supported policy decision:** retain a conservative quality floor for open
-  conversation, with deeper effort used selectively rather than routinely.
+- **Supported policy decision:** retain a conservative quality floor for
+  consequential unresolved judgment, while allowing explicitly provisional
+  and reviewable conversational pilots for lower-risk work.
 
 ## Local behavioral evidence status
 
@@ -239,6 +240,29 @@ does not prove equal behavior or conversational quality.
   generalize Luna Medium to open-ended reasoning.
 - **Supported policy decision:** only a provisional representative pilot is
   justified; full-volume use remains gated on a qualifying local synthesis run.
+
+## Provisional conversational policy status
+
+- **Class:** local policy hypothesis awaiting behavioral evidence.
+- **Source date:** 2026-07-20.
+- **Source:** explicit user requirement that the closing recommendation use the
+  portfolio contextually instead of treating Sol High as a permanent default.
+- **Configuration:** Sol Medium for bounded routine confirmation; Terra Max for
+  long reviewable exploration; Luna Max for long reviewable drafting; Sol High
+  for compact consequential judgment; Sol XHigh and Sol Max behind their
+  existing ambiguity and maximum-depth gates.
+- **Domain:** Portuguese day-to-day conversation using this skill.
+- **Harness:** versioned runtime pressure prompts with independent review; no
+  controlled comparative conversation run exists yet.
+- **Metric:** correct phase classification, correction/retry rate, user
+  acceptance, latency, tokens, and total task cost when exposed by the host.
+- **Uncertainty/confidence:** policy confidence is sufficient for bounded pilots,
+  but no conversational equivalence or superiority claim is established.
+- **Total task cost:** unknown; benchmark costs cannot be transferred here.
+- **Limitations:** family positioning and external benchmark results are indirect
+  priors. Consequential outputs from pilot routes require review before use.
+- **Supported policy decision:** use the provisional conversational matrix to
+  collect local evidence without turning its routes into universal defaults.
 
 ## Cross-source interpretation
 
@@ -277,9 +301,11 @@ These states form an open evidence portfolio, not a top-N ranking:
 - Contextual upper-band candidate: `Sol Max` only behind the explicit deepest-reasoning gate when its highest observed point estimate is worth its higher cost, tokens, and steps.
 - Contextual upper-band candidate: `Sol XHigh` for material residual ambiguity or a matched long-horizon value trade-off near the highest observed point estimate.
 - Contextual upper-band candidate: `Terra Max` only as a representative matched-domain pilot that collects local convergence evidence; current sources establish neither a conversational nor an economic advantage.
-- Contextual upper-band candidate and sustained conversational quality floor: `Sol High`, especially when compact execution matters or domain-matched evidence is insufficient.
+- Provisional conversational pilot: `Terra Max` for long reviewable exploration whose output is checked before a consequential decision.
+- Contextual upper-band candidate and consequential conversational quality floor: `Sol High`, especially when compact final judgment matters.
 - Contextual upper-band candidate: `Luna Max` for matched long-horizon software engineering when lower mean task cost matters and substantially higher tokens, steps, and likely duration are acceptable.
-- Value candidate, not baseline-equivalent: `Sol Medium`.
+- Provisional conversational pilot: `Luna Max` for long reviewable drafting when extended execution is acceptable and benchmark economics are not transferred.
+- Value candidate, not baseline-equivalent: `Sol Medium`, including bounded routine confirmation whose result is reversible and cheap to verify.
 - Provisional representative pilot: `Luna Medium`; full-volume use remains pending local synthesis evidence.
 - Recorded without a distinct preferred role from the current sources: `Terra High`, `Terra XHigh`, and `Luna XHigh`.
 

@@ -6,7 +6,7 @@ Recommend exactly one model and effort for the next step that has already been w
 
 Form the view and exactly one next step before routing. Then decide whether that step requires the quality-preserving contract for contextual judgment or qualifies for a deliberately bounded economic contract.
 
-GPT-5.5 High is the historical quality baseline supplied by the user's experience. It is a reference for expected conversational quality, not a configuration recommended by this policy. Sol High is the conservative quality floor for unresolved contextual judgment, including open understanding, comparison with real trade-offs, planning, specification, source integration, professional decisions, and long-horizon technical work. When domain-matched evidence is insufficient or conflicting, preserve that floor rather than infer equivalence from a lower price or a different benchmark.
+GPT-5.5 High is the historical quality baseline supplied by the user's experience. It is a reference for expected conversational quality, not a configuration recommended by this policy. Sol High is the conservative quality floor for consequential unresolved judgment, not for every open conversation. Preserve that floor for final professional decisions, material trade-offs, specifications with hidden consequences, and other cases where an error is difficult to detect or reverse. Routine confirmation, reviewable exploration, and reviewable drafting use the provisional conversational matrix below instead of inheriting this fallback merely because no conversational benchmark exists.
 
 ## Treat family and effort as one atomic configuration
 
@@ -16,16 +16,30 @@ The compact footer recommends exactly one configuration, while the prose may sho
 
 No configuration is a permanent conversation default. Build an eligible set for the immediate next step from the applicable domain, required quality, material cost or latency pressure, tolerated tokens and steps, retry cost, and conversation health. Build the eligible set again whenever the immediate next step changes materially. A previous recommendation is trajectory evidence, not a routing lock.
 
+## Apply the provisional conversational matrix
+
+Conversational routing is a provisional policy layer, not benchmark evidence. Use it when the actual work is conversation, explanation, exploration, drafting, or judgment rather than a task directly measured by an external harness. Do not import a benchmark score or cost into this layer. These routes are hypotheses for local use and review; record observed successes and failures before promoting any pilot to a proven conversational preference.
+
+- A bounded, reversible status confirmation can use `Sol Medium` without material cost pressure when the answer is cheap to verify, contains no hidden professional judgment, and the user accepts the route's provisional status.
+- `Terra Max` can win for long reviewable exploration, context organization, or open synthesis when the result will be reviewed before it influences a consequential decision. This is a conversational pilot, not a demonstrated quality or cost advantage.
+- `Luna Max` can win for long reviewable drafting when total cost matters, an extended token- and step-heavy execution is acceptable, and a separate review occurs before consequential use. This is a conversational pilot, not a transfer of DeepSWE economics.
+- `Sol High` can win for compact consequential judgment, final synthesis, or a professional decision with real trade-offs.
+- `Sol XHigh` can win when repeated corrections expose a concrete material contradiction, cross-cutting constraint, or other residual ambiguity that deeper investigation must reconcile.
+- `Sol Max` remains behind the explicit deepest-reasoning gate for an unusually difficult bounded problem.
+- `Luna Medium` remains a pilot for closed mechanical transformation at material volume with cheap automatic validation.
+
+When the subject is resolved, describe the cognitive work of the current response and do not invent a future action to justify a configuration. State that no further action is needed in the next-step field, then recommend for the bounded confirmation that was actually performed.
+
 ## Maintain an open evidence portfolio
 
 Maintain an open portfolio of evidence-supported atomic configurations; never impose a top-N quota. A configuration remains recorded when its evidence supports a distinct trade-off, even when another configuration has a nearby point estimate. Eligibility is recalculated for the current next step, domain, quality contract, and user priority.
 
 - `Sol Max` can win only behind the explicit deepest-reasoning gate when the highest observed point estimate matters more than its substantially higher cost, tokens, and steps.
 - `Sol XHigh` can win for difficult residual ambiguity or, in matched long-horizon software engineering, as the lower-cost near-top route whose reported interval overlaps the highest point estimate.
-- `Terra Max` is eligible only for a representative long-horizon pilot that collects local convergence evidence and accepts its higher mean cost, tokens, and steps; current sources do not establish a conversational or economic advantage.
+- `Terra Max` is eligible only for a representative long-horizon pilot when the route relies on the DeepSWE result; the separate conversational matrix permits a reviewable exploration pilot without claiming that benchmark as conversational evidence.
 - `Sol High` can win when upper-band quality is required and compact execution matters: in the matched DeepSWE snapshot it is near Terra Max's point estimate with lower mean cost, tokens, and steps, while remaining the conservative floor outside matched evidence.
 - `Luna Max` can win inside the matched DeepSWE domain when total task cost is material and its higher token use, step count, and likely duration are acceptable.
-- Value candidate, not baseline-equivalent: `Sol Medium` for low-risk bounded analysis when material economy pressure and cheap verification justify a local, provisional choice.
+- Value candidate, not baseline-equivalent: `Sol Medium` for low-risk bounded analysis when material economy pressure matters, and for routine bounded confirmation when cheap verification and reversibility make a provisional route safe even without that pressure.
 - Provisional pilot route: `Luna Medium` for a representative sample of mechanical transformation after the direction is closed, subject to the boundedness and verification gates below. Full-volume use remains ineligible until a qualifying local pilot passes.
 - Recorded without a preferred role: `Terra High`, `Terra XHigh`, and `Luna XHigh` stay in the evidence portfolio, but the current sources do not establish a distinct preferred route for them.
 
@@ -41,9 +55,9 @@ Recommend `Sol Max` as the deepest-reasoning route only when the remaining probl
 
 ## Use economy only for bounded work
 
-An economic route is eligible only after the quality contract has filtered out configurations that do not meet the required floor. The work must be bounded, low risk, cheap to verify or reverse, and subject to material cost, latency, or volume pressure. A short or already accepted direction does not by itself justify reducing quality while substantive judgment remains.
+An economic route justified by price, latency, or volume is eligible only after the quality contract has filtered out configurations that do not meet the required floor. The work must be bounded, low risk, cheap to verify or reverse, and subject to material cost, latency, or volume pressure. The provisional routine-confirmation route is different: it may use `Sol Medium` without economic pressure only when the response itself is bounded, reversible, cheaply verified, and free of hidden substantive judgment. A short or already accepted direction does not by itself justify reducing quality while substantive judgment remains.
 
-`Sol Medium` is a non-equivalent value candidate for bounded, low-risk analysis whose result can be checked cheaply. Its cross-source evidence is conflicting, so any use remains domain-specific and provisional rather than a new default.
+`Sol Medium` is a non-equivalent value candidate for bounded, low-risk analysis or confirmation whose result can be checked cheaply. Its cross-source evidence is conflicting, so any use remains domain-specific and provisional rather than a new default. Material economy pressure strengthens this route but is not mandatory for a resolved status confirmation that meets every safety condition above.
 
 `Luna Medium` is a provisional route only for mechanical transformation, classification, extraction, or condensation at material volume when the direction is closed, no substantive decision is hidden, the output has a verifiable format, and an individual failure has low impact. Until a qualifying local pilot has met versioned quality, retry, and total-cost criteria, recommend `Luna Medium` only for that representative pilot, not for the full corpus. Record the local reason for boundedness, volume pressure, cheap verification, retries, and total task cost. Do not generalize it to open conversation or scale it to production volume before local synthesis evidence establishes the required quality.
 

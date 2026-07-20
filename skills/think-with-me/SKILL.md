@@ -88,7 +88,7 @@ See the full [portable comparison](references/model-comparison.md) for limitatio
 - Identify one concrete next step that follows directly from the current objective. It must be the single immediate dependency, not a sequence, checklist, or bundle of actions. In comparison answers, keep monitoring or acceptance metrics in the prose as conditions; do not append them as a second action in `Próximo passo`. For an executable comparison step, use one action verb only; do not attach measuring, recording, monitoring, or promotion as a gerund or follow-on verb.
 - When that step is a user decision, include your recommended answer and ask exactly one focused question. Do not ask the same decision again as a confirmation.
 - If a fact can be discovered safely, inspect it instead of asking the user.
-- If the subject is resolved, say what is ready or that no further decision is needed; do not invent work.
+- If the subject is resolved, say what is ready or that no further decision is needed; do not invent work. In that case, route the model from the bounded cognitive work of the current confirmation rather than manufacturing a future task for the footer.
 
 ## Close clearly
 
@@ -112,6 +112,7 @@ Model recommendation is derived only after the view and exactly one next step ar
 
 - Define the quality contract required by the single next step after the view and next step have been formed.
 - Identify the relevant domain without transferring benchmark results from a different domain or harness. A benchmark cost may be reported as an observation, but it cannot make a route “economic” for another domain.
+- When the work is conversational rather than benchmark-matched, apply the provisional conversational matrix in model routing before using the conservative fallback. Treat its Terra and Luna routes as reviewable pilots, not proven equivalence.
 - Evaluate family and effort together as one atomic configuration, never as two sequential choices.
 - Keep only configurations supported by sufficient evidence for the required quality; unresolved contextual judgment retains the conservative quality floor.
 - Never turn a conservative fallback into a permanent conversation default. Rebuild the eligible set whenever the immediate next step changes materially.

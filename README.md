@@ -75,6 +75,16 @@ See the full [portable comparison](skills/think-with-me/references/model-compari
 
 The tables define an evidence portfolio, not a permanent default. The skill rebuilds the eligible set for each immediate next step, then uses the applicable domain, required quality, total task cost, uncertainty, tokens, steps, latency, retries, and conversation health to recommend one atomic configuration. That is why `Sol Max`, `Sol XHigh`, `Terra Max`, `Sol High`, or `Luna Max` may each be correct in a different matched situation, while lower-cost routes remain gated by boundedness and verification.
 
+For ordinary conversation, Think With Me uses a separate provisional policy
+matrix rather than pretending either benchmark measures Portuguese dialogue.
+Bounded status confirmation can use `Sol Medium`; long exploration that will be
+reviewed can pilot `Terra Max`; long cost-sensitive drafting that will be
+reviewed can pilot `Luna Max`; compact consequential judgment uses `Sol High`;
+material residual ambiguity can use `Sol XHigh`; explicit maximum depth can use
+`Sol Max`; and closed mechanical volume can pilot `Luna Medium`. A resolved
+subject does not create a fake push, publication, or review step merely to
+justify the footer.
+
 
 ## What a response looks like
 

@@ -23,6 +23,7 @@ Conversational routing is a provisional policy layer, not benchmark evidence. Us
 - A bounded, reversible status confirmation can use `Sol Medium` without material cost pressure when the answer is cheap to verify, contains no hidden professional judgment, and the user accepts the route's provisional status.
 - `Terra Max` can win for long reviewable exploration, context organization, or open synthesis when the result will be reviewed before it influences a consequential decision. This is a conversational pilot, not a demonstrated quality or cost advantage.
 - `Luna Max` can win for long reviewable drafting when total cost matters, an extended token- and step-heavy execution is acceptable, and a separate review occurs before consequential use. This is a conversational pilot, not a transfer of DeepSWE economics.
+- For a conversational pilot, describe cost as a user priority or a measurement target; do not call the route cheaper or economic without local total-task-cost evidence.
 - `Sol High` can win for compact consequential judgment, final synthesis, or a professional decision with real trade-offs.
 - `Sol XHigh` can win when repeated corrections expose a concrete material contradiction, cross-cutting constraint, or other residual ambiguity that deeper investigation must reconcile.
 - `Sol Max` remains behind the explicit deepest-reasoning gate for an unusually difficult bounded problem.

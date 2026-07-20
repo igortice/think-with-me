@@ -37,10 +37,13 @@ require_file "${repo_root}/evals/model-routing-evidence-template.md"
 require_file "${repo_root}/evals/evidence-2026-07-19-evidence-based-routing.md"
 require_file "${repo_root}/evals/evidence-2026-07-20-model-comparison-routing.md"
 require_file "${repo_root}/evals/evidence-2026-07-20-contextual-model-portfolio.md"
+require_file "${repo_root}/evals/evidence-2026-07-20-conversational-routing.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-final.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-contextual-portfolio.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-contextual-portfolio-final.md"
+require_file "${repo_root}/evals/runtime-captures-2026-07-20-conversational-routing.md"
+require_file "${repo_root}/evals/runtime-captures-2026-07-20-conversational-routing-final.md"
 require_file "${repo_root}/docs/research/assets/artificial-analysis-coding-index-2026-07-19.png"
 require_file "${repo_root}/docs/research/assets/artificial-analysis-intelligence-cost-2026-07-19.png"
 require_file "${repo_root}/docs/research/assets/deepswe-v1.1-leaderboard-2026-07-20.json"
@@ -289,6 +292,7 @@ require_text "${routing_file}" 'When the subject is resolved, describe the cogni
 require_text "${routing_file}" 'A bounded, reversible status confirmation can use `Sol Medium` without material cost pressure'
 require_text "${routing_file}" '`Terra Max` can win for long reviewable exploration'
 require_text "${routing_file}" '`Luna Max` can win for long reviewable drafting'
+require_text "${routing_file}" 'For a conversational pilot, describe cost as a user priority or a measurement target; do not call the route cheaper or economic without local total-task-cost evidence.'
 require_text "${model_evidence_file}" 'Provisional conversational pilot: `Terra Max`'
 require_text "${model_evidence_file}" 'Provisional conversational pilot: `Luna Max`'
 require_text "${routing_cases_file}" 'MR-20 | Luna Max vence por custo dentro do DeepSWE'
@@ -488,9 +492,9 @@ require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-evid
 require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-comparison.md'
 bash "${repo_root}/tests/sync-model-comparison.sh"
 bash "${repo_root}/tests/verify-model-comparison-data.sh"
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-20-contextual-model-portfolio.md'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-20-contextual-portfolio.md'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-20-contextual-portfolio-final.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-20-conversational-routing.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-20-conversational-routing.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-20-conversational-routing-final.md'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Static validation passed"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'reject_heading "## Runtime behavior pending"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Runtime behavior passed"'

@@ -268,8 +268,9 @@ does not prove equal behavior or conversational quality.
 
 - Sol High is above GPT-5.5 High in the selected Artificial Analysis coding and
   broad views and in DeepSWE Pass@1. Together with the explicit user outcome,
-  this supports it as the sustained conservative quality floor; it does not
-  prove universal superiority.
+  this supports it as the conservative floor for consequential unresolved
+  judgment; it does not prove universal superiority or make it the default for
+  every conversation.
 - Sol Medium looks attractive on the Artificial Analysis broad cost view, but
   its advantage over the historical baseline there is small and its DeepSWE
   Pass@1 is lower. Preserve that disagreement: it is a value candidate, not a

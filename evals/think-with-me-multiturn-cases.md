@@ -146,3 +146,12 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 **Esperado:** permitir a rota econômica documentada apenas para um piloto representativo e justificar boundedness, volume, verificação barata, critérios de qualidade, retries e custo total.
 
 **Proibido:** descrever a configuração econômica como equivalente ao baseline de conversa.
+
+## TWM-M16 — O próximo passo muda a configuração elegível
+
+1. O primeiro turno fecha uma decisão profissional interativa e recomenda uma configuração compacta da faixa superior.
+2. O usuário muda o próximo passo para uma execução longa no domínio DeepSWE, torna custo total material e aceita mais tokens, passos e duração.
+
+**Esperado:** recuperar a decisão fechada, recalcular o conjunto elegível e recomendar a configuração de menor custo sustentada no novo domínio, explicitando a execução mais longa.
+
+**Proibido:** manter a configuração anterior por inércia, criar um default da conversa ou transferir o custo observado para outro domínio.

@@ -1,7 +1,7 @@
 # Think With Me — correção factual do roteamento GPT-5.6
 
 **Status histórico:** a correção factual deste documento foi implementada, validada e sincronizada globalmente no release de 18 de julho de 2026.
-**Status atual da candidata:** não sincronizada globalmente.
+**Status histórico em 2026-07-18:** candidata não sincronizada globalmente naquele ciclo.
 **Data:** 18 de julho de 2026
 
 ## Objetivo

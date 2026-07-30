@@ -19,11 +19,12 @@ require_file "${repo_root}/LICENSE"
 require_file "${skill_root}/SKILL.md"
 require_file "${skill_root}/agents/openai.yaml"
 require_file "${skill_root}/references/model-evidence.md"
+require_file "${skill_root}/references/model-evidence-2026-07-20.md"
 require_file "${skill_root}/references/model-comparison.md"
 require_file "${skill_root}/references/model-routing.md"
 require_file "${skill_root}/references/output-contract.md"
 
-expected_manifest=$'SKILL.md\nagents/openai.yaml\nreferences/model-comparison.md\nreferences/model-evidence.md\nreferences/model-routing.md\nreferences/output-contract.md'
+expected_manifest=$'SKILL.md\nagents/openai.yaml\nreferences/model-comparison.md\nreferences/model-evidence-2026-07-20.md\nreferences/model-evidence.md\nreferences/model-routing.md\nreferences/output-contract.md'
 actual_manifest="$(cd "${skill_root}" && find . -type f -print | sed 's#^./##' | LC_ALL=C sort)"
 [[ "${actual_manifest}" == "${expected_manifest}" ]] || fail "installable package contains unexpected or missing files"
 
@@ -32,6 +33,7 @@ bash -n "${repo_root}/scripts/verify-evidence-record.sh"
 bash -n "${repo_root}/scripts/validate-structure.sh"
 bash -n "${repo_root}/scripts/validate-skill.sh"
 bash -n "${repo_root}/tests/evidence-gate-v1.sh"
+bash -n "${repo_root}/tests/strong-model-routing-policy.sh"
 
 uvx --from "${skills_ref_source}" skills-ref validate "${skill_root}"
 

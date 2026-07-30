@@ -18,6 +18,14 @@ require_text() {
   grep -Fq -- "$pattern" "$file" || fail "missing text in ${file#"${repo_root}/"}: $pattern"
 }
 
+reject_text() {
+  local file="$1"
+  local pattern="$2"
+  if grep -Fq -- "$pattern" "$file"; then
+    fail "forbidden text in ${file#"${repo_root}/"}: $pattern"
+  fi
+}
+
 require_sha256() {
   local file="$1"
   local expected="$2"
@@ -38,12 +46,16 @@ require_file "${repo_root}/evals/evidence-2026-07-19-evidence-based-routing.md"
 require_file "${repo_root}/evals/evidence-2026-07-20-model-comparison-routing.md"
 require_file "${repo_root}/evals/evidence-2026-07-20-contextual-model-portfolio.md"
 require_file "${repo_root}/evals/evidence-2026-07-20-conversational-routing.md"
+require_file "${repo_root}/evals/evidence-2026-07-30-strong-model-routing.md"
+require_file "${repo_root}/evals/install-2026-07-30-strong-model-routing.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-final.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-contextual-portfolio.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-contextual-portfolio-final.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-conversational-routing.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-conversational-routing-final.md"
+require_file "${repo_root}/evals/runtime-captures-2026-07-30-strong-model-routing.md"
+require_file "${repo_root}/evals/runtime-captures-2026-07-30-strong-model-routing-final.md"
 require_file "${repo_root}/docs/research/assets/artificial-analysis-coding-index-2026-07-19.png"
 require_file "${repo_root}/docs/research/assets/artificial-analysis-intelligence-cost-2026-07-19.png"
 require_file "${repo_root}/docs/research/assets/deepswe-v1.1-leaderboard-2026-07-20.json"
@@ -64,6 +76,7 @@ skill_file="${repo_root}/skills/think-with-me/SKILL.md"
 routing_file="${repo_root}/skills/think-with-me/references/model-routing.md"
 evidence_file="${repo_root}/docs/research/model-routing-evidence-2026-07-17.md"
 model_evidence_file="${repo_root}/skills/think-with-me/references/model-evidence.md"
+historical_model_evidence_file="${repo_root}/skills/think-with-me/references/model-evidence-2026-07-20.md"
 model_comparison_file="${repo_root}/skills/think-with-me/references/model-comparison.md"
 output_file="${repo_root}/skills/think-with-me/references/output-contract.md"
 metadata_file="${repo_root}/skills/think-with-me/agents/openai.yaml"
@@ -83,9 +96,10 @@ require_text "${output_file}" "Write all prose before the closing and the closin
 require_text "${skill_file}" 'never output Portuguese prose or labels'
 require_text "${skill_file}" 'one continuous Markdown blockquote'
 require_text "${skill_file}" 'For an English user message, use `My view` and `Next step` exactly, then render the model as an inline-code label:'
-require_text "${skill_file}" 'Open [the output contract](references/output-contract.md) before writing the closing'
+require_text "${skill_file}" 'Open [the output contract](references/output-contract.md) and'
+require_text "${skill_file}" '[model routing](references/model-routing.md) before writing every closing.'
 require_file "${model_comparison_file}"
-require_text "${skill_file}" 'Open [model comparison](references/model-comparison.md) when the user asks to see a price-versus-quality table, chart, map, or nearby model alternatives.'
+require_text "${skill_file}" 'Open [model comparison](references/model-comparison.md) when the user'
 require_text "${readme_file}" '## Model quality and cost at a glance'
 require_text "${skill_file}" '## Model quality and cost at a glance'
 require_text "${readme_file}" '### DeepSWE v1.1 — one software-engineering harness'
@@ -116,40 +130,34 @@ require_text "${output_file}" '**My view:**'
 require_text "${output_file}" '**Next step:**'
 require_text "${output_file}" '`Sol High` ·'
 require_text "${output_file}" '`Próximo passo` contains at most one `?` character'
-require_text "${routing_file}" 'Recommend exactly one model and effort for the next step'
-require_text "${routing_file}" 'Re-evaluate the recommendation whenever the conversation changes material phase'
-require_text "${routing_file}" 'Conversation health modifies next-step fit'
-require_text "${routing_file}" 'Never infer the active model'
-require_text "${routing_file}" 'GPT-5.5 High is the historical quality baseline'
-require_text "${routing_file}" 'Sol High is the conservative quality floor'
-require_text "${routing_file}" 'Treat family and effort as one atomic configuration'
+require_text "${routing_file}" 'Recommend exactly one model and effort for the immediate next step'
+require_text "${routing_file}" '## Mandatory strong-model allowlist'
+require_text "${routing_file}" 'Eligible configurations are exactly'
+require_text "${routing_file}" '`Sol Medium`, `Sol High`, `Sol XHigh`, `Sol Max`, `Terra Max`, and `Luna Max`'
+require_text "${routing_file}" 'No other family or effort pair is eligible for recommendation.'
+require_text "${routing_file}" 'Recalculate whenever the immediate next step changes.'
+require_text "${routing_file}" 'Use observable progress, repeated corrections, contradictions, friction'
+require_text "${routing_file}" 'availability from host state that was not exposed.'
+require_text "${routing_file}" 'as one configuration; never choose a family first'
+require_text "${routing_file}" 'Heterogeneous agent execution, tool-heavy coordination'
+require_text "${routing_file}" 'Final critical gate requiring explicitly requested maximum depth'
+require_text "${routing_file}" 'preserve the recommendation, report the mismatch'
 require_text "${routing_file}" 'Do not average heterogeneous benchmarks'
-require_text "${routing_file}" 'Maintain an open portfolio of evidence-supported atomic configurations; never impose a top-N quota.'
-require_text "${routing_file}" 'The compact footer recommends exactly one configuration, while the prose may show nearby eligible alternatives when price, uncertainty, latency, or execution shape can change the informed choice.'
-require_text "${routing_file}" 'Do not eliminate a configuration solely because another configuration occupies a nearby quality band.'
-require_text "${routing_file}" 'do not call a configuration cheaper, economic, or more efficient for the target domain without target-domain cost evidence.'
-require_text "${routing_file}" 'state both the absolute and percentage difference from every nearby option whose cost is used as a reason.'
-require_text "${routing_file}" 'monitoring, and later promotion criteria in the preceding prose as conditions'
-require_text "${routing_file}" 'Do not hide a second action in a gerund such as measuring, recording, or monitoring.'
-require_text "${routing_file}" 'Irreversibility or impact alone does not select `Sol XHigh`'
-require_text "${routing_file}" 'Until a qualifying local pilot has met versioned quality, retry, and total-cost criteria, recommend `Luna Medium` only for that representative pilot, not for the full corpus.'
+require_text "${routing_file}" 'A benchmark row can remain visible for historical comparison'
+require_text "${routing_file}" 'Official price is not total task cost.'
+require_text "${routing_file}" 'Higher effort can increase token use'
+require_text "${routing_file}" '`Sol Max` requires'
+require_text "${skill_file}" 'these six atomic pairs: `Sol Medium`, `Sol High`, `Sol XHigh`, `Sol Max`, `Terra Max`, and `Luna Max`.'
+require_text "${skill_file}" 'This is a hard allowlist, not a preference.'
+require_text "${skill_file}" 'The skill recommends a pair; it does not select, retry, or replace the host model.'
 require_text "${evidence_file}" 'Esta é fonte primária **para a metodologia do Artificial Analysis**, mas não é fonte primária do produto OpenAI nem substitui o DeepSWE'
 require_text "${evidence_file}" 'A metodologia do AA não deve preencher lacunas do DeepSWE.'
-require_text "${model_evidence_file}" 'This file is the versioned evidence source for model-routing policy.'
-require_text "${model_evidence_file}" '## Artificial Analysis snapshot'
-require_text "${model_evidence_file}" 'the Coding Index is a 50/50 aggregate of Terminal-Bench 2.1 and'
-require_text "${model_evidence_file}" '## DeepSWE v1.1 snapshot'
-require_text "${model_evidence_file}" '## Local behavioral evidence status'
-require_text "${model_evidence_file}" 'Sol XHigh and Max have higher DeepSWE Pass@1 point estimates than Sol High,'
-require_text "${model_evidence_file}" "but their reported intervals overlap Sol High's."
-require_text "${model_evidence_file}" 'The binary captures are release evidence rather than installable runtime'
-require_text "${model_evidence_file}" 'd0c93da184aef6abbb1c36bba9ec031c254184e2af42751cec4f5d164b242f32'
-require_text "${model_evidence_file}" '846653101b0963757832edd10aed75ea6d962d1870d07d3611a762bef722eefc'
-require_text "${model_evidence_file}" '050663ae245106a7fc59312565059f46bd6ee10fa587131dd09a5062af5ed24d'
-require_text "${model_evidence_file}" '## Decision-facing comparison views'
-require_text "${model_evidence_file}" '[Portable Model Quality and Cost Comparison](model-comparison.md)'
-require_text "${model_evidence_file}" '[comparison refresh contract](model-comparison.md#refresh-contract)'
-require_text "${model_evidence_file}" 'Sol Max, Sol XHigh, Terra Max, Sol High, and Luna Max remain simultaneously visible as domain-scoped candidates'
+require_file "${historical_model_evidence_file}"
+require_sha256 "${historical_model_evidence_file}" '13c76308c5a69163c24ccf32443a2ca854073d0fa43c2f6caa0e229d44f5d9e8'
+require_text "${model_evidence_file}" '# Current Strong-Model Policy Evidence'
+require_text "${model_evidence_file}" 'Policy review date: **2026-07-30**.'
+require_text "${model_evidence_file}" '[Historical model evidence snapshot — 2026-07-20](model-evidence-2026-07-20.md)'
+require_text "${model_evidence_file}" 'The skill recommends a pair; it cannot select, retry, replace, or verify the'
 require_text "${model_comparison_file}" '# Portable Model Quality and Cost Comparison'
 require_text "${model_comparison_file}" '### DeepSWE v1.1 — one software-engineering harness'
 require_text "${model_comparison_file}" '### Artificial Analysis — a separate perspective'
@@ -221,18 +229,18 @@ require_text "${output_file}" '`Sol XHigh` · investigar falhas de integridade d
 require_text "${cases_file}" 'Compare A e B com estes fatos'
 require_text "${cases_file}" 'inventar uma edição especulativa'
 require_text "${cases_file}" '11. A configuração é escolhida como o par indivisível `família + effort`; a resposta não escolhe uma família antes de avaliar o effort.'
-require_text "${cases_file}" '12. Decisões abertas que exigem contexto ou julgamento preservam `Sol High` como piso conservador em relação ao baseline histórico `GPT-5.5 High`.'
-require_text "${cases_file}" '13. Uma rota econômica só aparece quando o trabalho está delimitado, é barato verificar o resultado e custo, latência ou volume são materiais.'
-require_text "${cases_file}" '14. Benchmarks de domínios ou harnesses diferentes não são somados nem usados para declarar equivalência universal.'
-require_text "${cases_file}" '15. Empates e fontes divergentes preservam a opção conservadora até existir evidência local suficiente.'
-require_text "${cases_file}" 'Permitir `Luna Medium` somente para um lote piloto representativo depois de eliminar configurações que não atingem o critério de qualidade; exigir critérios de qualidade, retries e custo total antes de ampliar o volume.'
+require_text "${cases_file}" '12. Toda recomendação usa somente um dos seis pares permitidos: `Sol Medium`, `Sol High`, `Sol XHigh`, `Sol Max`, `Terra Max` ou `Luna Max`.'
+require_text "${cases_file}" '13. Conversa sobre projeto, recuperação de contexto e descoberta arquitetural sem trade-off usam `Sol Medium`; quando o próximo passo passa a exigir julgamento profissional, usa `Sol High`.'
+require_text "${cases_file}" '15. Benchmarks de domínios ou harnesses diferentes não são somados nem usados para declarar equivalência universal.'
+require_text "${cases_file}" '16. Empates e fontes divergentes preservam a opção conservadora até existir evidência local suficiente.'
+require_text "${cases_file}" 'Recomendar `Luna Max` para o processamento homogêneo; exigir critérios de qualidade, retries e custo total antes de ampliar o volume.'
 require_text "${multiturn_cases_file}" 'TWM-M10 — Execução concluída retoma a decisão'
 require_text "${multiturn_cases_file}" 'o relatório do resultado também termina no fechamento da skill'
 require_text "${multiturn_cases_file}" 'TWM-M11 — Inspeção separa fato de inferência'
 require_text "${multiturn_cases_file}" 'Assistente recomenda A e Sol High.'
 require_text "${multiturn_cases_file}" 'A conversa comum usa Sol High.'
 require_text "${multiturn_cases_file}" 'recomendar Sol XHigh porque o risco irreversível inclui falhas de integridade difíceis de detectar'
-require_text "${multiturn_cases_file}" 'A conversa avaliou alternativas em Sol High.'
+require_text "${multiturn_cases_file}" 'A conversa avaliou alternativas dentro da allowlist forte.'
 require_text "${skill_file}" 'This continuity applies only while the host has loaded this skill for the current turn.'
 require_text "${skill_file}" 'This source does not guarantee that the host will load this skill on a later turn.'
 require_text "${skill_file}" 'When a later turn explicitly invokes this skill, recover the same decision context without asking the user to restate it.'
@@ -259,70 +267,55 @@ require_text "${multiturn_cases_file}" 'resumo normalizado de `wait_threads`'
 require_text "${multiturn_cases_file}" 'TWM-M14 — Direção aceita não reduz qualidade por si só'
 require_text "${multiturn_cases_file}" 'preservar o piso de qualidade porque ainda existe julgamento substantivo.'
 require_text "${multiturn_cases_file}" 'TWM-M15 — Economia delimitada e verificável'
-require_text "${multiturn_cases_file}" 'permitir a rota econômica documentada apenas para um piloto representativo e justificar boundedness, volume, verificação barata, critérios de qualidade, retries e custo total.'
+require_text "${multiturn_cases_file}" 'permitir Luna Max apenas para um piloto representativo de processamento delimitado e justificá-lo por boundedness, volume, verificação barata, critérios de qualidade, retries e custo total.'
 require_file "${routing_cases_file}"
 require_text "${routing_cases_file}" 'MR-01 | Descoberta aberta de produto'
 require_text "${routing_cases_file}" 'MR-02 | Comparação contextual'
 require_text "${routing_cases_file}" 'MR-03 | Especificação técnica'
 require_text "${routing_cases_file}" 'MR-04 | Migração irreversível'
 require_text "${routing_cases_file}" 'MR-05 | Correções repetidas de framing'
-require_text "${routing_cases_file}" 'MR-06 | Reescrita curta já decidida sem pressão material de custo'
+require_text "${routing_cases_file}" 'MR-06 | Reescrita curta já decidida'
 require_text "${routing_cases_file}" 'MR-07 | Extração de schema em alto volume'
-require_text "${routing_cases_file}" 'MR-08 | Código de longo horizonte'
+require_text "${routing_cases_file}" 'MR-08 | Execução de código de longo horizonte'
 require_text "${routing_cases_file}" 'MR-09 | Discordância entre Artificial Analysis e DeepSWE'
-require_text "${routing_cases_file}" 'MR-10 | Intervalos sobrepostos sem contrato transferível'
-require_text "${routing_cases_file}" 'MR-11 | Pedido explícito de raciocínio mais profundo'
-require_text "${routing_cases_file}" 'MR-12 | Frustração sem ambiguidade adicional'
+require_text "${routing_cases_file}" 'MR-10 | Intervalos sobrepostos'
+require_text "${routing_cases_file}" 'MR-11 | Profundidade máxima explícita'
+require_text "${routing_cases_file}" 'MR-12 | Frustração sem nova ambiguidade'
 require_text "${routing_cases_file}" 'MR-13 | Análise delimitada com economia material'
 require_text "${routing_cases_file}" 'MR-14 | Análise delimitada sem economia material'
-require_text "${routing_cases_file}" 'MR-15 | Análise com julgamento substantivo'
-require_text "${routing_cases_file}" 'MR-16 | Qualidade quase máxima por custo materialmente menor'
-require_text "${routing_cases_file}" 'MR-17 | Portfólio aberto na faixa superior'
-require_text "${routing_cases_file}" 'MR-18 | Uma recomendação com alternativas próximas visíveis'
-require_text "${routing_cases_file}" 'MR-19 | Pedido explícito para ver qualidade versus preço'
-require_text "${routing_file}" 'No configuration is a permanent conversation default.'
-require_text "${routing_file}" 'Build the eligible set again whenever the immediate next step changes materially.'
-require_text "${routing_file}" '`Terra Max` is eligible only for a representative long-horizon pilot'
-require_text "${routing_file}" '`Luna Max` can win inside the matched DeepSWE domain when total task cost is material'
-require_text "${model_evidence_file}" 'Contextual upper-band candidate: `Terra Max`'
-require_text "${model_evidence_file}" 'Contextual upper-band candidate: `Luna Max`'
-require_text "${routing_file}" 'Conversational routing is a provisional policy layer, not benchmark evidence.'
-require_text "${routing_file}" 'Sol High is the conservative quality floor for consequential unresolved judgment, not for every open conversation.'
-require_text "${routing_file}" 'When the subject is resolved, describe the cognitive work of the current response and do not invent a future action to justify a configuration.'
-require_text "${routing_file}" 'A bounded, reversible status confirmation can use `Sol Medium` without material cost pressure'
-require_text "${routing_file}" '`Terra Max` can win for long reviewable exploration'
-require_text "${routing_file}" '`Luna Max` can win for long reviewable drafting'
-require_text "${routing_file}" 'For a conversational pilot, describe cost as a user priority or a measurement target; do not call the route cheaper or economic without local total-task-cost evidence.'
-require_text "${model_evidence_file}" 'Provisional conversational pilot: `Terra Max`'
-require_text "${model_evidence_file}" 'Provisional conversational pilot: `Luna Max`'
-require_text "${routing_cases_file}" 'MR-20 | Luna Max vence por custo dentro do DeepSWE'
-require_text "${routing_cases_file}" 'MR-21 | Piloto representativo com Terra Max'
-require_text "${routing_cases_file}" 'MR-22 | Sol High vence pela execução compacta'
-require_text "${routing_cases_file}" 'MR-23 | Rota cotidiana de valor aceita pelo usuário'
+require_text "${routing_cases_file}" 'MR-15 | Julgamento substantivo'
+require_text "${routing_cases_file}" 'MR-16 | Ambiguidade residual após análise comum'
+require_text "${routing_cases_file}" 'MR-17 | Portfólio histórico visível'
+require_text "${routing_cases_file}" 'MR-18 | Alternativas próximas na prosa'
+require_text "${routing_cases_file}" 'MR-19 | Pedido de qualidade versus preço'
+require_text "${routing_file}" 'For a task involving agents, route only the current step.'
+require_text "${routing_file}" 'Project conversation, context recovery, architecture discovery'
+require_text "${routing_file}" 'When the subject is resolved, do not invent work for the footer.'
+require_text "${routing_file}" 'Higher effort can increase token use'
+require_text "${routing_cases_file}" 'MR-20 | Processamento estruturado em alto volume'
+require_text "${routing_cases_file}" 'MR-21 | Agents e ferramentas'
+require_text "${routing_cases_file}" 'MR-22 | Arquitetura ainda em descoberta'
+require_text "${routing_cases_file}" 'MR-23 | Arquitetura com trade-off'
 require_text "${routing_cases_file}" 'MR-24 | Nenhum default permanente'
 require_text "${multiturn_cases_file}" 'TWM-M16 — O próximo passo muda a configuração elegível'
 require_text "${routing_cases_file}" 'MR-25 | Assunto resolvido sem pendência inventada'
 require_text "${routing_cases_file}" 'MR-26 | Exploração conversacional longa e revisável'
-require_text "${routing_cases_file}" 'MR-27 | Elaboração longa sensível a custo e revisável'
+require_text "${routing_cases_file}" 'MR-27 | Elaboração longa, delimitada e revisável'
 require_text "${routing_cases_file}" 'MR-28 | Julgamento profissional compacto'
-require_text "${routing_cases_file}" 'MR-29 | Correções repetidas com ambiguidade material'
+require_text "${routing_cases_file}" 'MR-29 | Falha após profundidade seletiva'
+require_text "${routing_cases_file}" 'MR-30 | Allowlist forte sem downgrade silencioso'
+require_text "${routing_cases_file}" 'MR-31 | Agents com decisão ainda aberta'
+require_text "${routing_cases_file}" 'MR-32 | Indisponibilidade da configuração recomendada'
 require_text "${multiturn_cases_file}" 'TWM-M17 — A forma da conversa muda a recomendação'
-require_text "${routing_cases_file}" 'Uma economia só pode comparar custo total da tarefa depois de eliminar configurações que não atingem a qualidade requerida; toda justificativa econômica permanece evidência local e provisória.'
-require_text "${routing_cases_file}" 'Permitir `Luna Medium` somente para um lote piloto representativo depois de eliminar configurações que não atingem o critério de qualidade; medir qualidade, retries e custo total antes de ampliar o volume.'
-require_text "${routing_cases_file}" 'Permitir `Sol Medium` como rota cotidiana provisória mesmo sem pressão material de custo.'
-require_text "${routing_cases_file}" 'Preservar `Sol High` até haver evidência local comparável.'
-require_text "${routing_cases_file}" 'Preservar `Sol High` até existir evidência comparável; quando o mesmo harness já sustenta o contrato, manter as configurações elegíveis e permitir que custo e forma de execução decidam entre elas.'
-require_text "${routing_cases_file}" 'Usar `Sol Medium` para a correção delimitada e não escalar só pelo sentimento.'
-require_text "${routing_cases_file}" 'Permitir `Sol Medium` como candidato provisório e não equivalente somente para essa análise delimitada.'
-require_text "${routing_cases_file}" 'Permitir `Sol Medium` como rota cotidiana provisória porque boundedness e correção barata bastam para esse contrato.'
-require_text "${routing_cases_file}" 'Preservar `Sol High`; julgamento substantivo torna `Sol Medium` inelegível mesmo com pressão econômica.'
-require_text "${routing_cases_file}" 'Permitir `Sol Max` somente porque a profundidade máxima foi pedida explicitamente e é pertinente ao problema delimitado e materialmente difícil.'
-require_text "${routing_cases_file}" 'recomendar `Sol XHigh` quando o usuário priorizar valor, informando que custa US$ 3,69 e 44,0% menos no mesmo harness.'
-require_text "${routing_cases_file}" 'Preservar todas como alternativas contextuais dentro do domínio medido; selecionar uma para o passo atual sem impor limite top-N nem exigir que cada família tenha somente um representante.'
-require_text "${routing_cases_file}" 'Emitir exatamente uma configuração no rodapé, mas mostrar na prosa as alternativas próximas relevantes, com diferença absoluta e percentual de custo e a razão do trade-off.'
+require_text "${multiturn_cases_file}" 'TWM-M18 — Indisponibilidade pertence ao host'
+require_text "${routing_cases_file}" 'Recomendar `Luna Max` para o lote homogêneo e validável.'
+require_text "${routing_cases_file}" 'Recomendar `Terra Max` para a execução pesada e heterogênea.'
+require_text "${routing_cases_file}" 'Recomendar `Sol Medium` porque duração e volume de contexto não mudam a natureza da exploração.'
+require_text "${routing_cases_file}" 'Preservar a recomendação, reportar o mismatch e exigir uma escolha explícita do host dentro da allowlist.'
 require_text "${metadata_file}" 'display_name: "Think With Me"'
 require_text "${metadata_file}" 'short_description: "Understand a decision before acting, choose the next step, and select a GPT-5.6 model"'
-require_text "${metadata_file}" 'default_prompt: "Use $think-with-me to understand this conversation, give your view, recommend the immediate next step, and select the GPT-5.6 model for that step in my language."'
+require_text "${metadata_file}" 'default_prompt: "Use $think-with-me to understand this conversation, give your view, recommend the immediate next step, and select exactly one allowed GPT-5.6 pair'
+require_text "${metadata_file}" 'Sol Medium, Sol High, Sol XHigh, Sol Max, Terra Max, or Luna Max'
 require_text "${metadata_file}" 'allow_implicit_invocation: true'
 require_text "${repo_root}/evals/model-routing-evidence-template.md" 'Candidate source requested explicitly:'
 require_text "${repo_root}/evals/model-routing-evidence-template.md" 'Runtime source fidelity (`verified by host` / `host-unverified`):'
@@ -354,7 +347,10 @@ require_text "${release_runbook_file}" 'bash scripts/sync-model-comparison.sh --
 require_text "${release_runbook_file}" 'snapshot histórico imutável'
 require_text "${release_runbook_file}" 'evals/model-routing-cases.md'
 require_text "${release_runbook_file}" 'evals/evidence-2026-07-20-model-comparison-routing.md'
-require_text "${routing_spec_file}" '**Status atual da candidata:** não sincronizada globalmente.'
+require_text "${release_runbook_file}" 'evals/evidence-2026-07-30-strong-model-routing.md'
+require_text "${release_runbook_file}" 'evals/install-2026-07-30-strong-model-routing.md'
+require_text "${routing_spec_file}" '**Status histórico em 2026-07-18:** candidata não sincronizada globalmente naquele ciclo.'
+require_text "${readme_file}" '`Sol Medium` is selected by the bounded, reversible, no-hidden-judgment nature'
 
 if rg -Fq 'Only an explicit topic change or closure ends that continuity.' "${skill_file}"; then
   fail 'core skill still promises lifecycle control that belongs to the host'
@@ -446,7 +442,7 @@ model_footer_is_valid() {
     return 1
   fi
 
-  [[ "${model_effort}" =~ ^(Terra|Sol|Luna)[[:space:]](None|Low|Medium|High|XHigh|Max)$ ]] || return 1
+  [[ "${model_effort}" =~ ^(Sol[[:space:]](Medium|High|XHigh|Max)|Terra[[:space:]]Max|Luna[[:space:]]Max)$ ]] || return 1
   [[ -n "${reason}" && "${reason}" =~ [^[:space:]] ]] || return 1
   ! rg -q '\*\*|_|—' <<<"${footer}"
   ! rg -qi '\b(Terra|Sol|Luna|None|Low|Medium|High|XHigh|Max)\b' <<<"${reason}"
@@ -492,9 +488,9 @@ require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-evid
 require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-comparison.md'
 bash "${repo_root}/tests/sync-model-comparison.sh"
 bash "${repo_root}/tests/verify-model-comparison-data.sh"
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-20-conversational-routing.md'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-20-conversational-routing.md'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-20-conversational-routing-final.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-30-strong-model-routing.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-30-strong-model-routing.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-30-strong-model-routing-final.md'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Static validation passed"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'reject_heading "## Runtime behavior pending"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Runtime behavior passed"'

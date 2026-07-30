@@ -8,6 +8,19 @@ compatibility: Designed for Codex conversations that can route GPT-5.6 models. R
 
 Help the user make one well-grounded decision before acting. Understand the current conversation, state a position, identify the immediate dependency, and recommend the GPT-5.6 model best suited to that dependency.
 
+## Mandatory strong-model gate
+
+When this skill recommends a model, the eligible configurations are exactly
+these six atomic pairs: `Sol Medium`, `Sol High`, `Sol XHigh`, `Sol Max`, `Terra Max`, and `Luna Max`.
+This is a hard allowlist, not a preference. Every other family or effort pair
+is ineligible, even when it remains visible in a historical benchmark.
+
+The skill recommends a pair; it does not select, retry, or replace the host model.
+If the host reports the recommended pair as unavailable, preserve the
+recommendation, report the mismatch, and require an explicit host-level choice
+from the allowlist. Never switch pairs invisibly or present a host-selected
+replacement as compliant.
+
 <!-- MODEL_COMPARISON_START -->
 ## Model quality and cost at a glance
 
@@ -70,7 +83,6 @@ and [Artificial Analysis coding capability](https://artificialanalysis.ai/models
 
 See the full [portable comparison](references/model-comparison.md) for limitations, decision guidance, and the refresh contract.
 
-
 ## Understand the conversation
 
 - Silently recover the current objective, confirmed facts, constraints, discarded alternatives, and next unresolved dependency.
@@ -112,7 +124,7 @@ Model recommendation is derived only after the view and exactly one next step ar
 
 - Define the quality contract required by the single next step after the view and next step have been formed.
 - Identify the relevant domain without transferring benchmark results from a different domain or harness. A benchmark cost may be reported as an observation, but it cannot make a route “economic” for another domain.
-- When the work is conversational rather than benchmark-matched, apply the provisional conversational matrix in model routing before using the conservative fallback. Treat its Terra and Luna routes as reviewable pilots, not proven equivalence.
+- When the work is conversational rather than benchmark-matched, apply the mandatory strong-model matrix in model routing. Treat benchmark results and local pilot claims as scoped evidence; they never authorize a model outside the six-pair allowlist.
 - Evaluate family and effort together as one atomic configuration, never as two sequential choices.
 - Keep only configurations supported by sufficient evidence for the required quality; unresolved contextual judgment retains the conservative quality floor.
 - Never turn a conservative fallback into a permanent conversation default. Rebuild the eligible set whenever the immediate next step changes materially.
@@ -122,7 +134,13 @@ Model recommendation is derived only after the view and exactly one next step ar
 
 ## Open detailed references only when needed
 
-Open [the output contract](references/output-contract.md) before writing the closing for exact localized labels, templates, and examples. Open [model routing](references/model-routing.md) and its linked [model evidence](references/model-evidence.md) when the next step requires a model recommendation. Open [model comparison](references/model-comparison.md) when the user asks to see a price-versus-quality table, chart, map, or nearby model alternatives.
+Open [the output contract](references/output-contract.md) and
+[model routing](references/model-routing.md) before writing every closing.
+Open the linked [current model evidence](references/model-evidence.md) when the
+answer relies on pricing, benchmarks, availability, or another empirical model
+claim. Open [model comparison](references/model-comparison.md) when the user
+asks to see a price-versus-quality table, chart, map, or nearby model
+alternatives.
 
 ## Keep the boundary clear
 

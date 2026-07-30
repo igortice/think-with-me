@@ -75,15 +75,22 @@ See the full [portable comparison](skills/think-with-me/references/model-compari
 
 The tables define an evidence portfolio, not a permanent default. The skill rebuilds the eligible set for each immediate next step, then uses the applicable domain, required quality, total task cost, uncertainty, tokens, steps, latency, retries, and conversation health to recommend one atomic configuration. That is why `Sol Max`, `Sol XHigh`, `Terra Max`, `Sol High`, or `Luna Max` may each be correct in a different matched situation, while lower-cost routes remain gated by boundedness and verification.
 
-For ordinary conversation, Think With Me uses a separate provisional policy
-matrix rather than pretending either benchmark measures Portuguese dialogue.
-Bounded status confirmation can use `Sol Medium`; long exploration that will be
-reviewed can pilot `Terra Max`; long cost-sensitive drafting that will be
-reviewed can pilot `Luna Max`; compact consequential judgment uses `Sol High`;
-material residual ambiguity can use `Sol XHigh`; explicit maximum depth can use
-`Sol Max`; and closed mechanical volume can pilot `Luna Medium`. A resolved
-subject does not create a fake push, publication, or review step merely to
-justify the footer.
+For ordinary conversation, Think With Me uses a mandatory strong-model
+allowlist rather than pretending either benchmark measures Portuguese dialogue.
+The only eligible pairs are `Sol Medium`, `Sol High`, `Sol XHigh`, `Sol Max`,
+`Terra Max`, and `Luna Max`. `Sol Medium` handles project understanding and
+bounded explanation; `Sol High` handles substantive architecture and judgment;
+`Sol XHigh` handles concrete residual ambiguity; `Sol Max` handles the hardest
+bounded critical gate; `Terra Max` handles strong agents and heavy processing;
+and `Luna Max` handles structured high-volume work with validation. There is no
+silent downgrade or fallback outside this allowlist. A resolved subject does
+not create a fake push, publication, or review step merely to justify the
+footer.
+
+This policy governs the recommendation emitted by the skill; it cannot select,
+retry, replace, or verify the model used by the host. If the host reports a
+model outside this allowlist, preserve the recommendation and treat the
+difference as a host mismatch requiring an explicit host-level choice.
 
 
 ## What a response looks like
@@ -98,7 +105,11 @@ Centralizing first keeps the rule easy to correct while we are still learning it
 
 The view and next-step labels follow the language of the current user message. The final line is a short model label and reason, so it stays visually quiet while still explaining the recommendation.
 
-Lower-cost recommendations apply only to bounded, verifiable work when cost, latency, or volume pressure is material. The skill filters for the required quality first and compares total task cost only among configurations that remain eligible.
+`Sol Medium` is selected by the bounded, reversible, no-hidden-judgment nature
+of the immediate step; it does not require material cost, latency, or volume
+pressure. Economic comparison never expands the allowlist: the skill filters
+for required quality first and compares total task cost only among
+configurations that remain eligible.
 
 ## Install for Codex
 
@@ -145,7 +156,12 @@ UV_CACHE_DIR=.cache/uv UV_TOOL_DIR=.cache/uv-tools XDG_DATA_HOME=.cache/xdg bash
 bash tests/evidence-gate-v1.sh
 ```
 
-Follow the [publication runbook](docs/release/skills-sh-publication.md) for source review, global synchronization, and skills.sh verification.
+The current routing evidence is
+[model-evidence.md](skills/think-with-me/references/model-evidence.md); the
+immutable 2026-07-20 snapshot is
+[model-evidence-2026-07-20.md](skills/think-with-me/references/model-evidence-2026-07-20.md).
+Follow the [publication runbook](docs/release/skills-sh-publication.md) for
+source review, global synchronization, and skills.sh verification.
 
 ## License
 

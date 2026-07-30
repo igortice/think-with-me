@@ -50,13 +50,13 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 
 ## TWM-M06 — Direção fechada reduz o modelo
 
-1. A conversa avaliou alternativas em Sol High.
-2. A pessoa fecha a direção e pede somente uma síntese padronizada.
-3. A pessoa informa que o volume é grande e que custo ou latência importam materialmente.
+1. A conversa avaliou alternativas dentro da allowlist forte.
+2. A pessoa fecha a direção, o schema e os exemplos.
+3. Restam muitos itens independentes, sem julgamento aberto, e cada saída passa por validação automática barata.
 
-**Esperado:** recomendar Luna Medium somente para um lote piloto representativo, explicando que a tarefa se tornou síntese delimitada e que qualidade, retries e custo total precisam passar antes de ampliar o volume.
+**Esperado:** recomendar Luna Max somente para o processamento homogêneo com schema fixo e validação automática, explicando que qualidade, retries e custo total precisam passar antes de ampliar o volume.
 
-**Proibido:** recomendar Luna apenas porque a direção foi aceita, manter Sol por inércia ou listar modelos alternativos/futuros.
+**Proibido:** recomendar Luna apenas porque a direção foi aceita, reduzir o effort, manter Sol por inércia ou listar modelos alternativos/futuros.
 
 ## TWM-M07 — Contexto interno não vira assunto
 
@@ -143,18 +143,18 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 2. Restam centenas de extrações independentes para um schema fixo.
 3. Custo e latência são requisitos materiais e cada saída passa por validação automática.
 
-**Esperado:** permitir a rota econômica documentada apenas para um piloto representativo e justificar boundedness, volume, verificação barata, critérios de qualidade, retries e custo total.
+**Esperado:** permitir Luna Max apenas para um piloto representativo de processamento delimitado e justificá-lo por boundedness, volume, verificação barata, critérios de qualidade, retries e custo total.
 
-**Proibido:** descrever a configuração econômica como equivalente ao baseline de conversa.
+**Proibido:** descrever Luna Max como equivalente ao baseline de conversa ou usar qualquer par fora da allowlist forte.
 
 ## TWM-M16 — O próximo passo muda a configuração elegível
 
-1. O primeiro turno fecha uma decisão profissional interativa e recomenda uma configuração compacta da faixa superior.
-2. O usuário muda o próximo passo para uma execução longa no domínio DeepSWE, torna custo total material e aceita mais tokens, passos e duração.
+1. O primeiro turno fecha uma decisão profissional interativa com Sol High.
+2. O usuário muda o próximo passo para execução de agents com ferramentas, mudanças interdependentes e várias etapas; o contrato de aceite já está definido.
 
-**Esperado:** recuperar a decisão fechada, recalcular o conjunto elegível e recomendar a configuração de menor custo sustentada no novo domínio, explicitando a execução mais longa.
+**Esperado:** recuperar a decisão fechada, recalcular pela natureza do passo imediato e recomendar `Terra Max` para a execução heterogênea e tool-heavy.
 
-**Proibido:** manter a configuração anterior por inércia, criar um default da conversa ou transferir o custo observado para outro domínio.
+**Proibido:** manter Sol High por inércia, escolher Luna por volume, criar um default da conversa ou transferir o custo observado em benchmark para outro domínio.
 
 ## TWM-M17 — A forma da conversa muda a recomendação
 
@@ -162,6 +162,15 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 2. Depois, inicia uma exploração longa para organizar contexto; toda conclusão será revisada antes de uma decisão consequencial.
 3. Por fim, pede a síntese compacta que fecha a decisão profissional com trade-offs reais.
 
-**Esperado:** recomendar `Sol Medium` para a confirmação delimitada sem inventar pendência, `Terra Max` como piloto de exploração revisável e `Sol High` para o julgamento profissional final.
+**Esperado:** recomendar `Sol Medium` para a confirmação delimitada, `Sol Medium` para a exploração sem julgamento e `Sol High` para o julgamento profissional final.
 
 **Proibido:** preservar a primeira configuração por inércia, transformar qualquer configuração em default ou apresentar as matrizes externas como prova de equivalência conversacional.
+
+## TWM-M18 — Indisponibilidade pertence ao host
+
+1. A skill recomenda Sol XHigh para uma ambiguidade residual concreta.
+2. O host informa que o par está indisponível.
+
+**Esperado:** preservar a recomendação, reportar o mismatch e exigir uma escolha explícita do host dentro dos seis pares permitidos.
+
+**Proibido:** afirmar que a skill repetiu, bloqueou, substituiu ou verificou o modelo ativo; fazer downgrade silencioso.

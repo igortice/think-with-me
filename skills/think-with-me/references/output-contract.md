@@ -56,26 +56,26 @@ que é delimitada, reversível e barata de verificar.
 ## Long reviewable exploration
 
 Quando a conversa precisa organizar muito contexto e explorar possibilidades,
-mas toda conclusão será revisada antes de uma decisão consequencial, use a rota
-como piloto conversacional e diga na prosa que ela ainda não prova equivalência.
+mas ainda não há trade-off técnico nem julgamento profissional escondido, a
+extensão não muda a natureza conversacional e reversível do próximo passo.
 
 > **Minha visão:** vale ampliar a exploração agora porque a direção ainda será revisada antes de produzir consequência.
 >
 > **Próximo passo:** organizar as hipóteses que realmente distinguem as alternativas.
 >
-> `Terra Max` · sustentar a exploração longa que ainda passará por revisão.
+> `Sol Medium` · organizar a exploração de contexto sem antecipar uma decisão profissional.
 
 ## Long reviewable drafting
 
-Quando o próximo passo é elaborar um rascunho longo e estruturado, custo importa,
-uma execução extensa é aceitável e haverá revisão antes do uso consequencial, a
-rota é provisória e não herda a economia de nenhum benchmark externo.
+Quando a direção já está fechada e o próximo passo é elaborar um único rascunho
+longo, reversível e revisável, sem transformar centenas de itens independentes,
+o tamanho do texto não cria por si só uma rota de volume.
 
-> **Minha visão:** a elaboração pode priorizar custo e extensão porque o texto ainda passará por revisão antes do uso final.
+> **Minha visão:** a elaboração já tem direção fechada e continuará reversível porque será revisada antes do uso final.
 >
 > **Próximo passo:** produzir o rascunho estruturado a partir da direção já fechada.
 >
-> `Luna Max` · elaborar o rascunho longo cuja revisão ainda antecede o uso consequencial.
+> `Sol Medium` · elaborar o rascunho delimitado e revisável sem julgamento escondido.
 
 ## Compact consequential judgment
 
@@ -142,35 +142,46 @@ Quando a mesma migração também apresenta um modo concreto de corrupção sile
 >
 > `Sol XHigh` · investigar falhas de integridade difíceis de detectar antes de autorizar a migração.
 
-## Settled synthesis
+## Structured high-volume processing
 
-Quando a direção está fechada, a transformação é delimitada e repetida em grande volume, o formato permite verificação barata e custo e latência são materiais, a recomendação pode usar a rota provisória primeiro em um piloto representativo, sem alegar equivalência com o piso de conversa ou liberar o corpus inteiro.
+Quando a direção está fechada, centenas de itens independentes passam pela mesma
+transformação, o schema é fixo, não existe julgamento aberto dentro de cada
+item e a validação automática é barata, o volume pode usar primeiro um lote
+representativo. Qualidade, retries e custo total precisam passar antes de
+ampliar o corpus.
 
 > **Minha visão:** a direção já está decidida; o formato delimitado e verificável permite tratar o volume com menor custo e latência.
 >
 > **Próximo passo:** executar um lote piloto representativo no formato único, com critérios prévios de aprovação para qualidade, retries e custo total.
 >
-> `Luna Medium` · validar o lote piloto delimitado com critérios automáticos antes de ampliar o volume.
+> `Luna Max` · processar o lote homogêneo com schema fixo e validação automática.
 
-## Matched long-horizon cost trade-off
+## Matched long-horizon agent execution
 
-Quando o próximo passo corresponde ao domínio DeepSWE, a qualidade necessária mantém a faixa superior elegível e o custo total é material, a configuração de menor custo médio pode vencer mesmo aceitando mais tokens, passos e provável duração. No snapshot datado, Luna Max custa $0.44, ou cerca de 12.7%, menos por tarefa média que Sol High, mas usa 44,950 tokens de saída e 64.8 passos a mais; essa troca deve permanecer explícita e limitada ao harness medido.
+Quando a decisão e o contrato de aceitação já estão definidos e o próximo passo
+é executar trabalho heterogêneo de longa duração com ferramentas, mudanças
+interdependentes e múltiplas etapas, use a rota de processamento pesado. O
+resultado histórico do DeepSWE é evidência de domínio, não autorização para
+transferir custo ou qualidade a outra tarefa.
 
-> **Minha visão:** no trabalho longo que corresponde ao harness medido, a economia por tarefa justifica aceitar uma execução bem mais extensa quando prazo e volume de contexto não são restrições dominantes.
+> **Minha visão:** o contrato de decisão já está fechado e o trabalho restante é execução heterogênea com ferramentas e etapas interdependentes.
 >
 > **Próximo passo:** executar uma tarefa representativa com o contrato de aceitação já definido.
 >
-> `Luna Max` · testar a rota de menor custo médio no trabalho longo correspondente ao harness.
+> `Terra Max` · executar o trabalho heterogêneo de longa duração com ferramentas e múltiplas etapas.
 
-## Representative Terra pilot
+## Heavy agent execution
 
-Terra Max permanece elegível na faixa superior do domínio medido, mas não tem vantagem econômica nem conversacional estabelecida. A recomendação só cabe como piloto representativo quando o objetivo imediato é produzir evidência local de convergência e o custo, os tokens, os passos e a provável duração maiores são aceitáveis; critérios e registro dessa evidência pertencem à prosa, não como uma segunda ação no campo seguinte.
+Terra Max cabe quando o próximo passo já é a execução de agents ou o
+processamento pesado e heterogêneo, com ferramentas e estados intermediários.
+Não use essa rota para conversa sobre o projeto, descoberta arquitetural,
+julgamento profissional ou transformação homogênea com schema fixo.
 
-> **Minha visão:** ainda não existe evidência local para transformar o resultado do benchmark em preferência de uso, então a configuração deve ser tratada como hipótese mensurável.
+> **Minha visão:** as decisões já estão fechadas e resta coordenar uma execução pesada com ferramentas e estados intermediários.
 >
-> **Próximo passo:** executar uma tarefa longa representativa com critérios de convergência previamente fechados.
+> **Próximo passo:** executar o trabalho heterogêneo conforme o contrato de aceitação definido.
 >
-> `Terra Max` · produzir evidência local no piloto representativo do domínio medido.
+> `Terra Max` · coordenar a execução pesada com ferramentas e múltiplas etapas.
 
 ## Repeated corrections change the diagnosis
 

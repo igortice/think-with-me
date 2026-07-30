@@ -1,7 +1,7 @@
 interface:
   display_name: "Think With Me"
   short_description: "Understand a decision before acting, choose the next step, and select a GPT-5.6 model"
-  default_prompt: "Use $think-with-me to understand this conversation, give your view, recommend the immediate next step, and select the GPT-5.6 model for that step in my language."
+  default_prompt: "Use $think-with-me to understand this conversation, give your view, recommend the immediate next step, and select exactly one allowed GPT-5.6 pair (Sol Medium, Sol High, Sol XHigh, Sol Max, Terra Max, or Luna Max) for that step in my language; never downgrade silently."
 
 policy:
   allow_implicit_invocation: true

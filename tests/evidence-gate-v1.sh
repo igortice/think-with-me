@@ -641,8 +641,8 @@ has_heading_in_file "${indented_pending_heading_fixture}" "## Runtime behavior p
   fail "evidence heading parser ignored a top-level heading indented by up to three spaces"
 
 current_package_hash="$(sed -n 's/^PACKAGE_SHA256=//p' <<<"${manifest}")"
-require_text "${latest_install_file}" 'Candidate id: `991393a8a90628b6560295a834f73e1a04c8857c50da9abda44ae38605a85589`'
-require_text "${latest_install_file}" 'Backup: `/private/tmp/think-with-me-global-backup.PaPm76`'
+require_text "${latest_install_file}" 'Candidate id: `ea12e1f07447b0f65428026700903a32ea30d8c376214aa100aa01761193b352`'
+require_text "${latest_install_file}" 'Backup: `/private/tmp/think-with-me-global-backup.iBs8zm`'
 require_text "${latest_install_file}" 'Evaluator: `019fb9d6-7bc5-77e3-af6d-4924ca5b314a`'
 require_text "${latest_install_file}" '/Users/igortice/.agents/skills/think-with-me/references/model-comparison.md'
 require_text "${latest_install_file}" '`Luna Max` → `Sol Medium` → `Sol High` → `Terra Max`'

@@ -123,6 +123,7 @@ Model recommendation is derived only after the view and exactly one next step ar
 ## Choose the model from the next step
 
 - Define the quality contract required by the single next step after the view and next step have been formed.
+- Establish whether the user is waiting interactively, whether the output will be reviewed before any consequence, and whether execution is cost-first or quality-first. If a decisive priority is not observable, make it the one focused question.
 - Identify the relevant domain without transferring benchmark results from a different domain or harness. A benchmark cost may be reported as an observation, but it cannot make a route “economic” for another domain.
 - When the work is conversational rather than benchmark-matched, apply the mandatory strong-model matrix in model routing. Treat benchmark results and local pilot claims as scoped evidence; they never authorize a model outside the six-pair allowlist.
 - Evaluate family and effort together as one atomic configuration, never as two sequential choices.

@@ -32,7 +32,10 @@ work performed by that step using observable conditions:
 - whether ambiguity is ordinary or concrete and residual;
 - whether failure is difficult to detect;
 - whether maximum depth was explicitly requested or already proved necessary;
-- whether execution is heterogeneous and tool-heavy or homogeneous and
+- whether the user is waiting interactively or execution can run asynchronously;
+- whether the output is reversible and reviewed before any consequence;
+- whether execution is quality-first or cost-first;
+- whether execution is heterogeneous and interdependent or fixed-schema and
   independently verifiable;
 - reversibility, consequence of error, tokens, latency, retries, and review.
 
@@ -44,15 +47,36 @@ the pair by itself.
 Choose the row whose decisive condition describes the immediate next step.
 The conditions are intentionally disjoint; broad topic words such as
 "architecture", "agents", or "volume" do not override the substantive work.
+The rows are in decision order, not quality rank.
 
 | Decisive condition for the immediate next step | Required configuration | Boundary |
 | --- | --- | --- |
-| Final critical gate requiring explicitly requested maximum depth or unresolved failure after `Sol XHigh` | `Sol Max` | Do not select for importance, novelty, or urgency alone. |
-| Concrete residual ambiguity, conflicting constraints, repeated framing failure, or difficult-to-detect risk | `Sol XHigh` | The response must name the concrete ambiguity or failure. |
-| Architecture trade-off, technical specification, or other substantive professional judgment | `Sol High` | Use when the response must assume a position or preserve hidden constraints. |
-| Heterogeneous agent execution, tool-heavy coordination, or heavy multi-step processing after the decision contract is defined | `Terra Max` | Use for the execution step, not for project conversation or final critical judgment. |
-| Homogeneous high-volume transformation with fixed schema, independent items, and cheap automatic validation | `Luna Max` | Every condition is required; no open judgment may be hidden in an item. |
-| Project conversation, context recovery, architecture discovery, explanation, or bounded reversible analysis without hidden judgment | `Sol Medium` | Escalate when the next step becomes a trade-off, residual ambiguity, or critical gate. |
+| Latency-sensitive interactive project conversation, context recovery, explanation, architecture discovery, or bounded reversible analysis without hidden judgment | `Sol Medium` | Interactive latency is decisive; escalate when the step becomes judgment, residual ambiguity, or a critical gate. |
+| Architecture trade-off, technical specification, or other substantive professional judgment | `Sol High` | Use after enough context is known, when the response must assume a consequential position or preserve hidden constraints. |
+| Concrete residual ambiguity, conflicting constraints, repeated framing failure, or difficult-to-detect risk | `Sol XHigh` | Name the concrete ambiguity or failure that remains after selective analysis. |
+| Final critical gate requiring explicitly requested maximum depth or unresolved failure after `Sol XHigh` | `Sol Max` | Use only after a narrower route did not resolve the explicitly bounded risk; importance, novelty, and urgency are insufficient. |
+| Quality-first heterogeneous agent execution, tool-heavy coordination, or interdependent multi-step processing after the decision contract is closed | `Terra Max` | The contract and acceptance criteria must be closed; use for execution, not project conversation or consequential judgment. |
+| Cost-first asynchronous work whose output is reversible and reviewed before consequence, including fixed-schema volume or open-ended long-horizon execution, when extra latency, tokens, steps, and retries are acceptable | `Luna Max` | Cost priority, asynchronous operation, reversibility, and review before consequence are all required. |
+
+When both `Terra Max` and `Luna Max` could execute a closed task, the explicit
+user or system priority is the discriminator: quality-first heterogeneous
+execution selects `Terra Max`; cost-first reviewable execution selects `Luna
+Max`. If that priority is both unknown and decisive, make it the one unresolved
+dependency instead of choosing from per-token price.
+
+`Luna Max` cannot own professional or consequential judgment. Stop the
+cost-first route at that boundary and recalculate, normally to `Sol High` for
+the judgment itself. It also cannot become the normal interactive default merely
+because its per-token price is lower. Long duration or open scope alone is not
+enough: the work must remain asynchronous, reversible, reviewed before
+consequence, and tolerant of additional latency, tokens, steps, and retries.
+
+Promote `Luna Max` into ordinary project conversation only after a local,
+matched evaluation passes every gate: accepted-without-edit noninferiority with
+a lower bound no worse than `-3pp`, no critical-error regression, acceptable
+latency on the actual host, at least `70%` lower accepted-conversation cost or
+credit consumption, and noninferior blinded preference within the same `-3pp`
+margin.
 
 Recalculate whenever the immediate next step changes. A previous
 recommendation is trajectory evidence, never a routing lock.
@@ -124,16 +148,18 @@ Valid examples:
 > `Sol High` · fechar o trade-off arquitetural que ainda exige julgamento.
 > `Sol XHigh` · reconciliar a contradição transversal que permanece difícil de detectar.
 > `Sol Max` · concluir o gate crítico cuja profundidade anterior não resolveu o problema delimitado.
-> `Terra Max` · executar o trabalho heterogêneo com ferramentas e múltiplas etapas já definidas.
-> `Luna Max` · processar o lote homogêneo com schema fixo e validação automática.
+> `Terra Max` · executar com prioridade de qualidade o trabalho heterogêneo e interdependente já definido.
+> `Luna Max` · executar de forma assíncrona a exploração reversível e revisável orientada por custo.
 ```
 
 ## Factual basis and review date
 
-Current policy reviewed: **2026-07-30**.
+Current policy reviewed: **2026-07-31**.
 
 The normative evidence boundary is
-[Current Strong-Model Policy Evidence](model-evidence.md). Historical results
-remain in the
+[Current Strong-Model Policy Evidence](model-evidence.md). The current price,
+benchmark, and routing analysis is the
+[2026-07-31 research review](../../../docs/research/gpt-5-6-price-benchmark-routing-review-2026-07-31.md).
+Historical results remain in the
 [2026-07-20 snapshot](model-evidence-2026-07-20.md) and the
 [portable model comparison](model-comparison.md).

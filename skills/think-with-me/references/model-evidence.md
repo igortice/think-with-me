@@ -1,6 +1,7 @@
 # Current Strong-Model Policy Evidence
 
-Policy review date: **2026-07-30**.
+Policy review date: **2026-07-31**. This supersedes the prior marker,
+`Policy review date: **2026-07-30**.`
 
 This file records the current evidence boundary for Think With Me. The routing
 contract itself is [Evidence-Based Model Routing](model-routing.md). Historical
@@ -8,6 +9,8 @@ benchmarks remain available in the
 [Historical model evidence snapshot — 2026-07-20](model-evidence-2026-07-20.md)
 and the [portable comparison](model-comparison.md); neither historical source
 can authorize a configuration outside the current policy.
+The source review behind the corrected roles is
+[GPT-5.6 price, benchmark, and routing review — 2026-07-31](../../../docs/research/gpt-5-6-price-benchmark-routing-review-2026-07-31.md).
 
 ## Current policy authority
 
@@ -20,14 +23,26 @@ visibility is not eligibility.
 
 The user-defined quality contract controls the current roles:
 
-- Sol covers project conversation, architecture, professional judgment,
-  residual ambiguity, and maximum-depth critical gates from Medium through Max.
-- Terra Max covers heterogeneous agent execution, tool-heavy coordination, and
-  heavy multi-step processing after the decision contract is defined.
-- Luna Max covers homogeneous high-volume transformation only when the schema
-  is fixed, items are independent, and automatic validation is cheap.
+- Sol Medium covers latency-sensitive interactive project conversation,
+  discovery, explanation, and bounded reversible analysis without hidden
+  judgment. Sol High through Max cover consequential judgment, concrete
+  residual risk, and a final explicitly bounded maximum-depth gate.
+- Terra Max covers quality-first heterogeneous agent or tool execution with
+  interdependent changes after the contract and acceptance criteria are closed.
+- Luna Max covers cost-first asynchronous, reversible, reviewable work that can
+  tolerate additional latency, tokens, steps, and retries, including fixed-schema
+  volume and open-ended long-horizon execution.
+
+Luna Max cannot own consequential judgment and does not become the normal
+interactive default merely because its per-token price is lower. When both
+execution families satisfy a closed task, explicit user or system priority
+selects quality-first `Terra Max` or cost-first `Luna Max`.
 
 ## Current official pricing
+
+The [official OpenAI API changelog](https://developers.openai.com/api/docs/changelog)
+records that on 2026-07-30 Luna became 80% less expensive and Terra 20% less
+expensive. Sol did not receive a reduction in that update.
 
 The current OpenAI Standard API prices are US$5/30 per 1M input/output tokens
 for Sol, US$2/12 for Terra, and US$0.20/1.20 for Luna. These values come from
@@ -36,6 +51,20 @@ the [official OpenAI pricing table](https://developers.openai.com/api/docs/prici
 Per-token price is not total task cost. Reasoning tokens, retries, tool steps,
 latency, verification, and successful completion remain part of any economic
 comparison. A lower price never weakens the quality requirement.
+
+## Benchmark and repricing provenance
+
+The DeepSWE trajectories for Pass@1, tokens, steps, and duration come from the
+benchmark JSON generated on 2026-07-25. The lower Luna Max and Terra Max costs
+visible after the 2026-07-30 official price change have different provenance:
+the 2026-07-31 research review observes that they equal exactly 20% and 80% of
+the raw pre-change costs.
+
+That report treats the visible cost change as a repricing overlay on the same
+trajectories, not as a new capability run. This is a source-labeled inference:
+the exact factors strongly support it, but DeepSWE does not explicitly document
+the overlay mechanism. Benchmark trajectory and repriced cost must therefore
+remain separately attributed.
 
 ## Evidence limits
 

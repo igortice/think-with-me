@@ -55,15 +55,16 @@ que é delimitada, reversível e barata de verificar.
 
 ## Long reviewable exploration
 
-Quando a conversa precisa organizar muito contexto e explorar possibilidades,
-mas ainda não há trade-off técnico nem julgamento profissional escondido, a
-extensão não muda a natureza conversacional e reversível do próximo passo.
+Quando a pessoa está esperando e a conversa precisa organizar muito contexto e
+explorar possibilidades, mas ainda não há trade-off técnico nem julgamento
+profissional escondido, a extensão não muda a natureza interativa e reversível
+do próximo passo.
 
 > **Minha visão:** vale ampliar a exploração agora porque a direção ainda será revisada antes de produzir consequência.
 >
 > **Próximo passo:** organizar as hipóteses que realmente distinguem as alternativas.
 >
-> `Sol Medium` · organizar a exploração de contexto sem antecipar uma decisão profissional.
+> `Sol Medium` · organizar a descoberta interativa sem antecipar uma decisão profissional.
 
 ## Long reviewable drafting
 
@@ -76,6 +77,30 @@ o tamanho do texto não cria por si só uma rota de volume.
 > **Próximo passo:** produzir o rascunho estruturado a partir da direção já fechada.
 >
 > `Sol Medium` · elaborar o rascunho delimitado e revisável sem julgamento escondido.
+
+## Cost-first asynchronous open-ended execution
+
+Quando a pessoa não está esperando, a exploração pode permanecer aberta por
+muito tempo e toda saída será revisada antes de qualquer consequência, a rota
+orientada por custo pode aceitar latência, tokens, passos e retries adicionais.
+
+> **Minha visão:** a exploração pode priorizar custo porque é assíncrona, reversível e será revisada antes de orientar qualquer ação.
+>
+> **Próximo passo:** executar a exploração aberta até organizar as descobertas no formato revisável já definido.
+>
+> `Luna Max` · executar a exploração assíncrona e reversível com prioridade de custo.
+
+## Judgment boundary during cost-first execution
+
+Se uma execução assíncrona em `Luna Max` encontrar uma escolha profissional que
+produz consequência, a rota de custo para no limite. O julgamento vira o novo
+próximo passo e não pode ficar escondido no restante do lote.
+
+> **Minha visão:** o lote reuniu evidência suficiente, mas a escolha final exige julgamento profissional antes de produzir consequência.
+>
+> **Próximo passo:** decidir qual alternativa preserva as restrições profissionais já identificadas.
+>
+> `Sol High` · assumir o julgamento consequencial que apareceu no limite do lote.
 
 ## Compact consequential judgment
 
@@ -158,17 +183,17 @@ ampliar o corpus.
 
 ## Matched long-horizon agent execution
 
-Quando a decisão e o contrato de aceitação já estão definidos e o próximo passo
-é executar trabalho heterogêneo de longa duração com ferramentas, mudanças
-interdependentes e múltiplas etapas, use a rota de processamento pesado. O
-resultado histórico do DeepSWE é evidência de domínio, não autorização para
-transferir custo ou qualidade a outra tarefa.
+Quando a decisão e o contrato de aceitação já estão definidos, o próximo passo
+é executar trabalho heterogêneo de longa duração com ferramentas e mudanças
+interdependentes, e a prioridade explícita é qualidade, use a rota de execução
+quality-first. O resultado histórico do DeepSWE é evidência de domínio, não
+autorização para transferir custo ou qualidade a outra tarefa.
 
-> **Minha visão:** o contrato de decisão já está fechado e o trabalho restante é execução heterogênea com ferramentas e etapas interdependentes.
+> **Minha visão:** o contrato está fechado e a prioridade de qualidade governa a execução heterogênea com ferramentas e etapas interdependentes.
 >
 > **Próximo passo:** executar uma tarefa representativa com o contrato de aceitação já definido.
 >
-> `Terra Max` · executar o trabalho heterogêneo de longa duração com ferramentas e múltiplas etapas.
+> `Terra Max` · executar com prioridade de qualidade o trabalho heterogêneo e interdependente.
 
 ## Heavy agent execution
 

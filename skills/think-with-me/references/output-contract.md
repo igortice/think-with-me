@@ -1,6 +1,22 @@
 # Conversation Examples
 
-These examples show how to answer naturally and then advance one dependency. The normal answer stays outside the quote; the three-field closing is one continuous blockquote so it renders with a vertical bar. The view and next-step labels follow the user's language; the third line is the selected model as an inline-code label.
+These examples show how to answer naturally and then advance one dependency.
+The normal answer stays outside the quote; the three-field closing is one
+continuous blockquote so it renders with a vertical bar. The view and next-step
+labels follow the user's language; the third line is the selected model as an
+inline-code label, the local comparison link, and its contextual reason.
+
+## Local comparison link
+
+Resolve the directory containing the loaded `SKILL.md`, append
+`references/model-comparison.md`, and use the resulting absolute filesystem
+path in the model line. Put the localized link immediately after the model as
+`([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md))`
+in Portuguese or
+`([View matrix](/absolute/path/to/think-with-me/references/model-comparison.md))`
+in English. Use a concise natural equivalent in other languages. If the
+absolute path contains spaces, wrap the target in angle brackets. Never use a
+GitHub URL, another remote URL, or a repository-relative target in this footer.
 
 Write all prose before the closing and the closing itself in that same language; examples and placeholder text never override the current user message's language.
 
@@ -18,7 +34,7 @@ Use the Portuguese template when the current user message is Portuguese:
 >
 > **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.
 >
-> `Sol High` · connect the concrete next step to the decisive conversational evidence.
+> `Sol High` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · connect the concrete next step to the decisive conversational evidence.
 
 Use the English template when the current user message is English:
 
@@ -26,9 +42,11 @@ Use the English template when the current user message is English:
 >
 > **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.
 >
-> `Sol High` · connect the concrete next step to the decisive conversational evidence.
+> `Sol High` ([View matrix](/absolute/path/to/think-with-me/references/model-comparison.md)) · connect the concrete next step to the decisive conversational evidence.
 
-For other languages, preserve these three roles with concise natural view and next-step labels. The final line has no translated model-field label. `Próximo passo` contains at most one `?` character when the next step is a user decision.
+For other languages, preserve these three roles with concise natural view and
+next-step labels. The final line has no translated model-field label, but its
+local comparison link label is localized naturally. `Próximo passo` contains at most one `?` character when the next step is a user decision.
 
 The only exception to the three-field closing is a missing routing input: when
 both `Terra Max` and `Luna Max` satisfy the closed execution contract and the
@@ -44,7 +62,7 @@ Uma regra imatura muda com frequência. Distribuí-la agora criaria três interp
 >
 > **Próximo passo:** definir quais resultados o contrato central deve devolver.
 >
-> `Sol High` · definir as saídas do contrato ainda em descoberta.
+> `Sol High` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · definir as saídas do contrato ainda em descoberta.
 
 ## Resolved routine confirmation
 
@@ -57,7 +75,7 @@ que é delimitada, reversível e barata de verificar.
 >
 > **Próximo passo:** nenhuma ação adicional é necessária para o uso local.
 >
-> `Sol Medium` · confirmar um estado delimitado e verificável sem inventar nova pendência.
+> `Sol Medium` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · confirmar um estado delimitado e verificável sem inventar nova pendência.
 
 ## Long reviewable exploration
 
@@ -70,7 +88,7 @@ do próximo passo.
 >
 > **Próximo passo:** organizar as hipóteses que realmente distinguem as alternativas.
 >
-> `Luna Max` · organizar a descoberta revisável pela rota de melhor custo-qualidade quando a espera é aceitável.
+> `Luna Max` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · organizar a descoberta revisável pela rota de melhor custo-qualidade quando a espera é aceitável.
 
 ## Long reviewable drafting
 
@@ -82,7 +100,7 @@ o tamanho do texto não cria por si só uma rota de volume.
 >
 > **Próximo passo:** produzir o rascunho estruturado a partir da direção já fechada.
 >
-> `Luna Max` · elaborar o rascunho reversível pela rota de melhor custo-qualidade quando a espera é aceitável.
+> `Luna Max` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · elaborar o rascunho reversível pela rota de melhor custo-qualidade quando a espera é aceitável.
 
 ## Cost-first asynchronous open-ended execution
 
@@ -94,7 +112,7 @@ orientada por custo pode aceitar latência, tokens, passos e retries adicionais.
 >
 > **Próximo passo:** executar a exploração aberta até organizar as descobertas no formato revisável já definido.
 >
-> `Luna Max` · executar a exploração assíncrona e reversível com prioridade de custo.
+> `Luna Max` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · executar a exploração assíncrona e reversível com prioridade de custo.
 
 ## Judgment boundary during cost-first execution
 
@@ -104,7 +122,7 @@ Se uma execução cost-first assíncrona, reversível, revisada antes de consequ
 >
 > **Próximo passo:** decidir qual alternativa preserva as restrições profissionais já identificadas.
 >
-> `Sol High` · assumir o julgamento consequencial que apareceu no limite do lote.
+> `Sol High` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · assumir o julgamento consequencial que apareceu no limite do lote.
 
 ## Compact consequential judgment
 
@@ -115,7 +133,7 @@ com trade-offs reais, preserve o contrato conservador somente para essa fase.
 >
 > **Próximo passo:** escolher a alternativa que preserva ownership explícito e reversibilidade.
 >
-> `Sol High` · fechar o julgamento profissional compacto com trade-offs reais.
+> `Sol High` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · fechar o julgamento profissional compacto com trade-offs reais.
 
 ## English continuation
 
@@ -127,7 +145,7 @@ The rule is still evolving, so distributing it would create several interpretati
 >
 > **Next step:** define the outputs the central contract must return.
 >
-> `Sol High` · define the contract outputs while the rule remains under discovery.
+> `Sol High` ([View matrix](/absolute/path/to/think-with-me/references/model-comparison.md)) · define the contract outputs while the rule remains under discovery.
 
 ## One open decision
 
@@ -139,7 +157,7 @@ Centralizar reduz divergência; distribuir aumenta autonomia, mas antecipa contr
 >
 > **Próximo passo:** decidir se a primeira versão terá uma única fonte de verdade. Eu recomendo que sim. Você confirma essa direção?
 >
-> `Sol High` · fechar a escolha de uma única fonte de verdade.
+> `Sol High` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · fechar a escolha de uma única fonte de verdade.
 
 ## Narrow follow-up
 
@@ -149,7 +167,7 @@ A distribuição precoce não é tecnicamente impossível; o problema é pagar a
 >
 > **Próximo passo:** definir quais entradas pertencem ao contrato central.
 >
-> `Sol High` · delimitar as entradas sem reabrir a arquitetura.
+> `Sol High` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · delimitar as entradas sem reabrir a arquitetura.
 
 ## Critical risk
 
@@ -159,7 +177,7 @@ Uma migração irreversível muda o problema, mas irreversibilidade isolada não
 >
 > **Próximo passo:** comprovar uma restauração completa em ambiente isolado. Eu recomendo bloquear a migração até essa evidência existir. Esse restore completo já passou?
 >
-> `Sol High` · comprovar recuperação e integridade antes da migração.
+> `Sol High` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · comprovar recuperação e integridade antes da migração.
 
 ## Selective depth for difficult-to-detect risk
 
@@ -169,7 +187,7 @@ Quando a mesma migração também apresenta um modo concreto de corrupção sile
 >
 > **Próximo passo:** construir uma prova isolada que injete a falha e demonstre sua detecção antes de qualquer mudança em produção.
 >
-> `Sol XHigh` · investigar falhas de integridade difíceis de detectar antes de autorizar a migração.
+> `Sol XHigh` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · investigar falhas de integridade difíceis de detectar antes de autorizar a migração.
 
 ## Direct maximum-depth request without prior selective failure
 
@@ -182,7 +200,7 @@ continua sendo a profundidade seletiva.
 >
 > **Próximo passo:** investigar o risco delimitado com profundidade seletiva e registrar exatamente o que permanecer sem solução.
 >
-> `Sol XHigh` · executar a primeira investigação seletiva do risco crítico delimitado.
+> `Sol XHigh` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · executar a primeira investigação seletiva do risco crítico delimitado.
 
 ## Final maximum-depth gate after failed selective analysis
 
@@ -195,7 +213,7 @@ suficiente sozinho.
 >
 > **Próximo passo:** concluir o gate crítico sobre o risco delimitado que permaneceu aberto após a investigação seletiva.
 >
-> `Sol Max` · resolver o risco crítico delimitado que permaneceu após a tentativa seletiva.
+> `Sol Max` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · resolver o risco crítico delimitado que permaneceu após a tentativa seletiva.
 
 ## Structured high-volume processing
 
@@ -211,7 +229,7 @@ precisam passar antes de ampliar o corpus.
 >
 > **Próximo passo:** executar um lote piloto representativo no formato único, com critérios prévios de aprovação para qualidade, retries e custo total.
 >
-> `Luna Max` · processar de modo assíncrono o lote homogêneo, reversível e revisável com prioridade de custo.
+> `Luna Max` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · processar de modo assíncrono o lote homogêneo, reversível e revisável com prioridade de custo.
 
 ## Matched long-horizon agent execution
 
@@ -225,7 +243,7 @@ autorização para transferir custo ou qualidade a outra tarefa.
 >
 > **Próximo passo:** executar uma tarefa representativa com o contrato de aceitação já definido.
 >
-> `Terra Max` · executar com prioridade de qualidade o trabalho heterogêneo e interdependente.
+> `Terra Max` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · executar com prioridade de qualidade o trabalho heterogêneo e interdependente.
 
 ## Heavy agent execution
 
@@ -238,7 +256,7 @@ profissional, contrato ainda aberto ou transformação homogênea com schema fix
 >
 > **Próximo passo:** executar o trabalho heterogêneo conforme o contrato de aceitação definido.
 >
-> `Terra Max` · coordenar com prioridade de qualidade a execução heterogênea e interdependente já definida.
+> `Terra Max` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · coordenar com prioridade de qualidade a execução heterogênea e interdependente já definida.
 
 ## Unknown Terra/Luna execution priority
 
@@ -260,7 +278,7 @@ Quando o usuário informa explicitamente que configurações anteriores não res
 >
 > **Próximo passo:** codificar uma recomendação derivada deste passo e da evidência de convergência observada.
 >
-> `Sol High` · integrar as correções e fechar a regra que ainda não convergiu.
+> `Sol High` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · integrar as correções e fechar a regra que ainda não convergiu.
 
 Quando as correções também revelam uma contradição transversal concreta que
 ainda precisa ser reconciliada, a ambiguidade residual passa pelo gate seletivo.
@@ -269,7 +287,7 @@ ainda precisa ser reconciliada, a ambiguidade residual passa pelo gate seletivo.
 >
 > **Próximo passo:** reconciliar a contradição entre ownership e autorização no mesmo contrato.
 >
-> `Sol XHigh` · resolver a contradição transversal exposta pelas correções repetidas.
+> `Sol XHigh` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · resolver a contradição transversal exposta pelas correções repetidas.
 
 ## Keep unrelated process out
 

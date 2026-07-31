@@ -138,9 +138,13 @@ performed.
 ## Render exactly one recommendation
 
 Keep the answer and closing in the user's language. The final model line
-contains exactly one allowed atomic pair followed by ` · ` and a short reason
-tied to the immediate next step. The reason does not name another pair, predict
-a transition, list alternatives, or claim a host-side action.
+contains exactly one allowed atomic pair, a parenthesized localized Markdown
+link to the absolute local path of the installed
+`references/model-comparison.md`, then ` · ` and a short reason tied to the
+immediate next step. Resolve the target relative to the loaded `SKILL.md`; do
+not use GitHub, another remote URL, or a repository-relative target. The reason
+does not name another pair, predict a transition, list alternatives, or claim
+a host-side action.
 
 There is one narrow routing-input exception: when both execution routes remain
 eligible and cost-first versus quality-first priority is unknown and decisive,
@@ -150,13 +154,13 @@ normal three-field closing only after that required input is known.
 Valid examples:
 
 ```md
-> `Luna Max` · compreender o projeto pela rota de melhor custo-qualidade quando a espera é aceitável.
-> `Sol Medium` · manter respostas rápidas na conversa sensível à latência.
-> `Sol High` · fechar o trade-off arquitetural que ainda exige julgamento.
-> `Sol XHigh` · reconciliar a contradição transversal que permanece difícil de detectar.
-> `Sol Max` · concluir o gate crítico cuja profundidade anterior não resolveu o problema delimitado.
-> `Terra Max` · executar com prioridade de qualidade o trabalho heterogêneo e interdependente já definido.
-> `Luna Max` · executar de forma assíncrona a exploração reversível e revisável orientada por custo.
+> `Luna Max` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · compreender o projeto pela rota de melhor custo-qualidade quando a espera é aceitável.
+> `Sol Medium` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · manter respostas rápidas na conversa sensível à latência.
+> `Sol High` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · fechar o trade-off arquitetural que ainda exige julgamento.
+> `Sol XHigh` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · reconciliar a contradição transversal que permanece difícil de detectar.
+> `Sol Max` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · concluir o gate crítico cuja profundidade anterior não resolveu o problema delimitado.
+> `Terra Max` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · executar com prioridade de qualidade o trabalho heterogêneo e interdependente já definido.
+> `Luna Max` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · executar de forma assíncrona a exploração reversível e revisável orientada por custo.
 ```
 
 ## Factual basis and review date

@@ -1,6 +1,8 @@
 # Verificação da alegação: GPT-5.6 Sol, Terra e Luna
 
-**Consulta:** 30 de julho de 2026 (America/Fortaleza)
+**Consulta inicial:** 30 de julho de 2026 (America/Fortaleza)
+
+**Auditoria e atualização:** 31 de julho de 2026 (America/Fortaleza)
 **Escopo:** verificar o screenshot atribuído a `@OpenAI`, confrontar as reduções
 de preço, o Fast mode, o consumo em Codex/ChatGPT Work e o gráfico do Artificial
 Analysis Intelligence Index v4.1.
@@ -112,10 +114,12 @@ No Codex:
 ## O que o gráfico confirma — e o que não confirma
 
 A página da [Artificial Analysis para GPT-5.6 Luna](https://artificialanalysis.ai/models/gpt-5-6-luna)
-confirma que o modelo é da OpenAI, que a variante `max` marcou 51 no Artificial
-Analysis Intelligence Index e que a versão avaliada produziu cerca de 189,8
-tokens/s na captura consultada. A página também registra TTFT de cerca de 119 s
-para essa variante `max` e volume alto de tokens gerados.
+confirma que o modelo é da OpenAI. Na captura auditada em 31/07, a variante
+`max` marcou 51,24 no Artificial Analysis Intelligence Index v4.1, 71,45 no
+Coding Index, custo médio de US$ 0,066 por tarefa do Intelligence Index,
+177,8 tokens/s de output e 117,02 s até o primeiro token de resposta. O recorte
+legível por máquina está preservado em
+`docs/research/assets/artificial-analysis-model-pages-2026-07-31.json`.
 
 O índice v4.1 reúne nove avaliações, incluindo GDPval-AA v2, tau³-Banking,
 Terminal-Bench v2.1, SciCode, Humanity's Last Exam, GPQA Diamond, CritPt,
@@ -187,5 +191,7 @@ posição isolada no Intelligence Index.
 5. [Artificial Analysis — GPT-5.6 Luna](https://artificialanalysis.ai/models/gpt-5-6-luna)
    e [comparação Sol/Terra/Luna](https://artificialanalysis.ai/articles/gpt-5-6-intelligence-vs-cost-across-sol-terra-luna).
 
-Todos os valores e páginas acima foram consultados em 30/07/2026; preços,
-limites e disponibilidade podem mudar.
+Os preços, limites e valores de benchmark apresentados como atuais foram
+auditados em 31/07/2026; preços, limites, disponibilidade e métricas de sites
+vivos podem mudar. Capturas históricas datadas permanecem imutáveis e não
+substituem esta visão atual.

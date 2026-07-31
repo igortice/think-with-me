@@ -136,11 +136,11 @@ reject_pattern "${routing_file}" 'Luna Medium|Terra High|Terra XHigh|Luna XHigh|
 reject_pattern "${output_file}" 'Luna Medium|Terra High|Terra XHigh|Luna XHigh'
 reject_pattern "${evidence_file}" 'Luna Medium|Terra High|Terra XHigh|Luna XHigh'
 
-require_section_text "${output_file}" '## Long reviewable exploration' '> `Luna Max` ·'
-require_section_text "${output_file}" '## Long reviewable drafting' '> `Luna Max` ·'
-require_section_text "${output_file}" '## Matched long-horizon agent execution' '> `Terra Max` ·'
+require_section_text "${output_file}" '## Long reviewable exploration' '> `Luna Max` ([Ver matriz]('
+require_section_text "${output_file}" '## Long reviewable drafting' '> `Luna Max` ([Ver matriz]('
+require_section_text "${output_file}" '## Matched long-horizon agent execution' '> `Terra Max` ([Ver matriz]('
 reject_section_pattern "${output_file}" '## Matched long-horizon agent execution' 'Luna Max'
-require_section_text "${output_file}" '## Structured high-volume processing' '> `Luna Max` ·'
+require_section_text "${output_file}" '## Structured high-volume processing' '> `Luna Max` ([Ver matriz]('
 for condition in 'prioridade de custo' 'assíncrona' 'reversível' 'revisada antes de qualquer consequência' 'latência, tokens, passos e retries adicionais'; do
   require_section_text "${output_file}" '## Structured high-volume processing' "${condition}"
 done
@@ -153,10 +153,10 @@ for condition in 'contrato de aceitação está fechado' 'prioridade explícita 
 done
 require_section_text "${output_file}" '## Unknown Terra/Luna execution priority' 'A prioridade é minimizar custo em uma execução revisável ou maximizar qualidade na coordenação heterogênea?'
 require_section_question_count "${output_file}" '## Unknown Terra/Luna execution priority' '1'
-reject_section_pattern "${output_file}" '## Unknown Terra/Luna execution priority' '^> `(Sol|Terra|Luna) (Medium|High|XHigh|Max)` · '
-require_section_text "${output_file}" '## Direct maximum-depth request without prior selective failure' '> `Sol XHigh` ·'
-reject_section_pattern "${output_file}" '## Direct maximum-depth request without prior selective failure' '^> `Sol Max` · '
-require_section_text "${output_file}" '## Final maximum-depth gate after failed selective analysis' '> `Sol Max` ·'
+reject_section_pattern "${output_file}" '## Unknown Terra/Luna execution priority' '^> `(Sol|Terra|Luna) (Medium|High|XHigh|Max)` \('
+require_section_text "${output_file}" '## Direct maximum-depth request without prior selective failure' '> `Sol XHigh` ([Ver matriz]('
+reject_section_pattern "${output_file}" '## Direct maximum-depth request without prior selective failure' '^> `Sol Max` \('
+require_section_text "${output_file}" '## Final maximum-depth gate after failed selective analysis' '> `Sol Max` ([Ver matriz]('
 
 require_text "${evidence_file}" '# Current Strong-Model Policy Evidence'
 require_text "${evidence_file}" 'Policy review date: **2026-07-31**.'

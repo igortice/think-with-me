@@ -22,21 +22,24 @@ visibility is not eligibility.
 
 The user-defined quality contract controls the current roles:
 
-- Sol Medium covers latency-sensitive interactive project conversation,
-  discovery, explanation, and bounded reversible analysis without hidden
-  judgment. Sol High through Max cover consequential judgment, concrete
-  residual risk, and a final explicitly bounded maximum-depth gate only after
-  a narrower selective route did not resolve that same risk.
+- Luna Max is the default value route for ordinary non-consequential
+  conversation, project understanding, research, explanation, and reversible
+  analysis when additional startup delay is acceptable. Sol Medium is the
+  explicit speed route for rapid interaction and context recovery. Sol High
+  through Max cover consequential judgment, concrete residual risk, and a
+  final explicitly bounded maximum-depth gate only after a narrower selective
+  route did not resolve that same risk.
 - Terra Max covers quality-first heterogeneous agent or tool execution with
   interdependent changes after the contract and acceptance criteria are closed.
-- Luna Max covers cost-first asynchronous, reversible, reviewable work that can
-  tolerate additional latency, tokens, steps, and retries, including fixed-schema
-  volume and open-ended long-horizon execution.
+- Luna Max also covers cost-first asynchronous, reversible, reviewable work
+  that can tolerate additional latency, tokens, steps, and retries, including
+  fixed-schema volume and open-ended long-horizon execution.
 
-Luna Max cannot own consequential judgment and does not become the normal
-interactive default merely because its per-token price is lower. When both
-execution families satisfy a closed task, explicit user or system priority
-selects quality-first `Terra Max` or cost-first `Luna Max`.
+Luna Max cannot own consequential judgment. Its ordinary-work default depends
+on accepting the observed startup-delay trade-off; when rapid interaction is
+decisive, use `Sol Medium`. When both execution families satisfy a closed task,
+explicit user or system priority selects quality-first `Terra Max` or
+cost-first `Luna Max`.
 
 ## Current official pricing
 
@@ -47,6 +50,12 @@ expensive. Sol did not receive a reduction in that update.
 The current OpenAI Standard API prices are US$5/30 per 1M input/output tokens
 for Sol, US$2/12 for Terra, and US$0.20/1.20 for Luna. These values come from
 the [official OpenAI pricing table](https://developers.openai.com/api/docs/pricing).
+
+The current Plus local-message ranges shown by the ChatGPT/Codex pricing page
+for a shared five-hour window are 10–100 for Sol, 25–200 for Terra, and
+250–2,000 for Luna. They are operational ranges rather than fixed task
+conversions; reasoning, context, tools, retrieval, cache, and additional weekly
+limits can change actual usage.
 
 Per-token price is not total task cost. Reasoning tokens, retries, tool steps,
 latency, verification, and successful completion remain part of any economic

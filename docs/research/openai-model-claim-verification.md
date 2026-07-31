@@ -142,17 +142,19 @@ metodologia, não uma ordem universal de roteamento.
 
 | Tipo de tarefa | Família | Esforço |
 | --- | --- | --- |
-| Conversa sobre projeto, recuperação de contexto e arquitetura ainda em descoberta | Sol | medium |
+| Conversa comum, entendimento de projeto e análise reversível sem urgência de resposta | Luna | max |
+| Conversa rápida e recuperação de contexto sensível à latência | Sol | medium |
 | Arquitetura com trade-offs, especificação técnica ou julgamento profissional | Sol | high |
 | Ambiguidade residual concreta, restrições conflitantes ou risco difícil de detectar | Sol | xhigh |
 | Risco crítico delimitado que permaneceu sem solução após uma rota seletiva mais estreita, normalmente Sol XHigh | Sol | max |
 | Contrato fechado, prioridade de qualidade e execução heterogênea interdependente | Terra | max |
-| Trabalho cost-first, assíncrono, reversível, revisado antes de consequência e tolerante a execução adicional | Luna | max |
+| Trabalho comum orientado a valor quando a espera é aceitável, ou execução cost-first reversível e revisada | Luna | max |
 
 Minha leitura operacional é: **a matriz deve mudar sem rebaixar o piso de
-qualidade**. Luna Max exige a combinação cost-first, assíncrona, reversível,
-revisada antes de consequência e tolerante a latência, tokens, passos ou
-retries adicionais, inclusive no volume homogêneo. Terra Max exige contrato
+qualidade**. Luna Max é a rota de valor para trabalho comum não consequencial
+quando a espera adicional é aceitável; Sol Medium é a rota de velocidade.
+Em execução consequencial, Luna continua exigindo saída reversível e revisada
+antes de consequência. Terra Max exige contrato
 fechado, prioridade explícita de qualidade e execução heterogênea
 interdependente. Sol Max só entra quando um risco crítico explicitamente
 delimitado permanece sem solução após uma rota seletiva mais estreita; um pedido

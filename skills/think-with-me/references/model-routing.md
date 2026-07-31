@@ -52,12 +52,13 @@ The rows are in decision order, not quality rank.
 
 | Decisive condition for the immediate next step | Required configuration | Boundary |
 | --- | --- | --- |
-| Latency-sensitive interactive project conversation, context recovery, explanation, architecture discovery, or bounded reversible analysis without hidden judgment | `Sol Medium` | Interactive latency is decisive; escalate when the step becomes judgment, residual ambiguity, or a critical gate. |
-| Architecture trade-off, technical specification, or other substantive professional judgment | `Sol High` | Use after enough context is known, when the response must assume a consequential position or preserve hidden constraints. |
-| Concrete residual ambiguity, conflicting constraints, repeated framing failure, or difficult-to-detect risk | `Sol XHigh` | Name the concrete ambiguity or failure that remains after selective analysis. |
 | Explicitly bounded critical risk that remains unresolved after a narrower selective route, normally `Sol XHigh` | `Sol Max` | Prior selective failure is mandatory; an explicit request for maximum depth is not sufficient. |
+| Concrete residual ambiguity, conflicting constraints, repeated framing failure, or difficult-to-detect risk | `Sol XHigh` | Name the concrete ambiguity or failure that remains after selective analysis. |
+| Architecture trade-off, technical specification, or other substantive professional judgment | `Sol High` | Use after enough context is known, when the response must assume a consequential position or preserve hidden constraints. |
 | Quality-first heterogeneous agent execution, tool-heavy coordination, or interdependent multi-step processing after the decision contract is closed | `Terra Max` | The contract and acceptance criteria must be closed; use for execution, not project conversation or consequential judgment. |
-| Cost-first asynchronous work whose output is reversible and reviewed before consequence, including fixed-schema volume or open-ended long-horizon execution, when extra latency, tokens, steps, and retries are acceptable | `Luna Max` | Cost priority, asynchronous operation, reversibility, and review before consequence are all required. |
+| Latency-sensitive conversation, rapid context recovery, or reversible analysis that requires quick back-and-forth | `Sol Medium` | Response speed is decisive; escalate when the step becomes judgment, residual ambiguity, or a critical gate. |
+| Ordinary non-consequential conversation, project understanding, research, explanation, or reversible analysis when additional startup delay is acceptable | `Luna Max` | This is the value route; switch to Sol Medium when rapid interaction is required. |
+| Cost-first execution whose output is reversible and reviewed before consequence, including fixed-schema volume or open-ended long-horizon work, when extra latency, tokens, steps, and retries are acceptable | `Luna Max` | Cost priority, reversibility, review before consequence, and tolerance for additional execution are required. |
 
 When both `Terra Max` and `Luna Max` could execute a closed task, the explicit
 user or system priority is the discriminator: quality-first heterogeneous
@@ -65,19 +66,19 @@ execution selects `Terra Max`; cost-first reviewable execution selects `Luna
 Max`. If that priority is both unknown and decisive, make it the one unresolved
 dependency instead of choosing from per-token price: ask exactly one focused cost-first-versus-quality-first question and do not emit a model footer until the priority is known.
 
-`Luna Max` cannot own professional or consequential judgment. Stop the
-cost-first route at that boundary and recalculate, normally to `Sol High` for
-the judgment itself. It also cannot become the normal interactive default merely
-because its per-token price is lower. Long duration or open scope alone is not
-enough: the work must remain asynchronous, reversible, reviewed before
-consequence, and tolerant of additional latency, tokens, steps, and retries.
+`Luna Max` is the default value route for ordinary non-consequential work
+when additional startup delay is acceptable. `Sol Medium` is the explicit speed route
+when rapid back-and-forth is decisive. This policy follows the
+observed cost-quality trade-off without calling Luna universally superior:
+Artificial Analysis still gives Sol Medium the stronger broad indices and much
+lower time to first answer, while DeepSWE gives Luna Max the higher observed
+Pass@1 at much lower displayed task cost.
 
-Promote `Luna Max` into ordinary project conversation only after a local,
-matched evaluation passes every gate: accepted-without-edit noninferiority with
-a lower bound no worse than `-3pp`, no critical-error regression, acceptable
-latency on the actual host, at least `70%` lower accepted-conversation cost or
-credit consumption, and noninferior blinded preference within the same `-3pp`
-margin.
+`Luna Max` cannot own professional or consequential judgment. Stop the value
+route at that boundary and recalculate, normally to `Sol High`. For
+consequential cost-first execution, the output must remain reversible and
+reviewed before consequence. Long duration or volume alone never overrides a
+higher quality, risk, or judgment gate.
 
 Recalculate whenever the immediate next step changes. A previous
 recommendation is trajectory evidence, never a routing lock.
@@ -95,10 +96,10 @@ domain, harness, and metric. Local behavioral evidence is the closest test of
 this skill's actual work. Explicit user outcomes define the acceptance floor.
 
 Do not average heterogeneous benchmarks or combine them into a universal score.
-Do not transfer a coding result to Portuguese conversation, or a benchmark cost
-to an unrelated task. Overlapping intervals do not prove equality. When
-relevant evidence conflicts, preserve the stronger quality condition until a
-domain-matched local result resolves it.
+Do not claim that a coding result proves universal conversational superiority,
+or transfer a benchmark cost to an unrelated task. Overlapping intervals do
+not prove equality. Use the combined evidence to identify value, speed, and
+quality boundaries while preserving each source's domain.
 
 A benchmark row can remain visible for historical comparison, but only the
 mandatory allowlist and the current routing condition can make a pair eligible.
@@ -149,7 +150,8 @@ normal three-field closing only after that required input is known.
 Valid examples:
 
 ```md
-> `Sol Medium` · organizar o entendimento inicial do projeto sem antecipar uma decisão técnica.
+> `Luna Max` · compreender o projeto pela rota de melhor custo-qualidade quando a espera é aceitável.
+> `Sol Medium` · manter respostas rápidas na conversa sensível à latência.
 > `Sol High` · fechar o trade-off arquitetural que ainda exige julgamento.
 > `Sol XHigh` · reconciliar a contradição transversal que permanece difícil de detectar.
 > `Sol Max` · concluir o gate crítico cuja profundidade anterior não resolveu o problema delimitado.

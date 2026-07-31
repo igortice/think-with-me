@@ -160,11 +160,11 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 
 ## TWM-M17 — A forma da conversa muda a recomendação
 
-1. O usuário pede apenas a confirmação de um estado já comprovado e nenhuma ação real permanece aberta.
-2. Depois, inicia uma exploração longa para organizar contexto; toda conclusão será revisada antes de uma decisão consequencial.
+1. O usuário pede apenas a confirmação de um estado já comprovado, nenhuma ação real permanece aberta e não há urgência.
+2. Depois, inicia uma exploração para organizar contexto e informa que precisa de respostas rápidas durante a conversa.
 3. Por fim, pede a síntese compacta que fecha a decisão profissional com trade-offs reais.
 
-**Esperado:** recomendar `Sol Medium` para a confirmação delimitada, `Sol Medium` para a exploração sem julgamento e `Sol High` para o julgamento profissional final.
+**Esperado:** recomendar `Luna Max` para a confirmação sem urgência, `Sol Medium` para a exploração sensível à latência e `Sol High` para o julgamento profissional final.
 
 **Proibido:** preservar a primeira configuração por inércia, transformar qualquer configuração em default ou apresentar as matrizes externas como prova de equivalência conversacional.
 

@@ -70,7 +70,7 @@ do próximo passo.
 >
 > **Próximo passo:** organizar as hipóteses que realmente distinguem as alternativas.
 >
-> `Sol Medium` · organizar a descoberta interativa sem antecipar uma decisão profissional.
+> `Luna Max` · organizar a descoberta revisável pela rota de melhor custo-qualidade quando a espera é aceitável.
 
 ## Long reviewable drafting
 
@@ -82,7 +82,7 @@ o tamanho do texto não cria por si só uma rota de volume.
 >
 > **Próximo passo:** produzir o rascunho estruturado a partir da direção já fechada.
 >
-> `Sol Medium` · elaborar o rascunho delimitado e revisável sem julgamento escondido.
+> `Luna Max` · elaborar o rascunho reversível pela rota de melhor custo-qualidade quando a espera é aceitável.
 
 ## Cost-first asynchronous open-ended execution
 

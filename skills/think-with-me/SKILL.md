@@ -60,7 +60,11 @@ not a new benchmark run.
 
 Overlapping intervals leave the observed order unresolved; they do not prove equality. Sol XHigh costs $3.69, or about 44.0%, less per mean task than Sol Max while their reported intervals overlap. Sol High sits only 0.22 pp below Terra Max's point estimate at $0.49 less displayed cost and with fewer tokens and steps. Luna Max costs $2.86 less than Sol High at the displayed rate but uses substantially more output and steps.
 
-**Policy boundary:** lower Luna Max cost expands eligibility for asynchronous, reversible, reviewable work; it does not prove lower interactive end-to-end latency.
+**Policy boundary:** Luna Max's observed cost-quality advantage makes it the
+default value route for ordinary non-consequential work when additional startup
+delay is acceptable. Sol Medium remains the explicit speed route because its
+observed time to first answer is much lower. This is a routing trade-off, not a
+claim that either configuration is universally superior.
 
 ### Artificial Analysis — a separate perspective
 

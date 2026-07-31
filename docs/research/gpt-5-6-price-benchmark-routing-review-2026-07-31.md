@@ -271,9 +271,9 @@ conclusão de que Terra é melhor para conversa ou julgamento profissional.
   longa quando o contrato está fechado e a prioridade explícita é qualidade;
   seu maior output speed pode ajudar throughput, mas o TTFT alto piora
   interação síncrona.
-- `Sol Medium` continua sendo a escolha prudente para conversa, recuperação de
-  contexto e análise reversível enquanto faltar uma avaliação local que mostre
-  não inferioridade de Luna em qualidade e latência aceitável.
+- `Luna Max` passa a ser a rota de valor para conversa comum, entendimento de
+  projeto e análise reversível quando a espera adicional é aceitável; `Sol
+  Medium` permanece a rota de velocidade para interação rápida.
 - O overlay DeepSWE é reprecificação, não uma nova medição de capacidade.
 
 ### Lacunas que impedem a troca
@@ -376,11 +376,13 @@ TTFT, tempo total, retries, falhas e custo por tarefa aceita.
 
 ## 7. Recomendação para a política
 
-**Alterar a elegibilidade, mas não o default conversacional.** Preservar a
-allowlist atual e ajustar os papéis:
+**Alterar a elegibilidade e o default de valor.** Preservar a allowlist atual e
+ajustar os papéis:
 
-- `Sol Medium` permanece como padrão para conversa interativa de projeto,
-  contexto, explicação e análise reversível sem julgamento oculto;
+- `Luna Max` passa a ser o padrão de valor para conversa comum, entendimento
+  de projeto, explicação e análise reversível sem urgência de resposta;
+- `Sol Medium` passa a ser a rota explícita de velocidade para conversa e
+  recuperação de contexto sensíveis à latência;
 - `Sol High` permanece para trade-offs e julgamento profissional;
 - `Terra Max` permanece como candidata para execução heterogênea e
   interdependente com contrato fechado e prioridade explícita de qualidade,
@@ -391,8 +393,8 @@ allowlist atual e ajustar os papéis:
   aberta, sempre com prioridade cost-first, operação assíncrona, resultado
   reversível e revisado antes de consequência e tolerância a latência, tokens,
   passos ou retries adicionais;
-- `Luna Max` não deve substituir automaticamente `Sol Medium` em conversa
-  interativa até passar o gate local de não inferioridade e latência.
+- `Luna Max` não substitui `Sol Medium` quando resposta rápida é requisito,
+  nem substitui as rotas de julgamento, risco residual ou gate crítico.
 
 Também é necessário atualizar a superfície pública da skill: preservar o
 snapshot de 20/07 como histórico imutável, adicionar o overlay de preços de

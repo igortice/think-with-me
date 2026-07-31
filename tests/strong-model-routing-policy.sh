@@ -121,11 +121,14 @@ require_text "${routing_file}" 'An explicit request for maximum depth, importanc
 reject_pattern "${routing_file}" 'requiring explicitly requested maximum depth or unresolved failure|requires[[:space:]]+an explicit maximum-depth need or evidence'
 require_text "${routing_file}" '| Concrete residual ambiguity, conflicting constraints, repeated framing failure, or difficult-to-detect risk | `Sol XHigh` |'
 require_text "${routing_file}" '| Architecture trade-off, technical specification, or other substantive professional judgment | `Sol High` |'
-require_text "${routing_file}" '| Latency-sensitive interactive project conversation, context recovery, explanation, architecture discovery, or bounded reversible analysis without hidden judgment | `Sol Medium` |'
+require_text "${routing_file}" '| Ordinary non-consequential conversation, project understanding, research, explanation, or reversible analysis when additional startup delay is acceptable | `Luna Max` |'
+require_text "${routing_file}" '| Latency-sensitive conversation, rapid context recovery, or reversible analysis that requires quick back-and-forth | `Sol Medium` |'
 require_text "${routing_file}" '| Quality-first heterogeneous agent execution, tool-heavy coordination, or interdependent multi-step processing after the decision contract is closed | `Terra Max` |'
-require_text "${routing_file}" '| Cost-first asynchronous work whose output is reversible and reviewed before consequence, including fixed-schema volume or open-ended long-horizon execution, when extra latency, tokens, steps, and retries are acceptable | `Luna Max` |'
+require_text "${routing_file}" '| Cost-first execution whose output is reversible and reviewed before consequence, including fixed-schema volume or open-ended long-horizon work, when extra latency, tokens, steps, and retries are acceptable | `Luna Max` |'
+require_text "${routing_file}" '`Luna Max` is the default value route'
+require_text "${routing_file}" '`Sol Medium` is the explicit speed route'
 require_text "${routing_file}" 'ask exactly one focused cost-first-versus-quality-first question and do not emit a model footer until the priority is known.'
-reject_pattern "${routing_file}" '^\| Latency-sensitive interactive project conversation.*\| `Luna Max` \|$'
+reject_pattern "${routing_file}" 'normal interactive default merely because its per-token price is lower'
 reject_pattern "${routing_file}" '^\| Architecture trade-off, technical specification, or other substantive professional judgment \| `Luna Max` \|$'
 reject_pattern "${routing_file}" '^tool-heavy coordination use `Terra Max`\.'
 
@@ -133,10 +136,8 @@ reject_pattern "${routing_file}" 'Luna Medium|Terra High|Terra XHigh|Luna XHigh|
 reject_pattern "${output_file}" 'Luna Medium|Terra High|Terra XHigh|Luna XHigh'
 reject_pattern "${evidence_file}" 'Luna Medium|Terra High|Terra XHigh|Luna XHigh'
 
-require_section_text "${output_file}" '## Long reviewable exploration' '> `Sol Medium` ·'
-reject_section_pattern "${output_file}" '## Long reviewable exploration' 'Terra Max|Luna Max'
-require_section_text "${output_file}" '## Long reviewable drafting' '> `Sol Medium` ·'
-reject_section_pattern "${output_file}" '## Long reviewable drafting' 'Terra Max|Luna Max'
+require_section_text "${output_file}" '## Long reviewable exploration' '> `Luna Max` ·'
+require_section_text "${output_file}" '## Long reviewable drafting' '> `Luna Max` ·'
 require_section_text "${output_file}" '## Matched long-horizon agent execution' '> `Terra Max` ·'
 reject_section_pattern "${output_file}" '## Matched long-horizon agent execution' 'Luna Max'
 require_section_text "${output_file}" '## Structured high-volume processing' '> `Luna Max` ·'
@@ -167,7 +168,7 @@ historical_hash="$(shasum -a 256 "${historical_evidence_file}" | awk '{print $1}
   fail "historical model evidence snapshot changed: ${historical_hash}"
 
 require_text "${routing_cases_file}" '| MR-01 | Descoberta aberta de produto'
-require_text "${routing_cases_file}" '| MR-01 | Descoberta aberta de produto | A ideia exige exploração e organização de contexto, sem trade-off técnico ou julgamento profissional ainda. | Recomendar `Sol Medium`'
+require_text "${routing_cases_file}" '| MR-01 | Descoberta aberta de produto | A ideia exige exploração e organização de contexto, sem trade-off técnico ou julgamento profissional ainda, e a espera adicional é aceitável. | Recomendar `Luna Max`'
 require_text "${routing_cases_file}" '| MR-20 | Processamento estruturado em alto volume'
 require_text "${routing_cases_file}" '| MR-26 | Exploração conversacional longa e revisável'
 require_text "${routing_cases_file}" '| MR-27 | Elaboração longa, delimitada e revisável'
@@ -186,11 +187,11 @@ require_text "${multiturn_cases_file}" 'lote cost-first, assíncrono, reversíve
 require_text "${multiturn_cases_file}" 'orientada por custo e tolerante a latência, tokens, passos ou retries adicionais.'
 require_text "${cases_file}" 'TWM-19'
 require_text "${cases_file}" 'TWM-20'
-require_text "${multiturn_cases_file}" '**Esperado:** recomendar `Sol Medium` para a confirmação delimitada, `Sol Medium` para a exploração sem julgamento e `Sol High` para o julgamento profissional final.'
+require_text "${multiturn_cases_file}" '**Esperado:** recomendar `Luna Max` para a confirmação sem urgência, `Sol Medium` para a exploração sensível à latência e `Sol High` para o julgamento profissional final.'
 
 require_text "${readme_file}" '`Sol Max` requires an explicitly bounded critical risk that remains unresolved after a narrower selective route'
 require_text "${readme_file}" '`Terra Max` requires a closed contract plus explicit quality-first priority for heterogeneous, interdependent execution'
-require_text "${readme_file}" '`Luna Max` requires cost-first, asynchronous, reversible work reviewed before consequence and tolerant of extra latency, tokens, steps, or retries.'
+require_text "${readme_file}" '`Luna Max` is the default value route for ordinary non-consequential work when startup delay is acceptable.'
 
 require_text "${design_file}" '| Explicitly bounded critical risk that remains unresolved after a narrower selective route, normally `Sol XHigh` | `Sol Max` |'
 reject_pattern "${design_file}" 'requiring explicitly requested maximum depth or unresolved failure'
@@ -199,8 +200,9 @@ require_text "${design_file}" 'no model footer is emitted until the required pri
 reject_pattern "${price_research_file}" '2026-07-25T03:13:49Z|JSON was generated on 25|JSON foi gerado em 25/07|resultados de execução de 25/07'
 
 reject_pattern "${research_file}" '\| Luna \| none/low \||\| Terra \| low/medium \||Sol continua como fallback'
-require_text "${research_file}" '| Conversa sobre projeto, recuperação de contexto e arquitetura ainda em descoberta | Sol | medium |'
+require_text "${research_file}" '| Conversa comum, entendimento de projeto e análise reversível sem urgência de resposta | Luna | max |'
+require_text "${research_file}" '| Conversa rápida e recuperação de contexto sensível à latência | Sol | medium |'
 require_text "${research_file}" '| Contrato fechado, prioridade de qualidade e execução heterogênea interdependente | Terra | max |'
-require_text "${research_file}" '| Trabalho cost-first, assíncrono, reversível, revisado antes de consequência e tolerante a execução adicional | Luna | max |'
+require_text "${research_file}" '| Trabalho comum orientado a valor quando a espera é aceitável, ou execução cost-first reversível e revisada | Luna | max |'
 
 echo 'Strong-model routing policy checks passed.'

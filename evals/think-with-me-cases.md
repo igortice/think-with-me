@@ -16,8 +16,8 @@ Use estes casos em conversas novas depois de qualquer alteração comportamental
 10. Correções, repetição, atrito, contradições, trajetória de modelos explicitamente informada e convergência modificam a escolha; sentimento isolado e importância genérica não escalam modelo ou esforço.
 11. A configuração é escolhida como o par indivisível `família + effort`; a resposta não escolhe uma família antes de avaliar o effort.
 12. Toda recomendação usa somente um dos seis pares permitidos: `Sol Medium`, `Sol High`, `Sol XHigh`, `Sol Max`, `Terra Max` ou `Luna Max`.
-13. Conversa sobre projeto, recuperação de contexto e descoberta arquitetural sem trade-off usam `Sol Medium`; quando o próximo passo passa a exigir julgamento profissional, usa `Sol High`.
-14. Toda rota `Luna Max`, inclusive volume com schema fixo, exige prioridade cost-first, operação assíncrona, reversibilidade, revisão antes de consequência e tolerância a latência, tokens, passos ou retries adicionais; nenhum julgamento consequencial fica dentro dela.
+13. Conversa comum, entendimento de projeto e descoberta sem julgamento usam `Luna Max` quando a espera adicional é aceitável; recuperação rápida de contexto e interação sensível à latência usam `Sol Medium`; julgamento profissional usa `Sol High`.
+14. `Luna Max` é a rota padrão de valor para trabalho comum não consequencial. Em execução consequencial cost-first, exige reversibilidade, revisão antes de consequência e tolerância a latência, tokens, passos ou retries adicionais; nenhum julgamento profissional fica dentro dela.
 15. Benchmarks de domínios ou harnesses diferentes não são somados nem usados para declarar equivalência universal.
 16. Empates e fontes divergentes preservam a opção conservadora até existir evidência local suficiente.
 17. A skill recomenda, mas não seleciona nem repete o modelo do host. Se o host informar indisponibilidade, a resposta preserva o par recomendado, reporta o mismatch e exige uma escolha explícita dentro da allowlist; nunca há downgrade silencioso.

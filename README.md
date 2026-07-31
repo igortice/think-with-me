@@ -50,7 +50,11 @@ not a new benchmark run.
 
 Overlapping intervals leave the observed order unresolved; they do not prove equality. Sol XHigh costs $3.69, or about 44.0%, less per mean task than Sol Max while their reported intervals overlap. Sol High sits only 0.22 pp below Terra Max's point estimate at $0.49 less displayed cost and with fewer tokens and steps. Luna Max costs $2.86 less than Sol High at the displayed rate but uses substantially more output and steps.
 
-**Policy boundary:** lower Luna Max cost expands eligibility for asynchronous, reversible, reviewable work; it does not prove lower interactive end-to-end latency.
+**Policy boundary:** Luna Max's observed cost-quality advantage makes it the
+default value route for ordinary non-consequential work when additional startup
+delay is acceptable. Sol Medium remains the explicit speed route because its
+observed time to first answer is much lower. This is a routing trade-off, not a
+claim that either configuration is universally superior.
 
 ### Artificial Analysis — a separate perspective
 
@@ -89,9 +93,9 @@ The tables define an evidence portfolio, not a permanent default. The skill rebu
 For ordinary conversation, Think With Me uses a mandatory strong-model
 allowlist rather than pretending either benchmark measures Portuguese dialogue.
 The only eligible pairs are `Sol Medium`, `Sol High`, `Sol XHigh`, `Sol Max`,
-`Terra Max`, and `Luna Max`. `Sol Medium` handles project understanding and
+`Terra Max`, and `Luna Max`. `Luna Max` is the default value route for ordinary non-consequential work when startup delay is acceptable. `Sol Medium` is the explicit speed route for project understanding and
 bounded explanation; `Sol High` handles substantive architecture and judgment;
-`Sol XHigh` handles concrete residual ambiguity. `Sol Max` requires an explicitly bounded critical risk that remains unresolved after a narrower selective route; a direct request for maximum depth is insufficient. `Terra Max` requires a closed contract plus explicit quality-first priority for heterogeneous, interdependent execution. `Luna Max` requires cost-first, asynchronous, reversible work reviewed before consequence and tolerant of extra latency, tokens, steps, or retries. When both execution routes remain eligible and that priority is unknown and decisive, the skill asks one focused question and emits no model footer until the input is known. There is no silent downgrade or fallback outside this allowlist. A resolved subject does not create a fake push, publication, or review step merely to justify the footer.
+`Sol XHigh` handles concrete residual ambiguity. `Sol Max` requires an explicitly bounded critical risk that remains unresolved after a narrower selective route; a direct request for maximum depth is insufficient. `Terra Max` requires a closed contract plus explicit quality-first priority for heterogeneous, interdependent execution. Consequential `Luna Max` execution remains reversible and reviewed before consequence. When both execution routes remain eligible and that priority is unknown and decisive, the skill asks one focused question and emits no model footer until the input is known. There is no silent downgrade or fallback outside this allowlist. A resolved subject does not create a fake push, publication, or review step merely to justify the footer.
 
 This policy governs the recommendation emitted by the skill; it cannot select,
 retry, replace, or verify the model used by the host. If the host reports a

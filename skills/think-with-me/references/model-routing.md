@@ -157,8 +157,8 @@ Current policy reviewed: **2026-07-31**.
 
 The normative evidence boundary is
 [Current Strong-Model Policy Evidence](model-evidence.md). The current price,
-benchmark, and routing analysis is the
-[2026-07-31 research review](../../../docs/research/gpt-5-6-price-benchmark-routing-review-2026-07-31.md).
+benchmark, and routing analysis is recorded under the repository provenance
+label `gpt-5-6-price-benchmark-routing-review-2026-07-31.md`.
 Historical results remain in the
 [2026-07-20 snapshot](model-evidence-2026-07-20.md) and the
 [portable model comparison](model-comparison.md).

@@ -27,7 +27,7 @@ Last reviewed: **2026-07-31**.
 
 ## Cross-checked data
 
-| Model | DeepSWE Pass@1 | Displayed DeepSWE average task cost | AA Intelligence Index v4.1 | AA time to first answer |
+| Model | DeepSWE Pass@1 | DeepSWE trajectory cost after price overlay | AA Intelligence Index v4.1 | AA time to first answer |
 | --- | ---: | ---: | ---: | ---: |
 | Sol Max | 72.67% | $8.39 | — | — |
 | Sol XHigh | 70.73% | $4.70 | — | — |
@@ -51,9 +51,9 @@ The tables define an evidence portfolio, not a permanent default. The skill rebu
 For ordinary conversation, Think With Me uses a mandatory strong-model
 allowlist rather than pretending either benchmark measures Portuguese dialogue.
 The only eligible pairs are `Sol Medium`, `Sol High`, `Sol XHigh`, `Sol Max`,
-`Terra Max`, and `Luna Max`. `Luna Max` is the default value route for ordinary non-consequential work when startup delay is acceptable. `Sol Medium` is the explicit speed route for project understanding and
+`Terra Max`, and `Luna Max`. `Luna Max` is the default value route for ordinary non-consequential work when startup delay is acceptable. `Sol Medium` is the explicit speed route for latency-sensitive project understanding and
 bounded explanation; `Sol High` handles substantive architecture and judgment;
-`Sol XHigh` handles concrete residual ambiguity. `Sol Max` requires an explicitly bounded critical risk that remains unresolved after a narrower selective route; a direct request for maximum depth is insufficient. `Terra Max` requires a closed contract plus explicit quality-first priority for heterogeneous, interdependent execution. Consequential `Luna Max` execution remains reversible and reviewed before consequence. When both execution routes remain eligible and that priority is unknown and decisive, the skill asks one focused question and emits no model footer until the input is known. There is no silent downgrade or fallback outside this allowlist. A resolved subject does not create a fake push, publication, or review step merely to justify the footer.
+`Sol XHigh` handles concrete residual ambiguity. `Sol Max` requires an explicitly bounded critical risk that remains unresolved after a narrower selective route; a direct request for maximum depth is insufficient. `Terra Max` requires a closed contract plus explicit quality-first priority for heterogeneous, interdependent execution. `Luna Max` execution must remain reversible and be reviewed before any consequential action. When both execution routes remain eligible and that priority is unknown and decisive, the skill asks one focused question and emits no model footer until the input is known. There is no silent downgrade or fallback outside this allowlist. A resolved subject does not create a fake push, publication, or review step merely to justify the footer.
 
 This policy governs the recommendation emitted by the skill; it cannot select,
 retry, replace, or verify the model used by the host. If the host reports a
@@ -69,13 +69,12 @@ Centralizing first keeps the rule easy to correct while we are still learning it
 >
 > **Next step:** define the outputs the central contract must return.
 >
-> `Sol High` · define the contract outputs while the rule remains under discovery.
+> `Sol High` ([View matrix](/absolute/path/to/think-with-me/references/model-comparison.md)) · define the contract outputs while the rule remains under discovery.
 
 The view and next-step labels follow the language of the current user message. The final line is a short model label and reason, so it stays visually quiet while still explaining the recommendation.
 
-`Sol Medium` is selected by the bounded, reversible, no-hidden-judgment nature
-of the immediate step; it does not require material cost, latency, or volume
-pressure. Economic comparison never expands the allowlist: the skill filters
+`Sol High` is selected because defining the contract is an architectural
+judgment with consequences for the implementation. Economic comparison never expands the allowlist: the skill filters
 for required quality first and compares total task cost only among
 configurations that remain eligible.
 

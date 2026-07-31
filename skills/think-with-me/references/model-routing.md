@@ -172,5 +172,5 @@ The normative evidence boundary is
 benchmark, and routing analysis is recorded under the repository provenance
 label `gpt-5-6-price-benchmark-routing-review-2026-07-31.md`.
 Historical results remain in the
-[2026-07-20 snapshot](model-evidence-2026-07-20.md) and the
-[portable model comparison](model-comparison.md).
+[2026-07-20 snapshot](model-evidence-2026-07-20.md). The current compact
+recommendation table is the [model matrix](model-comparison.md).

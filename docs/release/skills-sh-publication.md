@@ -10,7 +10,7 @@ Este documento é um runbook de manutenção. Ele não autoriza nenhuma ação e
 - `bash scripts/validate-skill.sh` executa a validação portátil do padrão Agent Skills.
 - Os casos de comportamento e de ativação ficam em `evals/`.
 - Não há `skills.sh.json`: com uma única skill, ele não acrescenta valor.
-- O README público explica o valor da skill, mostra os quadros separados de DeepSWE v1.1 e Artificial Analysis, apresenta uma saída curta, declara a compatibilidade com Codex/GPT-5.6 e deixa claro que os rótulos finais acompanham o idioma da conversa.
+- O README público explica o valor da skill, mostra a matriz simples de uso e os dados cruzados sem combinar os benchmarks, apresenta uma saída curta, declara a compatibilidade com Codex/GPT-5.6 e deixa claro que os rótulos finais acompanham o idioma da conversa.
 
 ## Sequência de publicação
 
@@ -23,7 +23,7 @@ Este documento é um runbook de manutenção. Ele não autoriza nenhuma ação e
    git diff --check
    ```
 
-2. Revisar a política atual em `skills/think-with-me/references/model-evidence.md`, o snapshot histórico imutável em `skills/think-with-me/references/model-evidence-2026-07-20.md` e a comparação portátil `skills/think-with-me/references/model-comparison.md`; exercitar casos representativos de `evals/think-with-me-cases.md`, `evals/think-with-me-multiturn-cases.md`, `evals/model-routing-cases.md` e `evals/trigger-cases.md`. O ciclo anterior preservado em `evals/runtime-captures-2026-07-20.md` e `evals/evidence-2026-07-20-model-comparison-routing.md` permanece histórico e imutável. Para a candidata forte atual, preservar o baseline em `evals/runtime-captures-2026-07-30-strong-model-routing.md`, as respostas finais em `evals/runtime-captures-2026-07-30-strong-model-routing-final.md` e os resultados em `evals/evidence-2026-07-30-strong-model-routing.md`. Em particular, executar `TWM-M12` como limite de ativação do host — uma resposta sem a skill carregada não é resultado da candidata —, `TWM-M13` para confirmar que uma nova menção explícita recupera o contexto, `MR-19` para provar que uma instalação contendo somente o pacote consegue mostrar os dois quadros separados e `MR-20` a `MR-32` mais `TWM-M17` e `TWM-M18` para validar os seis pares e o limite de controle do host.
+2. Revisar a política atual em `skills/think-with-me/references/model-evidence.md`, o snapshot histórico imutável em `skills/think-with-me/references/model-evidence-2026-07-20.md` e a matriz atual `skills/think-with-me/references/model-comparison.md`; exercitar casos representativos de `evals/think-with-me-cases.md`, `evals/think-with-me-multiturn-cases.md`, `evals/model-routing-cases.md` e `evals/trigger-cases.md`. O ciclo anterior preservado em `evals/runtime-captures-2026-07-20.md` e `evals/evidence-2026-07-20-model-comparison-routing.md` permanece histórico e imutável. Para a candidata atual, usar `evals/evidence-2026-07-31-value-first-routing.md` e `evals/install-2026-07-31-value-first-routing.md`. Em particular, executar `TWM-M12` como limite de ativação do host — uma resposta sem a skill carregada não é resultado da candidata —, `TWM-M13` para confirmar que uma nova menção explícita recupera o contexto, `MR-19` para provar que uma instalação contendo somente o pacote consegue mostrar a matriz local e `MR-20` a `MR-32` mais `TWM-M17` e `TWM-M18` para validar os seis pares e o limite de controle do host.
 3. No Codex App, inspecionar a transcrição bruta `agentMessage.text` retornada por `read_thread`; o resumo normalizado de `wait_threads` pode esconder os marcadores `>` do blockquote.
 4. Apresentar o diff local para revisão humana.
 5. Fazer commit e push somente após autorização explícita para cada ação.
@@ -43,17 +43,18 @@ Este documento é um runbook de manutenção. Ele não autoriza nenhuma ação e
     atualização autorizada, criar um novo registro datado para a paridade
     global e o smoke test pós-instalação, sem reescrever a evidência local.
     Para a candidata conversacional de 20 de julho, o registro histórico é
-    `evals/install-2026-07-20-conversational-routing.md`. Para a política forte
-    atual, crie `evals/install-2026-07-30-strong-model-routing.md` e confirme
-    paridade global mais smoke tests de `Sol Medium`, `Terra Max` e `Luna Max`,
-    sem transformar o registro de evidência local em alegação pós-instalação.
+    `evals/install-2026-07-20-conversational-routing.md`. Para a política atual,
+    atualize `evals/install-2026-07-31-value-first-routing.md` e confirme a
+    paridade global mais os smoke tests das rotas de valor, velocidade,
+    julgamento, execução e risco, sem transformar o registro de evidência local
+    em alegação pós-instalação.
 11. Conferir a página esperada:
 
    ```text
    https://www.skills.sh/igortice/think-with-me/think-with-me
    ```
 
-    Confirmar que a página individual renderiza a seção `Model quality and cost at a glance`, com as duas tabelas renderizadas na página individual da skill: DeepSWE v1.1 primeiro e Artificial Analysis como perspectiva separada. Verificar também que o recorte continua datado, que o Artificial Analysis não recebe intervalo inventado e que a página não combina as fontes numa nota única.
+    Confirmar que a página individual renderiza `Which model should I use?` e `Cross-checked data`. Verificar também que a matriz continua datada, identifica o overlay de preços de Luna e Terra, mantém ausentes os valores de Artificial Analysis não capturados e não combina os dois benchmarks em uma nota única.
 
 12. Conferir se auditorias apareceram. Elas são automáticas depois da primeira instalação e podem levar alguns minutos.
 

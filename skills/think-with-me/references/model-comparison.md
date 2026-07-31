@@ -15,7 +15,7 @@ Last reviewed: **2026-07-31**.
 
 ## Cross-checked data
 
-| Model | DeepSWE Pass@1 | Displayed DeepSWE average task cost | AA Intelligence Index v4.1 | AA time to first answer |
+| Model | DeepSWE Pass@1 | DeepSWE trajectory cost after price overlay | AA Intelligence Index v4.1 | AA time to first answer |
 | --- | ---: | ---: | ---: | ---: |
 | Sol Max | 72.67% | $8.39 | — | — |
 | Sol XHigh | 70.73% | $4.70 | — | — |

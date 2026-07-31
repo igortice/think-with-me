@@ -5,9 +5,9 @@ Policy review date: **2026-07-31**.
 This file records the current evidence boundary for Think With Me. The routing
 contract itself is [Evidence-Based Model Routing](model-routing.md). Historical
 benchmarks remain available in the
-[Historical model evidence snapshot — 2026-07-20](model-evidence-2026-07-20.md)
-and the [portable comparison](model-comparison.md); neither historical source
-can authorize a configuration outside the current policy.
+[Historical model evidence snapshot — 2026-07-20](model-evidence-2026-07-20.md),
+which cannot authorize a configuration outside the current policy. The current
+compact recommendation table is the [model matrix](model-comparison.md).
 The source review behind the corrected roles uses the repository provenance
 label `gpt-5-6-price-benchmark-routing-review-2026-07-31.md`.
 

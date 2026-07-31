@@ -9,10 +9,7 @@
 ## Model quality and cost at a glance
 
 Comparison review date: **2026-07-31**. DeepSWE Pass@1, uncertainty, output
-tokens, and agent steps remain historical observations from the preserved 25
-July trajectories; they are not a 30 July benchmark rerun. Only the displayed
-Luna Max and Terra Max costs use the explicit 31 July price overlay. Artificial
-Analysis values are a separate 31 July snapshot.
+tokens, agent steps, and historical costs come from the preserved DeepSWE JSON generated at `2026-07-17T08:18:55.870582+00:00`; later live observations do not replace that artifact or constitute a benchmark rerun. Only the displayed Luna Max and Terra Max costs use the explicit 31 July price overlay. Artificial Analysis values are a separate 31 July snapshot.
 
 These dated views explain why the skill keeps more than one useful
 configuration visible. They belong to different sources and harnesses, so
@@ -40,7 +37,7 @@ rows below.
 | Terra High | 53.76% | ±4.33 pp | $1.13 | 21,517 | 33.5 |
 
 **Displayed DeepSWE price overlay (31 July):** all rows except Luna Max and
-Terra Max retain their historical measured cost. Raw 25 July JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.
+Terra Max retain their historical measured cost. Raw preserved-JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.
 The visible 31 July prices apply explicit factors of 0.20 for Luna Max and 0.80 for Terra Max, yielding $0.61 and $3.96. The formulas are `$3.0281 × 0.20 = $0.60562 → $0.61` and
 `$4.9458 × 0.80 = $3.95664 → $3.96`. This is a reprice of the same trajectories,
 not a new benchmark run.
@@ -55,7 +52,11 @@ The Coding Index is a 50/50 aggregate of Terminal-Bench 2.1 and SciCode. The
 Intelligence Index v4.1 is a separate broad index, and the mean cost belongs to
 that intelligence view. The 31 July research report verified the four rows
 below; earlier snapshot-only rows are intentionally not carried into this
-current table.
+current table. The machine-readable capture is
+`docs/research/assets/artificial-analysis-model-pages-2026-07-31.json`, SHA-256
+`acb5227d3825406968ebc0ca42841d46f5d1cf3b450123608f9edc06fa9ff3ce`.
+It records `retrieved_date` `2026-07-31`, timezone `America/Fortaleza`, and
+`retrieved_time` null because the exact time of day was not recorded.
 
 | Configuration | Coding Index | Intelligence Index v4.1 | Mean cost/task | Output speed | Time to first answer |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -138,9 +139,14 @@ The source repository preserves the reviewed DeepSWE JSON as
 The binary artifact is release evidence and is not required at install time.
 
 The 31 July Artificial Analysis review verified Luna Max, Sol Medium, Terra
-Max, and Sol High. Preserve this explicitly limited set until the same source
-and date verify additional rows; do not silently carry forward earlier
-snapshot-only values as current data.
+Max, and Sol High. The exact filtered rows are preserved as
+`docs/research/assets/artificial-analysis-model-pages-2026-07-31.json`, with
+SHA-256
+`acb5227d3825406968ebc0ca42841d46f5d1cf3b450123608f9edc06fa9ff3ce`.
+Its retrieval date is `2026-07-31` in `America/Fortaleza`; the exact time of day
+was not recorded and remains null. Preserve this explicitly limited set until
+the same source and date verify additional rows; do not silently carry forward
+earlier snapshot-only values as current data.
 
 ### Source values versus derived values
 

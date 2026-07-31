@@ -1,7 +1,6 @@
 # Current Strong-Model Policy Evidence
 
-Policy review date: **2026-07-31**. This supersedes the prior marker,
-`Policy review date: **2026-07-30**.`
+Policy review date: **2026-07-31**.
 
 This file records the current evidence boundary for Think With Me. The routing
 contract itself is [Evidence-Based Model Routing](model-routing.md). Historical
@@ -26,7 +25,8 @@ The user-defined quality contract controls the current roles:
 - Sol Medium covers latency-sensitive interactive project conversation,
   discovery, explanation, and bounded reversible analysis without hidden
   judgment. Sol High through Max cover consequential judgment, concrete
-  residual risk, and a final explicitly bounded maximum-depth gate.
+  residual risk, and a final explicitly bounded maximum-depth gate only after
+  a narrower selective route did not resolve that same risk.
 - Terra Max covers quality-first heterogeneous agent or tool execution with
   interdependent changes after the contract and acceptance criteria are closed.
 - Luna Max covers cost-first asynchronous, reversible, reviewable work that can
@@ -54,17 +54,24 @@ comparison. A lower price never weakens the quality requirement.
 
 ## Benchmark and repricing provenance
 
-The DeepSWE trajectories for Pass@1, tokens, steps, and duration come from the
-benchmark JSON generated on 2026-07-25. The lower Luna Max and Terra Max costs
+The DeepSWE trajectories for Pass@1, uncertainty, tokens, steps, duration, and
+historical costs come from the preserved benchmark JSON generated at `2026-07-17T08:18:55.870582+00:00`. The lower Luna Max and Terra Max costs
 visible after the 2026-07-30 official price change have different provenance:
 the 2026-07-31 research review observes that they equal exactly 20% and 80% of
-the raw pre-change costs.
+the preserved pre-change costs.
 
 That report treats the visible cost change as a repricing overlay on the same
 trajectories, not as a new capability run. This is a source-labeled inference:
 the exact factors strongly support it, but DeepSWE does not explicitly document
 the overlay mechanism. Benchmark trajectory and repriced cost must therefore
 remain separately attributed.
+
+Artificial Analysis is a separate source. Its four 2026-07-31 model-page rows
+are preserved in the repository artifact
+`docs/research/assets/artificial-analysis-model-pages-2026-07-31.json` with
+SHA-256 `acb5227d3825406968ebc0ca42841d46f5d1cf3b450123608f9edc06fa9ff3ce`.
+The capture records `America/Fortaleza`, a null retrieval time, and the explicit
+limitation that the exact time of day was not recorded.
 
 ## Evidence limits
 

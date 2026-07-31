@@ -25,10 +25,7 @@ replacement as compliant.
 ## Model quality and cost at a glance
 
 Comparison review date: **2026-07-31**. DeepSWE Pass@1, uncertainty, output
-tokens, and agent steps remain historical observations from the preserved 25
-July trajectories; they are not a 30 July benchmark rerun. Only the displayed
-Luna Max and Terra Max costs use the explicit 31 July price overlay. Artificial
-Analysis values are a separate 31 July snapshot.
+tokens, agent steps, and historical costs come from the preserved DeepSWE JSON generated at `2026-07-17T08:18:55.870582+00:00`; later live observations do not replace that artifact or constitute a benchmark rerun. Only the displayed Luna Max and Terra Max costs use the explicit 31 July price overlay. Artificial Analysis values are a separate 31 July snapshot.
 
 These dated views explain why the skill keeps more than one useful
 configuration visible. They belong to different sources and harnesses, so
@@ -56,7 +53,7 @@ rows below.
 | Terra High | 53.76% | ±4.33 pp | $1.13 | 21,517 | 33.5 |
 
 **Displayed DeepSWE price overlay (31 July):** all rows except Luna Max and
-Terra Max retain their historical measured cost. Raw 25 July JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.
+Terra Max retain their historical measured cost. Raw preserved-JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.
 The visible 31 July prices apply explicit factors of 0.20 for Luna Max and 0.80 for Terra Max, yielding $0.61 and $3.96. The formulas are `$3.0281 × 0.20 = $0.60562 → $0.61` and
 `$4.9458 × 0.80 = $3.95664 → $3.96`. This is a reprice of the same trajectories,
 not a new benchmark run.
@@ -71,7 +68,11 @@ The Coding Index is a 50/50 aggregate of Terminal-Bench 2.1 and SciCode. The
 Intelligence Index v4.1 is a separate broad index, and the mean cost belongs to
 that intelligence view. The 31 July research report verified the four rows
 below; earlier snapshot-only rows are intentionally not carried into this
-current table.
+current table. The machine-readable capture is
+`docs/research/assets/artificial-analysis-model-pages-2026-07-31.json`, SHA-256
+`acb5227d3825406968ebc0ca42841d46f5d1cf3b450123608f9edc06fa9ff3ce`.
+It records `retrieved_date` `2026-07-31`, timezone `America/Fortaleza`, and
+`retrieved_time` null because the exact time of day was not recorded.
 
 | Configuration | Coding Index | Intelligence Index v4.1 | Mean cost/task | Output speed | Time to first answer |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -114,7 +115,7 @@ See the full [portable comparison](references/model-comparison.md) for limitatio
 
 ## Close clearly
 
-Use the language of the current user message, not the application locale, prior system text, or the agent default. Write all prose before the closing and the closing itself in that same language; examples and placeholder text never override the current user message's language. End every response with three roles in this order: view, next step, and model recommendation. If the current user message is English, write the entire answer and closing in English and never output Portuguese prose or labels. For an English user message, use `My view` and `Next step` exactly, then render the model as an inline-code label:
+Use the language of the current user message, not the application locale, prior system text, or the agent default. Write all prose before the closing and the closing itself in that same language; examples and placeholder text never override the current user message's language. End every response with three roles in this order: view, next step, and model recommendation, except when a decisive cost-first-versus-quality-first routing input is still unknown. If the current user message is English, write the entire answer and closing in English and never output Portuguese prose or labels. For an English user message, use `My view` and `Next step` exactly, then render the model as an inline-code label:
 
 > **My view:** one clear conclusion about the subject and the decisive reason.
 >
@@ -124,7 +125,7 @@ Use the language of the current user message, not the application locale, prior 
 
 For another language, keep this exact structure and load the localized view and next-step labels from the output contract. The model label is always the selected family and effort in inline code; do not add a translated model-field label.
 
-The final three fields MUST render inside one continuous Markdown blockquote. Every field line starts with `>` and each separator line contains only `>` without trailing whitespace. Do not output the three fields as ordinary paragraphs. The view is a conclusion; the next step advances only the current subject.
+The final three fields MUST render inside one continuous Markdown blockquote. Every field line starts with `>` and each separator line contains only `>` without trailing whitespace. Do not output the three fields as ordinary paragraphs. The view is a conclusion; the next step advances only the current subject. The sole exception is when both Terra/Luna execution routes are eligible and their decisive priority is unknown: ask one focused cost-first-versus-quality-first question in the two-field blockquote and omit the model footer until that input is known.
 
 The model field must be one short physical Markdown line: an inline-code label containing exactly one model family and effort, followed by ` · ` and a contextual reason. Do not substitute generic product or effort names for the selected family and effort. Its reason names the concrete next step and decisive conversational evidence, without naming another model family or effort, predicting a later phase, listing alternatives, using arrows, italics, bold text, or raw HTML.
 
@@ -133,7 +134,7 @@ Model recommendation is derived only after the view and exactly one next step ar
 ## Choose the model from the next step
 
 - Define the quality contract required by the single next step after the view and next step have been formed.
-- Establish whether the user is waiting interactively, whether the output will be reviewed before any consequence, and whether execution is cost-first or quality-first. If a decisive priority is not observable, make it the one focused question.
+- Establish whether the user is waiting interactively, whether the output will be reviewed before any consequence, and whether execution is cost-first or quality-first. If that priority is unknown and decisive between otherwise eligible Terra/Luna routes, ask exactly one focused cost-first-versus-quality-first question and do not emit a model footer until the priority is known.
 - Identify the relevant domain without transferring benchmark results from a different domain or harness. A benchmark cost may be reported as an observation, but it cannot make a route “economic” for another domain.
 - When the work is conversational rather than benchmark-matched, apply the mandatory strong-model matrix in model routing. Treat benchmark results and local pilot claims as scoped evidence; they never authorize a model outside the six-pair allowlist.
 - Evaluate family and effort together as one atomic configuration, never as two sequential choices.

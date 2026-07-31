@@ -133,9 +133,10 @@ intervalo pareado entre modelos.
 
 ### Resultados pertinentes
 
-Dados de qualidade, tokens e passos vêm do JSON gerado em
-`2026-07-25T03:13:49Z`. Custos com `*` são o overlay pós-30/07 hoje mostrado na
-página pública, explicado logo abaixo.
+Dados de qualidade, incerteza, tokens, passos e custos históricos vêm do JSON
+preservado gerado em `2026-07-17T08:18:55.870582+00:00`. Custos com `*` são a
+observação posterior do overlay pós-30/07 mostrada na página pública em 31/07,
+explicada logo abaixo; ela não muda a provenance das trajetórias preservadas.
 
 | Configuração | Pass@1 | Intervalo 95% | Custo médio/tarefa | Input médio | Output médio | Passos médios | Duração média no JSON |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -151,17 +152,20 @@ comparação de latência conversacional.
 
 ### Divergência de custo e overlay de preço
 
-O JSON foi gerado em 25/07, antes da redução, e ainda contém US$ 3,0281 para
-Luna Max e US$ 4,9458 para Terra Max. Em 31/07, a página renderizada do DeepSWE
-mostra US$ 0,61 e US$ 3,96, respectivamente. Esses valores correspondem
-exatamente a 20% e 80% dos custos antigos, os fatores das reduções anunciadas.
+O JSON preservado foi gerado em 17/07, antes da redução, e contém US$ 3,0281
+para Luna Max e US$ 4,9458 para Terra Max. Em 31/07, a página renderizada do
+DeepSWE mostrou US$ 0,61 e US$ 3,96, respectivamente. Esses valores
+correspondem exatamente a 20% e 80% dos custos preservados, os fatores das
+reduções anunciadas. Não existe neste repositório um artefato bruto de 25/07;
+nenhuma observação live posterior substitui o JSON preservado como provenance
+das linhas de qualidade, incerteza, tokens, passos ou custo histórico.
 
 **Inferência:** a página pública reaplica as tarifas atuais às mesmas
 trajetórias; não houve nova execução do benchmark depois da mudança de preço.
-Por isso, Pass@1, tokens e passos continuam sendo resultados de execução de
-25/07, enquanto os custos visíveis são uma reprecificação. Essa é uma inferência
-fortemente sustentada pelos valores, mas o site não documenta explicitamente o
-mecanismo do overlay.
+Por isso, Pass@1, incerteza, tokens e passos continuam sendo resultados do JSON
+gerado em 17/07, enquanto os custos visíveis são uma reprecificação observada em
+31/07. Essa é uma inferência fortemente sustentada pelos valores, mas o site não
+documenta explicitamente o mecanismo do overlay.
 
 ### Leitura das duas comparações
 
@@ -200,7 +204,7 @@ hit, cache write, raciocínio e resposta por tarefa do Intelligence Index. Já o
 
 ### Comparação atual
 
-Valores consultados em 31/07 nas páginas de
+Valores consultados em 31/07, no fuso `America/Fortaleza`, nas páginas de
 [Luna Max](https://artificialanalysis.ai/models/gpt-5-6-luna/),
 [Sol Medium](https://artificialanalysis.ai/models/gpt-5-6-sol-medium/),
 [Terra Max](https://artificialanalysis.ai/models/gpt-5-6-terra/) e
@@ -212,6 +216,13 @@ Valores consultados em 31/07 nas páginas de
 | Sol Medium | 53,59 | 76,26 | US$ 4,35 | US$ 0,514 | 54,6 tok/s | 4,31 s | 12M |
 | Terra Max | 54,95 | 76,66 | US$ 1,74 | US$ 0,733 | 131,8 tok/s | 152,99 s | 96M |
 | Sol High | 55,87 | 77,16 | US$ 4,35 | US$ 0,771 | 62,4 tok/s | 13,25 s | 21M |
+
+O horário exato da consulta não foi registrado; portanto, nenhuma hora ou
+timestamp é inferida. A captura imutável e legível por máquina está em
+`docs/research/assets/artificial-analysis-model-pages-2026-07-31.json`, com
+`retrieved_date` igual a `2026-07-31`, `timezone` igual a
+`America/Fortaleza`, `retrieved_time` nulo e SHA-256
+`acb5227d3825406968ebc0ca42841d46f5d1cf3b450123608f9edc06fa9ff3ce`.
 
 O total de output é o volume para executar o índice inteiro, não tokens de uma
 tarefa nem de uma conversa. O custo/tarefa é a medida ponderada do próprio
@@ -251,13 +262,15 @@ conclusão de que Terra é melhor para conversa ou julgamento profissional.
 
 ### Inferências operacionais
 
-- O custo novo fortalece `Luna Max` para lotes homogêneos, schema fixo e
-  validação automática, mas o DeepSWE também sustenta uma rota experimental
-  para engenharia aberta e longa quando a execução puder ser assíncrona,
-  reversível e revisada antes de produzir consequência.
-- `Terra Max` continua plausível para execução heterogênea e longa quando o
-  contrato já está fechado; seu maior output speed pode ajudar throughput, mas
-  o TTFT alto piora interação síncrona.
+- O custo novo fortalece `Luna Max` quando a prioridade é custo, a execução é
+  assíncrona, o resultado é reversível e revisado antes de consequência e a
+  pessoa aceita latência, tokens, passos ou retries adicionais. Isso vale tanto
+  para lotes homogêneos com validação automática quanto para a rota experimental
+  de engenharia aberta e longa sustentada pelo DeepSWE.
+- `Terra Max` continua plausível para execução heterogênea, interdependente e
+  longa quando o contrato está fechado e a prioridade explícita é qualidade;
+  seu maior output speed pode ajudar throughput, mas o TTFT alto piora
+  interação síncrona.
 - `Sol Medium` continua sendo a escolha prudente para conversa, recuperação de
   contexto e análise reversível enquanto faltar uma avaliação local que mostre
   não inferioridade de Luna em qualidade e latência aceitável.
@@ -296,8 +309,9 @@ existentes e sem copiar respostas esperadas:
 - 10 de pesquisa ou organização leve sem execução pesada de ferramentas.
 
 Excluir decisões arquiteturais com julgamento (`Sol High`), execução
-heterogênea (`Terra Max`) e lotes de schema fixo (`Luna Max` na política atual),
-pois misturá-los esconderia a pergunta sobre conversa normal.
+heterogênea quality-first com contrato fechado (`Terra Max`) e qualquer rota
+cost-first assíncrona, reversível e revisada antes de consequência (`Luna Max`),
+pois misturá-las esconderia a pergunta sobre conversa normal.
 
 ### Execução controlada
 
@@ -344,7 +358,9 @@ considerar alteração da política se todos os gates passarem:
 
 Se Luna passar, fazer canário de 10% das conversas elegíveis antes de propor a
 troca. Se falhar qualidade ou latência, manter `Sol Medium` para conversa e
-`Luna Max` para volume homogêneo.
+`Luna Max` somente para trabalho cost-first, assíncrono, reversível, revisado
+antes de consequência e tolerante a latência, tokens, passos ou retries
+adicionais.
 
 ### Controle secundário Terra Max vs. Sol High
 
@@ -366,13 +382,15 @@ allowlist atual e ajustar os papéis:
 - `Sol Medium` permanece como padrão para conversa interativa de projeto,
   contexto, explicação e análise reversível sem julgamento oculto;
 - `Sol High` permanece para trade-offs e julgamento profissional;
-- `Terra Max` permanece como candidata para execução heterogênea e longa com
-  contrato fechado, sem alegar superioridade sobre Sol High enquanto a lane
-  local não demonstrar vantagem em tarefa aceita;
-- `Luna Max` mantém a rota comprovada de volume homogêneo, schema fixo e
-  validação barata e passa a ser elegível, em caráter controlado, para execução
-  longa e aberta ou conversa cost-first quando o trabalho for assíncrono,
-  reversível, revisável e tolerante à latência e aos passos adicionais;
+- `Terra Max` permanece como candidata para execução heterogênea e
+  interdependente com contrato fechado e prioridade explícita de qualidade,
+  sem alegar superioridade sobre Sol High enquanto a lane local não demonstrar
+  vantagem em tarefa aceita;
+- `Luna Max` mantém a rota de volume homogêneo com schema fixo e validação
+  barata e passa a ser elegível, em caráter controlado, para execução longa e
+  aberta, sempre com prioridade cost-first, operação assíncrona, resultado
+  reversível e revisado antes de consequência e tolerância a latência, tokens,
+  passos ou retries adicionais;
 - `Luna Max` não deve substituir automaticamente `Sol Medium` em conversa
   interativa até passar o gate local de não inferioridade e latência.
 

@@ -53,8 +53,9 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 1. A conversa avaliou alternativas dentro da allowlist forte.
 2. A pessoa fecha a direção, o schema e os exemplos.
 3. Restam muitos itens independentes, sem julgamento aberto, e cada saída passa por validação automática barata.
+4. A pessoa define prioridade de custo, execução assíncrona, saídas reversíveis e revisadas antes de consequência e tolerância a latência, tokens, passos e retries adicionais.
 
-**Esperado:** recomendar Luna Max somente para o processamento homogêneo com schema fixo e validação automática, explicando que qualidade, retries e custo total precisam passar antes de ampliar o volume.
+**Esperado:** recomendar Luna Max somente para o processamento homogêneo sob todas as condições cost-first, assíncronas, reversíveis, revisáveis e tolerantes a execução adicional, explicando que qualidade, retries e custo total precisam passar antes de ampliar o volume.
 
 **Proibido:** recomendar Luna apenas porque a direção foi aceita, reduzir o effort, manter Sol por inércia ou listar modelos alternativos/futuros.
 
@@ -141,18 +142,19 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 
 1. A direção, o formato e os exemplos estão aprovados.
 2. Restam centenas de extrações independentes para um schema fixo.
-3. Custo e latência são requisitos materiais e cada saída passa por validação automática.
+3. Custo é a prioridade material; o lote pode rodar de modo assíncrono, cada saída é reversível, passa por validação automática e será revisada antes de qualquer consequência.
+4. A pessoa aceita latência, tokens, passos e retries adicionais.
 
-**Esperado:** permitir Luna Max apenas para um piloto representativo de processamento delimitado e justificá-lo por boundedness, volume, verificação barata, critérios de qualidade, retries e custo total.
+**Esperado:** permitir Luna Max apenas para um piloto representativo que cumpra prioridade cost-first, operação assíncrona, reversibilidade, revisão antes de consequência e tolerância a execução adicional, além de boundedness, volume, verificação barata, critérios de qualidade, retries e custo total.
 
 **Proibido:** descrever Luna Max como equivalente ao baseline de conversa ou usar qualquer par fora da allowlist forte.
 
 ## TWM-M16 — O próximo passo muda a configuração elegível
 
 1. O primeiro turno fecha uma decisão profissional interativa com Sol High.
-2. O usuário muda o próximo passo para execução de agents com ferramentas, mudanças interdependentes e várias etapas; o contrato de aceite já está definido.
+2. O usuário muda o próximo passo para execução de agents com ferramentas, mudanças interdependentes e várias etapas; o contrato e os critérios de aceite estão fechados e a prioridade explícita é qualidade.
 
-**Esperado:** recuperar a decisão fechada, recalcular pela natureza do passo imediato e recomendar `Terra Max` para a execução heterogênea e tool-heavy.
+**Esperado:** recuperar a decisão fechada, recalcular pela natureza do passo imediato e recomendar `Terra Max` para a execução quality-first heterogênea, interdependente e tool-heavy.
 
 **Proibido:** manter Sol High por inércia, escolher Luna por volume, criar um default da conversa ou transferir o custo observado em benchmark para outro domínio.
 
@@ -179,7 +181,7 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 
 1. O usuário começa uma exploração interativa de projeto, organiza contexto e discute arquitetura sem trade-off profissional.
 2. A skill recomenda `Sol Medium` para o próximo passo conversacional.
-3. O usuário fecha uma pergunta reversível e transforma o restante em um lote assíncrono de exploração aberta, de longo horizonte, que será revisado antes de qualquer consequência.
+3. O usuário fecha uma pergunta reversível e transforma o restante em um lote cost-first assíncrono de exploração aberta, de longo horizonte, que será revisado antes de qualquer consequência e pode aceitar latência, tokens, passos e retries adicionais.
 
 **Esperado:** recalcular pela nova forma de trabalho e recomendar `Luna Max` para o lote cost-first, sem reinterpretar a conversa inicial como elegível para Luna.
 
@@ -187,7 +189,7 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 
 ## TWM-M20 — Lote Luna encontra limite de julgamento consequencial
 
-1. O usuário autoriza um lote assíncrono, reversível e revisável em `Luna Max`.
+1. O usuário autoriza um lote cost-first, assíncrono, reversível, revisável e tolerante a latência, tokens, passos ou retries adicionais em `Luna Max`.
 2. Durante o lote, aparece um limite que exige julgamento profissional antes de produzir consequência.
 
 **Esperado:** interromper a rota cost-first nesse limite e recomendar `Sol High` para o julgamento consequencial.
@@ -196,9 +198,28 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 
 ## TWM-M21 — Preferência muda de custo para qualidade após o contrato fechar
 
-1. O usuário escolhe `Luna Max` para uma exploração aberta, assíncrona, reversível e revisável orientada por custo.
+1. O usuário escolhe `Luna Max` para uma exploração aberta, assíncrona, reversível e revisável orientada por custo e tolerante a latência, tokens, passos ou retries adicionais.
 2. Depois, fecha um contrato de execução com ferramentas heterogêneas e mudanças interdependentes e declara que a qualidade agora é prioritária.
 
 **Esperado:** reconhecer a preferência explícita e recomendar `Terra Max` para a execução quality-first com contrato fechado.
 
 **Proibido:** manter Luna por economia, tratar a mudança como default permanente ou reabrir o contrato já fechado.
+
+## TWM-M22 — Prioridade de execução desconhecida suspende o rodapé
+
+1. O contrato e os critérios de aceite estão fechados, com ferramentas heterogêneas e mudanças interdependentes.
+2. O trabalho também pode rodar de modo assíncrono, reversível, revisado antes de consequência e tolerante a latência, tokens, passos ou retries adicionais, mas ninguém informou se custo ou qualidade é a prioridade decisiva.
+
+**Esperado:** fazer exatamente uma pergunta focada cost-first-versus-quality-first e não emitir rodapé de modelo até a resposta.
+
+**Proibido:** presumir a prioridade, escolher Terra por heterogeneidade, escolher Luna por preço, fazer mais de uma pergunta ou emitir qualquer modelo antes do input obrigatório.
+
+## TWM-M23 — Pedido direto de Max passa primeiro por profundidade seletiva
+
+1. O usuário pede profundidade máxima para um risco crítico explicitamente delimitado, sem tentativa seletiva anterior.
+2. A skill recomenda `Sol XHigh` para a primeira investigação seletiva e não seleciona Max.
+3. A investigação em `Sol XHigh` falha em resolver o mesmo risco delimitado e o usuário pede o gate final.
+
+**Esperado:** recomendar primeiro `Sol XHigh`; somente depois da falha seletiva documentada recomendar `Sol Max` para o risco crítico ainda não resolvido.
+
+**Proibido:** selecionar Max no primeiro pedido por profundidade, importância, novidade ou urgência, ou selecionar Max depois sem manter o risco explicitamente delimitado.

@@ -12,7 +12,8 @@ critical gates. Two parts are now stale after OpenAI's 30 July price change:
 
 1. the public DeepSWE comparison still shows the pre-reduction mean costs of
    US$3.03 for Luna Max and US$4.95 for Terra Max, while the live leaderboard
-   reprices the same 25 July trajectories to US$0.61 and US$3.96;
+   reprices the same trajectories preserved in the JSON generated on 17 July
+   to US$0.61 and US$3.96;
 2. Luna Max is eligible only for homogeneous fixed-schema volume, even though
    DeepSWE provides domain-matched evidence that it can complete open-ended,
    long-horizon software-engineering work.
@@ -72,7 +73,7 @@ immediate next step and selects one atomic family-effort pair.
 | Latency-sensitive interactive project conversation, context recovery, explanation, architecture discovery, or bounded reversible analysis without hidden judgment | `Sol Medium` | Long text alone does not change the route. |
 | Architecture trade-off, technical specification, or other substantive professional judgment | `Sol High` | Use when the response must assume a position or preserve hidden constraints. |
 | Concrete residual ambiguity, conflicting constraints, repeated framing failure, or difficult-to-detect risk | `Sol XHigh` | Name the concrete ambiguity or failure. |
-| Final critical gate requiring explicitly requested maximum depth or unresolved failure after selective depth | `Sol Max` | Importance or urgency alone is insufficient. |
+| Explicitly bounded critical risk that remains unresolved after a narrower selective route, normally `Sol XHigh` | `Sol Max` | The prior selective failure is mandatory; maximum-depth requests, importance, novelty, and urgency never bypass it. |
 | Quality-first heterogeneous agent execution, tool-heavy coordination, or interdependent multi-step processing after the decision contract is closed | `Terra Max` | Do not claim a universal quality advantage; retain only while the required quality contract excludes the cost-first route or local evidence favors it. |
 | Cost-first asynchronous work whose output is reversible and reviewed before consequence, including fixed-schema volume or open-ended long-horizon execution, when extra latency, tokens, steps, and retries are acceptable | `Luna Max` | No consequential judgment may be delegated; normal interactive conversation remains outside this route until the local gate passes. |
 
@@ -82,8 +83,12 @@ homogeneous” by itself. It is the quality contract and operating priority:
 - Terra Max is eligible when heterogeneous coordination is quality-first and
   the cheaper configuration has not satisfied the required acceptance floor.
 - Luna Max is eligible when cost or credit consumption is material, the work
-  can run asynchronously, failures are reversible or cheaply reviewed, and the
-  user accepts the observed execution length.
+  can run asynchronously, output is reversible and reviewed before consequence,
+  and the user accepts additional latency, tokens, steps, or retries.
+
+When both execution routes satisfy the closed contract and the priority is
+unknown and decisive, ask exactly one focused cost-first-versus-quality-first
+question; no model footer is emitted until the required priority is known.
 
 ## Evidence and price-overlay design
 
@@ -96,8 +101,8 @@ The current public comparison in
 block synchronized into `README.md` and `skills/think-with-me/SKILL.md`. Its
 review date becomes 31 July 2026 and it must explicitly separate:
 
-- quality, intervals, tokens, and steps from the DeepSWE trajectories generated
-  on 25 July;
+- quality, intervals, tokens, and steps from the preserved DeepSWE JSON
+  generated at `2026-07-17T08:18:55.870582+00:00`;
 - live repriced DeepSWE mean costs of US$0.61 for Luna Max and US$3.96 for Terra
   Max;
 - the raw JSON's pre-reduction cost fields, retained as source history;

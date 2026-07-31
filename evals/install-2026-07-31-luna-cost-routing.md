@@ -1,18 +1,21 @@
 # Global installation verification — Luna cost routing and price overlay
 
 Date: 2026-07-31
-Candidate package: `385a116e36937adaa3f42d1fe7fc8cc9bf998e8a0217a2dd830e3494f96ffe36`
-
-## Result
+Candidate package: `d57b7b39bcd29bfed7ccaed692f9257ca4150150d3d13881a5113d32b8e034f5`
+Candidate id: `a219adefffdafebc9bac50bbd9f28d2c1db690cad03841f9f7bf4b76a0907a56`
+Backup: `/private/tmp/think-with-me-global-backup.w631rz`
+Evaluator: `019fb976-dc44-75a1-823f-07bdff470e10`
+Global runtime artifact SHA-256: `0d810c3159340c2b373263e7f207824bdd18522466e55f048d33747188e8a3d5`
 
 GLOBAL_PARITY_STATUS: passed
 POST_INSTALL_RUNTIME_STATUS: passed
 
-This is the release-side installation record. The pre-install candidate
-evidence remains unchanged and continues to record that global parity and the
-post-install runtime had not yet run when that evidence was created.
+The candidate id identifies the complete Phase B worktree after local evidence
+binding and before this release-side install record was refreshed. The package
+hash identifies the seven installable files and remains unchanged by release
+evidence.
 
-## Synchronization
+## Synchronization provenance
 
 Source:
 `/Users/igortice/Desv/think-with-me/skills/think-with-me`
@@ -20,10 +23,9 @@ Source:
 Target:
 `/Users/igortice/.agents/skills/think-with-me`
 
-Source and target already contained the same exact seven relative file paths.
-Only the installable source package contents were copied over the existing
-target. No target deletion occurred, and no repository tests, evals, research,
-documentation, `.git`, or repository metadata were copied.
+Only the seven installable package files were synchronized. No target deletion
+occurred, and no repository tests, evals, research, documentation, `.git`, or
+repository metadata were copied.
 
 Exact synchronization command:
 
@@ -31,12 +33,9 @@ Exact synchronization command:
 cp -a /Users/igortice/Desv/think-with-me/skills/think-with-me/. /Users/igortice/.agents/skills/think-with-me/
 ```
 
-Before synchronization, the entire existing target contents were copied to
-this recoverable backup:
-
-```text
-/private/tmp/think-with-me-global-backup.5XsFwB
-```
+Before synchronization, the entire existing target was copied to the new
+recoverable backup recorded above. That backup was verified byte-for-byte
+against the pre-sync target before installation.
 
 ## Global parity
 
@@ -52,98 +51,96 @@ Unedited output:
 Global think-with-me installation matches the repository source.
 ```
 
-The command exited `0`, proving byte-for-byte source/target parity.
-
-## Fresh name-based post-install runtime
-
-Evaluator: `019fb93f-5ecf-77f1-84f0-50b0531e2bcd`
-
-The evaluator loaded `$think-with-me` by name from the global installation. It
-was prohibited from reading the repository, tests, evals, plans, research, or
-implementation artifacts and from editing files. The three outputs below are
-preserved unedited from the controller-provided runtime artifact.
-
-### Turn 1 — interactive architecture discovery
-
-User:
-
-> Quero conversar com você agora para entender a arquitetura atual do meu
-> projeto. Ainda não quero escolher solução nem executar mudanças; preciso
-> recuperar o contexto e mapear componentes, responsabilidades e dependências
-> em tempo real comigo.
-
-Raw output:
-
-```md
-Vamos tratar esta conversa como uma descoberta arquitetural, sem avaliar alternativas nem transformar observações em decisões. Como não consultaremos artefatos, o contexto será reconstruído a partir do que você trouxer; vou separar claramente fatos confirmados, inferências e lacunas.
-
-A melhor forma de começar é seguir um fluxo real de ponta a ponta. Conforme você o descrever, organizarei o mapa em componentes, responsabilidades, entradas e saídas, dependências e pontos cujo ownership ainda esteja indefinido.
-
-> **Minha visão:** precisamos primeiro reconstruir a arquitetura existente de forma neutra, usando um fluxo real como eixo para não confundir nomes de módulos com suas responsabilidades efetivas.
->
-> **Próximo passo:** delimitar o fluxo principal atual que servirá de espinha dorsal do mapa. Qual é hoje esse fluxo — quem ou o que o inicia e qual resultado ele entrega?
->
-> `Sol Medium` · organizar interativamente o contexto e iniciar o mapa arquitetural sem antecipar decisões técnicas.
-```
-
-### Turn 2 — asynchronous cost-first investigation
-
-User:
-
-> Agora já delimitei o repositório. Quero deixar uma investigação aberta e
-> longa rodando de forma assíncrona, sem ficar esperando. A prioridade é
-> minimizar custo; aceito mais tempo, passos e tentativas. O resultado será um
-> relatório reversível que revisarei antes de qualquer decisão ou mudança.
-
-Raw output:
-
-```md
-As condições para uma investigação orientada por custo estão completas: execução assíncrona, tolerância a maior duração e tentativas, resultado reversível e revisão humana antes de qualquer consequência.
-
-O relatório deve permanecer descritivo e rastreável, cobrindo componentes, responsabilidades, dependências, fluxos e lacunas de evidência. Se surgir um trade-off arquitetural, ele deve ser registrado como decisão pendente, sem ser resolvido silenciosamente pela investigação.
-
-> **Minha visão:** a investigação pode priorizar custo porque será assíncrona, aberta, reversível e revisada antes de orientar qualquer decisão ou mudança.
->
-> **Próximo passo:** executar a investigação arquitetural aberta no repositório delimitado, com entrega no formato de relatório revisável já definido.
->
-> `Luna Max` · executar a investigação assíncrona e reversível com prioridade explícita de custo.
-```
-
-### Turn 3 — consequential architectural judgment after ambiguity is resolved
-
-User:
-
-> O responsável jurídico já resolveu a ambiguidade: o contrato de retenção
-> aplicável, os prazos, exceções e critérios estão completos e confirmados.
-> Agora preciso fazer uma escolha arquitetural consequencial entre centralizar
-> a política em um serviço único ou manter o enforcement distribuído nos
-> domínios. As duas alternativas atendem à regra jurídica; preciso assumir uma
-> posição técnica equilibrando ownership, consistência, disponibilidade e
-> reversibilidade antes de continuar.
-
-Raw output:
-
-```md
-Eu escolheria **manter o enforcement distribuído nos domínios**, com uma especificação central, versionada e auditável da política.
-
-A regra jurídica completa e estável reduz o principal argumento para colocar um serviço central no caminho crítico. O enforcement permanece próximo dos dados e do componente que conhece seu ciclo de vida, preservando ownership e evitando que a indisponibilidade de um serviço único bloqueie retenções em todos os domínios.
-
-O custo dessa escolha é o risco de divergência. Portanto, “distribuído” não deve significar interpretações independentes: cada domínio implementa o mesmo contrato versionado e produz evidência de conformidade. A reversibilidade também fica melhor delimitada, pois adoção e rollback podem ocorrer por domínio, sem introduzir uma dependência operacional global.
-
-> **Minha visão:** o enforcement distribuído oferece o equilíbrio mais sólido porque preserva ownership e disponibilidade, enquanto a estabilidade da regra permite controlar a consistência por um contrato central versionado sem criar um serviço único no caminho crítico.
->
-> **Próximo passo:** decidir se o enforcement permanecerá distribuído sob um contrato normativo único e versionado. Eu recomendo que sim. Você confirma essa direção?
->
-> `Sol High` · fechar o trade-off arquitetural consequencial entre ownership, consistência, disponibilidade e reversibilidade.
-```
+The command exited `0`, proving repository/global byte parity after the
+seven-file synchronization.
 
 ## Observed transition
 
 `Sol Medium` → `Luna Max` → `Sol High`
 
-The installed package kept interactive discovery on the latency-sensitive
-route, moved asynchronous reversible cost-first work to Luna Max, and stopped
-that route when consequential professional judgment became the immediate next
-step.
+## Fresh name-based post-install runtime artifact
 
-This record does not claim a push, publication, or public package refresh.
+The complete controller-supplied artifact follows verbatim. Its prompts,
+unedited outputs, evaluator identity, summary, and whitespace were not changed.
+
+# Final-fix global name-based runtime — 2026-07-31
+
+- Evaluator: `019fb976-dc44-75a1-823f-07bdff470e10`
+- Installed skill invoked by name: `think-with-me`
+- Repository/eval access: prohibited by evaluator prompt
+- Package expected by verified global parity:
+  `d57b7b39bcd29bfed7ccaed692f9257ca4150150d3d13881a5113d32b8e034f5`
+- Observed transition: `Sol Medium → Luna Max → Sol High`
+- Result: PASS
+
+## Turn 1 — exploratory project conversation
+
+### Prompt
+
+```text
+Quero apenas conversar para entender melhor um projeto novo e organizar mentalmente os componentes da arquitetura. Ainda não há decisão consequencial para tomar nem execução para iniciar. Como você sugere conduzir esta conversa?
+```
+
+### Unedited output
+
+```text
+Eu conduziria como uma exploração guiada, mantendo três categorias visíveis: o que já sabemos, o que estamos apenas supondo e o que ainda precisamos entender. A cada componente mencionado, organizaríamos sua responsabilidade, entradas e saídas, dados envolvidos, integrações e relação com os demais. O resultado seria um mapa mental coerente da arquitetura — não uma especificação ou plano de implementação.
+
+Para evitar começar pelas tecnologias e acabar desenhando uma solução sem contexto, eu começaria pelo propósito do sistema e pelo fluxo principal que ele precisa sustentar. Depois, aprofundaríamos naturalmente os componentes conforme surgirem dúvidas relevantes, sem exigir decisões prematuras.
+
+> **Minha visão:** esta conversa deve produzir clareza compartilhada sobre o sistema e suas fronteiras, preservando hipóteses como hipóteses enquanto ainda estamos descobrindo o projeto.
+>
+> **Próximo passo:** descrever o propósito do projeto pelo resultado esperado. Que problema ele pretende resolver e para quem?
+>
+> `Sol Medium` · organizar interativamente o entendimento inicial da arquitetura sem antecipar decisões técnicas.
+```
+
+## Turn 2 — cost-first asynchronous execution
+
+### Prompt
+
+```text
+Agora o contrato já está fechado. Preciso processar 800 análises independentes com schema fixo. Minha prioridade explícita é minimizar o custo total; pode rodar de forma assíncrona, aceito mais latência, etapas e retries, tudo é reversível, e haverá validação automática e revisão humana antes de qualquer consequência. Qual deve ser o próximo passo?
+```
+
+### Unedited output
+
+```text
+O próximo passo deve ser um lote piloto representativo, não o processamento imediato das 800 análises. Ele precisa usar exatamente o schema, a validação automática e a política de retries previstos para o lote completo. A ampliação só deve ocorrer se o piloto cumprir os critérios já definidos de qualidade, taxa de retries e custo total por análise aceita.
+
+> **Minha visão:** o processamento pode priorizar custo porque o contrato está fechado, os itens são independentes e toda saída permanece reversível e revisada antes de qualquer consequência.
+>
+> **Próximo passo:** executar um lote piloto representativo no schema fechado.
+>
+> `Luna Max` · processar de forma assíncrona o lote homogêneo, reversível e revisável com prioridade explícita de custo.
+```
+
+## Turn 3 — consequential architectural trade-off
+
+### Prompt
+
+```text
+O piloto encerrou essa etapa. Agora preciso escolher entre duas alternativas arquiteturais já conhecidas para o caminho crítico de autenticação. A decisão é consequencial, exige julgamento e trade-offs de segurança, latência e operação, mas não há ambiguidade residual nem investigação seletiva anterior que tenha falhado. Como devo conduzir essa escolha?
+```
+
+### Unedited output
+
+```text
+Conduza a escolha por restrições antes de otimização. No caminho crítico de autenticação, segurança não deve virar apenas uma coluna com peso ao lado de latência e operação: as garantias obrigatórias devem funcionar como critérios eliminatórios. Entre as alternativas que passarem por esse limite, compare latência em condições realistas, complexidade operacional, modos de falha, recuperação e impacto de indisponibilidade.
+
+A decisão deve registrar também o trade-off assumido: qual custo operacional ou de latência foi aceito, qual garantia motivou essa escolha e em que condição a arquitetura precisaria ser revista. Como não há ambiguidade residual nem investigação seletiva fracassada, o trabalho necessário é julgamento arquitetural direto, não uma escalada de investigação.
+
+> **Minha visão:** a escolha deve preservar primeiro as garantias inegociáveis de segurança e somente então otimizar latência e operação entre as alternativas admissíveis.
+>
+> **Próximo passo:** definir as garantias de segurança que funcionarão como critérios eliminatórios. Eu recomendo não permitir que ganhos de latência ou simplicidade compensem a violação dessas garantias. Quais delas são inegociáveis neste sistema?
+>
+> `Sol High` · estruturar o julgamento consequencial entre segurança, latência e operação sem ambiguidade residual.
+```
+
+## Summary
+
+- Turn 1: `Sol Medium`
+- Turn 2: `Luna Max`
+- Turn 3: `Sol High`
+- Required transition preserved: yes
+- Installed-copy runtime passed: yes

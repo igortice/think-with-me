@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "source": "Artificial Analysis",
+  "artifact_type": "dated_model_page_capture",
+  "retrieved_date": "2026-07-31",
+  "timezone": "America/Fortaleza",
+  "retrieved_time": null,
+  "retrieval_note": "The exact time of day was not recorded; no timestamp is inferred.",
+  "research_report": "docs/research/gpt-5-6-price-benchmark-routing-review-2026-07-31.md",
+  "units": {
+    "intelligence_index": "points",
+    "coding_index": "points",
+    "blended_price_per_million_tokens": "USD",
+    "mean_cost_per_intelligence_task": "USD",
+    "output_speed": "tokens_per_second",
+    "time_to_first_answer": "seconds",
+    "total_output_tokens_for_index": "millions"
+  },
+  "rows": [
+    {
+      "model": "GPT-5.6 Luna",
+      "configuration": "Luna Max",
+      "source_url": "https://artificialanalysis.ai/models/gpt-5-6-luna/",
+      "intelligence_index_v4_1": 51.24,
+      "coding_index": 71.45,
+      "blended_price_per_million_tokens_usd": 0.174,
+      "mean_cost_per_intelligence_task_usd": 0.066,
+      "output_speed_tokens_per_second": 177.8,
+      "time_to_first_answer_seconds": 117.02,
+      "total_output_tokens_for_index_millions": 130
+    },
+    {
+      "model": "GPT-5.6 Sol",
+      "configuration": "Sol Medium",
+      "source_url": "https://artificialanalysis.ai/models/gpt-5-6-sol-medium/",
+      "intelligence_index_v4_1": 53.59,
+      "coding_index": 76.26,
+      "blended_price_per_million_tokens_usd": 4.35,
+      "mean_cost_per_intelligence_task_usd": 0.514,
+      "output_speed_tokens_per_second": 54.6,
+      "time_to_first_answer_seconds": 4.31,
+      "total_output_tokens_for_index_millions": 12
+    },
+    {
+      "model": "GPT-5.6 Terra",
+      "configuration": "Terra Max",
+      "source_url": "https://artificialanalysis.ai/models/gpt-5-6-terra/",
+      "intelligence_index_v4_1": 54.95,
+      "coding_index": 76.66,
+      "blended_price_per_million_tokens_usd": 1.74,
+      "mean_cost_per_intelligence_task_usd": 0.733,
+      "output_speed_tokens_per_second": 131.8,
+      "time_to_first_answer_seconds": 152.99,
+      "total_output_tokens_for_index_millions": 96
+    },
+    {
+      "model": "GPT-5.6 Sol",
+      "configuration": "Sol High",
+      "source_url": "https://artificialanalysis.ai/models/gpt-5-6-sol-high/",
+      "intelligence_index_v4_1": 55.87,
+      "coding_index": 77.16,
+      "blended_price_per_million_tokens_usd": 4.35,
+      "mean_cost_per_intelligence_task_usd": 0.771,
+      "output_speed_tokens_per_second": 62.4,
+      "time_to_first_answer_seconds": 13.25,
+      "total_output_tokens_for_index_millions": 21
+    }
+  ]
+}

@@ -31,7 +31,8 @@ work performed by that step using observable conditions:
 - whether the step is discovery or judgment;
 - whether ambiguity is ordinary or concrete and residual;
 - whether failure is difficult to detect;
-- whether maximum depth was explicitly requested or already proved necessary;
+- whether an explicitly bounded critical risk remains unresolved after a
+  narrower selective route, normally `Sol XHigh`;
 - whether the user is waiting interactively or execution can run asynchronously;
 - whether the output is reversible and reviewed before any consequence;
 - whether execution is quality-first or cost-first;
@@ -54,7 +55,7 @@ The rows are in decision order, not quality rank.
 | Latency-sensitive interactive project conversation, context recovery, explanation, architecture discovery, or bounded reversible analysis without hidden judgment | `Sol Medium` | Interactive latency is decisive; escalate when the step becomes judgment, residual ambiguity, or a critical gate. |
 | Architecture trade-off, technical specification, or other substantive professional judgment | `Sol High` | Use after enough context is known, when the response must assume a consequential position or preserve hidden constraints. |
 | Concrete residual ambiguity, conflicting constraints, repeated framing failure, or difficult-to-detect risk | `Sol XHigh` | Name the concrete ambiguity or failure that remains after selective analysis. |
-| Final critical gate requiring explicitly requested maximum depth or unresolved failure after `Sol XHigh` | `Sol Max` | Use only after a narrower route did not resolve the explicitly bounded risk; importance, novelty, and urgency are insufficient. |
+| Explicitly bounded critical risk that remains unresolved after a narrower selective route, normally `Sol XHigh` | `Sol Max` | Prior selective failure is mandatory; an explicit request for maximum depth is not sufficient. |
 | Quality-first heterogeneous agent execution, tool-heavy coordination, or interdependent multi-step processing after the decision contract is closed | `Terra Max` | The contract and acceptance criteria must be closed; use for execution, not project conversation or consequential judgment. |
 | Cost-first asynchronous work whose output is reversible and reviewed before consequence, including fixed-schema volume or open-ended long-horizon execution, when extra latency, tokens, steps, and retries are acceptable | `Luna Max` | Cost priority, asynchronous operation, reversibility, and review before consequence are all required. |
 
@@ -62,7 +63,7 @@ When both `Terra Max` and `Luna Max` could execute a closed task, the explicit
 user or system priority is the discriminator: quality-first heterogeneous
 execution selects `Terra Max`; cost-first reviewable execution selects `Luna
 Max`. If that priority is both unknown and decisive, make it the one unresolved
-dependency instead of choosing from per-token price.
+dependency instead of choosing from per-token price: ask exactly one focused cost-first-versus-quality-first question and do not emit a model footer until the priority is known.
 
 `Luna Max` cannot own professional or consequential judgment. Stop the
 cost-first route at that boundary and recalculate, normally to `Sol High` for
@@ -125,9 +126,9 @@ remaining ambiguity, and explicitly disclosed model history as evidence.
 Frustration alone calls for clearer framing, not automatic escalation.
 
 Repeated corrections select `Sol XHigh` only when they expose a concrete
-cross-cutting contradiction or difficult-to-detect failure. `Sol Max` requires
-an explicit maximum-depth need or evidence that the selective-depth attempt did
-not resolve the bounded critical problem.
+cross-cutting contradiction or difficult-to-detect failure. `Sol Max` always
+requires both an explicitly bounded critical risk and evidence that a narrower
+selective route did not resolve it. An explicit request for maximum depth, importance, novelty, or urgency never bypasses the prior-failure requirement.
 
 When the subject is resolved, do not invent work for the footer. State that no
 additional action is needed and route the bounded confirmation actually
@@ -139,6 +140,11 @@ Keep the answer and closing in the user's language. The final model line
 contains exactly one allowed atomic pair followed by ` · ` and a short reason
 tied to the immediate next step. The reason does not name another pair, predict
 a transition, list alternatives, or claim a host-side action.
+
+There is one narrow routing-input exception: when both execution routes remain
+eligible and cost-first versus quality-first priority is unknown and decisive,
+ask the single focused priority question and omit the model footer. Resume the
+normal three-field closing only after that required input is known.
 
 Valid examples:
 

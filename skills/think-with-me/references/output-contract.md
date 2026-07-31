@@ -30,6 +30,12 @@ Use the English template when the current user message is English:
 
 For other languages, preserve these three roles with concise natural view and next-step labels. The final line has no translated model-field label. `Próximo passo` contains at most one `?` character when the next step is a user decision.
 
+The only exception to the three-field closing is a missing routing input: when
+both `Terra Max` and `Luna Max` satisfy the closed execution contract and the
+cost-first-versus-quality-first priority is unknown and decisive, ask exactly
+one focused priority question in the next-step field and omit the model footer.
+Do not recommend either pair until the user or system supplies that priority.
+
 ## Normal continuation
 
 Uma regra imatura muda com frequência. Distribuí-la agora criaria três interpretações e transformaria cada aprendizado em coordenação entre serviços.
@@ -92,9 +98,7 @@ orientada por custo pode aceitar latência, tokens, passos e retries adicionais.
 
 ## Judgment boundary during cost-first execution
 
-Se uma execução assíncrona em `Luna Max` encontrar uma escolha profissional que
-produz consequência, a rota de custo para no limite. O julgamento vira o novo
-próximo passo e não pode ficar escondido no restante do lote.
+Se uma execução cost-first assíncrona, reversível, revisada antes de consequência e tolerante a latência, tokens, passos ou retries adicionais em `Luna Max` encontrar uma escolha profissional que produz consequência, a rota de custo para no limite. O julgamento vira o novo próximo passo e não pode ficar escondido no restante do lote.
 
 > **Minha visão:** o lote reuniu evidência suficiente, mas a escolha final exige julgamento profissional antes de produzir consequência.
 >
@@ -167,19 +171,47 @@ Quando a mesma migração também apresenta um modo concreto de corrupção sile
 >
 > `Sol XHigh` · investigar falhas de integridade difíceis de detectar antes de autorizar a migração.
 
+## Direct maximum-depth request without prior selective failure
+
+Um pedido explícito de profundidade máxima não substitui a evidência de que uma
+rota seletiva mais estreita falhou. Quando existe um risco crítico delimitado,
+mas nenhuma investigação seletiva anterior tentou resolvê-lo, o primeiro gate
+continua sendo a profundidade seletiva.
+
+> **Minha visão:** o risco está delimitado, mas ainda não existe falha seletiva que justifique o gate máximo.
+>
+> **Próximo passo:** investigar o risco delimitado com profundidade seletiva e registrar exatamente o que permanecer sem solução.
+>
+> `Sol XHigh` · executar a primeira investigação seletiva do risco crítico delimitado.
+
+## Final maximum-depth gate after failed selective analysis
+
+Quando a investigação em `Sol XHigh` não resolve o mesmo risco crítico
+explicitamente delimitado, a falha anterior satisfaz a condição adicional do
+gate máximo. O pedido de profundidade máxima continua pertinente, mas nunca é
+suficiente sozinho.
+
+> **Minha visão:** o risco crítico permanece sem solução depois da análise seletiva e agora exige o gate final de profundidade máxima.
+>
+> **Próximo passo:** concluir o gate crítico sobre o risco delimitado que permaneceu aberto após a investigação seletiva.
+>
+> `Sol Max` · resolver o risco crítico delimitado que permaneceu após a tentativa seletiva.
+
 ## Structured high-volume processing
 
 Quando a direção está fechada, centenas de itens independentes passam pela mesma
 transformação, o schema é fixo, não existe julgamento aberto dentro de cada
-item e a validação automática é barata, o volume pode usar primeiro um lote
-representativo. Qualidade, retries e custo total precisam passar antes de
-ampliar o corpus.
+item e a validação automática é barata, a rota ainda exige prioridade de custo,
+operação assíncrona, saída reversível e revisada antes de qualquer consequência,
+além de tolerância a latência, tokens, passos e retries adicionais. O volume
+pode usar primeiro um lote representativo. Qualidade, retries e custo total
+precisam passar antes de ampliar o corpus.
 
-> **Minha visão:** a direção já está decidida; o formato delimitado e verificável permite tratar o volume com menor custo e latência.
+> **Minha visão:** a direção já está decidida e o lote pode priorizar custo porque será assíncrono, reversível e revisado antes de qualquer consequência.
 >
 > **Próximo passo:** executar um lote piloto representativo no formato único, com critérios prévios de aprovação para qualidade, retries e custo total.
 >
-> `Luna Max` · processar o lote homogêneo com schema fixo e validação automática.
+> `Luna Max` · processar de modo assíncrono o lote homogêneo, reversível e revisável com prioridade de custo.
 
 ## Matched long-horizon agent execution
 
@@ -197,16 +229,28 @@ autorização para transferir custo ou qualidade a outra tarefa.
 
 ## Heavy agent execution
 
-Terra Max cabe quando o próximo passo já é a execução de agents ou o
-processamento pesado e heterogêneo, com ferramentas e estados intermediários.
-Não use essa rota para conversa sobre o projeto, descoberta arquitetural,
-julgamento profissional ou transformação homogênea com schema fixo.
+Terra Max cabe quando o contrato de aceitação está fechado, a prioridade explícita é qualidade e o próximo passo já é a execução heterogênea de
+agents, ferramentas, mudanças interdependentes e estados intermediários. Não use essa
+rota para conversa sobre o projeto, descoberta arquitetural, julgamento
+profissional, contrato ainda aberto ou transformação homogênea com schema fixo.
 
-> **Minha visão:** as decisões já estão fechadas e resta coordenar uma execução pesada com ferramentas e estados intermediários.
+> **Minha visão:** o contrato e os critérios de aceite estão fechados, e a prioridade de qualidade governa a execução heterogênea e interdependente.
 >
 > **Próximo passo:** executar o trabalho heterogêneo conforme o contrato de aceitação definido.
 >
-> `Terra Max` · coordenar a execução pesada com ferramentas e múltiplas etapas.
+> `Terra Max` · coordenar com prioridade de qualidade a execução heterogênea e interdependente já definida.
+
+## Unknown Terra/Luna execution priority
+
+Quando um contrato fechado satisfaz tanto a execução heterogênea quality-first
+quanto a execução assíncrona, reversível e revisável cost-first, tolerante a
+latência, tokens, passos ou retries adicionais, mas a prioridade é desconhecida
+e decisiva, não escolha por heterogeneidade nem por preço. Suspenda o rodapé até
+receber o único input que separa as rotas.
+
+> **Minha visão:** as duas formas de execução cumprem o contrato e somente a prioridade entre custo e qualidade pode distingui-las.
+>
+> **Próximo passo:** A prioridade é minimizar custo em uma execução revisável ou maximizar qualidade na coordenação heterogênea?
 
 ## Repeated corrections change the diagnosis
 

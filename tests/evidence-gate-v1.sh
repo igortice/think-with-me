@@ -44,8 +44,10 @@ require_file "${repo_root}/scripts/candidate-manifest.sh"
 require_file "${repo_root}/scripts/validate-structure.sh"
 require_file "${repo_root}/scripts/sync-model-comparison.sh"
 require_file "${repo_root}/scripts/verify-evidence-record.sh"
+require_file "${repo_root}/scripts/verify-install-record.sh"
 require_file "${repo_root}/tests/sync-model-comparison.sh"
 require_file "${repo_root}/tests/verify-model-comparison-data.sh"
+require_file "${repo_root}/tests/verify-install-record.sh"
 require_file "${repo_root}/evals/evidence-run-template.md"
 require_file "${repo_root}/evals/model-routing-evidence-template.md"
 require_file "${repo_root}/evals/evidence-2026-07-19-evidence-based-routing.md"
@@ -55,6 +57,7 @@ require_file "${repo_root}/evals/evidence-2026-07-20-conversational-routing.md"
 require_file "${repo_root}/evals/evidence-2026-07-30-strong-model-routing.md"
 require_file "${repo_root}/evals/evidence-2026-07-31-luna-cost-routing.md"
 require_file "${repo_root}/evals/install-2026-07-30-strong-model-routing.md"
+require_file "${repo_root}/evals/install-2026-07-31-luna-cost-routing.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-final.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-contextual-portfolio.md"
@@ -68,11 +71,13 @@ require_file "${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing-f
 require_file "${repo_root}/docs/research/assets/artificial-analysis-coding-index-2026-07-19.png"
 require_file "${repo_root}/docs/research/assets/artificial-analysis-intelligence-cost-2026-07-19.png"
 require_file "${repo_root}/docs/research/assets/deepswe-v1.1-leaderboard-2026-07-20.json"
+require_file "${repo_root}/docs/research/assets/artificial-analysis-model-pages-2026-07-31.json"
 require_file "${repo_root}/docs/research/model-routing-three-source-verification-2026-07-19.md"
 
 require_sha256 "${repo_root}/docs/research/assets/artificial-analysis-coding-index-2026-07-19.png" 'd0c93da184aef6abbb1c36bba9ec031c254184e2af42751cec4f5d164b242f32'
 require_sha256 "${repo_root}/docs/research/assets/artificial-analysis-intelligence-cost-2026-07-19.png" '846653101b0963757832edd10aed75ea6d962d1870d07d3611a762bef722eefc'
 require_sha256 "${repo_root}/docs/research/assets/deepswe-v1.1-leaderboard-2026-07-20.json" '050663ae245106a7fc59312565059f46bd6ee10fa587131dd09a5062af5ed24d'
+require_sha256 "${repo_root}/docs/research/assets/artificial-analysis-model-pages-2026-07-31.json" 'acb5227d3825406968ebc0ca42841d46f5d1cf3b450123608f9edc06fa9ff3ce'
 require_sha256 "${repo_root}/evals/runtime-captures-2026-07-20.md" 'e69f52d78c140a2a40c1f2c56e34970ee224b40a10fb02fd68e664f62adfe361'
 require_sha256 "${repo_root}/evals/runtime-captures-2026-07-20-final.md" 'd9a0bb737b0a326d90e7ae4182fd306c307f1d48406c7213967da24d7f559a6a'
 
@@ -149,13 +154,13 @@ require_text "${routing_file}" 'Use observable progress, repeated corrections, c
 require_text "${routing_file}" 'availability from host state that was not exposed.'
 require_text "${routing_file}" 'as one configuration; never choose a family first'
 require_text "${routing_file}" 'Quality-first heterogeneous agent execution, tool-heavy coordination'
-require_text "${routing_file}" 'Final critical gate requiring explicitly requested maximum depth'
+require_text "${routing_file}" 'Explicitly bounded critical risk that remains unresolved after a narrower selective route, normally `Sol XHigh`'
 require_text "${routing_file}" 'preserve the recommendation, report the mismatch'
 require_text "${routing_file}" 'Do not average heterogeneous benchmarks'
 require_text "${routing_file}" 'A benchmark row can remain visible for historical comparison'
 require_text "${routing_file}" 'Official price is not total task cost.'
 require_text "${routing_file}" 'Higher effort can increase token use'
-require_text "${routing_file}" '`Sol Max` requires'
+require_text "${routing_file}" '`Sol Max` always'
 require_text "${skill_file}" 'these six atomic pairs: `Sol Medium`, `Sol High`, `Sol XHigh`, `Sol Max`, `Terra Max`, and `Luna Max`.'
 require_text "${skill_file}" 'This is a hard allowlist, not a preference.'
 require_text "${skill_file}" 'The skill recommends a pair; it does not select, retry, or replace the host model.'
@@ -167,6 +172,7 @@ require_text "${model_evidence_file}" '# Current Strong-Model Policy Evidence'
 require_text "${routing_file}" 'Current policy reviewed: **2026-07-31**.'
 require_text "${routing_file}" 'gpt-5-6-price-benchmark-routing-review-2026-07-31.md'
 require_text "${model_evidence_file}" 'Policy review date: **2026-07-31**.'
+reject_text "${model_evidence_file}" 'Policy review date: **2026-07-30**.'
 require_text "${model_evidence_file}" '[Historical model evidence snapshot — 2026-07-20](model-evidence-2026-07-20.md)'
 require_text "${model_evidence_file}" 'The skill recommends a pair; it cannot select, retry, replace, or verify the'
 require_text "${model_evidence_file}" 'gpt-5-6-price-benchmark-routing-review-2026-07-31.md'
@@ -176,8 +182,11 @@ require_text "${model_comparison_file}" '### Artificial Analysis — a separate 
 require_text "${model_comparison_file}" '| Sol XHigh | 70.73% | ±0.82 pp | $4.70 | 40,745 | 44.0 |'
 require_text "${model_comparison_file}" '| Terra Max | 69.62% | ±2.56 pp | $3.96 | 71,939 | 75.9 |'
 require_text "${model_comparison_file}" '| Luna Max | 67.19% | ±3.99 pp | $0.61 | 73,400 | 101.7 |'
-require_text "${model_comparison_file}" 'Raw 25 July JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.'
+require_text "${model_comparison_file}" 'preserved DeepSWE JSON generated at `2026-07-17T08:18:55.870582+00:00`'
+require_text "${model_comparison_file}" 'Raw preserved-JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.'
 require_text "${model_comparison_file}" 'The visible 31 July prices apply explicit factors of 0.20 for Luna Max and 0.80 for Terra Max, yielding $0.61 and $3.96.'
+require_text "${model_comparison_file}" 'docs/research/assets/artificial-analysis-model-pages-2026-07-31.json'
+require_text "${model_comparison_file}" 'acb5227d3825406968ebc0ca42841d46f5d1cf3b450123608f9edc06fa9ff3ce'
 require_text "${model_comparison_file}" 'gpt-5-6-price-benchmark-routing-review-2026-07-31.md'
 require_text "${model_comparison_file}" '| Sol High | 77.16 | 55.87 | $0.771 | 62.4 tok/s | 13.25 s |'
 require_text "${model_comparison_file}" '| Terra Max | 76.66 | 54.95 | $0.733 | 131.8 tok/s | 152.99 s |'
@@ -227,7 +236,7 @@ for row in "${public_comparison_rows[@]}"; do
 done
 
 public_comparison_notes=(
-  'Raw 25 July JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.'
+  'Raw preserved-JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.'
   'The visible 31 July prices apply explicit factors of 0.20 for Luna Max and 0.80 for Terra Max, yielding $0.61 and $3.96.'
   '**Policy boundary:** lower Luna Max cost expands eligibility for asynchronous, reversible, reviewable work; it does not prove lower interactive end-to-end latency.'
 )
@@ -272,9 +281,14 @@ require_text "${cases_file}" 'inventar uma edição especulativa'
 require_text "${cases_file}" '11. A configuração é escolhida como o par indivisível `família + effort`; a resposta não escolhe uma família antes de avaliar o effort.'
 require_text "${cases_file}" '12. Toda recomendação usa somente um dos seis pares permitidos: `Sol Medium`, `Sol High`, `Sol XHigh`, `Sol Max`, `Terra Max` ou `Luna Max`.'
 require_text "${cases_file}" '13. Conversa sobre projeto, recuperação de contexto e descoberta arquitetural sem trade-off usam `Sol Medium`; quando o próximo passo passa a exigir julgamento profissional, usa `Sol High`.'
+require_text "${cases_file}" '14. Toda rota `Luna Max`, inclusive volume com schema fixo, exige prioridade cost-first, operação assíncrona, reversibilidade, revisão antes de consequência e tolerância a latência, tokens, passos ou retries adicionais; nenhum julgamento consequencial fica dentro dela.'
 require_text "${cases_file}" '15. Benchmarks de domínios ou harnesses diferentes não são somados nem usados para declarar equivalência universal.'
 require_text "${cases_file}" '16. Empates e fontes divergentes preservam a opção conservadora até existir evidência local suficiente.'
-require_text "${cases_file}" 'Recomendar `Luna Max` para o processamento homogêneo; exigir critérios de qualidade, retries e custo total antes de ampliar o volume.'
+require_text "${cases_file}" '18. `Terra Max` exige contrato e critérios de aceite fechados, prioridade quality-first explícita e execução heterogênea interdependente; heterogeneidade isolada não decide a rota.'
+require_text "${cases_file}" '19. `Sol Max` exige sempre um risco crítico explicitamente delimitado que permaneceu sem solução depois de uma rota seletiva mais estreita, normalmente `Sol XHigh`; pedido de profundidade máxima, importância, novidade ou urgência não pula essa falha anterior.'
+require_text "${cases_file}" 'Recomendar `Luna Max` para o processamento homogêneo somente sob todas essas condições; exigir critérios de qualidade, retries e custo total antes de ampliar o volume.'
+require_text "${cases_file}" 'TWM-19'
+require_text "${cases_file}" 'TWM-20'
 require_text "${multiturn_cases_file}" 'TWM-M10 — Execução concluída retoma a decisão'
 require_text "${multiturn_cases_file}" 'o relatório do resultado também termina no fechamento da skill'
 require_text "${multiturn_cases_file}" 'TWM-M11 — Inspeção separa fato de inferência'
@@ -308,7 +322,7 @@ require_text "${multiturn_cases_file}" 'resumo normalizado de `wait_threads`'
 require_text "${multiturn_cases_file}" 'TWM-M14 — Direção aceita não reduz qualidade por si só'
 require_text "${multiturn_cases_file}" 'preservar o piso de qualidade porque ainda existe julgamento substantivo.'
 require_text "${multiturn_cases_file}" 'TWM-M15 — Economia delimitada e verificável'
-require_text "${multiturn_cases_file}" 'permitir Luna Max apenas para um piloto representativo de processamento delimitado e justificá-lo por boundedness, volume, verificação barata, critérios de qualidade, retries e custo total.'
+require_text "${multiturn_cases_file}" 'permitir Luna Max apenas para um piloto representativo que cumpra prioridade cost-first, operação assíncrona, reversibilidade, revisão antes de consequência e tolerância a execução adicional'
 require_file "${routing_cases_file}"
 require_text "${routing_cases_file}" 'MR-01 | Descoberta aberta de produto'
 require_text "${routing_cases_file}" 'MR-02 | Comparação contextual'
@@ -320,7 +334,8 @@ require_text "${routing_cases_file}" 'MR-07 | Extração de schema em alto volum
 require_text "${routing_cases_file}" 'MR-08 | Execução de código de longo horizonte'
 require_text "${routing_cases_file}" 'MR-09 | Discordância entre Artificial Analysis e DeepSWE'
 require_text "${routing_cases_file}" 'MR-10 | Intervalos sobrepostos'
-require_text "${routing_cases_file}" 'MR-11 | Profundidade máxima explícita'
+require_text "${routing_cases_file}" 'MR-11 | Pedido direto de Max sem falha seletiva anterior'
+require_text "${routing_cases_file}" 'Recomendar `Sol XHigh` para a primeira investigação seletiva; não selecionar Max.'
 require_text "${routing_cases_file}" 'MR-12 | Frustração sem nova ambiguidade'
 require_text "${routing_cases_file}" 'MR-13 | Análise delimitada com economia material'
 require_text "${routing_cases_file}" 'MR-14 | Análise delimitada sem economia material'
@@ -343,7 +358,8 @@ require_text "${routing_cases_file}" 'MR-25 | Assunto resolvido sem pendência i
 require_text "${routing_cases_file}" 'MR-26 | Exploração conversacional longa e revisável'
 require_text "${routing_cases_file}" 'MR-27 | Elaboração longa, delimitada e revisável'
 require_text "${routing_cases_file}" 'MR-28 | Julgamento profissional compacto'
-require_text "${routing_cases_file}" 'MR-29 | Falha após profundidade seletiva'
+require_text "${routing_cases_file}" 'MR-29 | Falha de Sol XHigh no risco crítico delimitado'
+require_text "${routing_cases_file}" 'Recomendar `Sol Max` porque o risco crítico explicitamente delimitado permaneceu sem solução após Sol XHigh.'
 require_text "${routing_cases_file}" 'MR-30 | Allowlist forte sem downgrade silencioso'
 require_text "${routing_cases_file}" 'MR-31 | Agents com decisão ainda aberta'
 require_text "${routing_cases_file}" 'MR-32 | Indisponibilidade da configuração recomendada'
@@ -357,6 +373,8 @@ require_text "${routing_cases_file}" 'MR-36 | Workflow barato com julgamento pro
 require_text "${routing_cases_file}" 'Recomendar `Sol High`, não `Luna Max`.'
 require_text "${routing_cases_file}" 'MR-37 | Ambiguidade residual após investigação seletiva falha'
 require_text "${routing_cases_file}" 'Recomendar `Sol XHigh` antes de considerar `Sol Max`.'
+require_text "${routing_cases_file}" 'MR-38 | Prioridade Terra/Luna desconhecida e decisiva'
+require_text "${routing_cases_file}" 'Fazer exatamente uma pergunta focada entre cost-first e quality-first e não emitir rodapé de modelo antes da resposta.'
 require_text "${multiturn_cases_file}" 'TWM-M17 — A forma da conversa muda a recomendação'
 require_text "${multiturn_cases_file}" 'TWM-M18 — Indisponibilidade pertence ao host'
 require_text "${multiturn_cases_file}" 'TWM-M19 — Conversa interativa vira lote assíncrono revisável'
@@ -365,8 +383,10 @@ require_text "${multiturn_cases_file}" 'TWM-M20 — Lote Luna encontra limite de
 require_text "${multiturn_cases_file}" 'recomendar `Sol High` para o julgamento consequencial.'
 require_text "${multiturn_cases_file}" 'TWM-M21 — Preferência muda de custo para qualidade após o contrato fechar'
 require_text "${multiturn_cases_file}" 'recomendar `Terra Max` para a execução quality-first com contrato fechado.'
-require_text "${routing_cases_file}" 'Recomendar `Luna Max` para o lote homogêneo e validável.'
-require_text "${routing_cases_file}" 'Recomendar `Terra Max` para a execução pesada e heterogênea.'
+require_text "${multiturn_cases_file}" 'TWM-M22 — Prioridade de execução desconhecida suspende o rodapé'
+require_text "${multiturn_cases_file}" 'TWM-M23 — Pedido direto de Max passa primeiro por profundidade seletiva'
+require_text "${routing_cases_file}" 'Recomendar `Luna Max` para o lote homogêneo e validável sob todas as condições.'
+require_text "${routing_cases_file}" 'Recomendar `Terra Max` para a execução quality-first.'
 require_text "${routing_cases_file}" 'Recomendar `Sol Medium` porque duração e volume de contexto não mudam a natureza da exploração.'
 require_text "${routing_cases_file}" 'Preservar a recomendação, reportar o mismatch e exigir uma escolha explícita do host dentro da allowlist.'
 require_text "${metadata_file}" 'display_name: "Think With Me"'
@@ -555,9 +575,11 @@ require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-evid
 require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-comparison.md'
 bash "${repo_root}/tests/sync-model-comparison.sh"
 bash "${repo_root}/tests/verify-model-comparison-data.sh"
+bash "${repo_root}/tests/verify-install-record.sh"
 latest_evidence_file="${repo_root}/evals/evidence-2026-07-31-luna-cost-routing.md"
 latest_initial_captures_file="${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing.md"
 latest_final_captures_file="${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing-final.md"
+latest_install_file="${repo_root}/evals/install-2026-07-31-luna-cost-routing.md"
 
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-31-luna-cost-routing.md'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-31-luna-cost-routing.md'
@@ -575,22 +597,22 @@ require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "RUNTIME_SOURCE_FIDELITY: host-unverified"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'No Task 4 evidence-gate implementation commit, push, publication, global synchronization, or skills.sh installation preceded this evidence record.'
 
-require_text "${latest_evidence_file}" 'Reviewer `019fb92c-edff-7b61-be67-c0e9e7a8601c`'
-require_text "${latest_evidence_file}" 'There was no policy'
-require_text "${latest_evidence_file}" 'rewrite and no rerun.'
+require_text "${latest_evidence_file}" 'Reviewer `019fb96a-1391-70f1-a120-482fa3dc2c23`'
+require_text "${latest_evidence_file}" 'The supplied runtime artifact records five fresh forward tests'
+require_text "${latest_evidence_file}" 'the duplicate capture is not evidence of a second run.'
 require_text "${latest_evidence_file}" '`3.0281 × 0.20` rounds to `$0.61`'
 require_text "${latest_evidence_file}" '`4.9458 × 0.80` rounds to `$3.96`'
 require_text "${latest_evidence_file}" 'repricing is not described as a benchmark or capability rerun.'
-require_text "${latest_initial_captures_file}" 'All five outputs below are the unedited first-pass'
-require_text "${latest_initial_captures_file}" 'All five first-pass outputs passed.'
-require_text "${latest_final_captures_file}" 'It is not evidence of a'
-require_text "${latest_final_captures_file}" 'second run: all five first-pass outputs passed'
+require_text "${latest_initial_captures_file}" 'These are fresh forward tests against the uncommitted repository-local'
+require_text "${latest_initial_captures_file}" 'Passed: 5/5'
+require_text "${latest_final_captures_file}" 'These are fresh forward tests against the uncommitted repository-local'
+require_text "${latest_final_captures_file}" 'Failed: 0/5'
 for evaluator_id in \
-  019fb92b-47cd-71a0-bbbc-25cd61aabd13 \
-  019fb92b-4664-7e31-8b0f-4f7c7b110d46 \
-  019fb92b-4503-7c01-be3f-8bd29250d0e4 \
-  019fb92b-4d4e-7ca0-85c9-7b608b734d6c \
-  019fb92b-4ae5-75a3-b3da-6517ae62bfcf; do
+  019fb966-bbf9-7100-b3a9-0d9c81518b1d \
+  019fb966-bee1-7a23-9602-36ad2730be01 \
+  019fb966-bd53-7233-a556-e5a3dd718dc2 \
+  019fb966-c0a9-7ce0-9b1a-db043b641619 \
+  019fb967-c708-7a30-b5e9-bbfc13d66f58; do
   require_text "${latest_initial_captures_file}" "${evaluator_id}"
   require_text "${latest_final_captures_file}" "${evaluator_id}"
 done
@@ -662,6 +684,13 @@ has_heading_in_file "${indented_pending_heading_fixture}" "## Runtime behavior p
   fail "evidence heading parser ignored a top-level heading indented by up to three spaces"
 
 current_package_hash="$(sed -n 's/^PACKAGE_SHA256=//p' <<<"${manifest}")"
+require_text "${latest_install_file}" 'Candidate id: `a219adefffdafebc9bac50bbd9f28d2c1db690cad03841f9f7bf4b76a0907a56`'
+require_text "${latest_install_file}" 'Backup: `/private/tmp/think-with-me-global-backup.w631rz`'
+require_text "${latest_install_file}" 'Evaluator: `019fb976-dc44-75a1-823f-07bdff470e10`'
+require_text "${latest_install_file}" 'Global runtime artifact SHA-256: `0d810c3159340c2b373263e7f207824bdd18522466e55f048d33747188e8a3d5`'
+bash "${repo_root}/scripts/verify-install-record.sh" \
+  "${latest_install_file}" \
+  "${current_package_hash}"
 conflicting_package_hash='0000000000000000000000000000000000000000000000000000000000000000'
 
 valid_hash_fixture="${parser_fixture_dir}/valid-hashes.md"

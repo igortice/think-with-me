@@ -145,16 +145,19 @@ metodologia, não uma ordem universal de roteamento.
 | Conversa sobre projeto, recuperação de contexto e arquitetura ainda em descoberta | Sol | medium |
 | Arquitetura com trade-offs, especificação técnica ou julgamento profissional | Sol | high |
 | Ambiguidade residual concreta, restrições conflitantes ou risco difícil de detectar | Sol | xhigh |
-| Gate crítico delimitado que pede profundidade máxima ou permaneceu sem solução em XHigh | Sol | max |
-| Agents, coordenação e processamento pesado com etapas heterogêneas | Terra | max |
-| Lote estruturado, repetível e validável automaticamente | Luna | max |
+| Risco crítico delimitado que permaneceu sem solução após uma rota seletiva mais estreita, normalmente Sol XHigh | Sol | max |
+| Contrato fechado, prioridade de qualidade e execução heterogênea interdependente | Terra | max |
+| Trabalho cost-first, assíncrono, reversível, revisado antes de consequência e tolerante a execução adicional | Luna | max |
 
 Minha leitura operacional é: **a matriz deve mudar sem rebaixar o piso de
-qualidade**. Luna Max é reservada ao degrau de volume homogêneo com schema fixo
-e validação automática; Terra Max é reservada à execução heterogênea de agents
-e ao processamento pesado; Sol Medium até Max cobre a conversa, a arquitetura e
-o julgamento conforme a dificuldade concreta. Preço e benchmark não autorizam
-nenhum par fora dessas seis configurações.
+qualidade**. Luna Max exige a combinação cost-first, assíncrona, reversível,
+revisada antes de consequência e tolerante a latência, tokens, passos ou
+retries adicionais, inclusive no volume homogêneo. Terra Max exige contrato
+fechado, prioridade explícita de qualidade e execução heterogênea
+interdependente. Sol Max só entra quando um risco crítico explicitamente
+delimitado permanece sem solução após uma rota seletiva mais estreita; um pedido
+direto de profundidade máxima não basta. Preço e benchmark não autorizam nenhum
+par fora das seis configurações.
 
 Ao avaliar o custo das seis rotas elegíveis, rode o mesmo conjunto de tarefas
 do domínio correspondente, fixando `reasoning.effort` e separando

@@ -12,13 +12,14 @@ cp "${repo_root}/scripts/sync-model-comparison.sh" "${fixture_root}/scripts/"
 
 write_canonical() {
   printf '%s\n' \
-    '# Canonical' \
-    '<!-- MODEL_COMPARISON_START -->' \
+    '# Model Matrix' \
+    '' \
     '## Comparison' \
     '| Model | Score |' \
     '| --- | ---: |' \
     '| Sol High | 1 |' \
-    '<!-- MODEL_COMPARISON_END -->' \
+    '' \
+    '[Detailed evidence](model-evidence.md)' \
     >"${fixture_root}/skills/think-with-me/references/model-comparison.md"
 }
 
@@ -74,6 +75,51 @@ printf '%s\n' \
   >"${fixture_root}/skills/think-with-me/SKILL.md"
 if bash "${fixture_root}/scripts/sync-model-comparison.sh" --check >/dev/null 2>&1; then
   echo 'FAIL: check mode accepted reversed markers' >&2
+  exit 1
+fi
+
+write_mirror "${fixture_root}/skills/think-with-me/SKILL.md" '1'
+printf '%s\n' \
+  '# Missing canonical heading' \
+  '' \
+  '## Comparison' \
+  '' \
+  '[Detailed evidence](model-evidence.md)' \
+  >"${fixture_root}/skills/think-with-me/references/model-comparison.md"
+if bash "${fixture_root}/scripts/sync-model-comparison.sh" --check >/dev/null 2>&1; then
+  echo 'FAIL: check mode accepted a canonical source without the H1 anchor' >&2
+  exit 1
+fi
+
+printf '%s\n' \
+  '# Model Matrix' \
+  '' \
+  '## Comparison' \
+  '' \
+  >"${fixture_root}/skills/think-with-me/references/model-comparison.md"
+if bash "${fixture_root}/scripts/sync-model-comparison.sh" --check >/dev/null 2>&1; then
+  echo 'FAIL: check mode accepted a canonical source without the evidence anchor' >&2
+  exit 1
+fi
+
+printf '%s\n' \
+  '[Detailed evidence](model-evidence.md)' \
+  '' \
+  '# Model Matrix' \
+  >"${fixture_root}/skills/think-with-me/references/model-comparison.md"
+if bash "${fixture_root}/scripts/sync-model-comparison.sh" --check >/dev/null 2>&1; then
+  echo 'FAIL: check mode accepted reversed canonical anchors' >&2
+  exit 1
+fi
+
+printf '%s\n' \
+  '# Model Matrix' \
+  '# Model Matrix' \
+  '' \
+  '[Detailed evidence](model-evidence.md)' \
+  >"${fixture_root}/skills/think-with-me/references/model-comparison.md"
+if bash "${fixture_root}/scripts/sync-model-comparison.sh" --check >/dev/null 2>&1; then
+  echo 'FAIL: check mode accepted duplicate canonical headings' >&2
   exit 1
 fi
 

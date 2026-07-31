@@ -22,81 +22,39 @@ from the allowlist. Never switch pairs invisibly or present a host-selected
 replacement as compliant.
 
 <!-- MODEL_COMPARISON_START -->
-## Model quality and cost at a glance
+Last reviewed: **2026-07-31**.
 
-Comparison review date: **2026-07-31**. DeepSWE Pass@1, uncertainty, output
-tokens, agent steps, and historical costs come from the preserved DeepSWE JSON generated at `2026-07-17T08:18:55.870582+00:00`; later live observations do not replace that artifact or constitute a benchmark rerun. Only the displayed Luna Max and Terra Max costs use the explicit 31 July price overlay. Artificial Analysis values are a separate 31 July snapshot.
+## Which model should I use?
 
-These dated views explain why the skill keeps more than one useful
-configuration visible. They belong to different sources and harnesses, so
-they must be read separately rather than merged into a universal score.
+| Situation | Model |
+| --- | --- |
+| Ordinary conversation, project understanding, research, or reversible analysis when extra startup delay is acceptable | `Luna Max` |
+| Fast interactive conversation or rapid context recovery | `Sol Medium` |
+| Architecture, technical specification, or professional judgment | `Sol High` |
+| Quality-first agents, tools, or interdependent execution with a closed contract | `Terra Max` |
+| Residual ambiguity, conflicting constraints, or hard-to-detect risk | `Sol XHigh` |
+| A bounded critical problem still unresolved after `Sol XHigh` | `Sol Max` |
 
-### DeepSWE v1.1 — one software-engineering harness
+## Cross-checked data
 
-DeepSWE compares long-horizon software-engineering tasks in the same
-`mini-swe-agent` harness. The interval is the reported 95% run-to-run
-half-width. Pass@1, interval, output, and steps remain means from the preserved
-benchmark trajectories; the displayed cost column identifies the two repriced
-rows below.
+| Model | DeepSWE Pass@1 | Displayed DeepSWE average task cost | AA Intelligence Index v4.1 | AA time to first answer |
+| --- | ---: | ---: | ---: | ---: |
+| Sol Max | 72.67% | $8.39 | — | — |
+| Sol XHigh | 70.73% | $4.70 | — | — |
+| Terra Max | 69.62% | $3.96 | 54.95 | 152.99 s |
+| Sol High | 69.40% | $3.47 | 55.87 | 13.25 s |
+| Luna Max | 67.19% | $0.61 | 51.24 | 117.02 s |
+| Sol Medium | 61.06% | $1.86 | 53.59 | 4.31 s |
 
-| Configuration | Pass@1 | 95% interval | Displayed mean task cost | Mean output tokens | Mean agent steps |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Sol Max | 72.67% | ±2.83 pp | $8.39 | 60,014 | 61.3 |
-| Sol XHigh | 70.73% | ±0.82 pp | $4.70 | 40,745 | 44.0 |
-| Terra Max | 69.62% | ±2.56 pp | $3.96 | 71,939 | 75.9 |
-| Sol High | 69.40% | ±1.43 pp | $3.47 | 28,450 | 36.9 |
-| Luna Max | 67.19% | ±3.99 pp | $0.61 | 73,400 | 101.7 |
-| GPT-5.5 High | 64.38% | ±3.12 pp | $5.10 | 31,159 | 61.9 |
-| Sol Medium | 61.06% | ±1.58 pp | $1.86 | 18,425 | 30.9 |
-| Terra XHigh | 60.18% | ±2.12 pp | $2.13 | 39,617 | 43.1 |
-| Luna XHigh | 56.86% | ±2.17 pp | $1.54 | 44,678 | 71.1 |
-| Terra High | 53.76% | ±4.33 pp | $1.13 | 21,517 | 33.5 |
+Luna Max and Terra Max costs apply the documented 31 July price overlay to
+preserved DeepSWE trajectories; this is not a new benchmark run. A dash means
+that the value was not captured in the selected 31 July Artificial Analysis
+snapshot.
 
-**Displayed DeepSWE price overlay (31 July):** all rows except Luna Max and
-Terra Max retain their historical measured cost. Raw preserved-JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.
-The visible 31 July prices apply explicit factors of 0.20 for Luna Max and 0.80 for Terra Max, yielding $0.61 and $3.96. The formulas are `$3.0281 × 0.20 = $0.60562 → $0.61` and
-`$4.9458 × 0.80 = $3.95664 → $3.96`. This is a reprice of the same trajectories,
-not a new benchmark run.
-
-Overlapping intervals leave the observed order unresolved; they do not prove equality. Sol XHigh costs $3.69, or about 44.0%, less per mean task than Sol Max while their reported intervals overlap. Sol High sits only 0.22 pp below Terra Max's point estimate at $0.49 less displayed cost and with fewer tokens and steps. Luna Max costs $2.86 less than Sol High at the displayed rate but uses substantially more output and steps.
-
-**Policy boundary:** Luna Max's observed cost-quality advantage makes it the
-default value route for ordinary non-consequential work when additional startup
-delay is acceptable. Sol Medium remains the explicit speed route because its
-observed time to first answer is much lower. This is a routing trade-off, not a
-claim that either configuration is universally superior.
-
-### Artificial Analysis — a separate perspective
-
-The Coding Index is a 50/50 aggregate of Terminal-Bench 2.1 and SciCode. The
-Intelligence Index v4.1 is a separate broad index, and the mean cost belongs to
-that intelligence view. The 31 July research report verified the four rows
-below; earlier snapshot-only rows are intentionally not carried into this
-current table. The machine-readable capture is
-`docs/research/assets/artificial-analysis-model-pages-2026-07-31.json`, SHA-256
-`acb5227d3825406968ebc0ca42841d46f5d1cf3b450123608f9edc06fa9ff3ce`.
-It records `retrieved_date` `2026-07-31`, timezone `America/Fortaleza`, and
-`retrieved_time` null because the exact time of day was not recorded.
-
-| Configuration | Coding Index | Intelligence Index v4.1 | Mean cost/task | Output speed | Time to first answer |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Sol High | 77.16 | 55.87 | $0.771 | 62.4 tok/s | 13.25 s |
-| Terra Max | 76.66 | 54.95 | $0.733 | 131.8 tok/s | 152.99 s |
-| Sol Medium | 76.26 | 53.59 | $0.514 | 54.6 tok/s | 4.31 s |
-| Luna Max | 71.45 | 51.24 | $0.066 | 177.8 tok/s | 117.02 s |
-
-Artificial Analysis did not publish confidence intervals in the selected snapshot. Its score gaps are therefore not treated as statistically resolved. Its API time-to-first-answer observations are not a measure of host-specific end-to-end interaction latency, but Luna Max's 117.02 s observation does not support calling the lower price a latency improvement. These tables do not establish conversational equivalence.
-
-Sources: [DeepSWE methodology](https://deepswe.datacurve.ai/blog/deepswe),
-[DeepSWE v1.1 changes](https://deepswe.datacurve.ai/blog/deepswe-v1-1),
-[raw DeepSWE v1.1 leaderboard](https://deepswe.datacurve.ai/artifacts/v1.1/leaderboard-live.json),
-[Artificial Analysis capability-index methodology](https://artificialanalysis.ai/methodology/capability-indices),
-and [Artificial Analysis coding capability](https://artificialanalysis.ai/models/capabilities/coding).
-The specific 31 July values and price provenance are documented in
-`gpt-5-6-price-benchmark-routing-review-2026-07-31.md`.
+DeepSWE and Artificial Analysis use different harnesses. Do not combine the two benchmark scores into one ranking.
 <!-- MODEL_COMPARISON_END -->
 
-See the full [portable comparison](references/model-comparison.md) for limitations, decision guidance, and the refresh contract.
+Open the concise [model matrix](references/model-comparison.md) for the routing table and cross-checked values. Detailed provenance remains in [model evidence](references/model-evidence.md).
 
 ## Understand the conversation
 
@@ -125,13 +83,24 @@ Use the language of the current user message, not the application locale, prior 
 >
 > **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.
 >
-> `Sol High` · connect the concrete next step to the decisive conversational evidence.
+> `Sol High` ([View matrix](/absolute/path/to/think-with-me/references/model-comparison.md)) · connect the concrete next step to the decisive conversational evidence.
 
 For another language, keep this exact structure and load the localized view and next-step labels from the output contract. The model label is always the selected family and effort in inline code; do not add a translated model-field label.
 
 The final three fields MUST render inside one continuous Markdown blockquote. Every field line starts with `>` and each separator line contains only `>` without trailing whitespace. Do not output the three fields as ordinary paragraphs. The view is a conclusion; the next step advances only the current subject. The sole exception is when both Terra/Luna execution routes are eligible and their decisive priority is unknown: ask one focused cost-first-versus-quality-first question in the two-field blockquote and omit the model footer until that input is known.
 
-The model field must be one short physical Markdown line: an inline-code label containing exactly one model family and effort, followed by ` · ` and a contextual reason. Do not substitute generic product or effort names for the selected family and effort. Its reason names the concrete next step and decisive conversational evidence, without naming another model family or effort, predicting a later phase, listing alternatives, using arrows, italics, bold text, or raw HTML.
+The model field must be one short physical Markdown line: an inline-code label
+containing exactly one model family and effort, immediately followed by a
+parenthesized localized link to the installed comparison file, then ` · ` and a
+contextual reason. Resolve the link from the directory containing the loaded
+`SKILL.md` to `references/model-comparison.md` and render its absolute local
+filesystem path. Use `Ver matriz` in Portuguese, `View matrix` in English, and
+a concise natural equivalent in other languages. Wrap a path containing spaces
+in angle brackets inside the Markdown link. Never point this footer link to
+GitHub, another remote URL, or a repository-relative path. Do not substitute generic product or effort names for the selected family and effort. Its reason
+names the concrete next step and decisive conversational evidence, without
+naming another model family or effort, predicting a later phase, listing
+alternatives, using arrows, italics, bold text, or raw HTML.
 
 Model recommendation is derived only after the view and exactly one next step are formed. Never infer which model is active; use model or effort history only when the user or host explicitly provides it.
 

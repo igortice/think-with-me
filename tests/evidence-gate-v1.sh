@@ -48,6 +48,7 @@ require_file "${repo_root}/scripts/verify-install-record.sh"
 require_file "${repo_root}/tests/sync-model-comparison.sh"
 require_file "${repo_root}/tests/verify-model-comparison-data.sh"
 require_file "${repo_root}/tests/verify-install-record.sh"
+require_file "${repo_root}/tests/current-model-documentation.sh"
 require_file "${repo_root}/evals/evidence-run-template.md"
 require_file "${repo_root}/evals/model-routing-evidence-template.md"
 require_file "${repo_root}/evals/evidence-2026-07-19-evidence-based-routing.md"
@@ -114,17 +115,13 @@ require_text "${skill_file}" 'Open [the output contract](references/output-contr
 require_text "${skill_file}" '[model routing](references/model-routing.md) before writing every closing.'
 require_file "${model_comparison_file}"
 require_text "${skill_file}" 'Open [model comparison](references/model-comparison.md) when the user'
-require_text "${readme_file}" '## Model quality and cost at a glance'
-require_text "${skill_file}" '## Model quality and cost at a glance'
-require_text "${readme_file}" '### DeepSWE v1.1 — one software-engineering harness'
-require_text "${skill_file}" '### DeepSWE v1.1 — one software-engineering harness'
-require_text "${readme_file}" '### Artificial Analysis — a separate perspective'
-require_text "${skill_file}" '### Artificial Analysis — a separate perspective'
-require_text "${readme_file}" 'Comparison review date: **2026-07-31**.'
-require_text "${skill_file}" 'Comparison review date: **2026-07-31**.'
-require_text "${model_comparison_file}" 'Comparison review date: **2026-07-31**.'
-require_text "${readme_file}" 'Artificial Analysis did not publish confidence intervals in the selected snapshot.'
-require_text "${skill_file}" 'Artificial Analysis did not publish confidence intervals in the selected snapshot.'
+require_text "${readme_file}" '## Which model should I use?'
+require_text "${skill_file}" '## Which model should I use?'
+require_text "${readme_file}" '## Cross-checked data'
+require_text "${skill_file}" '## Cross-checked data'
+require_text "${readme_file}" 'Last reviewed: **2026-07-31**.'
+require_text "${skill_file}" 'Last reviewed: **2026-07-31**.'
+require_text "${model_comparison_file}" 'Last reviewed: **2026-07-31**.'
 require_text "${skill_file}" 'Do not output the three fields as ordinary paragraphs'
 require_text "${skill_file}" 'one concrete next step'
 require_text "${skill_file}" 'not a sequence, checklist, or bundle of actions'
@@ -142,7 +139,7 @@ require_text "${output_file}" '**Minha visão:**'
 require_text "${output_file}" '**Próximo passo:**'
 require_text "${output_file}" '**My view:**'
 require_text "${output_file}" '**Next step:**'
-require_text "${output_file}" '`Sol High` ·'
+require_text "${output_file}" '`Sol High` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) ·'
 require_text "${output_file}" '`Próximo passo` contains at most one `?` character'
 require_text "${routing_file}" 'Recommend exactly one model and effort for the immediate next step'
 require_text "${routing_file}" '## Mandatory strong-model allowlist'
@@ -176,60 +173,27 @@ reject_text "${model_evidence_file}" 'Policy review date: **2026-07-30**.'
 require_text "${model_evidence_file}" '[Historical model evidence snapshot — 2026-07-20](model-evidence-2026-07-20.md)'
 require_text "${model_evidence_file}" 'The skill recommends a pair; it cannot select, retry, replace, or verify the'
 require_text "${model_evidence_file}" 'gpt-5-6-price-benchmark-routing-review-2026-07-31.md'
-require_text "${model_comparison_file}" '# Portable Model Quality and Cost Comparison'
-require_text "${model_comparison_file}" '### DeepSWE v1.1 — one software-engineering harness'
-require_text "${model_comparison_file}" '### Artificial Analysis — a separate perspective'
-require_text "${model_comparison_file}" '| Sol XHigh | 70.73% | ±0.82 pp | $4.70 | 40,745 | 44.0 |'
-require_text "${model_comparison_file}" '| Terra Max | 69.62% | ±2.56 pp | $3.96 | 71,939 | 75.9 |'
-require_text "${model_comparison_file}" '| Luna Max | 67.19% | ±3.99 pp | $0.61 | 73,400 | 101.7 |'
-require_text "${model_comparison_file}" 'preserved DeepSWE JSON generated at `2026-07-17T08:18:55.870582+00:00`'
-require_text "${model_comparison_file}" 'Raw preserved-JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.'
-require_text "${model_comparison_file}" 'The visible 31 July prices apply explicit factors of 0.20 for Luna Max and 0.80 for Terra Max, yielding $0.61 and $3.96.'
-require_text "${model_comparison_file}" 'docs/research/assets/artificial-analysis-model-pages-2026-07-31.json'
-require_text "${model_comparison_file}" 'acb5227d3825406968ebc0ca42841d46f5d1cf3b450123608f9edc06fa9ff3ce'
-require_text "${model_comparison_file}" 'gpt-5-6-price-benchmark-routing-review-2026-07-31.md'
-require_text "${model_comparison_file}" '| Sol High | 77.16 | 55.87 | $0.771 | 62.4 tok/s | 13.25 s |'
-require_text "${model_comparison_file}" '| Terra Max | 76.66 | 54.95 | $0.733 | 131.8 tok/s | 152.99 s |'
-require_text "${model_comparison_file}" '| Sol Medium | 76.26 | 53.59 | $0.514 | 54.6 tok/s | 4.31 s |'
-require_text "${model_comparison_file}" '| Luna Max | 71.45 | 51.24 | $0.066 | 177.8 tok/s | 117.02 s |'
-require_text "${model_comparison_file}" '**Policy boundary:** Luna Max'
-require_text "${model_comparison_file}" 'default value route for ordinary non-consequential work'
-require_text "${model_comparison_file}" 'Sol Medium remains the explicit speed route'
-require_text "${model_comparison_file}" 'Show both source-specific Markdown tables'
-require_text "${model_comparison_file}" 'Do not average, normalize, or merge the two sources into a composite score.'
-require_text "${model_comparison_file}" '<!-- MODEL_COMPARISON_START -->'
-require_text "${model_comparison_file}" '<!-- MODEL_COMPARISON_END -->'
-require_text "${model_comparison_file}" '## Refresh contract'
-require_text "${model_comparison_file}" 'Historical snapshots are immutable.'
-require_text "${model_comparison_file}" 'Live source endpoints last checked: **2026-07-31**.'
-require_text "${model_comparison_file}" '### Source values versus derived values'
-require_text "${model_comparison_file}" '### Exact live-source views'
-require_text "${model_comparison_file}" 'https://artificialanalysis.ai/models/gpt-5-6-luna/'
-require_text "${model_comparison_file}" 'https://artificialanalysis.ai/models/gpt-5-6-sol-medium/'
-require_text "${model_comparison_file}" 'https://artificialanalysis.ai/models/gpt-5-6-terra/'
-require_text "${model_comparison_file}" 'https://artificialanalysis.ai/models/gpt-5-6-sol-high/'
-require_text "${model_comparison_file}" 'https://deepswe.datacurve.ai/artifacts/v1.1/leaderboard-live.json'
-require_text "${model_comparison_file}" '050663ae245106a7fc59312565059f46bd6ee10fa587131dd09a5062af5ed24d'
-require_text "${model_comparison_file}" 'bash scripts/sync-model-comparison.sh'
-require_text "${model_comparison_file}" 'bash scripts/sync-model-comparison.sh --check'
+require_text "${model_comparison_file}" '# Model Matrix'
+require_text "${model_comparison_file}" '## Which model should I use?'
+require_text "${model_comparison_file}" '## Cross-checked data'
+require_text "${model_comparison_file}" '| Sol XHigh | 70.73% | $4.70 | — | — |'
+require_text "${model_comparison_file}" '| Terra Max | 69.62% | $3.96 | 54.95 | 152.99 s |'
+require_text "${model_comparison_file}" '| Luna Max | 67.19% | $0.61 | 51.24 | 117.02 s |'
+require_text "${model_comparison_file}" 'Luna Max and Terra Max costs apply the documented 31 July price overlay'
+require_text "${model_comparison_file}" 'Do not combine the two benchmark scores into one ranking.'
+require_text "${model_comparison_file}" '[Detailed evidence](model-evidence.md)'
+reject_text "${model_comparison_file}" '<!-- MODEL_COMPARISON_START -->'
+reject_text "${model_comparison_file}" '<!-- MODEL_COMPARISON_END -->'
 
 bash "${repo_root}/scripts/sync-model-comparison.sh" --check
 
 public_comparison_rows=(
-  '| Sol Max | 72.67% | ±2.83 pp | $8.39 | 60,014 | 61.3 |'
-  '| Sol XHigh | 70.73% | ±0.82 pp | $4.70 | 40,745 | 44.0 |'
-  '| Terra Max | 69.62% | ±2.56 pp | $3.96 | 71,939 | 75.9 |'
-  '| Sol High | 69.40% | ±1.43 pp | $3.47 | 28,450 | 36.9 |'
-  '| Luna Max | 67.19% | ±3.99 pp | $0.61 | 73,400 | 101.7 |'
-  '| GPT-5.5 High | 64.38% | ±3.12 pp | $5.10 | 31,159 | 61.9 |'
-  '| Sol Medium | 61.06% | ±1.58 pp | $1.86 | 18,425 | 30.9 |'
-  '| Terra XHigh | 60.18% | ±2.12 pp | $2.13 | 39,617 | 43.1 |'
-  '| Luna XHigh | 56.86% | ±2.17 pp | $1.54 | 44,678 | 71.1 |'
-  '| Terra High | 53.76% | ±4.33 pp | $1.13 | 21,517 | 33.5 |'
-  '| Sol High | 77.16 | 55.87 | $0.771 | 62.4 tok/s | 13.25 s |'
-  '| Terra Max | 76.66 | 54.95 | $0.733 | 131.8 tok/s | 152.99 s |'
-  '| Sol Medium | 76.26 | 53.59 | $0.514 | 54.6 tok/s | 4.31 s |'
-  '| Luna Max | 71.45 | 51.24 | $0.066 | 177.8 tok/s | 117.02 s |'
+  '| Sol Max | 72.67% | $8.39 | — | — |'
+  '| Sol XHigh | 70.73% | $4.70 | — | — |'
+  '| Terra Max | 69.62% | $3.96 | 54.95 | 152.99 s |'
+  '| Sol High | 69.40% | $3.47 | 55.87 | 13.25 s |'
+  '| Luna Max | 67.19% | $0.61 | 51.24 | 117.02 s |'
+  '| Sol Medium | 61.06% | $1.86 | 53.59 | 4.31 s |'
 )
 for row in "${public_comparison_rows[@]}"; do
   require_text "${model_comparison_file}" "${row}"
@@ -238,10 +202,10 @@ for row in "${public_comparison_rows[@]}"; do
 done
 
 public_comparison_notes=(
-  'Raw preserved-JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.'
-  'The visible 31 July prices apply explicit factors of 0.20 for Luna Max and 0.80 for Terra Max, yielding $0.61 and $3.96.'
-  'default value route for ordinary non-consequential work'
-  'Sol Medium remains the explicit speed route'
+  'Luna Max and Terra Max costs apply the documented 31 July price overlay'
+  'Do not combine the two benchmark scores into one ranking.'
+  '| Ordinary conversation, project understanding, research, or reversible analysis when extra startup delay is acceptable | `Luna Max` |'
+  '| Fast interactive conversation or rapid context recovery | `Sol Medium` |'
 )
 for note in "${public_comparison_notes[@]}"; do
   require_text "${model_comparison_file}" "${note}"
@@ -267,18 +231,16 @@ for row in "${stale_artificial_analysis_rows[@]}"; do
   reject_text "${skill_file}" "${row}"
 done
 
-require_text "${readme_file}" 'Sol XHigh costs $3.69, or about 44.0%, less per mean task than Sol Max'
-require_text "${skill_file}" 'Sol XHigh costs $3.69, or about 44.0%, less per mean task than Sol Max'
-require_text "${readme_file}" '[portable comparison](skills/think-with-me/references/model-comparison.md)'
-require_text "${skill_file}" '[portable comparison](references/model-comparison.md)'
+require_text "${readme_file}" '[model matrix](skills/think-with-me/references/model-comparison.md)'
+require_text "${skill_file}" '[model matrix](references/model-comparison.md)'
 require_text "${repo_root}/docs/research/model-routing-three-source-verification-2026-07-19.md" 'assets/deepswe-v1.1-leaderboard-2026-07-20.json'
 require_text "${repo_root}/docs/research/model-routing-three-source-verification-2026-07-19.md" '050663ae245106a7fc59312565059f46bd6ee10fa587131dd09a5062af5ed24d'
 require_text "${output_file}" 'one question and your recommended answer'
-require_text "${output_file}" '`Sol High` · connect the concrete next step to the decisive conversational evidence.'
+require_text "${output_file}" '`Sol High` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · connect the concrete next step to the decisive conversational evidence.'
 require_text "${output_file}" 'Quando o usuário informa explicitamente que configurações anteriores não restauraram a convergência e ainda restam correções repetidas, use esse resultado como evidência em vez de recomendar apenas pela categoria da tarefa.'
 require_text "${output_file}" '**Minha visão:** a regra está compreendida, mas os erros anteriores de enquadramento mostram que o contrato final ainda exige julgamento preciso.'
 require_text "${output_file}" 'executar um lote piloto representativo no formato único, com critérios prévios de aprovação'
-require_text "${output_file}" '`Sol XHigh` · investigar falhas de integridade difíceis de detectar antes de autorizar a migração.'
+require_text "${output_file}" '`Sol XHigh` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · investigar falhas de integridade difíceis de detectar antes de autorizar a migração.'
 require_text "${cases_file}" 'Compare A e B com estes fatos'
 require_text "${cases_file}" 'inventar uma edição especulativa'
 require_text "${cases_file}" '11. A configuração é escolhida como o par indivisível `família + effort`; a resposta não escolhe uma família antes de avaliar o effort.'
@@ -466,12 +428,12 @@ if rg -Fq '**Status:** implementada, validada e sincronizada globalmente' "${rou
   fail 'historical routing spec presents an older global synchronization as the current candidate state'
 fi
 
-closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> `Sol High` · connect the concrete next step to the decisive conversational evidence.'
+closing_template=$'> **Minha visão:** one clear conclusion about the subject and the decisive reason.\n>\n> **Próximo passo:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> `Sol High` ([Ver matriz](/absolute/path/to/think-with-me/references/model-comparison.md)) · connect the concrete next step to the decisive conversational evidence.'
 if ! rg -U -F -- "${closing_template}" "${output_file}" >/dev/null; then
   fail "output contract does not contain the literal Portuguese blockquote template"
 fi
 
-english_closing_template=$'> **My view:** one clear conclusion about the subject and the decisive reason.\n>\n> **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> `Sol High` · connect the concrete next step to the decisive conversational evidence.'
+english_closing_template=$'> **My view:** one clear conclusion about the subject and the decisive reason.\n>\n> **Next step:** the single immediate dependency. When it is a user decision, include your recommended answer and one question here.\n>\n> `Sol High` ([View matrix](/absolute/path/to/think-with-me/references/model-comparison.md)) · connect the concrete next step to the decisive conversational evidence.'
 if ! rg -U -F -- "${english_closing_template}" "${output_file}" >/dev/null; then
   fail "output contract does not contain the literal English blockquote template"
 fi
@@ -520,22 +482,32 @@ fi
 
 model_footer_is_valid() {
   local footer="$1"
-  local footer_body
   local model_effort
+  local link_label
+  local link_target
   local reason
 
-  [[ "${footer}" =~ ^\>\ \`([^\`]+)\`\ ·\ (.+)$ ]] || return 1
+  [[ "${footer}" =~ ^\>\ \`([^\`]+)\`\ \(\[(.+)\]\((.+)\)\)\ ·\ (.+)$ ]] || return 1
   model_effort="${BASH_REMATCH[1]}"
-  reason="${BASH_REMATCH[2]}"
-  footer_body="${footer#> }"
+  link_label="${BASH_REMATCH[2]}"
+  link_target="${BASH_REMATCH[3]}"
+  reason="${BASH_REMATCH[4]}"
+
+  if [[ "${link_target}" == \<*\> ]]; then
+    link_target="${link_target#<}"
+    link_target="${link_target%>}"
+  fi
 
   if rg -qiP '\b(agora|depois|now|later)\b|\p{S}|—|->|=>|<-|<=|</?[A-Za-z][^>]*>' <<<"${reason}"; then
     return 1
   fi
 
   [[ "${model_effort}" =~ ^(Sol[[:space:]](Medium|High|XHigh|Max)|Terra[[:space:]]Max|Luna[[:space:]]Max)$ ]] || return 1
+  [[ -n "${link_label}" && "${link_label}" =~ [^[:space:]] ]] || return 1
+  [[ "${link_target}" == /*/references/model-comparison.md ]] || return 1
+  [[ "${link_target}" != *://* ]] || return 1
   [[ -n "${reason}" && "${reason}" =~ [^[:space:]] ]] || return 1
-  ! rg -q '\*\*|_|—' <<<"${footer}"
+  ! rg -q '\*\*|_|—' <<<"${reason}"
   ! rg -qi '\b(Terra|Sol|Luna|None|Low|Medium|High|XHigh|Max)\b' <<<"${reason}"
 }
 
@@ -543,7 +515,7 @@ model_footer_count=0
 while IFS= read -r footer; do
   model_footer_count=$((model_footer_count + 1))
   model_footer_is_valid "${footer}" || fail "invalid model footer: ${footer}"
-done < <(rg --no-filename '^> `(Terra|Sol|Luna) (None|Low|Medium|High|XHigh|Max)` · ' "${skill_file}" "${routing_file}" "${output_file}")
+done < <(rg --no-filename '^> `(Terra|Sol|Luna) (None|Low|Medium|High|XHigh|Max)` \(' "${skill_file}" "${routing_file}" "${output_file}")
 [[ "${model_footer_count}" -gt 0 ]] || fail "no model footer examples found"
 
 invalid_model_footers=(
@@ -559,6 +531,9 @@ invalid_model_footers=(
   '> `Sol High` · fechar a regra ⬅ sem transição.'
   '> `Sol High` · fechar a regra 🔄 sem transição.'
   '> `Sol High` · '
+  '> `Sol High` ([Ver matriz](references/model-comparison.md)) · fechar a regra.'
+  '> `Sol High` ([Ver matriz](https://github.com/igortice/think-with-me/blob/main/skills/think-with-me/references/model-comparison.md)) · fechar a regra.'
+  '> `Sol High` ([Ver matriz](/absolute/path/to/other.md)) · fechar a regra.'
 )
 for footer in "${invalid_model_footers[@]}"; do
   if model_footer_is_valid "${footer}"; then
@@ -580,6 +555,7 @@ require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-comp
 bash "${repo_root}/tests/sync-model-comparison.sh"
 bash "${repo_root}/tests/verify-model-comparison-data.sh"
 bash "${repo_root}/tests/verify-install-record.sh"
+bash "${repo_root}/tests/current-model-documentation.sh"
 latest_evidence_file="${repo_root}/evals/evidence-2026-07-31-value-first-routing.md"
 latest_install_file="${repo_root}/evals/install-2026-07-31-value-first-routing.md"
 
@@ -665,9 +641,10 @@ has_heading_in_file "${indented_pending_heading_fixture}" "## Runtime behavior p
   fail "evidence heading parser ignored a top-level heading indented by up to three spaces"
 
 current_package_hash="$(sed -n 's/^PACKAGE_SHA256=//p' <<<"${manifest}")"
-require_text "${latest_install_file}" 'Candidate id: `e2f65d4cbb5df58e25d5f1b0cf1e1303cc1c8028f79034417f1e04e2aa4044da`'
-require_text "${latest_install_file}" 'Backup: `/private/tmp/think-with-me-global-backup.ifomDQ`'
-require_text "${latest_install_file}" 'Evaluator: `019fb9a6-05df-7512-b93a-6641634e694e`'
+require_text "${latest_install_file}" 'Candidate id: `991393a8a90628b6560295a834f73e1a04c8857c50da9abda44ae38605a85589`'
+require_text "${latest_install_file}" 'Backup: `/private/tmp/think-with-me-global-backup.PaPm76`'
+require_text "${latest_install_file}" 'Evaluator: `019fb9d6-7bc5-77e3-af6d-4924ca5b314a`'
+require_text "${latest_install_file}" '/Users/igortice/.agents/skills/think-with-me/references/model-comparison.md'
 require_text "${latest_install_file}" '`Luna Max` → `Sol Medium` → `Sol High` → `Terra Max`'
 bash "${repo_root}/scripts/verify-install-record.sh" \
   "${latest_install_file}" \

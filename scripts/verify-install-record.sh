@@ -39,7 +39,7 @@ require_exact_top_level_line 'Date: 2026-07-31' 'current date'
 require_exact_top_level_line "Candidate package: \`${expected_package_hash}\`" 'candidate package hash'
 require_exact_top_level_line 'GLOBAL_PARITY_STATUS: passed' 'global parity status'
 require_exact_top_level_line 'POST_INSTALL_RUNTIME_STATUS: passed' 'post-install runtime status'
-require_exact_top_level_line '`Sol Medium` → `Luna Max` → `Sol High`' 'routing transition'
+require_exact_top_level_line '`Luna Max` → `Sol Medium` → `Sol High` → `Terra Max`' 'routing transition'
 
 candidate_line_count="$(grep -Ec '^Candidate package: ' <<<"${top_level_lines}" || true)"
 parity_line_count="$(grep -Ec '^GLOBAL_PARITY_STATUS: ' <<<"${top_level_lines}" || true)"

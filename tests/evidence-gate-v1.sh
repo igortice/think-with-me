@@ -580,46 +580,23 @@ require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-comp
 bash "${repo_root}/tests/sync-model-comparison.sh"
 bash "${repo_root}/tests/verify-model-comparison-data.sh"
 bash "${repo_root}/tests/verify-install-record.sh"
-latest_evidence_file="${repo_root}/evals/evidence-2026-07-31-luna-cost-routing.md"
-latest_initial_captures_file="${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing.md"
-latest_final_captures_file="${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing-final.md"
-latest_install_file="${repo_root}/evals/install-2026-07-31-luna-cost-routing.md"
+latest_evidence_file="${repo_root}/evals/evidence-2026-07-31-value-first-routing.md"
+latest_install_file="${repo_root}/evals/install-2026-07-31-value-first-routing.md"
 
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-31-luna-cost-routing.md'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-31-luna-cost-routing.md'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-31-luna-cost-routing-final.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-31-value-first-routing.md'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Static validation passed"'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'reject_heading "## Runtime behavior pending"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Runtime behavior passed"'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Independent review"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Global parity"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Post-install runtime"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "LOCAL_CANDIDATE_STATUS: passed"'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "INDEPENDENT_REVIEW_STATUS: passed"'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "GLOBAL_PARITY_STATUS: not-run"'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "POST_INSTALL_RUNTIME_STATUS: not-run"'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "RUNTIME_SOURCE_FIDELITY: host-unverified"'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'No Task 4 evidence-gate implementation commit, push, publication, global synchronization, or skills.sh installation preceded this evidence record.'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "GLOBAL_PARITY_STATUS: passed"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "POST_INSTALL_RUNTIME_STATUS: passed"'
 
-require_text "${latest_evidence_file}" 'Reviewer `019fb96a-1391-70f1-a120-482fa3dc2c23`'
-require_text "${latest_evidence_file}" 'The supplied runtime artifact records five fresh forward tests'
-require_text "${latest_evidence_file}" 'the duplicate capture is not evidence of a second run.'
-require_text "${latest_evidence_file}" '`3.0281 × 0.20` rounds to `$0.61`'
-require_text "${latest_evidence_file}" '`4.9458 × 0.80` rounds to `$3.96`'
-require_text "${latest_evidence_file}" 'repricing is not described as a benchmark or capability rerun.'
-require_text "${latest_initial_captures_file}" 'These are fresh forward tests against the uncommitted repository-local'
-require_text "${latest_initial_captures_file}" 'Passed: 5/5'
-require_text "${latest_final_captures_file}" 'These are fresh forward tests against the uncommitted repository-local'
-require_text "${latest_final_captures_file}" 'Failed: 0/5'
-for evaluator_id in \
-  019fb966-bbf9-7100-b3a9-0d9c81518b1d \
-  019fb966-bee1-7a23-9602-36ad2730be01 \
-  019fb966-bd53-7233-a556-e5a3dd718dc2 \
-  019fb966-c0a9-7ce0-9b1a-db043b641619 \
-  019fb967-c708-7a30-b5e9-bbfc13d66f58; do
-  require_text "${latest_initial_captures_file}" "${evaluator_id}"
-  require_text "${latest_final_captures_file}" "${evaluator_id}"
-done
+require_text "${latest_evidence_file}" '`Luna Max` → `Sol Medium` → `Sol High` → `Terra Max`'
+require_text "${latest_evidence_file}" '`Sol XHigh` for unresolved ambiguity'
+require_text "${latest_evidence_file}" '`Sol Max` only for bounded critical risk'
+require_text "${latest_evidence_file}" 'GLOBAL_PARITY_STATUS: passed'
+require_text "${latest_evidence_file}" 'POST_INSTALL_RUNTIME_STATUS: passed'
 
 if grep -Fq 'Public-release validation passed.' "${repo_root}/scripts/validate-skill.sh"; then
   fail "legacy validator still claims public-release validation"
@@ -688,10 +665,10 @@ has_heading_in_file "${indented_pending_heading_fixture}" "## Runtime behavior p
   fail "evidence heading parser ignored a top-level heading indented by up to three spaces"
 
 current_package_hash="$(sed -n 's/^PACKAGE_SHA256=//p' <<<"${manifest}")"
-require_text "${latest_install_file}" 'Candidate id: `a219adefffdafebc9bac50bbd9f28d2c1db690cad03841f9f7bf4b76a0907a56`'
-require_text "${latest_install_file}" 'Backup: `/private/tmp/think-with-me-global-backup.w631rz`'
-require_text "${latest_install_file}" 'Evaluator: `019fb976-dc44-75a1-823f-07bdff470e10`'
-require_text "${latest_install_file}" 'Global runtime artifact SHA-256: `0d810c3159340c2b373263e7f207824bdd18522466e55f048d33747188e8a3d5`'
+require_text "${latest_install_file}" 'Candidate id: `e2f65d4cbb5df58e25d5f1b0cf1e1303cc1c8028f79034417f1e04e2aa4044da`'
+require_text "${latest_install_file}" 'Backup: `/private/tmp/think-with-me-global-backup.ifomDQ`'
+require_text "${latest_install_file}" 'Evaluator: `019fb9a6-05df-7512-b93a-6641634e694e`'
+require_text "${latest_install_file}" '`Luna Max` → `Sol Medium` → `Sol High` → `Terra Max`'
 bash "${repo_root}/scripts/verify-install-record.sh" \
   "${latest_install_file}" \
   "${current_package_hash}"

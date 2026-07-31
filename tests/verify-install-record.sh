@@ -43,19 +43,19 @@ expect_rejected() {
 }
 
 valid_record="${fixture_root}/valid.md"
-write_record "${valid_record}" "${expected_hash}" 'passed' 'passed' '`Sol Medium` → `Luna Max` → `Sol High`'
+write_record "${valid_record}" "${expected_hash}" 'passed' 'passed' '`Luna Max` → `Sol Medium` → `Sol High` → `Terra Max`'
 bash "${verifier}" "${valid_record}" "${expected_hash}" >/dev/null
 
 wrong_hash_record="${fixture_root}/wrong-hash.md"
-write_record "${wrong_hash_record}" "${wrong_hash}" 'passed' 'passed' '`Sol Medium` → `Luna Max` → `Sol High`'
+write_record "${wrong_hash_record}" "${wrong_hash}" 'passed' 'passed' '`Luna Max` → `Sol Medium` → `Sol High` → `Terra Max`'
 expect_rejected 'a stale candidate package hash' "${wrong_hash_record}"
 
 parity_not_run_record="${fixture_root}/parity-not-run.md"
-write_record "${parity_not_run_record}" "${expected_hash}" 'not-run' 'passed' '`Sol Medium` → `Luna Max` → `Sol High`'
+write_record "${parity_not_run_record}" "${expected_hash}" 'not-run' 'passed' '`Luna Max` → `Sol Medium` → `Sol High` → `Terra Max`'
 expect_rejected 'GLOBAL_PARITY_STATUS other than passed' "${parity_not_run_record}"
 
 runtime_not_run_record="${fixture_root}/runtime-not-run.md"
-write_record "${runtime_not_run_record}" "${expected_hash}" 'passed' 'not-run' '`Sol Medium` → `Luna Max` → `Sol High`'
+write_record "${runtime_not_run_record}" "${expected_hash}" 'passed' 'not-run' '`Luna Max` → `Sol Medium` → `Sol High` → `Terra Max`'
 expect_rejected 'POST_INSTALL_RUNTIME_STATUS other than passed' "${runtime_not_run_record}"
 
 wrong_transition_record="${fixture_root}/wrong-transition.md"

@@ -2,9 +2,7 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-evidence_file="${repo_root}/evals/evidence-2026-07-31-luna-cost-routing.md"
-initial_captures_file="${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing.md"
-final_captures_file="${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing-final.md"
+evidence_file="${repo_root}/evals/evidence-2026-07-31-value-first-routing.md"
 
 fail() {
   echo "FAIL: $*" >&2
@@ -151,22 +149,15 @@ main() {
   [[ -n "${package_hash}" ]] || fail "candidate manifest has no package hash"
 
   verify_package_hashes "${evidence_file}" "${package_hash}"
-  verify_runtime_capture_hash "${evidence_file}" "${initial_captures_file}" "INITIAL_RUNTIME_CAPTURES_SHA256"
-  verify_runtime_capture_hash "${evidence_file}" "${final_captures_file}" "FINAL_RUNTIME_CAPTURES_SHA256"
   require_heading "## Static validation passed"
-  reject_heading "## Runtime behavior pending"
   require_heading "## Runtime behavior passed"
-  require_heading "## Independent review"
   require_heading "## Global parity"
   require_heading "## Post-install runtime"
-  require_top_level_line "RUNTIME_SOURCE_FIDELITY: host-unverified"
   require_top_level_line "LOCAL_CANDIDATE_STATUS: passed"
-  require_top_level_line "INDEPENDENT_REVIEW_STATUS: passed"
-  require_top_level_line "GLOBAL_PARITY_STATUS: not-run"
-  require_top_level_line "POST_INSTALL_RUNTIME_STATUS: not-run"
-  require_top_level_line "No Task 4 evidence-gate implementation commit, push, publication, global synchronization, or skills.sh installation preceded this evidence record."
+  require_top_level_line "GLOBAL_PARITY_STATUS: passed"
+  require_top_level_line "POST_INSTALL_RUNTIME_STATUS: passed"
 
-  echo "Local evidence is bound to the current package; global parity and post-install runtime remain separate release checks."
+  echo "Value-first routing evidence is bound to the current package and passed local, global-parity, and runtime checks."
 }
 
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then

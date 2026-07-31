@@ -81,11 +81,10 @@ margin.
 Recalculate whenever the immediate next step changes. A previous
 recommendation is trajectory evidence, never a routing lock.
 
-For a task involving agents, route only the current step. Execution and
-tool-heavy coordination use `Terra Max`. If the next step later becomes a
-substantive architecture decision, residual-risk investigation, or final
-critical gate, recalculate from the corresponding Sol condition. Do not encode
-an orchestration workflow in this conversational skill.
+For a task involving agents, route only the current step. If the next step later
+becomes a substantive architecture decision, residual-risk investigation, or
+final critical gate, recalculate from the corresponding Sol condition. Do not
+encode an orchestration workflow in this conversational skill.
 
 ## Keep evidence scoped
 

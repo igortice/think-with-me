@@ -105,6 +105,7 @@ require_text "${routing_file}" '| Quality-first heterogeneous agent execution, t
 require_text "${routing_file}" '| Cost-first asynchronous work whose output is reversible and reviewed before consequence, including fixed-schema volume or open-ended long-horizon execution, when extra latency, tokens, steps, and retries are acceptable | `Luna Max` |'
 reject_pattern "${routing_file}" '^\| Latency-sensitive interactive project conversation.*\| `Luna Max` \|$'
 reject_pattern "${routing_file}" '^\| Architecture trade-off, technical specification, or other substantive professional judgment \| `Luna Max` \|$'
+reject_pattern "${routing_file}" '^tool-heavy coordination use `Terra Max`\.'
 
 reject_pattern "${routing_file}" 'Luna Medium|Terra High|Terra XHigh|Luna XHigh|GPT-5\.5|GPT-5\.4'
 reject_pattern "${output_file}" 'Luna Medium|Terra High|Terra XHigh|Luna XHigh'

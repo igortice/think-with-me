@@ -14,9 +14,11 @@ Use it when a decision needs more than a quick answer:
 <!-- MODEL_COMPARISON_START -->
 ## Model quality and cost at a glance
 
-Comparison review date: **2026-07-20**. The Artificial Analysis captures are
-from 2026-07-19; the DeepSWE artifact was generated on 2026-07-17 and
-preserved from the live endpoint on 2026-07-20.
+Comparison review date: **2026-07-31**. DeepSWE Pass@1, uncertainty, output
+tokens, and agent steps remain historical observations from the preserved 25
+July trajectories; they are not a 30 July benchmark rerun. Only the displayed
+Luna Max and Terra Max costs use the explicit 31 July price overlay. Artificial
+Analysis values are a separate 31 July snapshot.
 
 These dated views explain why the skill keeps more than one useful
 configuration visible. They belong to different sources and harnesses, so
@@ -26,49 +28,57 @@ they must be read separately rather than merged into a universal score.
 
 DeepSWE compares long-horizon software-engineering tasks in the same
 `mini-swe-agent` harness. The interval is the reported 95% run-to-run
-half-width; cost, output, and steps are means from this benchmark.
+half-width. Pass@1, interval, output, and steps remain means from the preserved
+benchmark trajectories; the displayed cost column identifies the two repriced
+rows below.
 
-| Configuration | Pass@1 | 95% interval | Mean task cost | Mean output tokens | Mean agent steps |
+| Configuration | Pass@1 | 95% interval | Displayed mean task cost | Mean output tokens | Mean agent steps |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | Sol Max | 72.67% | ±2.83 pp | $8.39 | 60,014 | 61.3 |
 | Sol XHigh | 70.73% | ±0.82 pp | $4.70 | 40,745 | 44.0 |
-| Terra Max | 69.62% | ±2.56 pp | $4.95 | 71,939 | 75.9 |
+| Terra Max | 69.62% | ±2.56 pp | $3.96 | 71,939 | 75.9 |
 | Sol High | 69.40% | ±1.43 pp | $3.47 | 28,450 | 36.9 |
-| Luna Max | 67.19% | ±3.99 pp | $3.03 | 73,400 | 101.7 |
+| Luna Max | 67.19% | ±3.99 pp | $0.61 | 73,400 | 101.7 |
 | GPT-5.5 High | 64.38% | ±3.12 pp | $5.10 | 31,159 | 61.9 |
 | Sol Medium | 61.06% | ±1.58 pp | $1.86 | 18,425 | 30.9 |
 | Terra XHigh | 60.18% | ±2.12 pp | $2.13 | 39,617 | 43.1 |
 | Luna XHigh | 56.86% | ±2.17 pp | $1.54 | 44,678 | 71.1 |
 | Terra High | 53.76% | ±4.33 pp | $1.13 | 21,517 | 33.5 |
 
-Overlapping intervals leave the observed order unresolved; they do not prove equality. Sol XHigh costs $3.69, or about 44.0%, less per mean task than Sol Max while their reported intervals overlap. Sol High sits only 0.22 pp below Terra Max's point estimate at lower cost and with fewer tokens and steps. Luna Max costs slightly less than Sol High but uses substantially more output and steps.
+**Displayed DeepSWE price overlay (31 July):** all rows except Luna Max and
+Terra Max retain their historical measured cost. Raw 25 July JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.
+The visible 31 July prices apply explicit factors of 0.20 for Luna Max and 0.80 for Terra Max, yielding $0.61 and $3.96. The formulas are `$3.0281 × 0.20 = $0.60562 → $0.61` and
+`$4.9458 × 0.80 = $3.95664 → $3.96`. This is a reprice of the same trajectories,
+not a new benchmark run.
+
+Overlapping intervals leave the observed order unresolved; they do not prove equality. Sol XHigh costs $3.69, or about 44.0%, less per mean task than Sol Max while their reported intervals overlap. Sol High sits only 0.22 pp below Terra Max's point estimate at $0.49 less displayed cost and with fewer tokens and steps. Luna Max costs $2.86 less than Sol High at the displayed rate but uses substantially more output and steps.
+
+**Policy boundary:** lower Luna Max cost expands eligibility for asynchronous, reversible, reviewable work; it does not prove lower interactive end-to-end latency.
 
 ### Artificial Analysis — a separate perspective
 
 The Coding Index is a 50/50 aggregate of Terminal-Bench 2.1 and SciCode. The
-Intelligence Index v4.1 is a separate broad index, and the approximate cost
-belongs to that intelligence view.
+Intelligence Index v4.1 is a separate broad index, and the mean cost belongs to
+that intelligence view. The 31 July research report verified the four rows
+below; earlier snapshot-only rows are intentionally not carried into this
+current table.
 
-| Configuration | Coding Index | Intelligence Index v4.1 | Approx. mean cost/task |
-| --- | ---: | ---: | ---: |
-| Sol XHigh | 78.3 | 57.7 | $0.68 |
-| Sol Max | 77.4 | 58.9 | $1.04 |
-| Sol High | 77.2 | 55.9 | $0.46 |
-| Terra Max | 76.7 | 55.0 | $0.55 |
-| Sol Medium | 76.3 | 53.6 | $0.31 |
-| GPT-5.5 High | 71.6 | 53.1 | $0.67 |
-| Luna Max | 71.4 | 51.2 | $0.21 |
-| Terra XHigh | 70.6 | 51.6 | $0.32 |
-| Luna XHigh | 68.6 | 49.1 | $0.15 |
-| Terra High | 67.1 | 49.0 | $0.24 |
+| Configuration | Coding Index | Intelligence Index v4.1 | Mean cost/task | Output speed | Time to first answer |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Sol High | 77.16 | 55.87 | $0.771 | 62.4 tok/s | 13.25 s |
+| Terra Max | 76.66 | 54.95 | $0.733 | 131.8 tok/s | 152.99 s |
+| Sol Medium | 76.26 | 53.59 | $0.514 | 54.6 tok/s | 4.31 s |
+| Luna Max | 71.45 | 51.24 | $0.066 | 177.8 tok/s | 117.02 s |
 
-Artificial Analysis did not publish confidence intervals in the selected snapshot. Its small score gaps are therefore not treated as statistically resolved. These tables do not establish conversational equivalence.
+Artificial Analysis did not publish confidence intervals in the selected snapshot. Its score gaps are therefore not treated as statistically resolved. Its API time-to-first-answer observations are not a measure of host-specific end-to-end interaction latency, but Luna Max's 117.02 s observation does not support calling the lower price a latency improvement. These tables do not establish conversational equivalence.
 
 Sources: [DeepSWE methodology](https://deepswe.datacurve.ai/blog/deepswe),
 [DeepSWE v1.1 changes](https://deepswe.datacurve.ai/blog/deepswe-v1-1),
 [raw DeepSWE v1.1 leaderboard](https://deepswe.datacurve.ai/artifacts/v1.1/leaderboard-live.json),
 [Artificial Analysis capability-index methodology](https://artificialanalysis.ai/methodology/capability-indices),
 and [Artificial Analysis coding capability](https://artificialanalysis.ai/models/capabilities/coding).
+The specific 31 July values and price provenance are documented in
+`gpt-5-6-price-benchmark-routing-review-2026-07-31.md`.
 <!-- MODEL_COMPARISON_END -->
 
 See the full [portable comparison](skills/think-with-me/references/model-comparison.md) for limitations, decision guidance, and the refresh contract.

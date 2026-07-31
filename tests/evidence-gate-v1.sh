@@ -8,6 +8,12 @@ fail() {
   exit 1
 }
 
+repository_governance_pattern='\b(subagent|handoff|project-context|commit|push|sync)\b|\bapproval[[:space:]]+routing\b|\bnext-task[[:space:]]+routing\b'
+
+has_repository_governance_vocabulary() {
+  rg -qi -e "${repository_governance_pattern}" "$@"
+}
+
 require_file() {
   [[ -f "$1" ]] || fail "missing file: ${1#"${repo_root}/"}"
 }
@@ -139,7 +145,7 @@ require_text "${routing_file}" 'Recalculate whenever the immediate next step cha
 require_text "${routing_file}" 'Use observable progress, repeated corrections, contradictions, friction'
 require_text "${routing_file}" 'availability from host state that was not exposed.'
 require_text "${routing_file}" 'as one configuration; never choose a family first'
-require_text "${routing_file}" 'Heterogeneous agent execution, tool-heavy coordination'
+require_text "${routing_file}" 'Quality-first heterogeneous agent execution, tool-heavy coordination'
 require_text "${routing_file}" 'Final critical gate requiring explicitly requested maximum depth'
 require_text "${routing_file}" 'preserve the recommendation, report the mismatch'
 require_text "${routing_file}" 'Do not average heterogeneous benchmarks'
@@ -170,9 +176,11 @@ require_text "${model_comparison_file}" '| Luna Max | 67.19% | ±3.99 pp | $0.61
 require_text "${model_comparison_file}" 'Raw 25 July JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.'
 require_text "${model_comparison_file}" 'The visible 31 July prices apply explicit factors of 0.20 for Luna Max and 0.80 for Terra Max, yielding $0.61 and $3.96.'
 require_text "${model_comparison_file}" 'gpt-5-6-price-benchmark-routing-review-2026-07-31.md'
-require_text "${model_comparison_file}" '| Sol XHigh | 78.3 | 57.7 | $0.68 |'
-require_text "${model_comparison_file}" '| Terra Max | 76.7 | 55.0 | $0.55 |'
-require_text "${model_comparison_file}" '| Luna Max | 71.4 | 51.2 | $0.21 |'
+require_text "${model_comparison_file}" '| Sol High | 77.16 | 55.87 | $0.771 | 62.4 tok/s | 13.25 s |'
+require_text "${model_comparison_file}" '| Terra Max | 76.66 | 54.95 | $0.733 | 131.8 tok/s | 152.99 s |'
+require_text "${model_comparison_file}" '| Sol Medium | 76.26 | 53.59 | $0.514 | 54.6 tok/s | 4.31 s |'
+require_text "${model_comparison_file}" '| Luna Max | 71.45 | 51.24 | $0.066 | 177.8 tok/s | 117.02 s |'
+require_text "${model_comparison_file}" '**Policy boundary:** lower Luna Max cost expands eligibility for asynchronous, reversible, reviewable work; it does not prove lower interactive end-to-end latency.'
 require_text "${model_comparison_file}" 'Show both source-specific Markdown tables'
 require_text "${model_comparison_file}" 'Do not average, normalize, or merge the two sources into a composite score.'
 require_text "${model_comparison_file}" '<!-- MODEL_COMPARISON_START -->'
@@ -182,9 +190,10 @@ require_text "${model_comparison_file}" 'Historical snapshots are immutable.'
 require_text "${model_comparison_file}" 'Live source endpoints last checked: **2026-07-31**.'
 require_text "${model_comparison_file}" '### Source values versus derived values'
 require_text "${model_comparison_file}" '### Exact live-source views'
-aa_filter_url='https://artificialanalysis.ai/?intelligence=coding-index&models=gpt-5-6-sol%2Cgpt-5-6-terra%2Cgpt-5-6-sol-xhigh%2Cgpt-5-6-sol-high%2Cgpt-5-6-sol-medium%2Cgpt-5-5-high%2Cgpt-5-6-terra-xhigh%2Cgpt-5-6-luna-xhigh%2Cgpt-5-6-terra-high%2Cgpt-5-6-luna&coding-agents=cost&cost=intelligence-vs-cost-per-task&total-cost=intelligence-vs-total-cost'
-require_text "${model_comparison_file}" "${aa_filter_url}#intelligence-tabs"
-require_text "${model_comparison_file}" "${aa_filter_url}#cost-tabs"
+require_text "${model_comparison_file}" 'https://artificialanalysis.ai/models/gpt-5-6-luna/'
+require_text "${model_comparison_file}" 'https://artificialanalysis.ai/models/gpt-5-6-sol-medium/'
+require_text "${model_comparison_file}" 'https://artificialanalysis.ai/models/gpt-5-6-terra/'
+require_text "${model_comparison_file}" 'https://artificialanalysis.ai/models/gpt-5-6-sol-high/'
 require_text "${model_comparison_file}" 'https://deepswe.datacurve.ai/artifacts/v1.1/leaderboard-live.json'
 require_text "${model_comparison_file}" '050663ae245106a7fc59312565059f46bd6ee10fa587131dd09a5062af5ed24d'
 require_text "${model_comparison_file}" 'bash scripts/sync-model-comparison.sh'
@@ -203,6 +212,29 @@ public_comparison_rows=(
   '| Terra XHigh | 60.18% | ±2.12 pp | $2.13 | 39,617 | 43.1 |'
   '| Luna XHigh | 56.86% | ±2.17 pp | $1.54 | 44,678 | 71.1 |'
   '| Terra High | 53.76% | ±4.33 pp | $1.13 | 21,517 | 33.5 |'
+  '| Sol High | 77.16 | 55.87 | $0.771 | 62.4 tok/s | 13.25 s |'
+  '| Terra Max | 76.66 | 54.95 | $0.733 | 131.8 tok/s | 152.99 s |'
+  '| Sol Medium | 76.26 | 53.59 | $0.514 | 54.6 tok/s | 4.31 s |'
+  '| Luna Max | 71.45 | 51.24 | $0.066 | 177.8 tok/s | 117.02 s |'
+)
+for row in "${public_comparison_rows[@]}"; do
+  require_text "${model_comparison_file}" "${row}"
+  require_text "${readme_file}" "${row}"
+  require_text "${skill_file}" "${row}"
+done
+
+public_comparison_notes=(
+  'Raw 25 July JSON costs remain $3.03 for Luna Max and $4.95 for Terra Max.'
+  'The visible 31 July prices apply explicit factors of 0.20 for Luna Max and 0.80 for Terra Max, yielding $0.61 and $3.96.'
+  '**Policy boundary:** lower Luna Max cost expands eligibility for asynchronous, reversible, reviewable work; it does not prove lower interactive end-to-end latency.'
+)
+for note in "${public_comparison_notes[@]}"; do
+  require_text "${model_comparison_file}" "${note}"
+  require_text "${readme_file}" "${note}"
+  require_text "${skill_file}" "${note}"
+done
+
+stale_artificial_analysis_rows=(
   '| Sol XHigh | 78.3 | 57.7 | $0.68 |'
   '| Sol Max | 77.4 | 58.9 | $1.04 |'
   '| Sol High | 77.2 | 55.9 | $0.46 |'
@@ -214,10 +246,10 @@ public_comparison_rows=(
   '| Luna XHigh | 68.6 | 49.1 | $0.15 |'
   '| Terra High | 67.1 | 49.0 | $0.24 |'
 )
-for row in "${public_comparison_rows[@]}"; do
-  require_text "${model_comparison_file}" "${row}"
-  require_text "${readme_file}" "${row}"
-  require_text "${skill_file}" "${row}"
+for row in "${stale_artificial_analysis_rows[@]}"; do
+  reject_text "${model_comparison_file}" "${row}"
+  reject_text "${readme_file}" "${row}"
+  reject_text "${skill_file}" "${row}"
 done
 
 require_text "${readme_file}" 'Sol XHigh costs $3.69, or about 44.0%, less per mean task than Sol Max'
@@ -295,7 +327,7 @@ require_text "${routing_cases_file}" 'MR-17 | Portfólio histórico visível'
 require_text "${routing_cases_file}" 'MR-18 | Alternativas próximas na prosa'
 require_text "${routing_cases_file}" 'MR-19 | Pedido de qualidade versus preço'
 require_text "${routing_file}" 'For a task involving agents, route only the current step.'
-require_text "${routing_file}" 'Project conversation, context recovery, architecture discovery'
+require_text "${routing_file}" 'Latency-sensitive interactive project conversation, context recovery, explanation, architecture discovery'
 require_text "${routing_file}" 'When the subject is resolved, do not invent work for the footer.'
 require_text "${routing_file}" 'Higher effort can increase token use'
 require_text "${routing_cases_file}" 'MR-20 | Processamento estruturado em alto volume'
@@ -436,7 +468,17 @@ if rg -n -F '**Modelo para continuar:**' "${skill_file}" "${output_file}" >/dev/
   fail "legacy verbose model label still exists in the active contract"
 fi
 
-if rg -n -i 'subagent|handoff|project-context|commit|push|sync|approval routing|next-task routing' \
+if printf '%s\n' 'asynchronous' | has_repository_governance_vocabulary; then
+  fail 'repository-governance matcher rejects asynchronous'
+fi
+
+for governance_phrase in subagent handoff project-context commit push sync 'approval routing' 'next-task routing'; do
+  if ! printf '%s\n' "${governance_phrase}" | has_repository_governance_vocabulary; then
+    fail "repository-governance matcher missed ${governance_phrase}"
+  fi
+done
+
+if rg -n -i -e "${repository_governance_pattern}" \
   "${skill_file}" "${routing_file}" "${output_file}" >/dev/null; then
   fail "installable contract still contains orchestration or repository-governance vocabulary"
 fi

@@ -174,3 +174,31 @@ Execute cada roteiro em uma conversa nova com a fonte candidata explicitamente s
 **Esperado:** preservar a recomendação, reportar o mismatch e exigir uma escolha explícita do host dentro dos seis pares permitidos.
 
 **Proibido:** afirmar que a skill repetiu, bloqueou, substituiu ou verificou o modelo ativo; fazer downgrade silencioso.
+
+## TWM-M19 — Conversa interativa vira lote assíncrono revisável
+
+1. O usuário começa uma exploração interativa de projeto, organiza contexto e discute arquitetura sem trade-off profissional.
+2. A skill recomenda `Sol Medium` para o próximo passo conversacional.
+3. O usuário fecha uma pergunta reversível e transforma o restante em um lote assíncrono de exploração aberta, de longo horizonte, que será revisado antes de qualquer consequência.
+
+**Esperado:** recalcular pela nova forma de trabalho e recomendar `Luna Max` para o lote cost-first, sem reinterpretar a conversa inicial como elegível para Luna.
+
+**Proibido:** manter Sol Medium por inércia, tratar Luna como default da conversa ou delegar julgamento consequencial ao lote.
+
+## TWM-M20 — Lote Luna encontra limite de julgamento consequencial
+
+1. O usuário autoriza um lote assíncrono, reversível e revisável em `Luna Max`.
+2. Durante o lote, aparece um limite que exige julgamento profissional antes de produzir consequência.
+
+**Esperado:** interromper a rota cost-first nesse limite e recomendar `Sol High` para o julgamento consequencial.
+
+**Proibido:** manter Luna apenas porque o restante do lote é barato ou escalar para Terra/Max sem a condição correspondente.
+
+## TWM-M21 — Preferência muda de custo para qualidade após o contrato fechar
+
+1. O usuário escolhe `Luna Max` para uma exploração aberta, assíncrona, reversível e revisável orientada por custo.
+2. Depois, fecha um contrato de execução com ferramentas heterogêneas e mudanças interdependentes e declara que a qualidade agora é prioritária.
+
+**Esperado:** reconhecer a preferência explícita e recomendar `Terra Max` para a execução quality-first com contrato fechado.
+
+**Proibido:** manter Luna por economia, tratar a mudança como default permanente ou reabrir o contrato já fechado.

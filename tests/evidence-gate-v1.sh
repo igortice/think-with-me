@@ -53,6 +53,7 @@ require_file "${repo_root}/evals/evidence-2026-07-20-model-comparison-routing.md
 require_file "${repo_root}/evals/evidence-2026-07-20-contextual-model-portfolio.md"
 require_file "${repo_root}/evals/evidence-2026-07-20-conversational-routing.md"
 require_file "${repo_root}/evals/evidence-2026-07-30-strong-model-routing.md"
+require_file "${repo_root}/evals/evidence-2026-07-31-luna-cost-routing.md"
 require_file "${repo_root}/evals/install-2026-07-30-strong-model-routing.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-final.md"
@@ -62,6 +63,8 @@ require_file "${repo_root}/evals/runtime-captures-2026-07-20-conversational-rout
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-conversational-routing-final.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-30-strong-model-routing.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-30-strong-model-routing-final.md"
+require_file "${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing.md"
+require_file "${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing-final.md"
 require_file "${repo_root}/docs/research/assets/artificial-analysis-coding-index-2026-07-19.png"
 require_file "${repo_root}/docs/research/assets/artificial-analysis-intelligence-cost-2026-07-19.png"
 require_file "${repo_root}/docs/research/assets/deepswe-v1.1-leaderboard-2026-07-20.json"
@@ -552,9 +555,13 @@ require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-evid
 require_text "${repo_root}/scripts/validate-structure.sh" 'references/model-comparison.md'
 bash "${repo_root}/tests/sync-model-comparison.sh"
 bash "${repo_root}/tests/verify-model-comparison-data.sh"
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-30-strong-model-routing.md'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-30-strong-model-routing.md'
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-30-strong-model-routing-final.md'
+latest_evidence_file="${repo_root}/evals/evidence-2026-07-31-luna-cost-routing.md"
+latest_initial_captures_file="${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing.md"
+latest_final_captures_file="${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing-final.md"
+
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-31-luna-cost-routing.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-31-luna-cost-routing.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/runtime-captures-2026-07-31-luna-cost-routing-final.md'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Static validation passed"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'reject_heading "## Runtime behavior pending"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Runtime behavior passed"'
@@ -566,6 +573,27 @@ require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "GLOBAL_PARITY_STATUS: not-run"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "POST_INSTALL_RUNTIME_STATUS: not-run"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_top_level_line "RUNTIME_SOURCE_FIDELITY: host-unverified"'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'No Task 4 evidence-gate implementation commit, push, publication, global synchronization, or skills.sh installation preceded this evidence record.'
+
+require_text "${latest_evidence_file}" 'Reviewer `019fb92c-edff-7b61-be67-c0e9e7a8601c`'
+require_text "${latest_evidence_file}" 'There was no policy'
+require_text "${latest_evidence_file}" 'rewrite and no rerun.'
+require_text "${latest_evidence_file}" '`3.0281 × 0.20` rounds to `$0.61`'
+require_text "${latest_evidence_file}" '`4.9458 × 0.80` rounds to `$3.96`'
+require_text "${latest_evidence_file}" 'repricing is not described as a benchmark or capability rerun.'
+require_text "${latest_initial_captures_file}" 'All five outputs below are the unedited first-pass'
+require_text "${latest_initial_captures_file}" 'All five first-pass outputs passed.'
+require_text "${latest_final_captures_file}" 'It is not evidence of a'
+require_text "${latest_final_captures_file}" 'second run: all five first-pass outputs passed'
+for evaluator_id in \
+  019fb92b-47cd-71a0-bbbc-25cd61aabd13 \
+  019fb92b-4664-7e31-8b0f-4f7c7b110d46 \
+  019fb92b-4503-7c01-be3f-8bd29250d0e4 \
+  019fb92b-4d4e-7ca0-85c9-7b608b734d6c \
+  019fb92b-4ae5-75a3-b3da-6517ae62bfcf; do
+  require_text "${latest_initial_captures_file}" "${evaluator_id}"
+  require_text "${latest_final_captures_file}" "${evaluator_id}"
+done
 
 if grep -Fq 'Public-release validation passed.' "${repo_root}/scripts/validate-skill.sh"; then
   fail "legacy validator still claims public-release validation"

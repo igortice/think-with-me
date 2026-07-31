@@ -2,9 +2,9 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-evidence_file="${repo_root}/evals/evidence-2026-07-30-strong-model-routing.md"
-initial_captures_file="${repo_root}/evals/runtime-captures-2026-07-30-strong-model-routing.md"
-final_captures_file="${repo_root}/evals/runtime-captures-2026-07-30-strong-model-routing-final.md"
+evidence_file="${repo_root}/evals/evidence-2026-07-31-luna-cost-routing.md"
+initial_captures_file="${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing.md"
+final_captures_file="${repo_root}/evals/runtime-captures-2026-07-31-luna-cost-routing-final.md"
 
 fail() {
   echo "FAIL: $*" >&2
@@ -164,7 +164,7 @@ main() {
   require_top_level_line "INDEPENDENT_REVIEW_STATUS: passed"
   require_top_level_line "GLOBAL_PARITY_STATUS: not-run"
   require_top_level_line "POST_INSTALL_RUNTIME_STATUS: not-run"
-  require_top_level_line "No commit, push, publication, global synchronization, or skills.sh installation preceded this candidate evidence record."
+  require_top_level_line "No Task 4 evidence-gate implementation commit, push, publication, global synchronization, or skills.sh installation preceded this evidence record."
 
   echo "Local evidence is bound to the current package; global parity and post-install runtime remain separate release checks."
 }

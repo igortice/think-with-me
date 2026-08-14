@@ -116,6 +116,12 @@ The skill does not keep itself loaded in later turns. If a host treats skills as
 
 The installable package lives in [skills/think-with-me](skills/think-with-me/). Its core contract is in [SKILL.md](skills/think-with-me/SKILL.md); detailed templates and routing policy live in [references](skills/think-with-me/references/).
 
+The model comparison reference is canonical, but its projections are
+purpose-specific: this public README includes the full benchmark table, while
+the always-loaded skill core includes only the six-route summary. The skill
+loads benchmark and price details progressively when the conversation needs
+them.
+
 Validate a candidate before synchronizing an installed copy:
 
 ```bash

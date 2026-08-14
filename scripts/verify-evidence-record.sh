@@ -2,7 +2,7 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-evidence_file="${repo_root}/evals/evidence-2026-07-31-value-first-routing.md"
+evidence_file="${repo_root}/evals/evidence-2026-08-14-progressive-disclosure.md"
 
 fail() {
   echo "FAIL: $*" >&2
@@ -157,7 +157,7 @@ main() {
   require_top_level_line "GLOBAL_PARITY_STATUS: passed"
   require_top_level_line "POST_INSTALL_RUNTIME_STATUS: passed"
 
-  echo "Value-first routing evidence is bound to the current package and passed local, global-parity, and runtime checks."
+  echo "Current routing evidence is bound to the package and passed local, global-parity, and runtime checks."
 }
 
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then

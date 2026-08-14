@@ -158,7 +158,7 @@ A implementação será considerada pronta somente quando:
 3. um caso multietapas provar que a recomendação muda quando o próximo passo
    muda materialmente;
 4. um caso impedir que qualquer configuração vire default permanente;
-5. os mirrors da comparação permanecerem sincronizados;
+5. as projeções pública e operacional da comparação permanecerem sincronizadas;
 6. a instalação global corresponder ao pacote do repositório;
 7. `git diff --check` não reportar erros.
 

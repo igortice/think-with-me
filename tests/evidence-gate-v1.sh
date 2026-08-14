@@ -57,8 +57,10 @@ require_file "${repo_root}/evals/evidence-2026-07-20-contextual-model-portfolio.
 require_file "${repo_root}/evals/evidence-2026-07-20-conversational-routing.md"
 require_file "${repo_root}/evals/evidence-2026-07-30-strong-model-routing.md"
 require_file "${repo_root}/evals/evidence-2026-07-31-luna-cost-routing.md"
+require_file "${repo_root}/evals/evidence-2026-08-14-progressive-disclosure.md"
 require_file "${repo_root}/evals/install-2026-07-30-strong-model-routing.md"
 require_file "${repo_root}/evals/install-2026-07-31-luna-cost-routing.md"
+require_file "${repo_root}/evals/install-2026-08-14-progressive-disclosure.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-final.md"
 require_file "${repo_root}/evals/runtime-captures-2026-07-20-contextual-portfolio.md"
@@ -118,7 +120,14 @@ require_text "${skill_file}" 'Open [model comparison](references/model-compariso
 require_text "${readme_file}" '## Which model should I use?'
 require_text "${skill_file}" '## Which model should I use?'
 require_text "${readme_file}" '## Cross-checked data'
-require_text "${skill_file}" '## Cross-checked data'
+reject_text "${skill_file}" '## Cross-checked data'
+reject_text "${skill_file}" 'DeepSWE Pass@1'
+require_text "${skill_file}" '<!-- MODEL_ROUTING_SUMMARY_START -->'
+require_text "${skill_file}" '<!-- MODEL_ROUTING_SUMMARY_END -->'
+reject_text "${skill_file}" '<!-- MODEL_COMPARISON_START -->'
+reject_text "${skill_file}" '<!-- MODEL_COMPARISON_END -->'
+require_text "${skill_file}" 'Treat this table as a routing summary, not a keyword matcher or a benchmark'
+require_text "${skill_file}" "recommend a pair only when all of that route's boundaries are satisfied."
 require_text "${readme_file}" 'Last reviewed: **2026-07-31**.'
 require_text "${skill_file}" 'Last reviewed: **2026-07-31**.'
 require_text "${model_comparison_file}" 'Last reviewed: **2026-07-31**.'
@@ -184,6 +193,8 @@ require_text "${model_comparison_file}" 'Do not combine the two benchmark scores
 require_text "${model_comparison_file}" '[Detailed evidence](model-evidence.md)'
 reject_text "${model_comparison_file}" '<!-- MODEL_COMPARISON_START -->'
 reject_text "${model_comparison_file}" '<!-- MODEL_COMPARISON_END -->'
+reject_text "${model_comparison_file}" '<!-- MODEL_ROUTING_SUMMARY_START -->'
+reject_text "${model_comparison_file}" '<!-- MODEL_ROUTING_SUMMARY_END -->'
 
 bash "${repo_root}/scripts/sync-model-comparison.sh" --check
 
@@ -198,19 +209,26 @@ public_comparison_rows=(
 for row in "${public_comparison_rows[@]}"; do
   require_text "${model_comparison_file}" "${row}"
   require_text "${readme_file}" "${row}"
-  require_text "${skill_file}" "${row}"
 done
 
-public_comparison_notes=(
+benchmark_notes=(
   'Luna Max and Terra Max costs apply the documented 31 July price overlay'
   'Do not combine the two benchmark scores into one ranking.'
+)
+for note in "${benchmark_notes[@]}"; do
+  require_text "${model_comparison_file}" "${note}"
+  require_text "${readme_file}" "${note}"
+  reject_text "${skill_file}" "${note}"
+done
+
+routing_summary_rows=(
   '| Ordinary conversation, project understanding, research, or reversible analysis when extra startup delay is acceptable | `Luna Max` |'
   '| Fast interactive conversation or rapid context recovery | `Sol Medium` |'
 )
-for note in "${public_comparison_notes[@]}"; do
-  require_text "${model_comparison_file}" "${note}"
-  require_text "${readme_file}" "${note}"
-  require_text "${skill_file}" "${note}"
+for row in "${routing_summary_rows[@]}"; do
+  require_text "${model_comparison_file}" "${row}"
+  require_text "${readme_file}" "${row}"
+  require_text "${skill_file}" "${row}"
 done
 
 stale_artificial_analysis_rows=(
@@ -232,7 +250,7 @@ for row in "${stale_artificial_analysis_rows[@]}"; do
 done
 
 require_text "${readme_file}" '[model matrix](skills/think-with-me/references/model-comparison.md)'
-require_text "${skill_file}" '[model matrix](references/model-comparison.md)'
+require_text "${skill_file}" '[model comparison](references/model-comparison.md)'
 require_text "${repo_root}/docs/research/model-routing-three-source-verification-2026-07-19.md" 'assets/deepswe-v1.1-leaderboard-2026-07-20.json'
 require_text "${repo_root}/docs/research/model-routing-three-source-verification-2026-07-19.md" '050663ae245106a7fc59312565059f46bd6ee10fa587131dd09a5062af5ed24d'
 require_text "${output_file}" 'one question and your recommended answer'
@@ -383,15 +401,18 @@ require_text "${release_runbook_file}" 'skills/think-with-me/references/model-co
 require_text "${release_runbook_file}" '`MR-19`'
 require_text "${release_runbook_file}" '`Which model should I use?`'
 require_text "${release_runbook_file}" '`Cross-checked data`'
+require_text "${release_runbook_file}" 'individual do skills.sh, derivada do `SKILL.md`'
+require_text "${release_runbook_file}" 'e não renderiza `Cross-checked data`.'
 require_text "${release_runbook_file}" 'overlay de preços de Luna e Terra'
-require_text "${release_runbook_file}" 'não combina os dois benchmarks em uma nota única'
+require_text "${release_runbook_file}" 'não combina os dois benchmarks em'
+require_text "${release_runbook_file}" 'uma nota única.'
 require_text "${release_runbook_file}" '## Atualização das tabelas de modelos'
 require_text "${release_runbook_file}" 'bash scripts/sync-model-comparison.sh --check'
 require_text "${release_runbook_file}" 'snapshot histórico imutável'
 require_text "${release_runbook_file}" 'evals/model-routing-cases.md'
 require_text "${release_runbook_file}" 'evals/evidence-2026-07-20-model-comparison-routing.md'
-require_text "${release_runbook_file}" 'evals/evidence-2026-07-31-value-first-routing.md'
-require_text "${release_runbook_file}" 'evals/install-2026-07-31-value-first-routing.md'
+require_text "${release_runbook_file}" 'evals/evidence-2026-08-14-progressive-disclosure.md'
+require_text "${release_runbook_file}" 'evals/install-2026-08-14-progressive-disclosure.md'
 require_text "${routing_spec_file}" '**Status histórico em 2026-07-18:** candidata não sincronizada globalmente naquele ciclo.'
 require_text "${readme_file}" '`Luna Max` is the default value route for ordinary non-consequential work when startup delay is acceptable.'
 
@@ -556,10 +577,10 @@ bash "${repo_root}/tests/sync-model-comparison.sh"
 bash "${repo_root}/tests/verify-model-comparison-data.sh"
 bash "${repo_root}/tests/verify-install-record.sh"
 bash "${repo_root}/tests/current-model-documentation.sh"
-latest_evidence_file="${repo_root}/evals/evidence-2026-07-31-value-first-routing.md"
-latest_install_file="${repo_root}/evals/install-2026-07-31-value-first-routing.md"
+latest_evidence_file="${repo_root}/evals/evidence-2026-08-14-progressive-disclosure.md"
+latest_install_file="${repo_root}/evals/install-2026-08-14-progressive-disclosure.md"
 
-require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-07-31-value-first-routing.md'
+require_text "${repo_root}/scripts/verify-evidence-record.sh" 'evals/evidence-2026-08-14-progressive-disclosure.md'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Static validation passed"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Runtime behavior passed"'
 require_text "${repo_root}/scripts/verify-evidence-record.sh" 'require_heading "## Global parity"'
@@ -573,6 +594,7 @@ require_text "${latest_evidence_file}" '`Sol XHigh` for unresolved ambiguity'
 require_text "${latest_evidence_file}" '`Sol Max` only for bounded critical risk'
 require_text "${latest_evidence_file}" 'GLOBAL_PARITY_STATUS: passed'
 require_text "${latest_evidence_file}" 'POST_INSTALL_RUNTIME_STATUS: passed'
+require_text "${latest_evidence_file}" 'and no `Cross-checked data` section.'
 
 if grep -Fq 'Public-release validation passed.' "${repo_root}/scripts/validate-skill.sh"; then
   fail "legacy validator still claims public-release validation"
@@ -641,11 +663,10 @@ has_heading_in_file "${indented_pending_heading_fixture}" "## Runtime behavior p
   fail "evidence heading parser ignored a top-level heading indented by up to three spaces"
 
 current_package_hash="$(sed -n 's/^PACKAGE_SHA256=//p' <<<"${manifest}")"
-require_text "${latest_install_file}" 'Candidate id: `86af68c87bd37876e2eb024af4f2e57285bd3a6f945dd02e2b8cdf600ca22648`'
-require_text "${latest_install_file}" 'Backup: `/private/tmp/think-with-me-global-backup.ZrspQ9`'
-require_text "${latest_install_file}" 'Evaluator: `019fb9d6-7bc5-77e3-af6d-4924ca5b314a`'
+require_text "${latest_install_file}" 'Backup: `/private/tmp/think-with-me-global-backup.aVS1vZ`'
 require_text "${latest_install_file}" '/Users/igortice/.agents/skills/think-with-me/references/model-comparison.md'
 require_text "${latest_install_file}" '`Luna Max` → `Sol Medium` → `Sol High` → `Terra Max`'
+require_text "${latest_install_file}" 'No GitHub push, skills.sh publication, or catalog refresh was performed.'
 bash "${repo_root}/scripts/verify-install-record.sh" \
   "${latest_install_file}" \
   "${current_package_hash}"

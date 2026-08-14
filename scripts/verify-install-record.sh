@@ -35,7 +35,7 @@ require_exact_top_level_line() {
   [[ "${count}" == '1' ]] || fail "install record must contain exactly one ${label}: ${expected}"
 }
 
-require_exact_top_level_line 'Date: 2026-07-31' 'current date'
+require_exact_top_level_line 'Date: 2026-08-14' 'current date'
 require_exact_top_level_line "Candidate package: \`${expected_package_hash}\`" 'candidate package hash'
 require_exact_top_level_line 'GLOBAL_PARITY_STATUS: passed' 'global parity status'
 require_exact_top_level_line 'POST_INSTALL_RUNTIME_STATUS: passed' 'post-install runtime status'

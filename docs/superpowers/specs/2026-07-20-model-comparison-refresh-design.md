@@ -3,6 +3,11 @@
 **Date:** 2026-07-20
 **Status:** approved in conversation for implementation before the release commit
 
+> **2026-08-14 amendment:** the canonical source remains unchanged, but the
+> mirrors are now purpose-specific projections. README receives the complete
+> comparison and `SKILL.md` receives only the routing summary. See
+> `2026-07-31-clean-model-matrix-sync-design.md` for the current contract.
+
 ## Goal
 
 Keep the public model quality-and-cost tables auditable and easy to refresh

@@ -21,7 +21,7 @@ recommendation, report the mismatch, and require an explicit host-level choice
 from the allowlist. Never switch pairs invisibly or present a host-selected
 replacement as compliant.
 
-<!-- MODEL_COMPARISON_START -->
+<!-- MODEL_ROUTING_SUMMARY_START -->
 Last reviewed: **2026-07-31**.
 
 ## Which model should I use?
@@ -34,27 +34,14 @@ Last reviewed: **2026-07-31**.
 | Quality-first agents, tools, or interdependent execution with a closed contract | `Terra Max` |
 | Residual ambiguity, conflicting constraints, or hard-to-detect risk | `Sol XHigh` |
 | A bounded critical problem still unresolved after `Sol XHigh` | `Sol Max` |
+<!-- MODEL_ROUTING_SUMMARY_END -->
 
-## Cross-checked data
-
-| Model | DeepSWE Pass@1 | DeepSWE trajectory cost after price overlay | AA Intelligence Index v4.1 | AA time to first answer |
-| --- | ---: | ---: | ---: | ---: |
-| Sol Max | 72.67% | $8.39 | — | — |
-| Sol XHigh | 70.73% | $4.70 | — | — |
-| Terra Max | 69.62% | $3.96 | 54.95 | 152.99 s |
-| Sol High | 69.40% | $3.47 | 55.87 | 13.25 s |
-| Luna Max | 67.19% | $0.61 | 51.24 | 117.02 s |
-| Sol Medium | 61.06% | $1.86 | 53.59 | 4.31 s |
-
-Luna Max and Terra Max costs apply the documented 31 July price overlay to
-preserved DeepSWE trajectories; this is not a new benchmark run. A dash means
-that the value was not captured in the selected 31 July Artificial Analysis
-snapshot.
-
-DeepSWE and Artificial Analysis use different harnesses. Do not combine the two benchmark scores into one ranking.
-<!-- MODEL_COMPARISON_END -->
-
-Open the concise [model matrix](references/model-comparison.md) for the routing table and cross-checked values. Detailed provenance remains in [model evidence](references/model-evidence.md).
+Treat this table as a routing summary, not a keyword matcher or a benchmark
+ranking. Classify the immediate next step with [model routing](references/model-routing.md)
+and recommend a pair only when all of that route's boundaries are satisfied.
+Open [model comparison](references/model-comparison.md) only when the user asks
+about price, measured quality, or nearby alternatives. Detailed provenance
+remains in [model evidence](references/model-evidence.md).
 
 ## Understand the conversation
 

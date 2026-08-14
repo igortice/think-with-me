@@ -32,12 +32,14 @@ actual_manifest="$(cd "${skill_root}" && find . -type f -print | sed 's#^./##' |
 [[ "${actual_manifest}" == "${expected_manifest}" ]] || fail "installable package contains unexpected or missing files"
 
 bash -n "${repo_root}/scripts/candidate-manifest.sh"
+bash -n "${repo_root}/scripts/sync-model-comparison.sh"
 bash -n "${repo_root}/scripts/verify-evidence-record.sh"
 bash -n "${repo_root}/scripts/verify-install-record.sh"
 bash -n "${repo_root}/scripts/validate-structure.sh"
 bash -n "${repo_root}/scripts/validate-skill.sh"
 bash -n "${repo_root}/tests/evidence-gate-v1.sh"
 bash -n "${repo_root}/tests/strong-model-routing-policy.sh"
+bash -n "${repo_root}/tests/sync-model-comparison.sh"
 bash -n "${repo_root}/tests/verify-install-record.sh"
 bash -n "${repo_root}/tests/current-model-documentation.sh"
 

@@ -1,5 +1,10 @@
 # Luna Max cost routing and current-price overlay
 
+> **2026-08-14 amendment:** the full comparison remains canonical and public in
+> README, while `SKILL.md` now receives only its normative routing summary. The
+> benchmark rows stay available through progressive disclosure in
+> `references/model-comparison.md`.
+
 **Status:** approved in conversation; pending written-spec review
 
 **Date:** 31 July 2026
